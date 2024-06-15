@@ -207,8 +207,8 @@ class NotificationHelper {
       FlutterLocalNotificationsPlugin fln) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      '6ammart',
-      '6ammart',
+      'Sannip',
+      'Sannip',
       playSound: true,
       importance: Importance.max,
       priority: Priority.max,
@@ -236,8 +236,8 @@ class NotificationHelper {
     );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      '6ammart',
-      '6ammart',
+      'Sannip',
+      'Sannip',
       importance: Importance.max,
       styleInformation: bigTextStyleInformation,
       priority: Priority.max,
@@ -273,8 +273,8 @@ class NotificationHelper {
     );
     final AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      '6ammart',
-      '6ammart',
+      'Sannip',
+      'Sannip',
       largeIcon: FilePathAndroidBitmap(largeIconPath),
       priority: Priority.max,
       playSound: true,

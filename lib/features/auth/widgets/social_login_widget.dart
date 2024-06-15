@@ -144,8 +144,7 @@ class SocialLoginWidget extends StatelessWidget {
                                 .configModel!
                                 .appleLogin![0]
                                 .clientId!,
-                            redirectUri: Uri.parse(
-                                'https://6ammart-web.6amtech.com/apple'),
+                            redirectUri: Uri.parse('https://sannip.com/apple'),
                           ),
                         );
                         Get.find<AuthController>()
