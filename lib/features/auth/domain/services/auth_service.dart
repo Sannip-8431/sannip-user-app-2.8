@@ -7,7 +7,7 @@ import 'package:sixam_mart/features/auth/domain/services/auth_service_interface.
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
 
-class AuthService implements AuthServiceInterface{
+class AuthService implements AuthServiceInterface {
   final AuthRepositoryInterface authRepositoryInterface;
   AuthService({required this.authRepositoryInterface});
 
@@ -17,10 +17,12 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future<ResponseModel> registration(SignUpBodyModel signUpBody, bool isCustomerVerificationOn) async {
-    ResponseModel responseModel = await authRepositoryInterface.registration(signUpBody);
-    if(responseModel.isSuccess) {
-      if(!isCustomerVerificationOn) {
+  Future<ResponseModel> registration(
+      SignUpBodyModel signUpBody, bool isCustomerVerificationOn) async {
+    ResponseModel responseModel =
+        await authRepositoryInterface.registration(signUpBody);
+    if (responseModel.isSuccess) {
+      if (!isCustomerVerificationOn) {
         authRepositoryInterface.saveUserToken(responseModel.message!);
         await authRepositoryInterface.updateToken();
         authRepositoryInterface.clearSharedPrefGuestId();
@@ -30,20 +32,26 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future<ResponseModel> login({String? phone, String? password, required bool isCustomerVerificationOn}) async {
-    Response response = await authRepositoryInterface.login(phone: phone, password: password);
+  Future<ResponseModel> login(
+      {String? phone,
+      String? password,
+      required bool isCustomerVerificationOn}) async {
+    Response response =
+        await authRepositoryInterface.login(phone: phone, password: password);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      if(isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
-
-      }else {
+      if (isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
+      } else {
         authRepositoryInterface.saveUserToken(response.body['token']);
         await authRepositoryInterface.updateToken();
         authRepositoryInterface.clearSharedPrefGuestId();
       }
-      responseModel = ResponseModel(true, '${response.body['is_phone_verified']}${response.body['token']}', isPhoneVerified: response.body['is_phone_verified'] == 1);
+      responseModel = ResponseModel(true,
+          '${response.body['is_phone_verified']}${response.body['token']}',
+          isPhoneVerified: response.body['is_phone_verified'] == 1);
     } else {
-      responseModel = ResponseModel(false, response.statusText, isPhoneVerified: response.body['is_phone_verified'] == 1);
+      responseModel = ResponseModel(false, response.statusText,
+          isPhoneVerified: response.body['is_phone_verified'] == 1);
     }
     return responseModel;
   }
@@ -54,24 +62,32 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future<bool> loginWithSocialMedia(SocialLogInBody socialLogInBody, int timeout, bool isCustomerVerificationOn) async {
+  Future<bool> loginWithSocialMedia(SocialLogInBody socialLogInBody,
+      int timeout, bool isCustomerVerificationOn) async {
     bool canNavigateToLocation = false;
-    Response response = await authRepositoryInterface.loginWithSocialMedia(socialLogInBody, timeout);
+    Response response = await authRepositoryInterface.loginWithSocialMedia(
+        socialLogInBody, timeout);
     if (response.statusCode == 200) {
       String? token = response.body['token'];
-      if(token != null && token.isNotEmpty) {
-        if(isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
-          Get.toNamed(RouteHelper.getVerificationRoute(response.body['phone'] ?? socialLogInBody.email, token, RouteHelper.signUp, ''));
-        }else {
+      if (token != null && token.isNotEmpty) {
+        if (isCustomerVerificationOn &&
+            response.body['is_phone_verified'] == 0) {
+          Get.toNamed(RouteHelper.getVerificationRoute(
+              response.body['phone'] ?? socialLogInBody.email,
+              token,
+              RouteHelper.signUp,
+              ''));
+        } else {
           authRepositoryInterface.saveUserToken(response.body['token']);
           await authRepositoryInterface.updateToken();
           authRepositoryInterface.clearSharedPrefGuestId();
           canNavigateToLocation = true;
         }
-      }else {
+      } else {
         Get.toNamed(RouteHelper.getForgotPassRoute(true, socialLogInBody));
       }
-    }else if(response.statusCode == 403 && response.body['errors'][0]['code'] == 'email'){
+    } else if (response.statusCode == 403 &&
+        response.body['errors'][0]['code'] == 'email') {
       Get.toNamed(RouteHelper.getForgotPassRoute(true, socialLogInBody));
     } else {
       showCustomSnackBar(response.statusText);
@@ -80,14 +96,17 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future<bool> registerWithSocialMedia(SocialLogInBody socialLogInBody, bool isCustomerVerificationOn) async {
+  Future<bool> registerWithSocialMedia(
+      SocialLogInBody socialLogInBody, bool isCustomerVerificationOn) async {
     bool canNavigateToLocation = false;
-    Response response = await authRepositoryInterface.registerWithSocialMedia(socialLogInBody);
+    Response response =
+        await authRepositoryInterface.registerWithSocialMedia(socialLogInBody);
     if (response.statusCode == 200) {
       String? token = response.body['token'];
-      if(isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
-        Get.toNamed(RouteHelper.getVerificationRoute(socialLogInBody.phone, token, RouteHelper.signUp, ''));
-      }else {
+      if (isCustomerVerificationOn && response.body['is_phone_verified'] == 0) {
+        Get.toNamed(RouteHelper.getVerificationRoute(
+            socialLogInBody.phone, token, RouteHelper.signUp, ''));
+      } else {
         authRepositoryInterface.saveUserToken(response.body['token']);
         await authRepositoryInterface.updateToken();
         authRepositoryInterface.clearSharedPrefGuestId();
@@ -130,8 +149,10 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future<void> saveUserNumberAndPassword(String number, String password, String countryCode) async {
-    await authRepositoryInterface.saveUserNumberAndPassword(number, password, countryCode);
+  Future<void> saveUserNumberAndPassword(
+      String number, String password, String countryCode) async {
+    await authRepositoryInterface.saveUserNumberAndPassword(
+        number, password, countryCode);
   }
 
   @override

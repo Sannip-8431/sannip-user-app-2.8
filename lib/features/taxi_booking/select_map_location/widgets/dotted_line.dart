@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 /// Draw a dotted line.
 ///
 /// Basic line settings
@@ -31,43 +32,54 @@ class DottedLine extends StatelessWidget {
     this.dashRadius = 0.0,
     this.dashGapRadius = 0.0,
   })  : assert(
-  dashGradient == null || dashGradient.length == 2,
-  'The dashGradient must have only two colors.\n'
-      'The beginning color and the ending color of the gradient.'),
+            dashGradient == null || dashGradient.length == 2,
+            'The dashGradient must have only two colors.\n'
+            'The beginning color and the ending color of the gradient.'),
         assert(
-        dashGapGradient == null || dashGapGradient.length == 2,
-        'The dashGapGradient must have only two colors.\n'
+            dashGapGradient == null || dashGapGradient.length == 2,
+            'The dashGapGradient must have only two colors.\n'
             'The beginning color and the ending color of the gradient.');
+
   /// The direction of the entire dotted line. Default [Axis.horizontal].
   final Axis direction;
+
   /// The length of the entire dotted line. Default [double.infinity].
   final double lineLength;
+
   /// The thickness of the entire dotted line. Default (1.0).
   final double lineThickness;
+
   /// The length of the dash. Default (4.0).
   final double dashLength;
+
   /// The color of the dash. Default [Colors.black].
   ///
   /// This is ignored if [dashGradient] is non-null.
   final Color dashColor;
+
   /// The gradient colors of the dash. Default null.
   /// The first color is beginning color, the second one is ending color.
   ///
   /// If this is specified, [dashColor] has no effect.
   final List<Color>? dashGradient;
+
   /// The radius of the dash. Default (0.0).
   final double dashRadius;
+
   /// The length of the dash gap. Default (4.0).
   final double dashGapLength;
+
   /// The color of the dash gap. Default [Colors.transparent].
   ///
   /// This is ignored if [dashGapGradient] is non-null.
   final Color dashGapColor;
+
   /// The gradient colors of the dash gap. Default null.
   /// The first color is beginning color, the second one is ending color.
   ///
   /// If this is specified, [dashGapColor] has no effect.
   final List<Color>? dashGapGradient;
+
   /// The radius of the dash gap. Default (0.0).
   final double dashGapRadius;
   @override
@@ -98,16 +110,18 @@ class DottedLine extends StatelessWidget {
       }),
     );
   }
+
   /// If [lineLength] is [double.infinity],
   /// get the maximum value of the parent widget.
   /// And if the value is specified, use the specified value.
   double _getLineLength(BoxConstraints constraints, bool isHorizontal) {
     return lineLength == double.infinity
         ? isHorizontal
-        ? constraints.maxWidth
-        : constraints.maxHeight
+            ? constraints.maxWidth
+            : constraints.maxHeight
         : lineLength;
   }
+
   /// Calculate the count of (dash + dashGap).
   ///
   /// example1) [lineLength] is 10, [dashLength] is 1, [dashGapLength] is 1.
@@ -123,6 +137,7 @@ class DottedLine extends StatelessWidget {
     }
     return [dashCount, dashGapCount];
   }
+
   Widget _buildDash(bool isHorizontal, Color color) {
     return Container(
       decoration: BoxDecoration(
@@ -133,16 +148,18 @@ class DottedLine extends StatelessWidget {
       height: isHorizontal ? lineThickness : dashLength,
     );
   }
+
   Color _getDashColor(int maxDashCount, int index) {
     return dashGradient == null
         ? dashColor
         : _calculateGradientColor(
-      dashGradient![0],
-      dashGradient![1],
-      maxDashCount,
-      index,
-    );
+            dashGradient![0],
+            dashGradient![1],
+            maxDashCount,
+            index,
+          );
   }
+
   Widget _buildDashGap(bool isHorizontal, Color color) {
     return Container(
       decoration: BoxDecoration(
@@ -153,22 +170,24 @@ class DottedLine extends StatelessWidget {
       height: isHorizontal ? lineThickness : dashGapLength,
     );
   }
+
   Color _getDashGapColor(int maxDashGapCount, int index) {
     return dashGapGradient == null
         ? dashGapColor
         : _calculateGradientColor(
-      dashGapGradient![0],
-      dashGapGradient![1],
-      maxDashGapCount,
-      index,
-    );
+            dashGapGradient![0],
+            dashGapGradient![1],
+            maxDashGapCount,
+            index,
+          );
   }
+
   Color _calculateGradientColor(
-      Color startColor,
-      Color endColor,
-      int maxItemCount,
-      int index,
-      ) {
+    Color startColor,
+    Color endColor,
+    int maxItemCount,
+    int index,
+  ) {
     var diffAlpha = (endColor.alpha - startColor.alpha);
     var diffRed = (endColor.red - startColor.red);
     var diffGreen = (endColor.green - startColor.green);

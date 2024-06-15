@@ -5,7 +5,7 @@ import 'package:sixam_mart/features/brands/domain/repositories/brands_repository
 import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
-class BrandsRepository implements BrandsRepositoryInterface{
+class BrandsRepository implements BrandsRepositoryInterface {
   final ApiClient apiClient;
   BrandsRepository({required this.apiClient});
 
@@ -15,17 +15,20 @@ class BrandsRepository implements BrandsRepositoryInterface{
     Response response = await apiClient.getData(AppConstants.brandListUri);
     if (response.statusCode == 200) {
       brandList = [];
-      response.body.forEach((brand) => brandList!.add(BrandModel.fromJson(brand)));
+      response.body
+          .forEach((brand) => brandList!.add(BrandModel.fromJson(brand)));
     }
     return brandList;
   }
 
   @override
-  Future<ItemModel?> getBrandItemList({required int brandId, int? offset}) async {
+  Future<ItemModel?> getBrandItemList(
+      {required int brandId, int? offset}) async {
     ItemModel? brandItemModel;
-    Response response = await apiClient.getData('${AppConstants.brandItemUri}/$brandId?offset=$offset&limit=12');
+    Response response = await apiClient.getData(
+        '${AppConstants.brandItemUri}/$brandId?offset=$offset&limit=12');
     if (response.statusCode == 200) {
-       brandItemModel = ItemModel.fromJson(response.body);
+      brandItemModel = ItemModel.fromJson(response.body);
     }
     return brandItemModel;
   }
@@ -49,5 +52,4 @@ class BrandsRepository implements BrandsRepositoryInterface{
   Future update(Map<String, dynamic> body, int? id) {
     throw UnimplementedError();
   }
-
 }

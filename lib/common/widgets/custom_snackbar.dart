@@ -3,21 +3,25 @@ import 'package:sixam_mart/util/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void showCustomSnackBar(String? message, {bool isError = true, bool getXSnackBar = false}) {
-  if(message != null && message.isNotEmpty) {
-    if(getXSnackBar) {
+void showCustomSnackBar(String? message,
+    {bool isError = true, bool getXSnackBar = false}) {
+  if (message != null && message.isNotEmpty) {
+    if (getXSnackBar) {
       Get.showSnackbar(GetSnackBar(
         backgroundColor: isError ? Colors.red : Colors.green,
         message: message,
         maxWidth: 500,
         duration: const Duration(seconds: 3),
         snackStyle: SnackStyle.FLOATING,
-        margin: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, right:  Dimensions.paddingSizeSmall, bottom:  100),
+        margin: const EdgeInsets.only(
+            left: Dimensions.paddingSizeSmall,
+            right: Dimensions.paddingSizeSmall,
+            bottom: 100),
         borderRadius: Dimensions.radiusSmall,
         isDismissible: true,
         dismissDirection: DismissDirection.horizontal,
       ));
-    }else {
+    } else {
       ScaffoldMessenger.of(Get.context!).showSnackBar(SnackBar(
         dismissDirection: DismissDirection.endToStart,
         elevation: 0.0,

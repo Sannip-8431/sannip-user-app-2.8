@@ -12,7 +12,13 @@ class BannerRepository implements BannerRepositoryInterface {
   BannerRepository({required this.apiClient});
 
   @override
-  Future getList({int? offset, bool isBanner = false, bool isTaxiBanner = false, bool isFeaturedBanner = false, bool isParcelOtherBanner = false, bool isPromotionalBanner = false}) async {
+  Future getList(
+      {int? offset,
+      bool isBanner = false,
+      bool isTaxiBanner = false,
+      bool isFeaturedBanner = false,
+      bool isParcelOtherBanner = false,
+      bool isPromotionalBanner = false}) async {
     if (isBanner) {
       return await _getBannerList();
     } else if (isTaxiBanner) {
@@ -46,7 +52,9 @@ class BannerRepository implements BannerRepositoryInterface {
 
   Future<BannerModel?> _getFeaturedBannerList() async {
     BannerModel? bannerModel;
-    Response response = await apiClient.getData('${AppConstants.bannerUri}?featured=1', headers: HeaderHelper.featuredHeader());
+    Response response = await apiClient.getData(
+        '${AppConstants.bannerUri}?featured=1',
+        headers: HeaderHelper.featuredHeader());
     if (response.statusCode == 200) {
       bannerModel = BannerModel.fromJson(response.body);
     }
@@ -55,7 +63,8 @@ class BannerRepository implements BannerRepositoryInterface {
 
   Future<ParcelOtherBannerModel?> _getParcelOtherBannerList() async {
     ParcelOtherBannerModel? parcelOtherBannerModel;
-    Response response = await apiClient.getData(AppConstants.parcelOtherBannerUri);
+    Response response =
+        await apiClient.getData(AppConstants.parcelOtherBannerUri);
     if (response.statusCode == 200) {
       parcelOtherBannerModel = ParcelOtherBannerModel.fromJson(response.body);
     }
@@ -64,7 +73,8 @@ class BannerRepository implements BannerRepositoryInterface {
 
   Future<PromotionalBanner?> _getPromotionalBannerList() async {
     PromotionalBanner? promotionalBanner;
-    Response response = await apiClient.getData(AppConstants.promotionalBannerUri);
+    Response response =
+        await apiClient.getData(AppConstants.promotionalBannerUri);
     if (response.statusCode == 200) {
       promotionalBanner = PromotionalBanner.fromJson(response.body);
     }
@@ -90,5 +100,4 @@ class BannerRepository implements BannerRepositoryInterface {
   Future update(Map<String, dynamic> body, int? id) {
     throw UnimplementedError();
   }
-
 }

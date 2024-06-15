@@ -12,11 +12,14 @@ import 'package:sixam_mart/features/auth/domain/models/store_body_model.dart';
 import 'package:sixam_mart/features/auth/domain/services/store_registration_service_interface.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 
-class StoreRegistrationController extends GetxController implements GetxService {
+class StoreRegistrationController extends GetxController
+    implements GetxService {
   final StoreRegistrationServiceInterface storeRegistrationServiceInterface;
   final LocationServiceInterface locationServiceInterface;
 
-  StoreRegistrationController({required this.locationServiceInterface, required this.storeRegistrationServiceInterface});
+  StoreRegistrationController(
+      {required this.locationServiceInterface,
+      required this.storeRegistrationServiceInterface});
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -81,9 +84,9 @@ class StoreRegistrationController extends GetxController implements GetxService 
   bool _inZone = false;
   bool get inZone => _inZone;
 
-  void showHidePass({bool isUpdate = true}){
-    _showPassView = ! _showPassView;
-    if(isUpdate) {
+  void showHidePass({bool isUpdate = true}) {
+    _showPassView = !_showPassView;
+    if (isUpdate) {
       update();
     }
   }
@@ -93,50 +96,52 @@ class StoreRegistrationController extends GetxController implements GetxService 
     _moduleList = null;
     _selectedModuleIndex = -1;
     update();
-    if(canUpdate){
+    if (canUpdate) {
       await getModules(zoneList![selectedZoneIndex!].id);
       update();
     }
   }
 
-  void minTimeChange(String time){
+  void minTimeChange(String time) {
     _storeMinTime = time;
     update();
   }
 
-  void maxTimeChange(String time){
+  void maxTimeChange(String time) {
     _storeMaxTime = time;
     update();
   }
 
-  void timeUnitChange(String unit){
+  void timeUnitChange(String unit) {
     _storeTimeUnit = unit;
     update();
   }
 
-  void storeStatusChange(double value, {bool isUpdate = true}){
+  void storeStatusChange(double value, {bool isUpdate = true}) {
     _storeStatus = value;
-    if(isUpdate) {
+    if (isUpdate) {
       update();
     }
   }
 
   void selectModuleIndex(int? index, {canUpdate = true}) {
     _selectedModuleIndex = index;
-    if(canUpdate) {
+    if (canUpdate) {
       update();
     }
   }
 
   void pickImage(bool isLogo, bool isRemove) async {
-    if(isRemove) {
+    if (isRemove) {
       _pickedLogo = null;
       _pickedCover = null;
-    }else {
+    } else {
       if (isLogo) {
-        _pickedLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
+        _pickedLogo =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
       } else {
-        _pickedCover = await ImagePicker().pickImage(source: ImageSource.gallery);
+        _pickedCover =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
       }
       update();
     }
@@ -149,22 +154,22 @@ class StoreRegistrationController extends GetxController implements GetxService 
     _lowercaseCheck = false;
     _spatialCheck = false;
 
-    if(pass.length > 7){
+    if (pass.length > 7) {
       _lengthCheck = true;
     }
-    if(pass.contains(RegExp(r'[a-z]'))) {
+    if (pass.contains(RegExp(r'[a-z]'))) {
       _lowercaseCheck = true;
     }
-    if(pass.contains(RegExp(r'[A-Z]'))){
+    if (pass.contains(RegExp(r'[A-Z]'))) {
       _uppercaseCheck = true;
     }
-    if(pass.contains(RegExp(r'[ .!@#$&*~^%]'))){
+    if (pass.contains(RegExp(r'[ .!@#$&*~^%]'))) {
       _spatialCheck = true;
     }
-    if(pass.contains(RegExp(r'[\d+]'))){
+    if (pass.contains(RegExp(r'[\d+]'))) {
       _numberCheck = true;
     }
-    if(isUpdate) {
+    if (isUpdate) {
       update();
     }
   }
@@ -175,43 +180,60 @@ class StoreRegistrationController extends GetxController implements GetxService 
     _selectedZoneIndex = -1;
     _restaurantLocation = null;
     _zoneIds = null;
-    List<ZoneDataModel>? zones = await storeRegistrationServiceInterface.getZoneList();
+    List<ZoneDataModel>? zones =
+        await storeRegistrationServiceInterface.getZoneList();
     if (zones != null) {
       _zoneList = [];
       _zoneList!.addAll(zones);
-      setLocation(LatLng(
-        double.parse(Get.find<SplashController>().configModel!.defaultLocation!.lat ?? '0'),
-        double.parse(Get.find<SplashController>().configModel!.defaultLocation!.lng ?? '0'),
-      ), forStoreRegistration: true, zoneId: _zoneList![0].id);
+      setLocation(
+          LatLng(
+            double.parse(Get.find<SplashController>()
+                    .configModel!
+                    .defaultLocation!
+                    .lat ??
+                '0'),
+            double.parse(Get.find<SplashController>()
+                    .configModel!
+                    .defaultLocation!
+                    .lng ??
+                '0'),
+          ),
+          forStoreRegistration: true,
+          zoneId: _zoneList![0].id);
       await getModules(_zoneList![0].id);
     }
     update();
   }
 
-  void setLocation(LatLng location, {bool forStoreRegistration = false, int? zoneId}) async {
+  void setLocation(LatLng location,
+      {bool forStoreRegistration = false, int? zoneId}) async {
     // ZoneResponseModel response = await Get.find<LocationController>().getZone(
     //   location.latitude.toString(), location.longitude.toString(), false, handleError: true,
     // );
-    ZoneResponseModel response = await locationServiceInterface.getZone(location.latitude.toString(), location.longitude.toString(), handleError: true);
+    ZoneResponseModel response = await locationServiceInterface.getZone(
+        location.latitude.toString(), location.longitude.toString(),
+        handleError: true);
 
-    if(zoneId != null) {
-      _inZone = await storeRegistrationServiceInterface.checkInZone(location.latitude.toString(), location.longitude.toString(), zoneId);
+    if (zoneId != null) {
+      _inZone = await storeRegistrationServiceInterface.checkInZone(
+          location.latitude.toString(), location.longitude.toString(), zoneId);
     }
 
-    _storeAddress = await Get.find<LocationController>().getAddressFromGeocode(LatLng(location.latitude, location.longitude));
-    if(response.isSuccess && response.zoneIds.isNotEmpty) {
+    _storeAddress = await Get.find<LocationController>()
+        .getAddressFromGeocode(LatLng(location.latitude, location.longitude));
+    if (response.isSuccess && response.zoneIds.isNotEmpty) {
       _restaurantLocation = location;
       _zoneIds = response.zoneIds;
       // _selectedZoneIndex = storeRegistrationServiceInterface.prepareSelectedZoneIndex(_zoneIds, _zoneList);
-      for(int index=0; index<zoneList!.length; index++) {
-        if(zoneIds!.contains(zoneList![index].id)) {
-          if(!forStoreRegistration) {
+      for (int index = 0; index < zoneList!.length; index++) {
+        if (zoneIds!.contains(zoneList![index].id)) {
+          if (!forStoreRegistration) {
             _selectedZoneIndex = index;
           }
           break;
         }
       }
-    }else {
+    } else {
       _restaurantLocation = null;
       _zoneIds = null;
     }
@@ -219,7 +241,8 @@ class StoreRegistrationController extends GetxController implements GetxService 
   }
 
   Future<void> getModules(int? zoneId) async {
-    List<ModuleModel>? modules = await storeRegistrationServiceInterface.getModules(zoneId);
+    List<ModuleModel>? modules =
+        await storeRegistrationServiceInterface.getModules(zoneId);
     if (modules != null) {
       _moduleList = [];
       _moduleList!.addAll(modules);
@@ -227,7 +250,7 @@ class StoreRegistrationController extends GetxController implements GetxService 
     update();
   }
 
-  void resetStoreRegistration(){
+  void resetStoreRegistration() {
     _pickedLogo = null;
     _pickedCover = null;
     _selectedModuleIndex = -1;
@@ -241,8 +264,9 @@ class StoreRegistrationController extends GetxController implements GetxService 
   Future<void> registerStore(StoreBodyModel storeBody) async {
     _isLoading = true;
     update();
-    Response? response = await storeRegistrationServiceInterface.registerStore(storeBody, _pickedLogo, _pickedCover);
-    if(response.statusCode == 200) {
+    Response? response = await storeRegistrationServiceInterface.registerStore(
+        storeBody, _pickedLogo, _pickedCover);
+    if (response.statusCode == 200) {
       Get.find<HomeController>().saveRegistrationSuccessfulSharedPref(true);
       int? storeId = response.body['store_id'];
       Get.offAllNamed(RouteHelper.getBusinessPlanRoute(storeId));
@@ -250,5 +274,4 @@ class StoreRegistrationController extends GetxController implements GetxService 
     _isLoading = false;
     update();
   }
-
 }

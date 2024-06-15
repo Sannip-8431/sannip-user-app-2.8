@@ -66,8 +66,10 @@ class Elements {
   Elements({this.distance, this.duration, this.status});
 
   Elements.fromJson(Map<String, dynamic> json) {
-    distance = json['distance'] != null ? Distance.fromJson(json['distance']) : null;
-    duration = json['duration'] != null ? Distance.fromJson(json['duration']) : null;
+    distance =
+        json['distance'] != null ? Distance.fromJson(json['distance']) : null;
+    duration =
+        json['duration'] != null ? Distance.fromJson(json['duration']) : null;
     status = json['status'];
   }
 

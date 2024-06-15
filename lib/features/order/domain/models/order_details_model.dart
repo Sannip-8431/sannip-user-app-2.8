@@ -46,7 +46,9 @@ class OrderDetailsModel {
     itemId = json['item_id'];
     orderId = json['order_id'];
     price = json['price'].toDouble();
-    itemDetails = json['item_details'] != null ? Item.fromJson(json['item_details']) : null;
+    itemDetails = json['item_details'] != null
+        ? Item.fromJson(json['item_details'])
+        : null;
     variation = [];
     foodVariation = [];
     if (json['variation'] != null && json['variation'].isNotEmpty) {

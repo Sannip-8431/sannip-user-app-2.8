@@ -60,15 +60,16 @@ class UserInfoModel {
     loyaltyPoint = json['loyalty_point'];
     refCode = json['ref_code'];
     socialId = json['social_id'];
-    userInfo = json['userinfo'] != null ? User.fromJson(json['userinfo']) : null;
+    userInfo =
+        json['userinfo'] != null ? User.fromJson(json['userinfo']) : null;
     isValidForDiscount = json['is_valid_for_discount'] ?? false;
     discountAmount = json['discount_amount']?.toDouble();
     discountAmountType = json['discount_amount_type'];
     validity = json['validity'];
-    if(json['selected_modules_for_interest'] != null) {
+    if (json['selected_modules_for_interest'] != null) {
       selectedModuleForInterest = [];
       json['selected_modules_for_interest'].forEach((value) {
-        if(value != null && value != 'null') {
+        if (value != null && value != 'null') {
           selectedModuleForInterest!.add(int.parse(value.toString()));
         }
       });

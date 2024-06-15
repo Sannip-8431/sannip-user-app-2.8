@@ -11,7 +11,8 @@ class PermissionDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
       insetPadding: const EdgeInsets.all(30),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Padding(
@@ -19,21 +20,24 @@ class PermissionDialogWidget extends StatelessWidget {
         child: SizedBox(
           width: 500,
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-
-            Icon(Icons.add_location_alt_rounded, color: Theme.of(context).primaryColor, size: 100),
+            Icon(Icons.add_location_alt_rounded,
+                color: Theme.of(context).primaryColor, size: 100),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-
             Text(
-              'you_denied_location_permission'.tr, textAlign: TextAlign.center,
+              'you_denied_location_permission'.tr,
+              textAlign: TextAlign.center,
               style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge),
             ),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-
             Row(children: [
               Expanded(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), side: BorderSide(width: 2, color: Theme.of(context).primaryColor)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radiusSmall),
+                        side: BorderSide(
+                            width: 2, color: Theme.of(context).primaryColor)),
                     minimumSize: const Size(1, 50),
                   ),
                   child: Text('close'.tr),
@@ -41,12 +45,14 @@ class PermissionDialogWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: Dimensions.paddingSizeSmall),
-              Expanded(child: CustomButton(buttonText: 'settings'.tr, onPressed: () async {
-                await Geolocator.openAppSettings();
-                Get.back();
-              })),
+              Expanded(
+                  child: CustomButton(
+                      buttonText: 'settings'.tr,
+                      onPressed: () async {
+                        await Geolocator.openAppSettings();
+                        Get.back();
+                      })),
             ]),
-
           ]),
         ),
       ),

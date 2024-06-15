@@ -18,21 +18,23 @@ class SuccessWidget extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-
-            businessController.businessIndex == 1 ? RegistrationStepperWidget(status: businessController.businessPlanStatus) : const SizedBox(height: Dimensions.paddingSizeLarge),
+            businessController.businessIndex == 1
+                ? RegistrationStepperWidget(
+                    status: businessController.businessPlanStatus)
+                : const SizedBox(height: Dimensions.paddingSizeLarge),
             SizedBox(height: context.height * 0.2),
-
-            Image.asset(Images.checked, height: 90,width: 90),
+            Image.asset(Images.checked, height: 90, width: 90),
             const SizedBox(height: Dimensions.paddingSizeLarge),
-
-            Text('congratulations'.tr, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeOverLarge)),
+            Text('congratulations'.tr,
+                style: robotoBold.copyWith(
+                    fontSize: Dimensions.fontSizeOverLarge)),
             const SizedBox(height: Dimensions.paddingSizeSmall),
-
             Text(
               'your_registration_has_been_completed_successfully'.tr,
-              style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall), textAlign: TextAlign.center, softWrap: true,
+              style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
+              textAlign: TextAlign.center,
+              softWrap: true,
             ),
-
           ]),
         ),
       );

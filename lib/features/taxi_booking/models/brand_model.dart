@@ -10,13 +10,13 @@ class BrandModel {
 
   BrandModel(
       {this.id,
-        this.moduleId,
-        this.name,
-        this.logo,
-        this.description,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.moduleId,
+      this.name,
+      this.logo,
+      this.description,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   BrandModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -15,7 +15,8 @@ class Annotation {
   const Annotation({required this.regExp, required this.spanBuilder});
 
   final RegExp regExp;
-  final TextSpan Function({required String text, required TextStyle textStyle}) spanBuilder;
+  final TextSpan Function({required String text, required TextStyle textStyle})
+      spanBuilder;
 }
 
 class ReadMoreText extends StatefulWidget {
@@ -51,7 +52,9 @@ class ReadMoreText extends StatefulWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  })  : richData = null, richPreData = null, richPostData = null;
+  })  : richData = null,
+        richPreData = null,
+        richPostData = null;
 
   const ReadMoreText.rich(
     TextSpan this.richData, {
@@ -82,7 +85,12 @@ class ReadMoreText extends StatefulWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  })  : data = null, annotations = null, preDataText = null, postDataText = null, preDataTextStyle = null, postDataTextStyle = null;
+  })  : data = null,
+        annotations = null,
+        preDataText = null,
+        postDataText = null,
+        preDataTextStyle = null,
+        postDataTextStyle = null;
 
   final ValueNotifier<bool>? isCollapsed;
 
@@ -165,7 +173,8 @@ class ReadMoreTextState extends State<ReadMoreText> {
   final TapGestureRecognizer _recognizer = TapGestureRecognizer();
 
   ValueNotifier<bool>? _isCollapsed;
-  ValueNotifier<bool> get _effectiveIsCollapsed => widget.isCollapsed ?? (_isCollapsed ??= ValueNotifier(true));
+  ValueNotifier<bool> get _effectiveIsCollapsed =>
+      widget.isCollapsed ?? (_isCollapsed ??= ValueNotifier(true));
 
   void _onTap() {
     if (widget.isExpandable) {
@@ -182,7 +191,12 @@ class ReadMoreTextState extends State<ReadMoreText> {
 
     // replacing groups '(' => to non capturing groups '(?:'
     return RegExp(
-      annotations.map((a) => '(${a.regExp.pattern.replaceAll(_nonCapturingGroupPattern, '(?:')})',).join('|'),
+      annotations
+          .map(
+            (a) =>
+                '(${a.regExp.pattern.replaceAll(_nonCapturingGroupPattern, '(?:')})',
+          )
+          .join('|'),
     );
   }
 
@@ -228,23 +242,33 @@ class ReadMoreTextState extends State<ReadMoreText> {
       effectiveTextStyle = widget.style!;
     }
     if (MediaQuery.boldTextOf(context)) {
-      effectiveTextStyle = effectiveTextStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+      effectiveTextStyle = effectiveTextStyle
+          .merge(const TextStyle(fontWeight: FontWeight.bold));
     }
     final registrar = SelectionContainer.maybeOf(context);
     final textScaler = widget.textScaler ?? MediaQuery.textScalerOf(context);
 
-    final textAlign = widget.textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
+    final textAlign =
+        widget.textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
     final textDirection = widget.textDirection ?? Directionality.of(context);
     final locale = widget.locale ?? Localizations.maybeLocaleOf(context);
     final softWrap = widget.softWrap ?? defaultTextStyle.softWrap;
     final overflow = widget.overflow ?? defaultTextStyle.overflow;
-    final textWidthBasis = widget.textWidthBasis ?? defaultTextStyle.textWidthBasis;
-    final textHeightBehavior = widget.textHeightBehavior ?? defaultTextStyle.textHeightBehavior ?? DefaultTextHeightBehavior.maybeOf(context);
-    final selectionColor = widget.selectionColor ?? DefaultSelectionStyle.of(context).selectionColor ?? DefaultSelectionStyle.defaultColor;
+    final textWidthBasis =
+        widget.textWidthBasis ?? defaultTextStyle.textWidthBasis;
+    final textHeightBehavior = widget.textHeightBehavior ??
+        defaultTextStyle.textHeightBehavior ??
+        DefaultTextHeightBehavior.maybeOf(context);
+    final selectionColor = widget.selectionColor ??
+        DefaultSelectionStyle.of(context).selectionColor ??
+        DefaultSelectionStyle.defaultColor;
 
-    final colorClickableText = widget.colorClickableText ?? Theme.of(context).colorScheme.secondary;
-    final defaultLessStyle = widget.lessStyle ?? effectiveTextStyle.copyWith(color: colorClickableText);
-    final defaultMoreStyle = widget.moreStyle ?? effectiveTextStyle.copyWith(color: colorClickableText);
+    final colorClickableText =
+        widget.colorClickableText ?? Theme.of(context).colorScheme.secondary;
+    final defaultLessStyle = widget.lessStyle ??
+        effectiveTextStyle.copyWith(color: colorClickableText);
+    final defaultMoreStyle = widget.moreStyle ??
+        effectiveTextStyle.copyWith(color: colorClickableText);
     final defaultDelimiterStyle = widget.delimiterStyle ?? effectiveTextStyle;
 
     final link = TextSpan(
@@ -254,7 +278,11 @@ class ReadMoreTextState extends State<ReadMoreText> {
     );
 
     final delimiter = TextSpan(
-      text: isCollapsed ? widget.trimCollapsedText.isNotEmpty ? widget.delimiter : '' : '',
+      text: isCollapsed
+          ? widget.trimCollapsedText.isNotEmpty
+              ? widget.delimiter
+              : ''
+          : '',
       style: defaultDelimiterStyle,
       recognizer: _recognizer,
     );
@@ -346,7 +374,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
           final readMoreSize = linkSize.width + delimiterSize.width;
           final pos = textPainter.getPositionForOffset(
             Offset(
-              textDirection == TextDirection.rtl ? readMoreSize : textSize.width - readMoreSize,
+              textDirection == TextDirection.rtl
+                  ? readMoreSize
+                  : textSize.width - readMoreSize,
               textSize.height,
             ),
           );
@@ -386,12 +416,14 @@ class ReadMoreTextState extends State<ReadMoreText> {
             // Constructed by ReadMoreText(...)
             else {
               if (widget.trimLength < widget.data!.runes.length) {
-                final effectiveDataTextSpan = isCollapsed ? _trimTextSpan(
+                final effectiveDataTextSpan = isCollapsed
+                    ? _trimTextSpan(
                         textSpan: dataTextSpan,
                         spanStartIndex: 0,
                         endIndex: widget.trimLength,
                         splitByRunes: true,
-                      ).textSpan : dataTextSpan;
+                      ).textSpan
+                    : dataTextSpan;
 
                 textSpan = TextSpan(
                   children: <TextSpan>[
@@ -454,7 +486,8 @@ class ReadMoreTextState extends State<ReadMoreText> {
     );
     if (registrar != null) {
       result = MouseRegion(
-        cursor: DefaultSelectionStyle.of(context).mouseCursor ?? SystemMouseCursors.text,
+        cursor: DefaultSelectionStyle.of(context).mouseCursor ??
+            SystemMouseCursors.text,
         child: result,
       );
     }
@@ -532,7 +565,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
       spanEndIndex += textLen;
 
       if (spanEndIndex >= endIndex) {
-        final newText = splitByRunes ? String.fromCharCodes(text.runes, 0, endIndex - spanStartIndex) : text.substring(0, endIndex - spanStartIndex);
+        final newText = splitByRunes
+            ? String.fromCharCodes(text.runes, 0, endIndex - spanStartIndex)
+            : text.substring(0, endIndex - spanStartIndex);
 
         final nextSpan = TextSpan(
           text: newText,

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
-class ValidateCheck{
-
+class ValidateCheck {
   static String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -37,7 +36,7 @@ class ValidateCheck{
   static String? validatePassword(String? value, String? message) {
     if (value == null || value.isEmpty) {
       return message?.tr ?? 'this_field_is_required'.tr;
-    }else if(value.length < 8){
+    } else if (value.length < 8) {
       return 'minimum_password_is_8_character'.tr;
     }
     return null;
@@ -46,22 +45,23 @@ class ValidateCheck{
   static String? validateConfirmPassword(String? value, String? password) {
     if (value == null || value.isEmpty) {
       return 'confirm_password_field_is_required'.tr;
-    }else if(value != password){
+    } else if (value != password) {
       return 'confirm_password_does_not_matched'.tr;
     }
     return null;
   }
 
-  static String? loyaltyCheck(String? value, int? minimumExchangePoint, int? point) {
+  static String? loyaltyCheck(
+      String? value, int? minimumExchangePoint, int? point) {
     int amount = 0;
-    if(value != null && value.isNotEmpty) {
+    if (value != null && value.isNotEmpty) {
       amount = int.parse(value);
     }
     if (value == null || value.isEmpty) {
       return 'this_field_is_required'.tr;
-    }else if(amount < minimumExchangePoint!){
+    } else if (amount < minimumExchangePoint!) {
       return '${'please_exchange_more_then'.tr} $minimumExchangePoint ${'points'.tr}';
-    }else if(point! < amount){
+    } else if (point! < amount) {
       return 'you_do_not_have_enough_point_to_exchange'.tr;
     }
     return null;

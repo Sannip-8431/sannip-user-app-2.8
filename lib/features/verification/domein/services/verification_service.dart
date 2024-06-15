@@ -7,7 +7,9 @@ class VerificationService implements VerificationServiceInterface {
   final VerificationRepositoryInterface verificationRepoInterface;
   final AuthRepositoryInterface authRepoInterface;
 
-  VerificationService({required this.verificationRepoInterface, required this.authRepoInterface});
+  VerificationService(
+      {required this.verificationRepoInterface,
+      required this.authRepoInterface});
 
   @override
   Future<ResponseModel> forgetPassword(String? phone) async {
@@ -15,14 +17,18 @@ class VerificationService implements VerificationServiceInterface {
   }
 
   @override
-  Future<ResponseModel> resetPassword(String? resetToken, String number, String password, String confirmPassword) async {
-    return await verificationRepoInterface.resetPassword(resetToken, number, password, confirmPassword);
+  Future<ResponseModel> resetPassword(String? resetToken, String number,
+      String password, String confirmPassword) async {
+    return await verificationRepoInterface.resetPassword(
+        resetToken, number, password, confirmPassword);
   }
 
   @override
-  Future<ResponseModel> verifyPhone(String? phone, String otp, String? token) async {
-    ResponseModel responseModel = await verificationRepoInterface.verifyPhone(phone, otp);
-    if(responseModel.isSuccess) {
+  Future<ResponseModel> verifyPhone(
+      String? phone, String otp, String? token) async {
+    ResponseModel responseModel =
+        await verificationRepoInterface.verifyPhone(phone, otp);
+    if (responseModel.isSuccess) {
       authRepoInterface.saveUserToken(token!);
       await authRepoInterface.updateToken();
       authRepoInterface.clearSharedPrefGuestId();
@@ -34,5 +40,4 @@ class VerificationService implements VerificationServiceInterface {
   Future<ResponseModel> verifyToken(String? phone, String token) async {
     return await verificationRepoInterface.verifyToken(phone, token);
   }
-
 }

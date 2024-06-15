@@ -5,15 +5,18 @@ import 'package:sixam_mart/api/api_client.dart';
 import 'package:sixam_mart/features/verification/domein/reposotories/verification_repository_interface.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 
-class VerificationRepository implements VerificationRepositoryInterface{
+class VerificationRepository implements VerificationRepositoryInterface {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
 
-  VerificationRepository({required this.sharedPreferences, required this.apiClient});
+  VerificationRepository(
+      {required this.sharedPreferences, required this.apiClient});
 
   @override
   Future<ResponseModel> forgetPassword(String? phone) async {
-    Response response = await apiClient.postData(AppConstants.forgetPasswordUri, {"phone": phone}, handleError: false);
+    Response response = await apiClient.postData(
+        AppConstants.forgetPasswordUri, {"phone": phone},
+        handleError: false);
     if (response.statusCode == 200) {
       return ResponseModel(true, response.body["message"]);
     } else {
@@ -22,10 +25,17 @@ class VerificationRepository implements VerificationRepositoryInterface{
   }
 
   @override
-  Future<ResponseModel> resetPassword(String? resetToken, String number, String password, String confirmPassword) async {
+  Future<ResponseModel> resetPassword(String? resetToken, String number,
+      String password, String confirmPassword) async {
     Response response = await apiClient.postData(
       AppConstants.resetPasswordUri,
-      {"_method": "put", "reset_token": resetToken, "phone": number, "password": password, "confirm_password": confirmPassword},
+      {
+        "_method": "put",
+        "reset_token": resetToken,
+        "phone": number,
+        "password": password,
+        "confirm_password": confirmPassword
+      },
       handleError: false,
     );
     if (response.statusCode == 200) {
@@ -37,7 +47,8 @@ class VerificationRepository implements VerificationRepositoryInterface{
 
   @override
   Future<ResponseModel> verifyPhone(String? phone, String otp) async {
-    Response response = await apiClient.postData(AppConstants.verifyPhoneUri, {"phone": phone, "otp": otp});
+    Response response = await apiClient
+        .postData(AppConstants.verifyPhoneUri, {"phone": phone, "otp": otp});
     if (response.statusCode == 200) {
       return ResponseModel(true, response.body["message"]);
     } else {
@@ -47,7 +58,8 @@ class VerificationRepository implements VerificationRepositoryInterface{
 
   @override
   Future<ResponseModel> verifyToken(String? phone, String token) async {
-    Response response = await apiClient.postData(AppConstants.verifyTokenUri, {"phone": phone, "reset_token": token});
+    Response response = await apiClient.postData(
+        AppConstants.verifyTokenUri, {"phone": phone, "reset_token": token});
     if (response.statusCode == 200) {
       return ResponseModel(true, response.body["message"]);
     } else {
@@ -79,6 +91,4 @@ class VerificationRepository implements VerificationRepositoryInterface{
   Future update(Map<String, dynamic> body, int? id) {
     throw UnimplementedError();
   }
-
 }
-

@@ -67,38 +67,38 @@ class Vehicles {
 
   Vehicles(
       {this.id,
-        this.vehicleBrandId,
-        this.vehicleCategoryId,
-        this.vehicleModelId,
-        this.name,
-        this.engineCapacity,
-        this.airCondition,
-        this.transmissionType,
-        this.fuelType,
-        this.vinNumber,
-        this.licensePlateNumber,
-        this.mileageType,
-        this.hatchbagCapacity,
-        this.seatingCapacity,
-        this.licenseExpDate,
-        this.carImages,
-        this.documents,
-        this.moduleId,
-        this.providerId,
-        this.status,
-        this.avgRating,
-        this.ratingCount,
-        this.createdAt,
-        this.updatedAt,
-        this.minFare,
-        this.brandName,
-        this.modelName,
-        this.categoryName,
-        this.insidePerHourCharge,
-        this.insidePerKmCharge,
-        this.outsidePerHourCharge,
-        this.outsidePerKmCharge,
-        this.provider});
+      this.vehicleBrandId,
+      this.vehicleCategoryId,
+      this.vehicleModelId,
+      this.name,
+      this.engineCapacity,
+      this.airCondition,
+      this.transmissionType,
+      this.fuelType,
+      this.vinNumber,
+      this.licensePlateNumber,
+      this.mileageType,
+      this.hatchbagCapacity,
+      this.seatingCapacity,
+      this.licenseExpDate,
+      this.carImages,
+      this.documents,
+      this.moduleId,
+      this.providerId,
+      this.status,
+      this.avgRating,
+      this.ratingCount,
+      this.createdAt,
+      this.updatedAt,
+      this.minFare,
+      this.brandName,
+      this.modelName,
+      this.categoryName,
+      this.insidePerHourCharge,
+      this.insidePerKmCharge,
+      this.outsidePerHourCharge,
+      this.outsidePerKmCharge,
+      this.provider});
 
   Vehicles.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -133,9 +133,8 @@ class Vehicles {
     insidePerKmCharge = json['inside_per_km_charge'];
     outsidePerHourCharge = json['outside_per_hr_charge'];
     outsidePerKmCharge = json['outside_per_km_charge'];
-    provider = json['provider'] != null
-        ? Provider.fromJson(json['provider'])
-        : null;
+    provider =
+        json['provider'] != null ? Provider.fromJson(json['provider']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -208,30 +207,30 @@ class Provider {
 
   Provider(
       {this.id,
-        this.name,
-        this.phone,
-        this.email,
-        this.logo,
-        this.coverPhoto,
-        this.latitude,
-        this.longitude,
-        this.address,
-        this.footerText,
-        this.tax,
-        this.comission,
-        this.currency,
-        this.status,
-        this.totalVehicle,
-        this.totalDriver,
-        this.totalTrip,
-        this.completedTrip,
-        this.ongoingTrip,
-        this.canceledTrip,
-        this.vendorId,
-        this.moduleId,
-        this.operationAreaId,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.phone,
+      this.email,
+      this.logo,
+      this.coverPhoto,
+      this.latitude,
+      this.longitude,
+      this.address,
+      this.footerText,
+      this.tax,
+      this.comission,
+      this.currency,
+      this.status,
+      this.totalVehicle,
+      this.totalDriver,
+      this.totalTrip,
+      this.completedTrip,
+      this.ongoingTrip,
+      this.canceledTrip,
+      this.vendorId,
+      this.moduleId,
+      this.operationAreaId,
+      this.createdAt,
+      this.updatedAt});
 
   Provider.fromJson(Map<String, dynamic> json) {
     id = json['id'];

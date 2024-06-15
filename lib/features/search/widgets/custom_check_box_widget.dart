@@ -6,7 +6,11 @@ class CustomCheckBoxWidget extends StatelessWidget {
   final String title;
   final bool value;
   final Function onClick;
-  const CustomCheckBoxWidget({super.key, required this.title, required this.value, required this.onClick});
+  const CustomCheckBoxWidget(
+      {super.key,
+      required this.title,
+      required this.value,
+      required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,9 @@ class CustomCheckBoxWidget extends StatelessWidget {
           onChanged: (bool? isActive) => onClick(),
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           activeColor: Theme.of(context).primaryColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall), side: BorderSide.none),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+              side: BorderSide.none),
         ),
         Text(title, style: robotoRegular),
       ]),

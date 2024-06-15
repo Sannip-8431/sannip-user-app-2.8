@@ -19,7 +19,6 @@ class BrandsScreen extends StatefulWidget {
 }
 
 class _BrandsScreenState extends State<BrandsScreen> {
-
   @override
   void initState() {
     Get.find<BrandsController>().getBrandList();
@@ -28,67 +27,102 @@ class _BrandsScreenState extends State<BrandsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     bool isDesktop = ResponsiveHelper.isDesktop(context);
 
     return Scaffold(
       appBar: CustomAppBar(title: 'all_brands'.tr),
-      endDrawer: const MenuDrawer(),endDrawerEnableOpenDragGesture: false,
+      endDrawer: const MenuDrawer(),
+      endDrawerEnableOpenDragGesture: false,
       body: GetBuilder<BrandsController>(builder: (brandsController) {
         return SingleChildScrollView(
           child: FooterView(
             child: Column(children: [
-
               WebScreenTitleWidget(title: 'all_brands'.tr),
-
               SizedBox(
                 width: Dimensions.webMaxWidth,
-                child: brandsController.brandList != null ? brandsController.brandList!.isNotEmpty ? GridView.builder(
-                  shrinkWrap: true,
-                  physics: isDesktop ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isDesktop ? 0 : Dimensions.paddingSizeExtraLarge,
-                    vertical: Dimensions.paddingSizeExtraLarge,
-                  ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isDesktop ? 4 : 2,
-                    crossAxisSpacing: Dimensions.paddingSizeLarge,
-                    mainAxisSpacing: Dimensions.paddingSizeLarge,
-                    mainAxisExtent: isDesktop ? 120 : 95,
-                  ),
-                  itemCount: brandsController.brandList!.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Get.toNamed(RouteHelper.getBrandsItemScreen(brandsController.brandList![index].id!, brandsController.brandList![index].name!)),
-                      child: Row(children: [
-
-                        Container(
-                          padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                            child: CustomImage(
-                              image: '${brandsController.brandList![index].imageFullUrl}',
-                              height: isDesktop ? 100 : 80, width: isDesktop ? 100 : 80,
+                child: brandsController.brandList != null
+                    ? brandsController.brandList!.isNotEmpty
+                        ? GridView.builder(
+                            shrinkWrap: true,
+                            physics: isDesktop
+                                ? const NeverScrollableScrollPhysics()
+                                : const AlwaysScrollableScrollPhysics(),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: isDesktop
+                                  ? 0
+                                  : Dimensions.paddingSizeExtraLarge,
+                              vertical: Dimensions.paddingSizeExtraLarge,
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                        Flexible(
-                          child: Text(brandsController.brandList![index].name ?? '', style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyLarge!.color?.withOpacity(0.7))),
-                        ),
-
-                      ]),
-                    );
-                  },
-                ) : Center(child: Padding(padding: EdgeInsets.only(top: isDesktop ? context.height * 0.3 : context.height * 0.4), child: Text('no_brands_found'.tr)))
-                    : Center(child: Padding(padding: EdgeInsets.only(top: isDesktop ? context.height * 0.3 : context.height * 0.4), child: const CircularProgressIndicator())),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isDesktop ? 4 : 2,
+                              crossAxisSpacing: Dimensions.paddingSizeLarge,
+                              mainAxisSpacing: Dimensions.paddingSizeLarge,
+                              mainAxisExtent: isDesktop ? 120 : 95,
+                            ),
+                            itemCount: brandsController.brandList!.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () => Get.toNamed(
+                                    RouteHelper.getBrandsItemScreen(
+                                        brandsController.brandList![index].id!,
+                                        brandsController
+                                            .brandList![index].name!)),
+                                child: Row(children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(
+                                        Dimensions.paddingSizeExtraSmall),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusDefault),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusDefault),
+                                      child: CustomImage(
+                                        image:
+                                            '${brandsController.brandList![index].imageFullUrl}',
+                                        height: isDesktop ? 100 : 80,
+                                        width: isDesktop ? 100 : 80,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                      width: Dimensions.paddingSizeSmall),
+                                  Flexible(
+                                    child: Text(
+                                        brandsController
+                                                .brandList![index].name ??
+                                            '',
+                                        style: robotoRegular.copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .color
+                                                ?.withOpacity(0.7))),
+                                  ),
+                                ]),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: isDesktop
+                                        ? context.height * 0.3
+                                        : context.height * 0.4),
+                                child: Text('no_brands_found'.tr)))
+                    : Center(
+                        child: Padding(
+                            padding: EdgeInsets.only(
+                                top: isDesktop
+                                    ? context.height * 0.3
+                                    : context.height * 0.4),
+                            child: const CircularProgressIndicator())),
               ),
-
             ]),
           ),
         );

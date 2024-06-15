@@ -9,12 +9,16 @@ class ItemModel {
   List<Item>? items;
   List<Categories>? categories;
 
-  ItemModel({this.totalSize, this.limit, this.offset, this.items, this.categories});
+  ItemModel(
+      {this.totalSize, this.limit, this.offset, this.items, this.categories});
 
   ItemModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'].toString();
-    offset = (json['offset'] != null && json['offset'].toString().trim().isNotEmpty) ? int.parse(json['offset'].toString()) : null;
+    offset =
+        (json['offset'] != null && json['offset'].toString().trim().isNotEmpty)
+            ? int.parse(json['offset'].toString())
+            : null;
     if (json['products'] != null) {
       items = [];
       json['products'].forEach((v) {
@@ -32,7 +36,9 @@ class ItemModel {
       items = [];
       json['items'].forEach((v) {
         if (v['module_type'] == null ||
-            !Get.find<SplashController>().getModuleConfig(v['module_type']).newVariation! ||
+            !Get.find<SplashController>()
+                .getModuleConfig(v['module_type'])
+                .newVariation! ||
             v['variations'] == null ||
             v['variations'].isEmpty ||
             (v['food_variations'] != null && v['food_variations'].isNotEmpty)) {
@@ -144,7 +150,9 @@ class Item {
     name = json['name'];
     description = json['description'];
     imageFullUrl = json['image_full_url'];
-    imagesFullUrl = json['images_full_url'] != null ? json['images_full_url'].cast<String>() : [];
+    imagesFullUrl = json['images_full_url'] != null
+        ? json['images_full_url'].cast<String>()
+        : [];
     categoryId = json['category_id'];
     if (json['category_ids'] != null) {
       categoryIds = [];
@@ -355,7 +363,13 @@ class FoodVariation {
   bool? required;
   List<VariationValue>? variationValues;
 
-  FoodVariation({this.name, this.multiSelect, this.min, this.max, this.required, this.variationValues});
+  FoodVariation(
+      {this.name,
+      this.multiSelect,
+      this.min,
+      this.max,
+      this.required,
+      this.variationValues});
 
   FoodVariation.fromJson(Map<String, dynamic> json) {
     if (json['max'] != null) {

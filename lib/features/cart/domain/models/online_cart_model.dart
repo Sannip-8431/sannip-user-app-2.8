@@ -1,4 +1,5 @@
-import 'package:sixam_mart/features/item/domain/models/item_model.dart' as product_variation;
+import 'package:sixam_mart/features/item/domain/models/item_model.dart'
+    as product_variation;
 
 class OnlineCartModel {
   int? id;
@@ -58,7 +59,9 @@ class OnlineCartModel {
     }
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    item = json['item'] != null ? product_variation.Item.fromJson(json['item']) : null;
+    item = json['item'] != null
+        ? product_variation.Item.fromJson(json['item'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

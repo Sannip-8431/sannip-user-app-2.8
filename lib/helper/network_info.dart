@@ -16,11 +16,13 @@ class NetworkInfo {
 
   static void checkConnectivity(BuildContext context) {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if(Get.find<SplashController>().firstTimeConnectionCheck) {
+      if (Get.find<SplashController>().firstTimeConnectionCheck) {
         Get.find<SplashController>().setFirstTimeConnectionCheck(false);
-      }else {
+      } else {
         bool isNotConnected = result == ConnectivityResult.none;
-        isNotConnected ? const SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        isNotConnected
+            ? const SizedBox()
+            : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
@@ -34,19 +36,25 @@ class NetworkInfo {
   }
 
   static Future<XFile> compressImage(XFile file) async {
-    final ImageFile input = ImageFile(filePath: file.path, rawBytes: await file.readAsBytes());
+    final ImageFile input =
+        ImageFile(filePath: file.path, rawBytes: await file.readAsBytes());
     final Configuration config = Configuration(
       outputType: ImageOutputType.webpThenPng,
       useJpgPngNativeCompressor: false,
-      quality: (input.sizeInBytes/1048576) < 2 ? 90 : (input.sizeInBytes/1048576) < 5
-          ? 50 : (input.sizeInBytes/1048576) < 10 ? 10 : 1,
+      quality: (input.sizeInBytes / 1048576) < 2
+          ? 90
+          : (input.sizeInBytes / 1048576) < 5
+              ? 50
+              : (input.sizeInBytes / 1048576) < 10
+                  ? 10
+                  : 1,
     );
-    final ImageFile output = await compressor.compress(ImageFileConfiguration(input: input, config: config));
-    if(kDebugMode) {
+    final ImageFile output = await compressor
+        .compress(ImageFileConfiguration(input: input, config: config));
+    if (kDebugMode) {
       print('Input size : ${input.sizeInBytes / 1048576}');
       print('Output size : ${output.sizeInBytes / 1048576}');
     }
     return XFile.fromData(output.rawBytes);
   }
-
 }

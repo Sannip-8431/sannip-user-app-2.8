@@ -1,5 +1,4 @@
-
-enum DeepLinkType{
+enum DeepLinkType {
   restaurant,
   cuisine,
   category,
@@ -27,13 +26,12 @@ class DeepLinkBody {
   }
 
   DeepLinkType convertToEnum(String? enumString) {
-    if(enumString == DeepLinkType.restaurant.toString()) {
+    if (enumString == DeepLinkType.restaurant.toString()) {
       return DeepLinkType.restaurant;
-    }else if(enumString == DeepLinkType.cuisine.toString()) {
+    } else if (enumString == DeepLinkType.cuisine.toString()) {
       return DeepLinkType.cuisine;
-    }else{
+    } else {
       return DeepLinkType.category;
     }
   }
-
 }

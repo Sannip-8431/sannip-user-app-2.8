@@ -9,7 +9,10 @@ class PaginatedRideModel {
   PaginatedRideModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'].toString();
-    offset = (json['offset'] != null && json['offset'].toString().trim().isNotEmpty) ? int.parse(json['offset'].toString()) : null;
+    offset =
+        (json['offset'] != null && json['offset'].toString().trim().isNotEmpty)
+            ? int.parse(json['offset'].toString())
+            : null;
     if (json['data'] != null) {
       rides = [];
       json['data'].forEach((v) {
@@ -28,7 +31,6 @@ class PaginatedRideModel {
     }
     return data;
   }
-
 }
 
 class RideRequestModel {
@@ -57,42 +59,46 @@ class RideRequestModel {
   String? createdAt;
   String? updatedAt;
 
-  RideRequestModel(
-      {this.id,
-        this.rideCategory,
-        this.zone,
-        this.rideStatus,
-        this.pickupPoint,
-        this.pickupAddress,
-        this.pickupTime,
-        this.dropoffPoint,
-        this.dropoffAddress,
-        this.dropoffTime,
-        this.estimatedTime,
-        this.estimatedFare,
-        this.estimatedDistance,
-        this.actualTime,
-        this.actualFare,
-        this.actualDistance,
-        this.totalFare,
-        this.tax,
-        this.customerName,
-        this.customerImage,
-        this.otp,
-        this.rider,
-        this.createdAt,
-        this.updatedAt,
-      });
+  RideRequestModel({
+    this.id,
+    this.rideCategory,
+    this.zone,
+    this.rideStatus,
+    this.pickupPoint,
+    this.pickupAddress,
+    this.pickupTime,
+    this.dropoffPoint,
+    this.dropoffAddress,
+    this.dropoffTime,
+    this.estimatedTime,
+    this.estimatedFare,
+    this.estimatedDistance,
+    this.actualTime,
+    this.actualFare,
+    this.actualDistance,
+    this.totalFare,
+    this.tax,
+    this.customerName,
+    this.customerImage,
+    this.otp,
+    this.rider,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   RideRequestModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     rideCategory = json['ride_category'];
     zone = json['zone'];
     rideStatus = json['ride_status'];
-    pickupPoint = json['pickup_point'] != null ? PickupPoint.fromJson(json['pickup_point']) : null;
+    pickupPoint = json['pickup_point'] != null
+        ? PickupPoint.fromJson(json['pickup_point'])
+        : null;
     pickupAddress = json['pickup_address'];
     pickupTime = json['pickup_time'];
-    dropoffPoint = json['dropoff_point'] != null ? PickupPoint.fromJson(json['dropoff_point']) : null;
+    dropoffPoint = json['dropoff_point'] != null
+        ? PickupPoint.fromJson(json['dropoff_point'])
+        : null;
     dropoffAddress = json['dropoff_address'];
     dropoffTime = json['dropoff_time'];
     estimatedTime = json['estimated_time'].toDouble();
@@ -204,39 +210,39 @@ class Rider {
 
   Rider(
       {this.id,
-        this.fName,
-        this.lName,
-        this.phone,
-        this.email,
-        this.identityNumber,
-        this.identityType,
-        this.identityImage,
-        this.image,
-        this.fcmToken,
-        this.zoneId,
-        this.createdAt,
-        this.updatedAt,
-        this.status,
-        this.active,
-        this.earning,
-        this.currentOrders,
-        this.type,
-        this.storeId,
-        this.applicationStatus,
-        this.orderCount,
-        this.assignedOrderCount,
-        this.delivery,
-        this.rideSharing,
-        this.vehicleRegNo,
-        this.vehicleRc,
-        this.vehicleOwnerNoc,
-        this.rideZoneId,
-        this.rideCategoryId,
-        this.avgRating,
-        this.ratingCount,
-        this.lat,
-        this.lng,
-        this.location});
+      this.fName,
+      this.lName,
+      this.phone,
+      this.email,
+      this.identityNumber,
+      this.identityType,
+      this.identityImage,
+      this.image,
+      this.fcmToken,
+      this.zoneId,
+      this.createdAt,
+      this.updatedAt,
+      this.status,
+      this.active,
+      this.earning,
+      this.currentOrders,
+      this.type,
+      this.storeId,
+      this.applicationStatus,
+      this.orderCount,
+      this.assignedOrderCount,
+      this.delivery,
+      this.rideSharing,
+      this.vehicleRegNo,
+      this.vehicleRc,
+      this.vehicleOwnerNoc,
+      this.rideZoneId,
+      this.rideCategoryId,
+      this.avgRating,
+      this.ratingCount,
+      this.lat,
+      this.lng,
+      this.location});
 
   Rider.fromJson(Map<String, dynamic> json) {
     id = json['id'];

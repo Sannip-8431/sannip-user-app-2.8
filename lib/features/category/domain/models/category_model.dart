@@ -1,4 +1,3 @@
-
 class CategoryModel {
   int? _id;
   String? _name;
@@ -9,13 +8,13 @@ class CategoryModel {
   String? _imageFullUrl;
 
   CategoryModel(
-    {int? id,
-    String? name,
-    int? parentId,
-    int? position,
-    String? createdAt,
-    String? updatedAt,
-    String? imageFullUrl}) {
+      {int? id,
+      String? name,
+      int? parentId,
+      int? position,
+      String? createdAt,
+      String? updatedAt,
+      String? imageFullUrl}) {
     _id = id;
     _name = name;
     _parentId = parentId;

@@ -7,7 +7,7 @@ import 'package:sixam_mart/features/payment/domain/models/offline_method_model.d
 
 import '../models/parcel_instruction_model.dart';
 
-abstract class ParcelServiceInterface{
+abstract class ParcelServiceInterface {
   Future<List<ParcelCategoryModel>?> getParcelCategory();
   Future<List<Data>?> getParcelInstruction(int offset);
   Future<WhyChooseModel?> getWhyChooseDetails();

@@ -13,8 +13,7 @@ class CustomHeaderIcon extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(assetIconUnSelected))),
+              fit: BoxFit.fill, image: AssetImage(assetIconUnSelected))),
     );
   }
 }

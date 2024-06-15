@@ -3,7 +3,8 @@ class TimeSlotModel {
   DateTime? startTime;
   DateTime? endTime;
 
-  TimeSlotModel({required this.day, required this.startTime, required this.endTime});
+  TimeSlotModel(
+      {required this.day, required this.startTime, required this.endTime});
 
   TimeSlotModel.fromJson(Map<String, dynamic> json) {
     day = json['day'];

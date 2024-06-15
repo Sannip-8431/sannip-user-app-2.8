@@ -10,22 +10,22 @@ class BrandViewShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+        padding: const EdgeInsets.symmetric(
+            horizontal: Dimensions.paddingSizeDefault),
         child: TitleWidget(
           title: 'brands'.tr,
           onTap: () => null,
         ),
       ),
-
       GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          crossAxisSpacing: 13, mainAxisSpacing: 13,
+          crossAxisSpacing: 13,
+          mainAxisSpacing: 13,
           childAspectRatio: 1.0,
         ),
         itemCount: 8,
@@ -40,7 +40,8 @@ class BrandViewShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
               ),
               child: Container(
-                height: 60, width: 60,
+                height: 60,
+                width: 60,
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
@@ -50,7 +51,6 @@ class BrandViewShimmer extends StatelessWidget {
           );
         },
       ),
-
     ]);
   }
 }

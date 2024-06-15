@@ -18,54 +18,84 @@ class CarCost extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        boxShadow: [BoxShadow(color: Colors.grey[Get.find<ThemeController>().darkTheme ? 800 : 300]!, blurRadius: 5, spreadRadius: 1,)],
+        boxShadow: [
+          BoxShadow(
+            color:
+                Colors.grey[Get.find<ThemeController>().darkTheme ? 800 : 300]!,
+            blurRadius: 5,
+            spreadRadius: 1,
+          )
+        ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeDefault),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Dimensions.paddingSizeSmall,
+          vertical: Dimensions.paddingSizeDefault),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _carInfoItem('per_hour_cost'.tr, Images.hourCost, fareCategory == 'hourly', vehicle.insidePerHourCharge!, vehicle.insidePerKmCharge!),
-          _carInfoItem('per_kilometer_cost'.tr, Images.kmCost, fareCategory == 'per_km', vehicle.outsidePerHourCharge!, vehicle.outsidePerKmCharge!),
+          _carInfoItem(
+              'per_hour_cost'.tr,
+              Images.hourCost,
+              fareCategory == 'hourly',
+              vehicle.insidePerHourCharge!,
+              vehicle.insidePerKmCharge!),
+          _carInfoItem(
+              'per_kilometer_cost'.tr,
+              Images.kmCost,
+              fareCategory == 'per_km',
+              vehicle.outsidePerHourCharge!,
+              vehicle.outsidePerKmCharge!),
         ],
       ),
     );
   }
 
-  Widget _carInfoItem(String title,String iconPath, bool isSelected, double insideCityCost, double outsideCityCost){
+  Widget _carInfoItem(String title, String iconPath, bool isSelected,
+      double insideCityCost, double outsideCityCost) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text(title,style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
+            Text(title,
+                style:
+                    robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
             const SizedBox(width: Dimensions.paddingSizeDefault),
             Image.asset(iconPath, height: 12, width: 12),
           ],
         ),
         const SizedBox(height: Dimensions.paddingSizeDefault),
-
         Text.rich(
           TextSpan(
             style: robotoRegular.copyWith(
               fontSize: Dimensions.fontSizeSmall,
-              color: isSelected ?  Theme.of(Get.context!).primaryColor:Theme.of(Get.context!).textTheme.bodyLarge!.color!.withOpacity(.5),
+              color: isSelected
+                  ? Theme.of(Get.context!).primaryColor
+                  : Theme.of(Get.context!)
+                      .textTheme
+                      .bodyLarge!
+                      .color!
+                      .withOpacity(.5),
             ),
             children: [
               TextSpan(
-                  text: Get.find<SplashController>().configModel!.currencySymbol,
+                  text:
+                      Get.find<SplashController>().configModel!.currencySymbol,
                   style: robotoRegular.copyWith(
                     fontSize: Dimensions.fontSizeSmall,
                   )),
               TextSpan(
-                  text: insideCityCost.toStringAsFixed(Get.find<SplashController>().configModel!.digitAfterDecimalPoint!),
+                  text: insideCityCost.toStringAsFixed(
+                      Get.find<SplashController>()
+                          .configModel!
+                          .digitAfterDecimalPoint!),
                   style: robotoBold.copyWith(
                     fontSize: Dimensions.fontSizeExtraLarge,
                   )),
               TextSpan(
                   text: '/hr',
-                  style: robotoBold.copyWith(
-                      fontSize: Dimensions.fontSizeSmall)),
-
+                  style:
+                      robotoBold.copyWith(fontSize: Dimensions.fontSizeSmall)),
               TextSpan(
                   text: 'inside_city'.tr,
                   style: robotoRegular.copyWith(
@@ -73,32 +103,43 @@ class CarCost extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: Dimensions.paddingSizeDefault,),
-
+        const SizedBox(
+          height: Dimensions.paddingSizeDefault,
+        ),
         Text.rich(
           TextSpan(
             style: robotoRegular.copyWith(
               fontSize: Dimensions.fontSizeSmall,
-              color:Theme.of(Get.context!).textTheme.bodyLarge!.color!.withOpacity(.5),
+              color: Theme.of(Get.context!)
+                  .textTheme
+                  .bodyLarge!
+                  .color!
+                  .withOpacity(.5),
             ),
             children: [
               TextSpan(
-                  text:  Get.find<SplashController>().configModel!.currencySymbol,
-                  style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                  text:
+                      Get.find<SplashController>().configModel!.currencySymbol,
+                  style: robotoRegular.copyWith(
+                      fontSize: Dimensions.fontSizeSmall)),
               TextSpan(
-                  text: outsideCityCost.toStringAsFixed(Get.find<SplashController>().configModel!.digitAfterDecimalPoint!),
-                  style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge)),
+                  text: outsideCityCost.toStringAsFixed(
+                      Get.find<SplashController>()
+                          .configModel!
+                          .digitAfterDecimalPoint!),
+                  style: robotoBold.copyWith(
+                      fontSize: Dimensions.fontSizeExtraLarge)),
               TextSpan(
                   text: '/hr',
-                  style: robotoBold.copyWith(fontSize: Dimensions.fontSizeSmall)),
-
+                  style:
+                      robotoBold.copyWith(fontSize: Dimensions.fontSizeSmall)),
               TextSpan(
                   text: 'outside_city'.tr,
-                  style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                  style: robotoRegular.copyWith(
+                      fontSize: Dimensions.fontSizeSmall)),
             ],
           ),
         ),
-
       ],
     );
   }

@@ -11,7 +11,7 @@ enum RiderType {
   rating,
 }
 
-enum CarType{
+enum CarType {
   luxury,
   standard,
 }

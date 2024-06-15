@@ -34,10 +34,15 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     bool firstTime = true;
-    _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if(!firstTime) {
-        bool isNotConnected = result != ConnectivityResult.wifi && result != ConnectivityResult.mobile;
-        isNotConnected ? const SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    _onConnectivityChanged = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (!firstTime) {
+        bool isNotConnected = result != ConnectivityResult.wifi &&
+            result != ConnectivityResult.mobile;
+        isNotConnected
+            ? const SizedBox()
+            : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
@@ -46,7 +51,7 @@ class SplashScreenState extends State<SplashScreen> {
             textAlign: TextAlign.center,
           ),
         ));
-        if(!isNotConnected) {
+        if (!isNotConnected) {
           _route();
         }
       }
@@ -54,11 +59,11 @@ class SplashScreenState extends State<SplashScreen> {
     });
 
     Get.find<SplashController>().initSharedData();
-    if((AuthHelper.getGuestId().isNotEmpty || AuthHelper.isLoggedIn()) && Get.find<SplashController>().cacheModule != null) {
+    if ((AuthHelper.getGuestId().isNotEmpty || AuthHelper.isLoggedIn()) &&
+        Get.find<SplashController>().cacheModule != null) {
       Get.find<CartController>().getCartDataOnline();
     }
     _route();
-
   }
 
   @override
@@ -70,52 +75,68 @@ class SplashScreenState extends State<SplashScreen> {
 
   void _route() {
     Get.find<SplashController>().getConfigData().then((isSuccess) {
-      if(isSuccess) {
+      if (isSuccess) {
         Timer(const Duration(seconds: 1), () async {
           double? minimumVersion = 0;
-          if(GetPlatform.isAndroid) {
-            minimumVersion = Get.find<SplashController>().configModel!.appMinimumVersionAndroid;
-          }else if(GetPlatform.isIOS) {
-            minimumVersion = Get.find<SplashController>().configModel!.appMinimumVersionIos;
+          if (GetPlatform.isAndroid) {
+            minimumVersion = Get.find<SplashController>()
+                .configModel!
+                .appMinimumVersionAndroid;
+          } else if (GetPlatform.isIOS) {
+            minimumVersion =
+                Get.find<SplashController>().configModel!.appMinimumVersionIos;
           }
-          if(AppConstants.appVersion < minimumVersion! || Get.find<SplashController>().configModel!.maintenanceMode!) {
-            Get.offNamed(RouteHelper.getUpdateRoute(AppConstants.appVersion < minimumVersion));
-          }else {
-            if(widget.body != null) {
+          if (AppConstants.appVersion < minimumVersion! ||
+              Get.find<SplashController>().configModel!.maintenanceMode!) {
+            Get.offNamed(RouteHelper.getUpdateRoute(
+                AppConstants.appVersion < minimumVersion));
+          } else {
+            if (widget.body != null) {
               if (widget.body!.notificationType == NotificationType.order) {
-                Get.offNamed(RouteHelper.getOrderDetailsRoute(widget.body!.orderId, fromNotification: true));
-              }else if(widget.body!.notificationType == NotificationType.general){
-                Get.offNamed(RouteHelper.getNotificationRoute(fromNotification: true));
-              }else {
-                Get.offNamed(RouteHelper.getChatRoute(notificationBody: widget.body, conversationID: widget.body!.conversationId, fromNotification: true));
+                Get.offNamed(RouteHelper.getOrderDetailsRoute(
+                    widget.body!.orderId,
+                    fromNotification: true));
+              } else if (widget.body!.notificationType ==
+                  NotificationType.general) {
+                Get.offNamed(
+                    RouteHelper.getNotificationRoute(fromNotification: true));
+              } else {
+                Get.offNamed(RouteHelper.getChatRoute(
+                    notificationBody: widget.body,
+                    conversationID: widget.body!.conversationId,
+                    fromNotification: true));
               }
-            }else {
+            } else {
               if (AuthHelper.isLoggedIn()) {
                 Get.find<AuthController>().updateToken();
                 if (AddressHelper.getUserAddressFromSharedPref() != null) {
-                  if(Get.find<SplashController>().module != null) {
+                  if (Get.find<SplashController>().module != null) {
                     await Get.find<FavouriteController>().getFavouriteList();
                   }
                   Get.offNamed(RouteHelper.getInitialRoute(fromSplash: true));
                 } else {
-                  Get.find<LocationController>().navigateToLocationScreen('splash', offNamed: true);
+                  Get.find<LocationController>()
+                      .navigateToLocationScreen('splash', offNamed: true);
                 }
               } else {
                 if (Get.find<SplashController>().showIntro()!) {
-                  if(AppConstants.languages.length > 1) {
+                  if (AppConstants.languages.length > 1) {
                     Get.offNamed(RouteHelper.getLanguageRoute('splash'));
-                  }else {
+                  } else {
                     Get.offNamed(RouteHelper.getOnBoardingRoute());
                   }
                 } else {
-                  if(AuthHelper.isGuestLoggedIn()) {
+                  if (AuthHelper.isGuestLoggedIn()) {
                     if (AddressHelper.getUserAddressFromSharedPref() != null) {
-                      Get.offNamed(RouteHelper.getInitialRoute(fromSplash: true));
+                      Get.offNamed(
+                          RouteHelper.getInitialRoute(fromSplash: true));
                     } else {
-                      Get.find<LocationController>().navigateToLocationScreen('splash', offNamed: true);
+                      Get.find<LocationController>()
+                          .navigateToLocationScreen('splash', offNamed: true);
                     }
                   } else {
-                    Get.offNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
+                    Get.offNamed(
+                        RouteHelper.getSignInRoute(RouteHelper.splash));
                   }
                 }
               }
@@ -129,7 +150,8 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Get.find<SplashController>().initSharedData();
-    if(AddressHelper.getUserAddressFromSharedPref() != null && AddressHelper.getUserAddressFromSharedPref()!.zoneIds == null) {
+    if (AddressHelper.getUserAddressFromSharedPref() != null &&
+        AddressHelper.getUserAddressFromSharedPref()!.zoneIds == null) {
       Get.find<AuthController>().clearSharedAddress();
     }
 
@@ -137,14 +159,16 @@ class SplashScreenState extends State<SplashScreen> {
       key: _globalKey,
       body: GetBuilder<SplashController>(builder: (splashController) {
         return Center(
-          child: splashController.hasConnection ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(Images.logo, width: 200),
-              const SizedBox(height: Dimensions.paddingSizeSmall),
-              // Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),
-            ],
-          ) : NoInternetScreen(child: SplashScreen(body: widget.body)),
+          child: splashController.hasConnection
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(Images.logo, width: 200),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                    // Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),
+                  ],
+                )
+              : NoInternetScreen(child: SplashScreen(body: widget.body)),
         );
       }),
     );

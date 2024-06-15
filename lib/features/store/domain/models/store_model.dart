@@ -11,7 +11,10 @@ class StoreModel {
   StoreModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'].toString();
-    offset = (json['offset'] != null && json['offset'].toString().trim().isNotEmpty) ? int.parse(json['offset'].toString()) : null;
+    offset =
+        (json['offset'] != null && json['offset'].toString().trim().isNotEmpty)
+            ? int.parse(json['offset'].toString())
+            : null;
     if (json['stores'] != null) {
       stores = [];
       json['stores'].forEach((v) {
@@ -144,7 +147,8 @@ class Store {
     latitude = json['latitude'];
     longitude = json['longitude'];
     address = json['address'];
-    minimumOrder = json['minimum_order'] == null ? 0 : json['minimum_order']?.toDouble();
+    minimumOrder =
+        json['minimum_order'] == null ? 0 : json['minimum_order']?.toDouble();
     currency = json['currency'];
     freeDelivery = json['free_delivery'];
     coverPhotoFullUrl = json['cover_photo_full_url'] ?? '';
@@ -159,7 +163,9 @@ class Store {
     minimumShippingCharge = json['minimum_shipping_charge']?.toDouble();
     maximumShippingCharge = /*(json['maximum_shipping_charge'] != null && json['maximum_shipping_charge'] == 0) ? null : */
         json['maximum_shipping_charge']?.toDouble();
-    perKmShippingCharge = json['per_km_shipping_charge'] != null ? json['per_km_shipping_charge'].toDouble() : 0;
+    perKmShippingCharge = json['per_km_shipping_charge'] != null
+        ? json['per_km_shipping_charge'].toDouble()
+        : 0;
     open = json['open'];
     active = json['active'];
     featured = int.parse(json['featured'].toString());
@@ -169,8 +175,10 @@ class Store {
     nonVeg = json['non_veg'];
     moduleId = json['module_id'];
     orderPlaceToScheduleInterval = json['order_place_to_schedule_interval'];
-    categoryIds = json['category_ids'] != null ? json['category_ids'].cast<int>() : [];
-    discount = json['discount'] != null ? Discount.fromJson(json['discount']) : null;
+    categoryIds =
+        json['category_ids'] != null ? json['category_ids'].cast<int>() : [];
+    discount =
+        json['discount'] != null ? Discount.fromJson(json['discount']) : null;
     if (json['schedules'] != null) {
       schedules = <Schedules>[];
       json['schedules'].forEach((v) {
@@ -199,7 +207,9 @@ class Store {
       });
     }
     reviewsCommentsCount = json['reviews_comments_count'];
-    storeSubscription = json['store_sub'] != null ? StoreSubscription.fromJson(json['store_sub']) : null;
+    storeSubscription = json['store_sub'] != null
+        ? StoreSubscription.fromJson(json['store_sub'])
+        : null;
     storeBusinessModel = json['store_business_model'];
   }
 

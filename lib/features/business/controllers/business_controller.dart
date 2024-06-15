@@ -36,63 +36,82 @@ class BusinessController extends GetxController implements GetxService {
   //   _isFirstTime = !_isFirstTime;
   // }
 
-  void resetBusiness(){
-    _businessIndex = Get.find<SplashController>().configModel!.commissionBusinessModel == 0 ? 1 : 0;
+  void resetBusiness() {
+    _businessIndex =
+        Get.find<SplashController>().configModel!.commissionBusinessModel == 0
+            ? 1
+            : 0;
     _activeSubscriptionIndex = 0;
     _businessPlanStatus = 'business';
     // _isFirstTime = true;
-    _paymentIndex = Get.find<SplashController>().configModel!.subscriptionFreeTrialStatus??false ? 1 : 0;
+    _paymentIndex =
+        Get.find<SplashController>().configModel!.subscriptionFreeTrialStatus ??
+                false
+            ? 1
+            : 0;
   }
 
   Future<void> getPackageList({bool isUpdate = true}) async {
     _packageModel = await businessServiceInterface.getPackageList();
-    if(isUpdate) {
+    if (isUpdate) {
       update();
     }
   }
 
-  void changeDigitalPaymentName(String? name, {bool canUpdate = true}){
+  void changeDigitalPaymentName(String? name, {bool canUpdate = true}) {
     _digitalPaymentName = name;
-    if(canUpdate) {
+    if (canUpdate) {
       update();
     }
   }
 
-  void setPaymentIndex(int index){
+  void setPaymentIndex(int index) {
     _paymentIndex = index;
     update();
   }
 
-  void setBusiness(int business){
+  void setBusiness(int business) {
     _activeSubscriptionIndex = 0;
     _businessIndex = business;
     update();
   }
 
-  void setBusinessStatus(String status){
+  void setBusinessStatus(String status) {
     _businessPlanStatus = status;
     update();
   }
 
-  void selectSubscriptionCard(int index){
+  void selectSubscriptionCard(int index) {
     _activeSubscriptionIndex = index;
     update();
   }
 
-  Future<void> submitBusinessPlan({required int storeId, required int? packageId})async {
+  Future<void> submitBusinessPlan(
+      {required int storeId, required int? packageId}) async {
     _isLoading = true;
     update();
 
-    if(packageId != null) {
+    if (packageId != null) {
       _businessPlanStatus = 'payment';
-      _businessPlanStatus = await businessServiceInterface.processesBusinessPlan(_businessPlanStatus, _paymentIndex, storeId, _packageModel, _digitalPaymentName, packageId);
+      _businessPlanStatus =
+          await businessServiceInterface.processesBusinessPlan(
+              _businessPlanStatus,
+              _paymentIndex,
+              storeId,
+              _packageModel,
+              _digitalPaymentName,
+              packageId);
     } else {
       String businessPlan = 'commission';
-      await businessServiceInterface.setUpBusinessPlan(BusinessPlanBody(businessPlan: businessPlan, storeId: storeId.toString()), _digitalPaymentName, businessPlanStatus, storeId);
+      await businessServiceInterface.setUpBusinessPlan(
+          BusinessPlanBody(
+              businessPlan: businessPlan, storeId: storeId.toString()),
+          _digitalPaymentName,
+          businessPlanStatus,
+          storeId);
     }
 
     _isLoading = false;
     update();
   }
-
 }

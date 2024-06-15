@@ -1,4 +1,3 @@
-
 import 'package:sixam_mart/features/item/domain/models/item_model.dart';
 
 class RecommendedItemModel {

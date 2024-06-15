@@ -23,17 +23,18 @@ class BrandsController extends GetxController implements GetxService {
   }
 
   Future<void> getBrandItemList(int brandId, int offset, bool notify) async {
-    if(offset == 1 || _brandItemModel == null) {
+    if (offset == 1 || _brandItemModel == null) {
       _brandItemModel = null;
-      if(notify) {
+      if (notify) {
         update();
       }
     }
-    ItemModel? brandItemModel = await brandsServiceInterface.getBrandItemList(brandId: brandId, offset: offset);
+    ItemModel? brandItemModel = await brandsServiceInterface.getBrandItemList(
+        brandId: brandId, offset: offset);
     if (brandItemModel != null) {
       if (offset == 1) {
         _brandItemModel = brandItemModel;
-      }else {
+      } else {
         _brandItemModel!.items!.addAll(brandItemModel.items!);
         _brandItemModel!.totalSize = brandItemModel.totalSize;
         _brandItemModel!.offset = brandItemModel.offset;
@@ -41,5 +42,4 @@ class BrandsController extends GetxController implements GetxService {
     }
     update();
   }
-
 }

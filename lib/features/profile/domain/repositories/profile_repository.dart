@@ -21,7 +21,8 @@ class ProfileRepository implements ProfileRepositoryInterface {
   }
 
   @override
-  Future<ResponseModel> updateProfile(UserInfoModel userInfoModel, XFile? data, String token) async {
+  Future<ResponseModel> updateProfile(
+      UserInfoModel userInfoModel, XFile? data, String token) async {
     ResponseModel responseModel;
     Map<String, String> body = {
       'f_name': userInfoModel.fName!,
@@ -29,7 +30,9 @@ class ProfileRepository implements ProfileRepositoryInterface {
       'email': userInfoModel.email!,
     };
 
-    Response response = await apiClient.postMultipartData(AppConstants.updateProfileUri, body, [MultipartBody('image', data)], handleError: false);
+    Response response = await apiClient.postMultipartData(
+        AppConstants.updateProfileUri, body, [MultipartBody('image', data)],
+        handleError: false);
     if (response.statusCode == 200) {
       responseModel = ResponseModel(true, response.bodyString);
     } else {
@@ -47,7 +50,8 @@ class ProfileRepository implements ProfileRepositoryInterface {
       'email': userInfoModel.email,
       'password': userInfoModel.password,
     };
-    Response response = await apiClient.postData(AppConstants.updateProfileUri, body, handleError: false);
+    Response response = await apiClient
+        .postData(AppConstants.updateProfileUri, body, handleError: false);
     if (response.statusCode == 200) {
       responseModel = ResponseModel(true, response.body["message"]);
     } else {
@@ -59,9 +63,11 @@ class ProfileRepository implements ProfileRepositoryInterface {
   @override
   Future<ResponseModel> delete(int? id) async {
     ResponseModel responseModel;
-    Response response = await apiClient.deleteData(AppConstants.customerRemoveUri, handleError: false);
+    Response response = await apiClient
+        .deleteData(AppConstants.customerRemoveUri, handleError: false);
     if (response.statusCode == 200) {
-      responseModel = ResponseModel(true, 'your_account_remove_successfully'.tr);
+      responseModel =
+          ResponseModel(true, 'your_account_remove_successfully'.tr);
     } else {
       responseModel = ResponseModel(false, response.statusText);
     }
@@ -82,5 +88,4 @@ class ProfileRepository implements ProfileRepositoryInterface {
   Future update(Map<String, dynamic> body, int? id) {
     throw UnimplementedError();
   }
-  
 }

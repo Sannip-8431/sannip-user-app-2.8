@@ -17,20 +17,20 @@ class CashBackModel {
 
   CashBackModel(
       {this.id,
-        this.title,
-        this.customerId,
-        this.cashbackType,
-        this.sameUserLimit,
-        this.totalUsed,
-        this.cashbackAmount,
-        this.minPurchase,
-        this.maxDiscount,
-        this.startDate,
-        this.endDate,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.translations});
+      this.title,
+      this.customerId,
+      this.cashbackType,
+      this.sameUserLimit,
+      this.totalUsed,
+      this.cashbackAmount,
+      this.minPurchase,
+      this.maxDiscount,
+      this.startDate,
+      this.endDate,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.translations});
 
   CashBackModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -90,13 +90,13 @@ class Translations {
 
   Translations(
       {this.id,
-        this.translationableType,
-        this.translationableId,
-        this.locale,
-        this.key,
-        this.value,
-        this.createdAt,
-        this.updatedAt});
+      this.translationableType,
+      this.translationableId,
+      this.locale,
+      this.key,
+      this.value,
+      this.createdAt,
+      this.updatedAt});
 
   Translations.fromJson(Map<String, dynamic> json) {
     id = json['id'];

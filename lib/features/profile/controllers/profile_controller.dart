@@ -41,10 +41,12 @@ class ProfileController extends GetxController implements GetxService {
     _userInfoModel = null;
   }
 
-  Future<ResponseModel> updateUserInfo(UserInfoModel updateUserModel, String token) async {
+  Future<ResponseModel> updateUserInfo(
+      UserInfoModel updateUserModel, String token) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await profileServiceInterface.updateProfile(updateUserModel, _pickedFile, token);
+    ResponseModel responseModel = await profileServiceInterface.updateProfile(
+        updateUserModel, _pickedFile, token);
     _isLoading = false;
     if (responseModel.isSuccess) {
       Get.back();
@@ -62,7 +64,8 @@ class ProfileController extends GetxController implements GetxService {
   Future<ResponseModel> changePassword(UserInfoModel updatedUserModel) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await profileServiceInterface.changePassword(updatedUserModel);
+    ResponseModel responseModel =
+        await profileServiceInterface.changePassword(updatedUserModel);
     _isLoading = false;
     if (responseModel.isSuccess) {
       responseModel = ResponseModel(true, responseModel.message);
@@ -79,7 +82,7 @@ class ProfileController extends GetxController implements GetxService {
 
   void pickImage() async {
     _pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(_pickedFile != null) {
+    if (_pickedFile != null) {
       _pickedFile = await NetworkInfo.compressImage(_pickedFile!);
       _rawFile = await _pickedFile!.readAsBytes();
     }
@@ -89,7 +92,7 @@ class ProfileController extends GetxController implements GetxService {
   void initData({bool isUpdate = false}) {
     _pickedFile = null;
     _rawFile = null;
-    if(isUpdate){
+    if (isUpdate) {
       update();
     }
   }
@@ -104,7 +107,7 @@ class ProfileController extends GetxController implements GetxService {
       Get.find<AuthController>().clearSharedData();
       Get.find<FavouriteController>().removeFavourite();
       Get.offAllNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
-    }else{
+    } else {
       Get.back();
       showCustomSnackBar(responseModel.message, isError: true);
     }
@@ -114,5 +117,4 @@ class ProfileController extends GetxController implements GetxService {
     _userInfoModel = null;
     update();
   }
-
 }

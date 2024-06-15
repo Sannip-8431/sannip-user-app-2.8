@@ -11,7 +11,9 @@ class TextFieldShadow extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
         color: Theme.of(context).cardColor,
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+        ],
       ),
       child: child,
     );

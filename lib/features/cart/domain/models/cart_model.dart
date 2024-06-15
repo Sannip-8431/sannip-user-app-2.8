@@ -17,20 +17,20 @@ class CartModel {
   bool? _isLoading;
 
   CartModel(
-    int? id,
-    double? price,
-    double discountedPrice,
-    List<Variation> variation,
-    List<List<bool?>> foodVariations,
-    double discountAmount,
-    int? quantity,
-    List<AddOn> addOnIds,
-    List<AddOns> addOns,
-    bool isCampaign,
-    int? stock,
-    Item? item,
-    int? quantityLimit,
-    {bool isLoading = false}) {
+      int? id,
+      double? price,
+      double discountedPrice,
+      List<Variation> variation,
+      List<List<bool?>> foodVariations,
+      double discountAmount,
+      int? quantity,
+      List<AddOn> addOnIds,
+      List<AddOns> addOns,
+      bool isCampaign,
+      int? stock,
+      Item? item,
+      int? quantityLimit,
+      {bool isLoading = false}) {
     _id = id;
     _price = price;
     _discountedPrice = discountedPrice;

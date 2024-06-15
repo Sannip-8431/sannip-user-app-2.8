@@ -1,4 +1,3 @@
-
 class LandingModel {
   String? fixedHeaderTitle;
   String? fixedHeaderSubTitle;
@@ -66,7 +65,9 @@ class LandingModel {
         specialCriterias!.add(SpecialCriterias.fromJson(v));
       });
     }
-    downloadUserAppLinks = json['download_user_app_links'] != null ? DownloadUserAppLinks.fromJson(json['download_user_app_links']) : null;
+    downloadUserAppLinks = json['download_user_app_links'] != null
+        ? DownloadUserAppLinks.fromJson(json['download_user_app_links'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -89,7 +90,8 @@ class LandingModel {
     data['download_user_app_sub_title'] = downloadUserAppSubTitle;
     data['download_user_app_image_full_url'] = downloadUserAppImageFullUrl;
     if (specialCriterias != null) {
-      data['special_criterias'] = specialCriterias!.map((v) => v.toJson()).toList();
+      data['special_criterias'] =
+          specialCriterias!.map((v) => v.toJson()).toList();
     }
     if (downloadUserAppLinks != null) {
       data['download_user_app_links'] = downloadUserAppLinks!.toJson();

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ScaledList extends StatefulWidget {
-  const ScaledList({super.key,
+  const ScaledList({
+    super.key,
     required this.itemBuilder,
     required this.itemCount,
     required this.itemColor,
@@ -12,9 +13,9 @@ class ScaledList extends StatefulWidget {
     this.selectedCardHeightRatio = 0.4,
     this.unSelectedCardHeightRatio = 0.3,
   })  : assert(cardWidthRatio + marginWidthRatio >= 0.5,
-  " Card width + margin width should exceed 0.5 of the screen"),
+            " Card width + margin width should exceed 0.5 of the screen"),
         assert(selectedCardHeightRatio > unSelectedCardHeightRatio,
-        " selectedCardHeight should alwayes excceed the unSelectedCardHeight to show desire effect");
+            " selectedCardHeight should alwayes excceed the unSelectedCardHeight to show desire effect");
 
   final Widget Function(int index, int selectedIndex) itemBuilder;
 
@@ -117,9 +118,9 @@ class ScaledListState extends State<ScaledList> {
                                   width: parentWidth * widget.cardWidthRatio,
                                   height: _selectedIndex == index
                                       ? widget.selectedCardHeightRatio *
-                                      parentHeight!
+                                          parentHeight!
                                       : widget.unSelectedCardHeightRatio *
-                                      parentHeight!,
+                                          parentHeight!,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.white,
@@ -129,7 +130,7 @@ class ScaledListState extends State<ScaledList> {
                             ),
                             Positioned.fill(
                                 child:
-                                widget.itemBuilder(index, _selectedIndex))
+                                    widget.itemBuilder(index, _selectedIndex))
                           ],
                         ),
                         const SizedBox(width: 15)

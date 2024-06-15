@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 class FavItemViewWidget extends StatelessWidget {
   final bool isStore;
   final bool isSearch;
-  const FavItemViewWidget({super.key, required this.isStore, this.isSearch = false});
+  const FavItemViewWidget(
+      {super.key, required this.isStore, this.isSearch = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,14 @@ class FavItemViewWidget extends StatelessWidget {
               child: SizedBox(
                 width: Dimensions.webMaxWidth,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: ResponsiveHelper.isDesktop(context) ? 0 : 80.0),
+                  padding: EdgeInsets.only(
+                      bottom: ResponsiveHelper.isDesktop(context) ? 0 : 80.0),
                   child: ItemsView(
-                    isStore: isStore, items: favouriteController.wishItemList, stores: favouriteController.wishStoreList,
-                    noDataText: 'no_wish_data_found'.tr, isFeatured: true,
+                    isStore: isStore,
+                    items: favouriteController.wishItemList,
+                    stores: favouriteController.wishStoreList,
+                    noDataText: 'no_wish_data_found'.tr,
+                    isFeatured: true,
                   ),
                 ),
               ),

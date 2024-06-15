@@ -9,20 +9,20 @@ import 'package:sixam_mart/helper/auth_helper.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CartRepo{
+class CartRepo {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   CartRepo({required this.apiClient, required this.sharedPreferences});
 
   List<CartModel> getCartList() {
     List<String> carts = [];
-    if(sharedPreferences.containsKey(AppConstants.cartList)) {
+    if (sharedPreferences.containsKey(AppConstants.cartList)) {
       carts = sharedPreferences.getStringList(AppConstants.cartList) ?? [];
     }
     List<CartModel> cartList = [];
     for (String cart in carts) {
       CartModel cartModel = CartModel.fromJson(jsonDecode(cart));
-      if((cartModel.item?.moduleId ?? 0) == getModuleId()) {
+      if ((cartModel.item?.moduleId ?? 0) == getModuleId()) {
         cartList.add(cartModel);
       }
     }
@@ -31,49 +31,60 @@ class CartRepo{
 
   Future<void> addToCartList(List<CartModel> cartProductList) async {
     List<String> carts = [];
-    if(sharedPreferences.containsKey(AppConstants.cartList)) {
+    if (sharedPreferences.containsKey(AppConstants.cartList)) {
       carts = sharedPreferences.getStringList(AppConstants.cartList) ?? [];
     }
     List<String> cartStringList = [];
-    for(String cartString in carts) {
+    for (String cartString in carts) {
       CartModel cartModel = CartModel.fromJson(jsonDecode(cartString));
-      if(cartModel.item!.moduleId != getModuleId()) {
+      if (cartModel.item!.moduleId != getModuleId()) {
         cartStringList.add(cartString);
       }
     }
-    for(CartModel cartModel in cartProductList) {
+    for (CartModel cartModel in cartProductList) {
       cartStringList.add(jsonEncode(cartModel.toJson()));
     }
-    await sharedPreferences.setStringList(AppConstants.cartList, cartStringList);
+    await sharedPreferences.setStringList(
+        AppConstants.cartList, cartStringList);
   }
 
   int getModuleId() {
-    return Get.find<SplashController>().module?.id ?? Get.find<SplashController>().cacheModule?.id ?? 0;
+    return Get.find<SplashController>().module?.id ??
+        Get.find<SplashController>().cacheModule?.id ??
+        0;
   }
 
   Future<Response> addToCartOnline(OnlineCart cart) async {
-    return apiClient.postData('${AppConstants.addCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}', cart.toJson());
+    return apiClient.postData(
+        '${AppConstants.addCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}',
+        cart.toJson());
   }
 
   Future<Response> updateCartOnline(OnlineCart cart) async {
-    return apiClient.postData('${AppConstants.updateCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}', cart.toJson());
+    return apiClient.postData(
+        '${AppConstants.updateCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}',
+        cart.toJson());
   }
 
-  Future<Response> updateCartQuantityOnline(int cartId, double price, int quantity) async {
+  Future<Response> updateCartQuantityOnline(
+      int cartId, double price, int quantity) async {
     Map<String, dynamic> data = {
       "cart_id": cartId,
       "price": price,
       "quantity": quantity,
     };
-    return apiClient.postData('${AppConstants.updateCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}', data);
+    return apiClient.postData(
+        '${AppConstants.updateCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}',
+        data);
   }
 
   Future<Response> getCartDataOnline() async {
-    Map<String, String>? header ={
+    Map<String, String>? header = {
       'Content-Type': 'application/json; charset=UTF-8',
       AppConstants.localizationKey: AppConstants.languages[0].languageCode!,
       AppConstants.moduleId: '${Get.find<SplashController>().getCacheModule()}',
-      'Authorization': 'Bearer ${sharedPreferences.getString(AppConstants.token)}'
+      'Authorization':
+          'Bearer ${sharedPreferences.getString(AppConstants.token)}'
     };
 
     return apiClient.getData(
@@ -83,11 +94,12 @@ class CartRepo{
   }
 
   Future<Response> removeCartItemOnline(int cartId, String? guestId) async {
-    return apiClient.deleteData('${AppConstants.removeItemCartUri}?cart_id=$cartId${guestId != null ? '&guest_id=$guestId' : ''}');
+    return apiClient.deleteData(
+        '${AppConstants.removeItemCartUri}?cart_id=$cartId${guestId != null ? '&guest_id=$guestId' : ''}');
   }
 
   Future<Response> clearCartOnline() async {
-    return apiClient.deleteData('${AppConstants.removeAllCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}');
+    return apiClient.deleteData(
+        '${AppConstants.removeAllCartUri}${!AuthHelper.isLoggedIn() ? '?guest_id=${AuthHelper.getGuestId()}' : ''}');
   }
-
 }

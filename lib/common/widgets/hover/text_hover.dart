@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextHover extends StatefulWidget {
   final Widget Function(bool isHovered) builder;
-  const TextHover({super.key,required this.builder});
+  const TextHover({super.key, required this.builder});
 
   @override
   State<TextHover> createState() => _TextHoverState();
@@ -28,5 +28,4 @@ class _TextHoverState extends State<TextHover> {
       this.isHovered = isHovered;
     });
   }
-
 }

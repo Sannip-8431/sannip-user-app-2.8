@@ -13,16 +13,14 @@ class ReviewService implements ReviewServiceInterface {
     return await reviewRepositoryInterface.getList(storeID: storeID);
   }
 
-
   @override
   Future<ResponseModel> submitReview(ReviewBodyModel reviewBody) async {
     return await reviewRepositoryInterface.submitReview(reviewBody);
   }
 
   @override
-  Future<ResponseModel> submitDeliveryManReview(ReviewBodyModel reviewBody) async {
+  Future<ResponseModel> submitDeliveryManReview(
+      ReviewBodyModel reviewBody) async {
     return await reviewRepositoryInterface.submitDeliveryManReview(reviewBody);
   }
-
-
 }

@@ -27,7 +27,6 @@ class HomeController extends GetxController implements GetxService {
   //   }
   // }
 
-
   Future<void> getCashBackOfferList() async {
     _cashBackOfferList = null;
     _cashBackOfferList = await homeServiceInterface.getCashBackOfferList();
@@ -45,14 +44,15 @@ class HomeController extends GetxController implements GetxService {
   }*/
 
   Future<void> getCashBackData(double amount) async {
-    CashBackModel? cashBackModel = await homeServiceInterface.getCashBackData(amount);
-    if(cashBackModel != null) {
+    CashBackModel? cashBackModel =
+        await homeServiceInterface.getCashBackData(amount);
+    if (cashBackModel != null) {
       _cashBackData = cashBackModel;
     }
     update();
   }
 
-  void changeFavVisibility(){
+  void changeFavVisibility() {
     _showFavButton = !_showFavButton;
     update();
   }
@@ -72,5 +72,4 @@ class HomeController extends GetxController implements GetxService {
   bool getIsStoreRegistrationSharedPref() {
     return homeServiceInterface.getIsRestaurantRegistration();
   }
-
 }

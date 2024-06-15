@@ -11,33 +11,40 @@ class ChatService implements ChatServiceInterface {
   ChatService({required this.chatRepositoryInterface});
 
   @override
-  Future<ConversationsModel?> getConversationList(int offset, String type) async {
-    return await chatRepositoryInterface.getList(offset: offset, conversationList: true, type: type);
+  Future<ConversationsModel?> getConversationList(
+      int offset, String type) async {
+    return await chatRepositoryInterface.getList(
+        offset: offset, conversationList: true, type: type);
   }
 
   @override
   Future<ConversationsModel?> searchConversationList(String name) async {
-    return await chatRepositoryInterface.getList(searchConversationalList: true, name: name);
+    return await chatRepositoryInterface.getList(
+        searchConversationalList: true, name: name);
   }
 
   @override
-  Future<Response> getMessages(int offset, int? userID, String userType, int? conversationID) async {
-    return await chatRepositoryInterface.getMessages(offset, userID, userType, conversationID);
+  Future<Response> getMessages(
+      int offset, int? userID, String userType, int? conversationID) async {
+    return await chatRepositoryInterface.getMessages(
+        offset, userID, userType, conversationID);
   }
 
   @override
-  Future<Response> sendMessage(String message, List<MultipartBody> images, int? userID, String userType, int? conversationID) async {
-    return await chatRepositoryInterface.sendMessage(message, images, userID, userType, conversationID);
+  Future<Response> sendMessage(String message, List<MultipartBody> images,
+      int? userID, String userType, int? conversationID) async {
+    return await chatRepositoryInterface.sendMessage(
+        message, images, userID, userType, conversationID);
   }
 
   @override
   int setIndex(List<Conversation?>? conversations) {
     int index0 = -1;
-    for(int index = 0; index<conversations!.length; index++) {
-      if(conversations[index]!.receiverType == UserType.admin.name) {
+    for (int index = 0; index < conversations!.length; index++) {
+      if (conversations[index]!.receiverType == UserType.admin.name) {
         index0 = index;
         break;
-      }else if(conversations[index]!.receiverType == UserType.admin.name) {
+      } else if (conversations[index]!.receiverType == UserType.admin.name) {
         index0 = index;
         break;
       }
@@ -48,11 +55,11 @@ class ChatService implements ChatServiceInterface {
   @override
   bool checkSender(List<Conversation?>? conversations) {
     bool sender = false;
-    for(int index = 0; index<conversations!.length; index++) {
-      if(conversations[index]!.receiverType == UserType.admin.name) {
+    for (int index = 0; index < conversations!.length; index++) {
+      if (conversations[index]!.receiverType == UserType.admin.name) {
         sender = false;
         break;
-      }else if(conversations[index]!.receiverType == UserType.admin.name) {
+      } else if (conversations[index]!.receiverType == UserType.admin.name) {
         sender = true;
         break;
       }
@@ -61,10 +68,11 @@ class ChatService implements ChatServiceInterface {
   }
 
   @override
-  int findOutConversationUnreadIndex(List<Conversation?>? conversations, int? conversationID) {
+  int findOutConversationUnreadIndex(
+      List<Conversation?>? conversations, int? conversationID) {
     int index0 = -1;
-    for(int index = 0; index<conversations!.length; index++) {
-      if(conversationID == conversations[index]!.id) {
+    for (int index = 0; index < conversations!.length; index++) {
+      if (conversationID == conversations[index]!.id) {
         index0 = index;
         break;
       }
@@ -74,13 +82,21 @@ class ChatService implements ChatServiceInterface {
 
   @override
   Future<XFile> compressImage(XFile file) async {
-    final ImageFile input = ImageFile(filePath: file.path, rawBytes: await file.readAsBytes());
+    final ImageFile input =
+        ImageFile(filePath: file.path, rawBytes: await file.readAsBytes());
     final Configuration config = Configuration(
       outputType: ImageOutputType.webpThenPng,
       useJpgPngNativeCompressor: false,
-      quality: (input.sizeInBytes/1048576) < 2 ? 50 : (input.sizeInBytes/1048576) < 5 ? 30 : (input.sizeInBytes/1048576) < 10 ? 2 : 1,
+      quality: (input.sizeInBytes / 1048576) < 2
+          ? 50
+          : (input.sizeInBytes / 1048576) < 5
+              ? 30
+              : (input.sizeInBytes / 1048576) < 10
+                  ? 2
+                  : 1,
     );
-    final ImageFile output = await compressor.compress(ImageFileConfiguration(input: input, config: config));
+    final ImageFile output = await compressor
+        .compress(ImageFileConfiguration(input: input, config: config));
     return XFile.fromData(output.rawBytes);
   }
 
@@ -92,5 +108,4 @@ class ChatService implements ChatServiceInterface {
     }
     return multipartImages;
   }
-
 }

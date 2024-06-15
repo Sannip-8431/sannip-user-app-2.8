@@ -9,13 +9,16 @@ class WalletService implements WalletServiceInterface {
   WalletService({required this.walletRepositoryInterface});
 
   @override
-  Future<TransactionModel?> getWalletTransactionList(String offset, String sortingType) async {
-    return await walletRepositoryInterface.getList(offset: int.parse(offset), sortingType: sortingType);
+  Future<TransactionModel?> getWalletTransactionList(
+      String offset, String sortingType) async {
+    return await walletRepositoryInterface.getList(
+        offset: int.parse(offset), sortingType: sortingType);
   }
 
   @override
   Future<Response> addFundToWallet(double amount, String paymentMethod) async {
-    return await walletRepositoryInterface.addFundToWallet(amount, paymentMethod);
+    return await walletRepositoryInterface.addFundToWallet(
+        amount, paymentMethod);
   }
 
   @override
@@ -32,5 +35,4 @@ class WalletService implements WalletServiceInterface {
   String getWalletAccessToken() {
     return walletRepositoryInterface.getWalletAccessToken();
   }
-
 }

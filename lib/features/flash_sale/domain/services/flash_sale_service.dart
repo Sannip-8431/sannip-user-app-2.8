@@ -3,7 +3,7 @@ import 'package:sixam_mart/features/flash_sale/domain/models/product_flash_sale.
 import 'package:sixam_mart/features/flash_sale/domain/repositories/flash_sale_repository_interface.dart';
 import 'package:sixam_mart/features/flash_sale/domain/services/flash_sale_service_interface.dart';
 
-class FlashSaleService implements FlashSaleServiceInterface{
+class FlashSaleService implements FlashSaleServiceInterface {
   final FlashSaleRepositoryInterface flashSaleRepositoryInterface;
   FlashSaleService({required this.flashSaleRepositoryInterface});
 
@@ -16,5 +16,4 @@ class FlashSaleService implements FlashSaleServiceInterface{
   Future<ProductFlashSale?> getFlashSaleWithId(int id, int offset) async {
     return await flashSaleRepositoryInterface.getFlashSaleWithId(id, offset);
   }
-
 }

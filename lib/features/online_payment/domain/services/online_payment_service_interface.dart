@@ -1,3 +1,1 @@
-
-abstract class OnlinePaymentServiceInterface{
-}
+abstract class OnlinePaymentServiceInterface {}

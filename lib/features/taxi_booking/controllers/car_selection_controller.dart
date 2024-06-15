@@ -6,7 +6,6 @@ import 'package:sixam_mart/features/taxi_booking/models/brand_model.dart';
 import 'package:sixam_mart/features/taxi_booking/models/vehicle_model.dart';
 import 'package:sixam_mart/features/taxi_booking/repo/car_selection_repo.dart';
 
-
 /*receive car list based on hourly and km , also filter car and select car function will be placed here*/
 class CarSelectionController extends GetxController implements GetxService {
   final CarSelectionRepo carSelectionRepo;
@@ -31,32 +30,33 @@ class CarSelectionController extends GetxController implements GetxService {
   int get selectedBrand => _selectedBrand;
   int get sortByIndex => _sortByIndex;
 
-  void carFilter(){
+  void carFilter() {
     _isCarFilterActive = !_isCarFilterActive;
     update();
   }
 
-  void setBrandModel(int index){
+  void setBrandModel(int index) {
     _selectedBrand = index;
     update();
   }
 
-  void setSortBy(int index){
+  void setSortBy(int index) {
     _sortByIndex = index;
     update();
   }
 
-  void selectPriceRange(RangeValues newRange){
+  void selectPriceRange(RangeValues newRange) {
     _selectedPriceRange = newRange;
     _startingPrice = _selectedPriceRange.start * 1000;
     _endingPrice = _selectedPriceRange.end * 1000;
     update();
   }
 
-  Future<void> getVehiclesList(UserInformationBody body, int offset, {bool isUpdate = false}) async{
-    if(offset == 1) {
+  Future<void> getVehiclesList(UserInformationBody body, int offset,
+      {bool isUpdate = false}) async {
+    if (offset == 1) {
       _vehicleModel = null;
-      if(isUpdate) {
+      if (isUpdate) {
         update();
       }
     }
@@ -64,7 +64,7 @@ class CarSelectionController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       if (offset == 1) {
         _vehicleModel = VehicleModel.fromJson(response.body);
-      }else {
+      } else {
         _vehicleModel = VehicleModel.fromJson(response.body);
       }
       update();
@@ -76,17 +76,15 @@ class CarSelectionController extends GetxController implements GetxService {
   Future<void> getBrandList() async {
     Response response = await carSelectionRepo.getBrandList();
     if (response.statusCode == 200) {
-      if(response.body != null){
+      if (response.body != null) {
         _brandModels = [];
         response.body.forEach((body) {
           _brandModels!.add(BrandModel.fromJson(body));
         });
       }
-
     } else {
       ApiChecker.checkApi(response);
     }
     update();
   }
-
 }

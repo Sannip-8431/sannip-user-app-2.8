@@ -9,21 +9,22 @@ class RiderModel {
   String? name;
   String? image;
 
-  RiderModel(
-      {this.latLng,
-        this.phone,
-        this.id,
-        this.ratings,
-        this.updatedTime,
-        this.isAvailable,
-        this.heading,
-        this.name,
-        this.image,
-      });
+  RiderModel({
+    this.latLng,
+    this.phone,
+    this.id,
+    this.ratings,
+    this.updatedTime,
+    this.isAvailable,
+    this.heading,
+    this.name,
+    this.image,
+  });
 
   RiderModel.fromJson(Map<Object, Object> j) {
     Map<String, dynamic> json = Map.from(j);
-    latLng = json['latLng'] != null ? RiderLatLng.fromJson(json['latLng']) : null;
+    latLng =
+        json['latLng'] != null ? RiderLatLng.fromJson(json['latLng']) : null;
     phone = json['phone'];
     id = json['id'];
     ratings = json['ratings'].toDouble();

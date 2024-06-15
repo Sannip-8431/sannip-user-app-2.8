@@ -13,21 +13,30 @@ class Gallery3D extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final bool isClip;
 
-  const Gallery3D({super.key, this.onClickItem, this.onItemChanged, this.isClip = true, this.height, this.padding,
-    required this.itemConfig, required this.controller, required this.width, required this.itemBuilder});
+  const Gallery3D(
+      {super.key,
+      this.onClickItem,
+      this.onItemChanged,
+      this.isClip = true,
+      this.height,
+      this.padding,
+      required this.itemConfig,
+      required this.controller,
+      required this.width,
+      required this.itemBuilder});
 
   @override
   Gallery3DState createState() => Gallery3DState();
 }
 
-class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, WidgetsBindingObserver, Gallery3DMixin {
-  
+class Gallery3DState extends State<Gallery3D>
+    with TickerProviderStateMixin, WidgetsBindingObserver, Gallery3DMixin {
   List<Widget> _galleryItemWidgetList = [];
   AnimationController? _autoScrollAnimationController;
   Timer? _timer;
 
   late Gallery3DController controller = widget.controller;
-  
+
   AppLifecycleState appLifecycleState = AppLifecycleState.resumed;
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -43,12 +52,15 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
 
     _updateWidgetIndexOnStack();
     if (controller.autoLoop) {
-      _timer = Timer.periodic(Duration(milliseconds: controller.delayTime), (timer) {
+      _timer =
+          Timer.periodic(Duration(milliseconds: controller.delayTime), (timer) {
         if (!mounted) return;
         if (appLifecycleState != AppLifecycleState.resumed) return;
-        if (DateTime.now().millisecondsSinceEpoch - _lastTouchMillisecond < controller.delayTime) return;
+        if (DateTime.now().millisecondsSinceEpoch - _lastTouchMillisecond <
+            controller.delayTime) return;
         if (_isTouching) return;
-        animateTo(controller.getOffsetAngleFormTargetIndex(getNextIndex(controller.currentIndex)));
+        animateTo(controller.getOffsetAngleFormTargetIndex(
+            getNextIndex(controller.currentIndex)));
       });
     }
 
@@ -131,7 +143,8 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
   }
 
   void _scrollToAngle(double angle) {
-    _autoScrollAnimationController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
+    _autoScrollAnimationController = AnimationController(
+        duration: const Duration(milliseconds: 400), vsync: this);
 
     Animation animation;
 
@@ -165,7 +178,12 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
 
     var offsetX = _lastUpdateLocation!.dx - _panDownLocation!.dx;
     if (offsetX.abs() > widget.width * 0.1) {
-      targetAngle = controller.getTransformInfo(offsetX > 0 ? getPreIndex(controller.currentIndex) : getNextIndex(controller.currentIndex)).angle - 180;
+      targetAngle = controller
+              .getTransformInfo(offsetX > 0
+                  ? getPreIndex(controller.currentIndex)
+                  : getNextIndex(controller.currentIndex))
+              .angle -
+          180;
     } else {
       targetAngle = angle - 180;
     }
@@ -197,7 +215,7 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
       _updateWidgetIndexOnStack();
     }
   }
-  
+
   int getPreIndex(int index) {
     var preIndex = index - 1;
     if (preIndex < 0) {
@@ -205,7 +223,7 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
     }
     return preIndex;
   }
-  
+
   int getNextIndex(int index) {
     var nextIndex = index + 1;
     if (nextIndex == controller.itemCount) {
@@ -232,7 +250,8 @@ class Gallery3DState extends State<Gallery3D> with TickerProviderStateMixin, Wid
       }
     }
 
-    _rightWidgetList.sort((widget1, widget2) => widget1.transformInfo.angle.compareTo(widget2.transformInfo.angle));
+    _rightWidgetList.sort((widget1, widget2) =>
+        widget1.transformInfo.angle.compareTo(widget2.transformInfo.angle));
 
     for (var element in _rightWidgetList) {
       if (element.transformInfo.angle < controller.unitAngle / 2) {
@@ -275,7 +294,11 @@ class GalleryItemTransformInfo {
   double angle;
   int index;
 
-  GalleryItemTransformInfo({required this.index, this.scale = 1, this.angle = 0, this.offset = Offset.zero});
+  GalleryItemTransformInfo(
+      {required this.index,
+      this.scale = 1,
+      this.angle = 0,
+      this.offset = Offset.zero});
 }
 
 class GalleryItem extends StatelessWidget {
@@ -287,12 +310,20 @@ class GalleryItem extends StatelessWidget {
   final GalleryItemTransformInfo transformInfo;
 
   final double minScale;
-  const GalleryItem({super.key, required this.index, required this.transformInfo, required this.config, required this.builder,
-    this.minScale = 0.4, this.onClick, this.ellipseHeight = 0});
+  const GalleryItem(
+      {super.key,
+      required this.index,
+      required this.transformInfo,
+      required this.config,
+      required this.builder,
+      this.minScale = 0.4,
+      this.onClick,
+      this.ellipseHeight = 0});
 
   Widget _buildItem(BuildContext context) {
     return SizedBox(
-      width: config.width, height: config.height,
+      width: config.width,
+      height: config.height,
       child: builder(context, index),
     );
   }
@@ -304,14 +335,16 @@ class GalleryItem extends StatelessWidget {
       Container(
         width: config.width,
         height: config.height,
-        color: Color.fromARGB(100 * (1 - transformInfo.scale) ~/ (1 - minScale), 0, 0, 0),
+        color: Color.fromARGB(
+            100 * (1 - transformInfo.scale) ~/ (1 - minScale), 0, 0, 0),
       )
     ]);
   }
 
   Widget _buildRadiusItem(Widget child) {
     if (config.radius <= 0) return child;
-    return ClipRRect(borderRadius: BorderRadius.circular(config.radius), child: child);
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(config.radius), child: child);
   }
 
   Widget _buildShadowItem(Widget child) {
@@ -351,7 +384,12 @@ class GalleryItemConfig {
   final List<BoxShadow> shadows;
   final bool isShowTransformMask;
 
-  const GalleryItemConfig({this.width = 220, this.height = 300, this.radius = 0, this.isShowTransformMask = true, this.shadows = const []});
+  const GalleryItemConfig(
+      {this.width = 220,
+      this.height = 300,
+      this.radius = 0,
+      this.isShowTransformMask = true,
+      this.shadows = const []});
 }
 
 class Gallery3DController {
@@ -370,8 +408,14 @@ class Gallery3DController {
   final List<GalleryItemTransformInfo> _galleryItemTransformInfoList = [];
   double baseAngleOffset = 0;
 
-  Gallery3DController({required this.itemCount, this.ellipseHeight = 0, this.autoLoop = true, this.minScale = 0.4,
-    this.delayTime = 5000, this.scrollTime = 1000}) : assert(itemCount >= 3, 'ItemCount must be greater than or equal to 3');
+  Gallery3DController(
+      {required this.itemCount,
+      this.ellipseHeight = 0,
+      this.autoLoop = true,
+      this.minScale = 0.4,
+      this.delayTime = 5000,
+      this.scrollTime = 1000})
+      : assert(itemCount >= 3, 'ItemCount must be greater than or equal to 3');
 
   void init(GalleryItemConfig itemConfig) {
     this.itemConfig = itemConfig;
@@ -407,7 +451,7 @@ class Gallery3DController {
     baseAngleOffset -= offsetAngle;
     for (int index = 0; index < _galleryItemTransformInfoList.length; index++) {
       GalleryItemTransformInfo transformInfo =
-      _galleryItemTransformInfoList[index];
+          _galleryItemTransformInfoList[index];
 
       double angle = getItemAngle(index);
       double scale = transformInfo.scale;
@@ -461,7 +505,6 @@ class Gallery3DController {
     double y = radiusOuterY > 0 ? radiusOuterY * cos(angleOuter) : 0;
     return Offset(x + (widgetWidth - itemConfig.width) / 2, -y);
   }
-
 
   double calculatePerimeter(double width, double height) {
     var a = width;

@@ -1,4 +1,4 @@
-enum NotificationType{
+enum NotificationType {
   message,
   order,
   general,
@@ -18,7 +18,6 @@ class NotificationBodyModel {
   String? image;
   String? name;
   String? receiverType;
-
 
   NotificationBodyModel({
     this.notificationType,
@@ -65,16 +64,15 @@ class NotificationBodyModel {
   }
 
   NotificationType convertToEnum(String? enumString) {
-    if(enumString == NotificationType.general.toString()) {
+    if (enumString == NotificationType.general.toString()) {
       return NotificationType.general;
-    }else if(enumString == NotificationType.order.toString()) {
+    } else if (enumString == NotificationType.order.toString()) {
       return NotificationType.order;
-    }else if(enumString == NotificationType.message.toString()) {
+    } else if (enumString == NotificationType.message.toString()) {
       return NotificationType.message;
-    } else if(enumString == NotificationType.referral_code.toString()) {
+    } else if (enumString == NotificationType.referral_code.toString()) {
       return NotificationType.referral_code;
     }
     return NotificationType.general;
   }
-
 }

@@ -9,14 +9,19 @@ class CustomToolTip extends StatefulWidget {
   final AxisDirection preferredDirection;
   final double? size;
   final Color? iconColor;
-  const CustomToolTip({super.key, required this.message, this.child, this.preferredDirection = AxisDirection.right, this.size, this.iconColor = Colors.grey});
+  const CustomToolTip(
+      {super.key,
+      required this.message,
+      this.child,
+      this.preferredDirection = AxisDirection.right,
+      this.size,
+      this.iconColor = Colors.grey});
 
   @override
   State<CustomToolTip> createState() => _CustomToolTipState();
 }
 
 class _CustomToolTipState extends State<CustomToolTip> {
-
   final tooltipController = JustTheController();
 
   @override
@@ -29,14 +34,18 @@ class _CustomToolTipState extends State<CustomToolTip> {
       tailBaseWidth: 20,
       content: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(widget.message, style: robotoRegular.copyWith(color: Get.isDarkMode ? Colors.black87 : Colors.white)),
+        child: Text(widget.message,
+            style: robotoRegular.copyWith(
+                color: Get.isDarkMode ? Colors.black87 : Colors.white)),
       ),
       child: InkWell(
         splashColor: Colors.transparent,
         onTap: () async {
           tooltipController.showTooltip();
         },
-        child: widget.child ?? Icon(Icons.info_outline, size: widget.size ?? 22, color: widget.iconColor),
+        child: widget.child ??
+            Icon(Icons.info_outline,
+                size: widget.size ?? 22, color: widget.iconColor),
       ),
     );
   }

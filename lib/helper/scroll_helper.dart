@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ScrollHelper {
-  static void startAutoScrolling(List itemList, ScrollController scrollController, int viewWidth) {
-    if(itemList.isNotEmpty) {
+  static void startAutoScrolling(
+      List itemList, ScrollController scrollController, int viewWidth) {
+    if (itemList.isNotEmpty) {
       Future.delayed(const Duration(seconds: 1), () {
         scrollController.animateTo(
           scrollController.position.maxScrollExtent,
@@ -11,7 +12,8 @@ class ScrollHelper {
         );
       });
       scrollController.addListener(() {
-        if(scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
           scrollController.jumpTo(0);
           Future.delayed(const Duration(seconds: 1), () {
             scrollController.animateTo(

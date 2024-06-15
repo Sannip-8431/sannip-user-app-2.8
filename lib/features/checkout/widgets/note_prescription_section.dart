@@ -8,14 +8,17 @@ import 'package:sixam_mart/common/widgets/custom_text_field.dart';
 class NoteAndPrescriptionSection extends StatelessWidget {
   final CheckoutController checkoutController;
   final int? storeId;
-  const NoteAndPrescriptionSection({super.key, required this.checkoutController, this.storeId, });
+  const NoteAndPrescriptionSection({
+    super.key,
+    required this.checkoutController,
+    this.storeId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('additional_note'.tr, style: robotoMedium),
       const SizedBox(height: Dimensions.paddingSizeSmall),
-
       CustomTextField(
         controller: checkoutController.noteController,
         titleText: 'please_provide_extra_napkin'.tr,

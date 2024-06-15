@@ -4,7 +4,8 @@ class OrderCancellationBody {
   String? offset;
   List<CancellationData>? reasons;
 
-  OrderCancellationBody({this.totalSize, this.limit, this.offset, this.reasons});
+  OrderCancellationBody(
+      {this.totalSize, this.limit, this.offset, this.reasons});
 
   OrderCancellationBody.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
@@ -40,11 +41,11 @@ class CancellationData {
 
   CancellationData(
       {this.id,
-        this.reason,
-        this.userType,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
+      this.reason,
+      this.userType,
+      this.status,
+      this.createdAt,
+      this.updatedAt});
 
   CancellationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -15,8 +15,8 @@ class CustomizableSpaceBarWidget extends StatelessWidget {
         // 0.0 -> Expanded
         // 1.0 -> Collapsed to toolbar
         final double scrollingRate =
-        (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
-            .clamp(0.0, 1.0);
+            (1.0 - (settings.currentExtent - settings.minExtent) / deltaExtent)
+                .clamp(0.0, 1.0);
         return builder(context, scrollingRate);
       },
     );

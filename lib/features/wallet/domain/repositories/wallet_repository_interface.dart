@@ -1,6 +1,6 @@
 import 'package:sixam_mart/interfaces/repository_interface.dart';
 
-abstract class WalletRepositoryInterface extends RepositoryInterface{
+abstract class WalletRepositoryInterface extends RepositoryInterface {
   Future<dynamic> addFundToWallet(double amount, String paymentMethod);
   Future<void> setWalletAccessToken(String token);
   String getWalletAccessToken();

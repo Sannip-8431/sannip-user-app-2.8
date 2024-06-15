@@ -10,11 +10,10 @@ class PrescriptionViewDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.min, children: [
-
       Align(
         alignment: Alignment.topRight,
         child: InkWell(
-          onTap: (){
+          onTap: () {
             Get.back();
           },
           child: Container(
@@ -29,27 +28,33 @@ class PrescriptionViewDialogWidget extends StatelessWidget {
         ),
       ),
       const SizedBox(height: Dimensions.paddingSizeSmall),
-
       Container(
-        constraints: BoxConstraints(minHeight: context.height * 0.2, maxHeight: context.height * 0.8),
+        constraints: BoxConstraints(
+            minHeight: context.height * 0.2, maxHeight: context.height * 0.8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           color: Theme.of(context).cardColor,
         ),
         width: context.width,
-        child: GetPlatform.isWeb ? ClipRRect(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          child: Image.network(
-            filePath, fit: BoxFit.cover, width: context.width, height: context.height * 0.8,
-          ),
-        ) : ClipRRect(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          child: Image.file(
-            File(filePath), fit: BoxFit.cover, /*width: context.width, height: context.height * 0.8,*/
-          ),
-        ),
+        child: GetPlatform.isWeb
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                child: Image.network(
+                  filePath,
+                  fit: BoxFit.cover,
+                  width: context.width,
+                  height: context.height * 0.8,
+                ),
+              )
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                child: Image.file(
+                  File(filePath),
+                  fit: BoxFit
+                      .cover, /*width: context.width, height: context.height * 0.8,*/
+                ),
+              ),
       ),
-
     ]);
   }
 }

@@ -19,10 +19,9 @@ import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
 
-class LocationService implements LocationServiceInterface{
+class LocationService implements LocationServiceInterface {
   final LocationRepositoryInterface locationRepoInterface;
   LocationService({required this.locationRepoInterface});
-
 
   @override
   Future<String> getAddressFromGeocode(LatLng latLng) async {
@@ -30,31 +29,49 @@ class LocationService implements LocationServiceInterface{
   }
 
   @override
-  Future<ZoneResponseModel> getZone(String? lat, String? lng, {bool handleError = false}) async {
-    return await locationRepoInterface.getZone(lat, lng, handleError: handleError);
+  Future<ZoneResponseModel> getZone(String? lat, String? lng,
+      {bool handleError = false}) async {
+    return await locationRepoInterface.getZone(lat, lng,
+        handleError: handleError);
   }
 
   @override
-  Future<Position> getPosition(LatLng? defaultLatLng, LatLng configLatLng) async {
+  Future<Position> getPosition(
+      LatLng? defaultLatLng, LatLng configLatLng) async {
     Position myPosition;
     try {
-      Position newLocalData = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      Position newLocalData = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       myPosition = newLocalData;
-    }catch(e) {
+    } catch (e) {
       myPosition = Position(
-        latitude: defaultLatLng != null ? defaultLatLng.latitude : configLatLng.latitude,
-        longitude: defaultLatLng != null ? defaultLatLng.longitude : configLatLng.longitude,
-        timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1, altitudeAccuracy: 1, headingAccuracy: 1,
+        latitude: defaultLatLng != null
+            ? defaultLatLng.latitude
+            : configLatLng.latitude,
+        longitude: defaultLatLng != null
+            ? defaultLatLng.longitude
+            : configLatLng.longitude,
+        timestamp: DateTime.now(),
+        accuracy: 1,
+        altitude: 1,
+        heading: 1,
+        speed: 1,
+        speedAccuracy: 1,
+        altitudeAccuracy: 1,
+        headingAccuracy: 1,
       );
     }
     return myPosition;
   }
 
   @override
-  void handleMapAnimation(GoogleMapController? mapController, Position myPosition) {
+  void handleMapAnimation(
+      GoogleMapController? mapController, Position myPosition) {
     if (mapController != null) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 17),
+        CameraPosition(
+            target: LatLng(myPosition.latitude, myPosition.longitude),
+            zoom: 17),
       ));
     }
   }
@@ -70,38 +87,44 @@ class LocationService implements LocationServiceInterface{
 
   @override
   void configureFirebaseMessaging(AddressModel address) {
-    if(!GetPlatform.isWeb) {
-      if(Get.find<SplashController>().configModel!.demo!) {
+    if (!GetPlatform.isWeb) {
+      if (Get.find<SplashController>().configModel!.demo!) {
         FirebaseMessaging.instance.subscribeToTopic('demo_reset');
       } else {
         FirebaseMessaging.instance.unsubscribeFromTopic('demo_reset');
       }
       if (AddressHelper.getUserAddressFromSharedPref() != null) {
-        if(AddressHelper.getUserAddressFromSharedPref()!.zoneIds != null) {
-          for(int zoneID in AddressHelper.getUserAddressFromSharedPref()!.zoneIds!) {
-            FirebaseMessaging.instance.unsubscribeFromTopic('zone_${zoneID}_customer');
+        if (AddressHelper.getUserAddressFromSharedPref()!.zoneIds != null) {
+          for (int zoneID
+              in AddressHelper.getUserAddressFromSharedPref()!.zoneIds!) {
+            FirebaseMessaging.instance
+                .unsubscribeFromTopic('zone_${zoneID}_customer');
           }
-        }else {
-          FirebaseMessaging.instance.unsubscribeFromTopic('zone_${AddressHelper.getUserAddressFromSharedPref()!.zoneId}_customer');
+        } else {
+          FirebaseMessaging.instance.unsubscribeFromTopic(
+              'zone_${AddressHelper.getUserAddressFromSharedPref()!.zoneId}_customer');
         }
       } else {
-        FirebaseMessaging.instance.subscribeToTopic('zone_${address.zoneId}_customer');
+        FirebaseMessaging.instance
+            .subscribeToTopic('zone_${address.zoneId}_customer');
       }
-      if(address.zoneIds != null) {
-        for(int zoneID in address.zoneIds!) {
-          FirebaseMessaging.instance.subscribeToTopic('zone_${zoneID}_customer');
+      if (address.zoneIds != null) {
+        for (int zoneID in address.zoneIds!) {
+          FirebaseMessaging.instance
+              .subscribeToTopic('zone_${zoneID}_customer');
         }
       } else {
-        FirebaseMessaging.instance.subscribeToTopic('zone_${address.zoneId}_customer');
+        FirebaseMessaging.instance
+            .subscribeToTopic('zone_${address.zoneId}_customer');
       }
     }
   }
 
   @override
   void handleRoute(bool fromSignUp, String? route, bool canRoute) {
-    if(route != null && canRoute) {
+    if (route != null && canRoute) {
       Get.offAllNamed(route);
-    }else {
+    } else {
       Get.offAllNamed(RouteHelper.getInitialRoute());
     }
   }
@@ -110,10 +133,12 @@ class LocationService implements LocationServiceInterface{
   Future<LatLng> getLatLng(String? id) async {
     LatLng latLng = const LatLng(0, 0);
     Response? response = await locationRepoInterface.get(id);
-    if(response?.statusCode == 200) {
-      PlaceDetailsModel placeDetails = PlaceDetailsModel.fromJson(response?.body);
-      if(placeDetails.status == 'OK') {
-        latLng = LatLng(placeDetails.result!.geometry!.location!.lat!, placeDetails.result!.geometry!.location!.lng!);
+    if (response?.statusCode == 200) {
+      PlaceDetailsModel placeDetails =
+          PlaceDetailsModel.fromJson(response?.body);
+      if (placeDetails.status == 'OK') {
+        latLng = LatLng(placeDetails.result!.geometry!.location!.lat!,
+            placeDetails.result!.geometry!.location!.lng!);
       }
     }
     return latLng;
@@ -125,7 +150,8 @@ class LocationService implements LocationServiceInterface{
     Response response = await locationRepoInterface.searchLocation(text);
     if (response.statusCode == 200 && response.body['status'] == 'OK') {
       predictionList = [];
-      response.body['predictions'].forEach((prediction) => predictionList.add(PredictionModel.fromJson(prediction)));
+      response.body['predictions'].forEach((prediction) =>
+          predictionList.add(PredictionModel.fromJson(prediction)));
     } else {
       showCustomSnackBar(response.body['error_message'] ?? response.bodyString);
     }
@@ -148,22 +174,32 @@ class LocationService implements LocationServiceInterface{
   }
 
   @override
-  Future<void> authorizeNavigation(String page, List<AddressModel>? addressList, GoogleMapController? mapController, {bool offNamed = false, bool offAll = false}) async {
-    if(addressList != null && addressList.isEmpty) {
-      if(ResponsiveHelper.isDesktop(Get.context)) {
-        showGeneralDialog(context: Get.context!, pageBuilder: (_,__,___) {
-          return SizedBox(
-            height: 300, width: 300,
-            child: PickMapScreen(fromSignUp: (page == RouteHelper.signUp), canRoute: false, fromAddAddress: false, route: null, googleMapController: mapController),
-          );
-        });
+  Future<void> authorizeNavigation(String page, List<AddressModel>? addressList,
+      GoogleMapController? mapController,
+      {bool offNamed = false, bool offAll = false}) async {
+    if (addressList != null && addressList.isEmpty) {
+      if (ResponsiveHelper.isDesktop(Get.context)) {
+        showGeneralDialog(
+            context: Get.context!,
+            pageBuilder: (_, __, ___) {
+              return SizedBox(
+                height: 300,
+                width: 300,
+                child: PickMapScreen(
+                    fromSignUp: (page == RouteHelper.signUp),
+                    canRoute: false,
+                    fromAddAddress: false,
+                    route: null,
+                    googleMapController: mapController),
+              );
+            });
       } else {
         Get.toNamed(RouteHelper.getPickMapRoute(page, false));
       }
     } else {
-      if(offNamed) {
+      if (offNamed) {
         Get.offNamed(RouteHelper.getAccessLocationRoute(page));
-      } else if(offAll) {
+      } else if (offAll) {
         Get.offAllNamed(RouteHelper.getAccessLocationRoute(page));
       } else {
         Get.toNamed(RouteHelper.getAccessLocationRoute(page));
@@ -173,20 +209,24 @@ class LocationService implements LocationServiceInterface{
 
   @override
   void defaultNavigation(String page, GoogleMapController? mapController) {
-    if(ResponsiveHelper.isDesktop(Get.context)) {
-      showGeneralDialog(context: Get.context!, pageBuilder: (_,__,___) {
-        return SizedBox(
-          height: Get.context!.height * 0.75, width: 300,
-          child: PickMapScreen(
-            fromSignUp: (page == RouteHelper.signUp),
-            canRoute: false, fromAddAddress: false, route: null,
-            googleMapController: mapController,
-          ),
-        );
-      });
+    if (ResponsiveHelper.isDesktop(Get.context)) {
+      showGeneralDialog(
+          context: Get.context!,
+          pageBuilder: (_, __, ___) {
+            return SizedBox(
+              height: Get.context!.height * 0.75,
+              width: 300,
+              child: PickMapScreen(
+                fromSignUp: (page == RouteHelper.signUp),
+                canRoute: false,
+                fromAddAddress: false,
+                route: null,
+                googleMapController: mapController,
+              ),
+            );
+          });
     } else {
       Get.toNamed(RouteHelper.getPickMapRoute(page, false));
     }
   }
-
 }

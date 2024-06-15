@@ -73,25 +73,27 @@ class SplashController extends GetxController implements GetxService {
     update();
   }
 
-  Future<bool> getConfigData({bool loadModuleData = false, bool loadLandingData = false}) async {
+  Future<bool> getConfigData(
+      {bool loadModuleData = false, bool loadLandingData = false}) async {
     _hasConnection = true;
     _moduleIndex = 0;
     Response response = await splashServiceInterface.getConfigData();
     bool isSuccess = false;
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       _data = response.body;
       _configModel = ConfigModel.fromJson(response.body);
-      if(_configModel!.module != null) {
+      if (_configModel!.module != null) {
         setModule(_configModel!.module);
-      }else if(GetPlatform.isWeb || (loadModuleData && _module != null)) {
-        setModule(GetPlatform.isWeb ? splashServiceInterface.getModule() : _module);
+      } else if (GetPlatform.isWeb || (loadModuleData && _module != null)) {
+        setModule(
+            GetPlatform.isWeb ? splashServiceInterface.getModule() : _module);
       }
-      if(loadLandingData){
+      if (loadLandingData) {
         await getLandingPageData();
       }
       isSuccess = true;
-    }else {
-      if(response.statusText == ApiClient.noInternetMessage) {
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
         _hasConnection = false;
       }
       isSuccess = false;
@@ -101,18 +103,19 @@ class SplashController extends GetxController implements GetxService {
   }
 
   Future<void> getLandingPageData() async {
-    LandingModel? landingModel = await splashServiceInterface.getLandingPageData();
-    if(landingModel != null) {
+    LandingModel? landingModel =
+        await splashServiceInterface.getLandingPageData();
+    if (landingModel != null) {
       _landingModel = landingModel;
     }
     update();
   }
 
   Future<void> initSharedData() async {
-    if(!GetPlatform.isWeb) {
+    if (!GetPlatform.isWeb) {
       _module = null;
       splashServiceInterface.initSharedData();
-    }else {
+    } else {
       _module = await splashServiceInterface.initSharedData();
     }
     _cacheModule = splashServiceInterface.getCacheModule();
@@ -120,7 +123,8 @@ class SplashController extends GetxController implements GetxService {
   }
 
   void setCacheConfigModule(ModuleModel? cacheModule) {
-    _configModel!.moduleConfig!.module = Module.fromJson(_data!['module_config'][cacheModule!.moduleType]);
+    _configModel!.moduleConfig!.module =
+        Module.fromJson(_data!['module_config'][cacheModule!.moduleType]);
   }
 
   bool? showIntro() {
@@ -138,35 +142,40 @@ class SplashController extends GetxController implements GetxService {
   Future<void> setModule(ModuleModel? module, {bool notify = true}) async {
     _module = module;
     splashServiceInterface.setModule(module);
-    if(module != null) {
-      if(_configModel != null) {
-        _configModel!.moduleConfig!.module = Module.fromJson(_data!['module_config'][module.moduleType]);
+    if (module != null) {
+      if (_configModel != null) {
+        _configModel!.moduleConfig!.module =
+            Module.fromJson(_data!['module_config'][module.moduleType]);
       }
       await splashServiceInterface.setCacheModule(module);
-      if((AuthHelper.isLoggedIn() || AuthHelper.isGuestLoggedIn()) && Get.find<SplashController>().cacheModule != null) {
+      if ((AuthHelper.isLoggedIn() || AuthHelper.isGuestLoggedIn()) &&
+          Get.find<SplashController>().cacheModule != null) {
         Get.find<CartController>().getCartDataOnline();
       }
     }
-    if(AuthHelper.isLoggedIn()) {
-      if(Get.find<SplashController>().module != null) {
+    if (AuthHelper.isLoggedIn()) {
+      if (Get.find<SplashController>().module != null) {
         Get.find<HomeController>().getCashBackOfferList();
         Get.find<FavouriteController>().getFavouriteList();
       }
     }
-    if(notify) {
+    if (notify) {
       update();
     }
   }
 
   Module getModuleConfig(String? moduleType) {
     Module module = Module.fromJson(_data!['module_config'][moduleType]);
-    moduleType == 'food' ? module.newVariation = true : module.newVariation = false;
+    moduleType == 'food'
+        ? module.newVariation = true
+        : module.newVariation = false;
     return module;
   }
 
   Future<void> getModules({Map<String, String>? headers}) async {
     _moduleIndex = 0;
-    List<ModuleModel>? moduleList = await splashServiceInterface.getModules(headers: headers);
+    List<ModuleModel>? moduleList =
+        await splashServiceInterface.getModules(headers: headers);
     if (moduleList != null) {
       _moduleList = [];
       _moduleList!.addAll(moduleList);
@@ -175,18 +184,22 @@ class SplashController extends GetxController implements GetxService {
   }
 
   Future<void> _showInterestPage() async {
-    if(!Get.find<ProfileController>().userInfoModel!.selectedModuleForInterest!.contains(Get.find<SplashController>().module!.id)
-        && (Get.find<SplashController>().module!.moduleType == 'food' || Get.find<SplashController>().module!.moduleType == 'grocery' || Get.find<SplashController>().module!.moduleType == 'ecommerce')
-    ) {
+    if (!Get.find<ProfileController>()
+            .userInfoModel!
+            .selectedModuleForInterest!
+            .contains(Get.find<SplashController>().module!.id) &&
+        (Get.find<SplashController>().module!.moduleType == 'food' ||
+            Get.find<SplashController>().module!.moduleType == 'grocery' ||
+            Get.find<SplashController>().module!.moduleType == 'ecommerce')) {
       await Get.toNamed(RouteHelper.getInterestRoute());
     }
   }
 
   void switchModule(int index, bool fromPhone) async {
-    if(_module == null || _module!.id != _moduleList![index].id) {
+    if (_module == null || _module!.id != _moduleList![index].id) {
       await Get.find<SplashController>().setModule(_moduleList![index]);
       Get.find<CartController>().getCartDataOnline();
-      if(AuthHelper.isLoggedIn()) {
+      if (AuthHelper.isLoggedIn()) {
         Get.find<HomeController>().getCashBackOfferList();
         await _showInterestPage();
       }
@@ -208,7 +221,7 @@ class SplashController extends GetxController implements GetxService {
     Get.find<BannerController>().getFeaturedBanner();
     getModules();
     Get.find<HomeController>().forcefullyNullCashBackOffers();
-    if(AuthHelper.isLoggedIn()) {
+    if (AuthHelper.isLoggedIn()) {
       Get.find<AddressController>().getAddressList();
     }
     Get.find<StoreController>().getFeaturedStoreList();
@@ -222,10 +235,11 @@ class SplashController extends GetxController implements GetxService {
   Future<bool> subscribeMail(String email) async {
     _isLoading = true;
     update();
-    ResponseModel responseModel = await splashServiceInterface.subscribeEmail(email);
+    ResponseModel responseModel =
+        await splashServiceInterface.subscribeEmail(email);
     if (responseModel.isSuccess) {
       showCustomSnackBar(responseModel.message, isError: false);
-    }else {
+    } else {
       showCustomSnackBar(responseModel.message, isError: true);
     }
     _isLoading = false;
@@ -239,7 +253,7 @@ class SplashController extends GetxController implements GetxService {
     update();
   }
 
-  getCookiesData(){
+  getCookiesData() {
     _savedCookiesData = splashServiceInterface.getSavedCookiesData();
     update();
   }
@@ -248,8 +262,8 @@ class SplashController extends GetxController implements GetxService {
     splashServiceInterface.cookiesStatusChange(data);
   }
 
-  bool getAcceptCookiesStatus(String data) => splashServiceInterface.getAcceptCookiesStatus(data);
-
+  bool getAcceptCookiesStatus(String data) =>
+      splashServiceInterface.getAcceptCookiesStatus(data);
 
   void saveWebSuggestedLocationStatus(bool data) {
     splashServiceInterface.saveSuggestedLocationStatus(data);
@@ -257,7 +271,7 @@ class SplashController extends GetxController implements GetxService {
     update();
   }
 
-  void getWebSuggestedLocationStatus(){
+  void getWebSuggestedLocationStatus() {
     _webSuggestedLocation = splashServiceInterface.getSuggestedLocationStatus();
   }
 
@@ -272,8 +286,7 @@ class SplashController extends GetxController implements GetxService {
     update();
   }
 
-  void getReferBottomSheetStatus(){
+  void getReferBottomSheetStatus() {
     _showReferBottomSheet = splashServiceInterface.getReferBottomSheetStatus();
   }
-
 }

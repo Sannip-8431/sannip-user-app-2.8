@@ -12,14 +12,18 @@ class ArrowIconButton extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          height: 40, width: 40,
+          height: 40,
+          width: 40,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Theme.of(context).cardColor,
-            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
+            boxShadow: const [
+              BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+            ],
           ),
-          child: Icon(isRight ? Icons.arrow_forward_ios : Icons.arrow_back_ios, color: Theme.of(context).disabledColor, size: 15),
+          child: Icon(isRight ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
+              color: Theme.of(context).disabledColor, size: 15),
         ),
       ),
     );

@@ -9,16 +9,27 @@ class ServiceTypeCard extends StatelessWidget {
   final String rentPrice;
   final bool isSelected;
   final Function onTap;
-  const ServiceTypeCard({super.key,required this.rentPrice, required this.rentType,required this.isSelected,required this.onTap});
+  const ServiceTypeCard(
+      {super.key,
+      required this.rentPrice,
+      required this.rentType,
+      required this.isSelected,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ?  Theme.of(context).primaryColor.withOpacity(0.1) : Theme.of(context).colorScheme.surface.withOpacity(.5),
-          borderRadius: const BorderRadius.all(Radius.circular(Dimensions.paddingSizeExtraSmall)),
-          border:isSelected ?  Border.all(color: Theme.of(context).primaryColor.withOpacity(.5)):null,
+          color: isSelected
+              ? Theme.of(context).primaryColor.withOpacity(0.1)
+              : Theme.of(context).colorScheme.surface.withOpacity(.5),
+          borderRadius: const BorderRadius.all(
+              Radius.circular(Dimensions.paddingSizeExtraSmall)),
+          border: isSelected
+              ? Border.all(
+                  color: Theme.of(context).primaryColor.withOpacity(.5))
+              : null,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -32,19 +43,26 @@ class ServiceTypeCard extends StatelessWidget {
                     children: [
                       TextSpan(
                           text: '${'rent'.tr} ',
-                          style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                          style: robotoRegular.copyWith(
+                              fontSize: Dimensions.fontSizeSmall)),
                       TextSpan(
                           text: rentType,
-                          style: robotoBold.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                          style: robotoBold.copyWith(
+                              fontSize: Dimensions.fontSizeSmall)),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(Images.carIcon,width: 54,height: 38,),
+                      Image.asset(
+                        Images.carIcon,
+                        width: 54,
+                        height: 38,
+                      ),
                       Column(
                         children: [
                           Text.rich(
@@ -52,19 +70,28 @@ class ServiceTypeCard extends StatelessWidget {
                               children: [
                                 TextSpan(
                                     text: '\$',
-                                    style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                                    style: robotoRegular.copyWith(
+                                        fontSize: Dimensions.fontSizeSmall)),
                                 TextSpan(
                                     text: rentPrice,
-                                    style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge)),
+                                    style: robotoBold.copyWith(
+                                        fontSize:
+                                            Dimensions.fontSizeExtraLarge)),
                                 TextSpan(
                                     text: '/hr',
                                     style: robotoBold.copyWith(
-                                        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(.5),
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .color!
+                                            .withOpacity(.5),
                                         fontSize: Dimensions.fontSizeSmall)),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 6,),
+                          const SizedBox(
+                            height: 6,
+                          ),
                           Text('start_form'.tr),
                         ],
                       )
