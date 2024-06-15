@@ -1,19 +1,19 @@
-import 'package:sixam_mart/features/language/widgets/web_language_widget.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/menu_drawer.dart';
-import 'package:sixam_mart/common/widgets/web_page_title_widget.dart';
-import 'package:sixam_mart/features/language/widgets/language_widget.dart';
+import 'package:sannip/features/language/widgets/web_language_widget.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_app_bar.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/menu_drawer.dart';
+import 'package:sannip/common/widgets/web_page_title_widget.dart';
+import 'package:sannip/features/language/widgets/language_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/common/widgets/custom_button.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:get/get.dart';
 
 class ChooseLanguageScreen extends StatefulWidget {

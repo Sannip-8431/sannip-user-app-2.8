@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/features/home/controllers/home_controller.dart';
-import 'package:sixam_mart/features/location/controllers/location_controller.dart';
-import 'package:sixam_mart/features/location/domain/services/location_service_interface.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/features/location/domain/models/zone_data_model.dart';
-import 'package:sixam_mart/features/location/domain/models/zone_response_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/store_body_model.dart';
-import 'package:sixam_mart/features/auth/domain/services/store_registration_service_interface.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
+import 'package:sannip/features/home/controllers/home_controller.dart';
+import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/features/location/domain/services/location_service_interface.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/features/location/domain/models/zone_data_model.dart';
+import 'package:sannip/features/location/domain/models/zone_response_model.dart';
+import 'package:sannip/features/auth/domain/models/store_body_model.dart';
+import 'package:sannip/features/auth/domain/services/store_registration_service_interface.dart';
+import 'package:sannip/helper/route_helper.dart';
 
 class StoreRegistrationController extends GetxController
     implements GetxService {

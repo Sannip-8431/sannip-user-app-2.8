@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:sixam_mart/features/address/domain/models/address_model.dart';
-import 'package:sixam_mart/helper/marker_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
+import 'package:sannip/features/address/domain/models/address_model.dart';
+import 'package:sannip/helper/marker_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -15,8 +15,8 @@ import 'package:get/get.dart';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as ui_image;
 
-import 'package:sixam_mart/common/widgets/menu_drawer.dart';
-import 'package:sixam_mart/features/order/widgets/address_details_widget.dart';
+import 'package:sannip/common/widgets/menu_drawer.dart';
+import 'package:sannip/features/order/widgets/address_details_widget.dart';
 
 class MapScreen extends StatefulWidget {
   final AddressModel address;

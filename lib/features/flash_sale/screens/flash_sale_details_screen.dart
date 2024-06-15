@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/features/flash_sale/controllers/flash_sale_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/paginated_list_view.dart';
-import 'package:sixam_mart/features/flash_sale/widgets/flash_product_card_widget.dart';
-import 'package:sixam_mart/features/flash_sale/widgets/flash_sale_timer_view_widget.dart';
+import 'package:sannip/features/flash_sale/controllers/flash_sale_controller.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_app_bar.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/paginated_list_view.dart';
+import 'package:sannip/features/flash_sale/widgets/flash_product_card_widget.dart';
+import 'package:sannip/features/flash_sale/widgets/flash_sale_timer_view_widget.dart';
 
 class FlashSaleDetailsScreen extends StatefulWidget {
   final int id;

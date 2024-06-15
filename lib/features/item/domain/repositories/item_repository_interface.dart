@@ -1,5 +1,5 @@
-import 'package:sixam_mart/features/item/domain/models/basic_medicine_model.dart';
-import 'package:sixam_mart/interfaces/repository_interface.dart';
+import 'package:sannip/features/item/domain/models/basic_medicine_model.dart';
+import 'package:sannip/interfaces/repository_interface.dart';
 
 abstract class ItemRepositoryInterface implements RepositoryInterface {
   // Future<dynamic> getPopularItemList(String type);

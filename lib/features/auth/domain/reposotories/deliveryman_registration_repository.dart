@@ -1,12 +1,12 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/features/location/domain/models/zone_data_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/delivery_man_body.dart';
-import 'package:sixam_mart/features/auth/domain/models/delivery_man_vehicles_model.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/deliveryman_registration_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/features/location/domain/models/zone_data_model.dart';
+import 'package:sannip/features/auth/domain/models/delivery_man_body.dart';
+import 'package:sannip/features/auth/domain/models/delivery_man_vehicles_model.dart';
+import 'package:sannip/features/auth/domain/reposotories/deliveryman_registration_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class DeliverymanRegistrationRepository
     implements DeliverymanRegistrationRepositoryInterface {

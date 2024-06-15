@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
 
 class CustomNavigationDrawer extends StatefulWidget {
   final Color selectedColor;

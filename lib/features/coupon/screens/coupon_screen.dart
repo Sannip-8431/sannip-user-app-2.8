@@ -1,18 +1,18 @@
-import 'package:sixam_mart/features/coupon/controllers/coupon_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/menu_drawer.dart';
-import 'package:sixam_mart/common/widgets/no_data_screen.dart';
-import 'package:sixam_mart/common/widgets/not_logged_in_screen.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/custom_app_bar.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/menu_drawer.dart';
+import 'package:sannip/common/widgets/no_data_screen.dart';
+import 'package:sannip/common/widgets/not_logged_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/web_page_title_widget.dart';
-import 'package:sixam_mart/features/coupon/widgets/coupon_card_widget.dart';
+import 'package:sannip/common/widgets/web_page_title_widget.dart';
+import 'package:sannip/features/coupon/widgets/coupon_card_widget.dart';
 
 class CouponScreen extends StatefulWidget {
   const CouponScreen({super.key});

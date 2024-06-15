@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/coupon/controllers/coupon_controller.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/store/controllers/store_controller.dart';
-import 'package:sixam_mart/features/checkout/controllers/checkout_controller.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/features/checkout/widgets/coupon_bottom_sheet.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/checkout/controllers/checkout_controller.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/checkout/widgets/coupon_bottom_sheet.dart';
 
 class CouponSection extends StatelessWidget {
   final int? storeId;

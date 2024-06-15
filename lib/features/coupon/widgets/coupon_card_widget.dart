@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/common/controllers/theme_controller.dart';
-import 'package:sixam_mart/features/coupon/domain/models/coupon_model.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/common/controllers/theme_controller.dart';
+import 'package:sannip/features/coupon/domain/models/coupon_model.dart';
+import 'package:sannip/helper/date_converter.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
 
 class CouponCardWidget extends StatelessWidget {
   final CouponModel coupon;

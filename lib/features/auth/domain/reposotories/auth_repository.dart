@@ -4,16 +4,16 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
-import 'package:sixam_mart/api/api_client.dart';
+import 'package:sannip/api/api_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/address/domain/models/address_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/signup_body_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/social_log_in_body.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/auth_repository_interface.dart';
-import 'package:sixam_mart/helper/address_helper.dart';
-import 'package:sixam_mart/helper/module_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/address/domain/models/address_model.dart';
+import 'package:sannip/features/auth/domain/models/signup_body_model.dart';
+import 'package:sannip/features/auth/domain/models/social_log_in_body.dart';
+import 'package:sannip/features/auth/domain/reposotories/auth_repository_interface.dart';
+import 'package:sannip/helper/address_helper.dart';
+import 'package:sannip/helper/module_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class AuthRepository implements AuthRepositoryInterface {
   final ApiClient apiClient;

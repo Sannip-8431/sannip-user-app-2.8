@@ -1,14 +1,14 @@
-import 'package:sixam_mart/features/review/controllers/review_controller.dart';
-import 'package:sixam_mart/features/review/domain/models/review_body_model.dart';
-import 'package:sixam_mart/features/order/domain/models/order_details_model.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_button.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/my_text_field.dart';
+import 'package:sannip/features/review/controllers/review_controller.dart';
+import 'package:sannip/features/review/domain/models/review_body_model.dart';
+import 'package:sannip/features/order/domain/models/order_details_model.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

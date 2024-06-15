@@ -1,5 +1,5 @@
-import 'package:sixam_mart/features/cart/domain/models/cart_model.dart';
-import 'package:sixam_mart/interfaces/repository_interface.dart';
+import 'package:sannip/features/cart/domain/models/cart_model.dart';
+import 'package:sannip/interfaces/repository_interface.dart';
 
 abstract class CartRepositoryInterface<OnlineCart>
     extends RepositoryInterface<OnlineCart> {

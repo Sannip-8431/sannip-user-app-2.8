@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/taxi_booking/controllers/car_selection_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
+import 'package:sannip/features/taxi_booking/controllers/car_selection_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
 import 'filter_car_sorting_widget.dart';
 
 class CarFilterWidget extends StatelessWidget {

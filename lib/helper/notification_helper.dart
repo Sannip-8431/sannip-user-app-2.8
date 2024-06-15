@@ -2,22 +2,22 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/common/widgets/demo_reset_dialog_widget.dart';
-import 'package:sixam_mart/features/chat/controllers/chat_controller.dart';
-import 'package:sixam_mart/features/chat/enums/user_type_enum.dart';
-import 'package:sixam_mart/features/notification/controllers/notification_controller.dart';
-import 'package:sixam_mart/features/notification/domain/models/notification_body_model.dart';
-import 'package:sixam_mart/features/order/controllers/order_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
+import 'package:sannip/common/widgets/demo_reset_dialog_widget.dart';
+import 'package:sannip/features/chat/controllers/chat_controller.dart';
+import 'package:sannip/features/chat/enums/user_type_enum.dart';
+import 'package:sannip/features/notification/controllers/notification_controller.dart';
+import 'package:sannip/features/notification/domain/models/notification_body_model.dart';
+import 'package:sannip/features/order/controllers/order_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/route_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:sixam_mart/features/dashboard/screens/dashboard_screen.dart';
-import 'package:sixam_mart/features/notification/widgets/notifiation_popup_dialog_widget.dart';
+import 'package:sannip/features/dashboard/screens/dashboard_screen.dart';
+import 'package:sannip/features/notification/widgets/notifiation_popup_dialog_widget.dart';
 
 class NotificationHelper {
   static Future<void> initialize(

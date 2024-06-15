@@ -1,13 +1,13 @@
-import 'package:sixam_mart/features/auth/screens/sign_in_screen.dart';
-import 'package:sixam_mart/features/order/controllers/order_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_button.dart';
+import 'package:sannip/features/auth/screens/sign_in_screen.dart';
+import 'package:sannip/features/order/controllers/order_controller.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
 
 class NotLoggedInScreen extends StatelessWidget {
   final Function(bool success) callBack;

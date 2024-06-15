@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
 
 class DeliverItemCardWidget extends StatelessWidget {
   final String image;

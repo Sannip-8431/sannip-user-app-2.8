@@ -1,4 +1,4 @@
-import 'package:sixam_mart/features/order/domain/models/order_model.dart';
+import 'package:sannip/features/order/domain/models/order_model.dart';
 
 class TripModel {
   int? totalSize;

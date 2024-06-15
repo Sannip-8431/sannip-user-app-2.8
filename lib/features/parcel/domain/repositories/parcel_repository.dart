@@ -1,11 +1,11 @@
 import 'package:get/get_connect/connect.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/parcel/domain/models/parcel_category_model.dart';
-import 'package:sixam_mart/features/parcel/domain/models/parcel_instruction_model.dart';
-import 'package:sixam_mart/features/parcel/domain/models/video_content_model.dart';
-import 'package:sixam_mart/features/parcel/domain/models/why_choose_model.dart';
-import 'package:sixam_mart/features/parcel/domain/repositories/parcel_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/parcel/domain/models/parcel_category_model.dart';
+import 'package:sannip/features/parcel/domain/models/parcel_instruction_model.dart';
+import 'package:sannip/features/parcel/domain/models/video_content_model.dart';
+import 'package:sannip/features/parcel/domain/models/why_choose_model.dart';
+import 'package:sannip/features/parcel/domain/repositories/parcel_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class ParcelRepository implements ParcelRepositoryInterface {
   final ApiClient apiClient;

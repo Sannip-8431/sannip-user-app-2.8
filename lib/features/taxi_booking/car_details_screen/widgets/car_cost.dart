@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/common/controllers/theme_controller.dart';
-import 'package:sixam_mart/features/taxi_booking/models/vehicle_model.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/common/controllers/theme_controller.dart';
+import 'package:sannip/features/taxi_booking/models/vehicle_model.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
 
 class CarCost extends StatelessWidget {
   final Vehicles vehicle;

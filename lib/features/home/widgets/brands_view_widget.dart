@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/common/widgets/title_widget.dart';
-import 'package:sixam_mart/features/brands/controllers/brands_controller.dart';
-import 'package:sixam_mart/features/brands/widgets/brands_view_shimmer_widget.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/common/widgets/title_widget.dart';
+import 'package:sannip/features/brands/controllers/brands_controller.dart';
+import 'package:sannip/features/brands/widgets/brands_view_shimmer_widget.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/dimensions.dart';
 
 class BrandsViewWidget extends StatelessWidget {
   const BrandsViewWidget({super.key});

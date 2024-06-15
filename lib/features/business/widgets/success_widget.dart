@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/auth/widgets/web_registration_stepper_widget.dart';
-import 'package:sixam_mart/features/business/controllers/business_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/auth/widgets/web_registration_stepper_widget.dart';
+import 'package:sannip/features/business/controllers/business_controller.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
 
 class SuccessWidget extends StatelessWidget {
   const SuccessWidget({super.key});

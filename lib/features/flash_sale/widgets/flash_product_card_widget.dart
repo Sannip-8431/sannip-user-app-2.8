@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/custom_ink_well.dart';
-import 'package:sixam_mart/features/item/controllers/item_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/flash_sale/domain/models/product_flash_sale.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/add_favourite_view.dart';
-import 'package:sixam_mart/common/widgets/cart_count_view.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/common/widgets/discount_tag.dart';
-import 'package:sixam_mart/common/widgets/organic_tag.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
+import 'package:sannip/features/item/controllers/item_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/flash_sale/domain/models/product_flash_sale.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/add_favourite_view.dart';
+import 'package:sannip/common/widgets/cart_count_view.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/common/widgets/discount_tag.dart';
+import 'package:sannip/common/widgets/organic_tag.dart';
 
 class FlashProductCardWidget extends StatelessWidget {
   final Products product;

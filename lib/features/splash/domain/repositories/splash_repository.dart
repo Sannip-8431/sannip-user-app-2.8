@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/splash/domain/models/landing_model.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/splash/domain/models/landing_model.dart';
 import 'dart:convert';
-import 'package:sixam_mart/features/address/domain/models/address_model.dart';
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/features/address/domain/models/address_model.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/splash/domain/repositories/splash_repository_interface.dart';
+import 'package:sannip/features/splash/domain/repositories/splash_repository_interface.dart';
 
 class SplashRepository implements SplashRepositoryInterface {
   final ApiClient apiClient;

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/models/choose_us_model.dart';
-import 'package:sixam_mart/features/language/domain/models/language_model.dart';
-import 'package:sixam_mart/util/images.dart';
+import 'package:sannip/common/models/choose_us_model.dart';
+import 'package:sannip/features/language/domain/models/language_model.dart';
+import 'package:sannip/util/images.dart';
 
 class AppConstants {
   static const String appName = 'Sannip';

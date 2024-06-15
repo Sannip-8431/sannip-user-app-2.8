@@ -1,11 +1,11 @@
 import 'package:get/get_connect/connect.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/payment/domain/models/offline_method_model.dart';
-import 'package:sixam_mart/features/checkout/domain/models/place_order_body_model.dart';
-import 'package:sixam_mart/features/checkout/domain/repositories/checkout_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/payment/domain/models/offline_method_model.dart';
+import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
+import 'package:sannip/features/checkout/domain/repositories/checkout_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class CheckoutRepository implements CheckoutRepositoryInterface {
   final ApiClient apiClient;

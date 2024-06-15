@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/common/widgets/card_design/store_card_with_distance.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/store/controllers/store_controller.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/title_widget.dart';
-import 'package:sixam_mart/features/home/widgets/web/widgets/arrow_icon_button.dart';
+import 'package:sannip/common/widgets/card_design/store_card_with_distance.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/title_widget.dart';
+import 'package:sannip/features/home/widgets/web/widgets/arrow_icon_button.dart';
 
 class WebNewOnViewWidget extends StatefulWidget {
   final bool isFood;

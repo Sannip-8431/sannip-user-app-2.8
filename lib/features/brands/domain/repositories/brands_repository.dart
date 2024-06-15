@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/brands/domain/models/brands_model.dart';
-import 'package:sixam_mart/features/brands/domain/repositories/brands_repository_interface.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/brands/domain/models/brands_model.dart';
+import 'package:sannip/features/brands/domain/repositories/brands_repository_interface.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class BrandsRepository implements BrandsRepositoryInterface {
   final ApiClient apiClient;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/store/controllers/store_controller.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/features/home/widgets/components/popular_store_card_widget.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/title_widget.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/home/widgets/components/popular_store_card_widget.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/title_widget.dart';
 import '../web/web_populer_store_view_widget.dart';
 
 class PopularStoreView extends StatelessWidget {

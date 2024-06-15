@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/favourite/domain/repositories/favourite_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/favourite/domain/repositories/favourite_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class FavouriteRepository
     implements FavouriteRepositoryInterface<ResponseModel> {

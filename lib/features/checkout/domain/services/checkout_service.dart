@@ -1,13 +1,13 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/features/payment/domain/models/offline_method_model.dart';
-import 'package:sixam_mart/features/checkout/domain/models/place_order_body_model.dart';
-import 'package:sixam_mart/features/checkout/domain/models/timeslote_model.dart';
-import 'package:sixam_mart/features/checkout/domain/repositories/checkout_repository_interface.dart';
-import 'package:sixam_mart/features/checkout/domain/services/checkout_service_interface.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/payment/domain/models/offline_method_model.dart';
+import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
+import 'package:sannip/features/checkout/domain/models/timeslote_model.dart';
+import 'package:sannip/features/checkout/domain/repositories/checkout_repository_interface.dart';
+import 'package:sannip/features/checkout/domain/services/checkout_service_interface.dart';
+import 'package:sannip/helper/date_converter.dart';
 
 class CheckoutService implements CheckoutServiceInterface {
   final CheckoutRepositoryInterface checkoutRepositoryInterface;

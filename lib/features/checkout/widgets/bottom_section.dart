@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/cart/controllers/cart_controller.dart';
-import 'package:sixam_mart/features/checkout/widgets/prescription_image_picker_widget.dart';
-import 'package:sixam_mart/features/coupon/controllers/coupon_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/profile/controllers/profile_controller.dart';
-import 'package:sixam_mart/common/models/config_model.dart';
-import 'package:sixam_mart/features/checkout/controllers/checkout_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/features/checkout/widgets/condition_check_box.dart';
-import 'package:sixam_mart/features/checkout/widgets/coupon_section.dart';
-import 'package:sixam_mart/features/checkout/widgets/note_prescription_section.dart';
-import 'package:sixam_mart/features/checkout/widgets/partial_pay_view.dart';
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/checkout/widgets/prescription_image_picker_widget.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/profile/controllers/profile_controller.dart';
+import 'package:sannip/common/models/config_model.dart';
+import 'package:sannip/features/checkout/controllers/checkout_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/features/checkout/widgets/condition_check_box.dart';
+import 'package:sannip/features/checkout/widgets/coupon_section.dart';
+import 'package:sannip/features/checkout/widgets/note_prescription_section.dart';
+import 'package:sannip/features/checkout/widgets/partial_pay_view.dart';
 
 class BottomSection extends StatelessWidget {
   final CheckoutController checkoutController;

@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sixam_mart/common/widgets/hover/text_hover.dart';
-import 'package:sixam_mart/features/auth/controllers/auth_controller.dart';
-import 'package:sixam_mart/features/cart/controllers/cart_controller.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/location/controllers/location_controller.dart';
-import 'package:sixam_mart/common/controllers/theme_controller.dart';
-import 'package:sixam_mart/features/auth/screens/sign_in_screen.dart';
-import 'package:sixam_mart/helper/address_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/common/widgets/hover/text_hover.dart';
+import 'package:sannip/features/auth/controllers/auth_controller.dart';
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/common/controllers/theme_controller.dart';
+import 'package:sannip/features/auth/screens/sign_in_screen.dart';
+import 'package:sannip/helper/address_helper.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/custom_dropdown.dart';
+import 'package:sannip/common/widgets/custom_dropdown.dart';
 
 class WebMenuBar extends StatelessWidget implements PreferredSizeWidget {
   const WebMenuBar({super.key});

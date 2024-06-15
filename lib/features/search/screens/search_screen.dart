@@ -1,25 +1,25 @@
-import 'package:sixam_mart/features/cart/controllers/cart_controller.dart';
-import 'package:sixam_mart/features/item/controllers/item_controller.dart';
-import 'package:sixam_mart/features/search/controllers/search_controller.dart'
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/item/controllers/item_controller.dart';
+import 'package:sannip/features/search/controllers/search_controller.dart'
     as search;
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_button.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/menu_drawer.dart';
-import 'package:sixam_mart/common/widgets/web_menu_bar.dart';
-import 'package:sixam_mart/features/search/widgets/filter_widget.dart';
-import 'package:sixam_mart/features/search/widgets/search_field_widget.dart';
-import 'package:sixam_mart/features/search/widgets/search_result_widget.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/menu_drawer.dart';
+import 'package:sannip/common/widgets/web_menu_bar.dart';
+import 'package:sannip/features/search/widgets/filter_widget.dart';
+import 'package:sannip/features/search/widgets/search_field_widget.dart';
+import 'package:sannip/features/search/widgets/search_result_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/store/widgets/bottom_cart_widget.dart';
+import 'package:sannip/features/store/widgets/bottom_cart_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   final String? queryText;

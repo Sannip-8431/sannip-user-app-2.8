@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/features/profile/domain/models/user_information_body.dart';
-import 'package:sixam_mart/features/taxi_booking/models/vehicle_model.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
+import 'package:sannip/features/profile/domain/models/user_information_body.dart';
+import 'package:sannip/features/taxi_booking/models/vehicle_model.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
 import 'rider_car_card.dart';
 
 class RiderCarList extends StatelessWidget {

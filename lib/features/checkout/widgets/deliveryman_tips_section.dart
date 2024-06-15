@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/profile/controllers/profile_controller.dart';
-import 'package:sixam_mart/features/checkout/controllers/checkout_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/common/widgets/custom_text_field.dart';
-import 'package:sixam_mart/features/checkout/widgets/tips_widget.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/profile/controllers/profile_controller.dart';
+import 'package:sannip/features/checkout/controllers/checkout_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/common/widgets/custom_text_field.dart';
+import 'package:sannip/features/checkout/widgets/tips_widget.dart';
 
 class DeliveryManTipsSection extends StatefulWidget {
   final bool takeAway;

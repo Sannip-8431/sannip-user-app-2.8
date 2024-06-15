@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/cart/controllers/cart_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/features/store/controllers/store_controller.dart';
-import 'package:sixam_mart/features/cart/domain/models/cart_model.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/item_widget.dart';
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/cart/domain/models/cart_model.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/item_widget.dart';
 
 class WebSuggestedItemViewWidget extends StatelessWidget {
   final List<CartModel> cartList;

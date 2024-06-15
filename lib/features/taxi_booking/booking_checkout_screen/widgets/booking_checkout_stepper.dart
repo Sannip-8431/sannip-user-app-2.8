@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/taxi_booking/controllers/booking_checkout_controller.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/features/taxi_booking/booking_checkout_screen/widgets/custom_header_icon.dart';
-import 'package:sixam_mart/features/taxi_booking/booking_checkout_screen/widgets/custom_header_line.dart';
-import 'package:sixam_mart/features/taxi_booking/booking_checkout_screen/widgets/custom_text.dart';
+import 'package:sannip/features/taxi_booking/controllers/booking_checkout_controller.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/features/taxi_booking/booking_checkout_screen/widgets/custom_header_icon.dart';
+import 'package:sannip/features/taxi_booking/booking_checkout_screen/widgets/custom_header_line.dart';
+import 'package:sannip/features/taxi_booking/booking_checkout_screen/widgets/custom_text.dart';
 
 class BookingCheckoutStepper extends StatelessWidget {
   final String pageState;

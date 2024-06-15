@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/address_widget.dart';
-import 'package:sixam_mart/features/address/controllers/address_controller.dart';
-import 'package:sixam_mart/features/address/domain/models/address_model.dart';
-import 'package:sixam_mart/features/parcel/controllers/parcel_controller.dart';
-import 'package:sixam_mart/helper/address_helper.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/no_data_screen.dart';
+import 'package:sannip/common/widgets/address_widget.dart';
+import 'package:sannip/features/address/controllers/address_controller.dart';
+import 'package:sannip/features/address/domain/models/address_model.dart';
+import 'package:sannip/features/parcel/controllers/parcel_controller.dart';
+import 'package:sannip/helper/address_helper.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/no_data_screen.dart';
 
 class AddressDialogWidget extends StatelessWidget {
   final Function(AddressModel address) onTap;

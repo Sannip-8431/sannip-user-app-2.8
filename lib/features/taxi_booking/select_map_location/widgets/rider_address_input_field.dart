@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/location/controllers/location_controller.dart';
-import 'package:sixam_mart/features/taxi_booking/controllers/rider_controller.dart';
-import 'package:sixam_mart/features/location/domain/models/prediction_model.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
+import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/features/taxi_booking/controllers/rider_controller.dart';
+import 'package:sannip/features/location/domain/models/prediction_model.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
 
 class RiderAddressInputField extends StatelessWidget {
   final bool isFormAddress;

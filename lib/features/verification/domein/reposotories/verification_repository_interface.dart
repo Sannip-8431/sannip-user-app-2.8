@@ -1,5 +1,5 @@
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/interfaces/repository_interface.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/interfaces/repository_interface.dart';
 
 abstract class VerificationRepositoryInterface<T>
     extends RepositoryInterface<T> {

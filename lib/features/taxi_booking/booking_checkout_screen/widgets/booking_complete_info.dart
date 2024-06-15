@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/taxi_booking/controllers/booking_checkout_controller.dart';
-import 'package:sixam_mart/common/controllers/theme_controller.dart';
-import 'package:sixam_mart/features/notification/domain/models/notification_body_model.dart';
-import 'package:sixam_mart/features/profile/domain/models/user_information_body.dart';
-import 'package:sixam_mart/features/chat/domain/models/conversation_model.dart';
-import 'package:sixam_mart/features/taxi_booking/models/vehicle_model.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/features/taxi_booking/select_map_location/widgets/dotted_line.dart';
-import 'package:sixam_mart/features/taxi_booking/select_map_location/widgets/pick_and_destination_address_info.dart';
+import 'package:sannip/features/taxi_booking/controllers/booking_checkout_controller.dart';
+import 'package:sannip/common/controllers/theme_controller.dart';
+import 'package:sannip/features/notification/domain/models/notification_body_model.dart';
+import 'package:sannip/features/profile/domain/models/user_information_body.dart';
+import 'package:sannip/features/chat/domain/models/conversation_model.dart';
+import 'package:sannip/features/taxi_booking/models/vehicle_model.dart';
+import 'package:sannip/helper/date_converter.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/taxi_booking/select_map_location/widgets/dotted_line.dart';
+import 'package:sannip/features/taxi_booking/select_map_location/widgets/pick_and_destination_address_info.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class BookingCompleteInfo extends StatelessWidget {

@@ -1,8 +1,8 @@
-import 'package:sixam_mart/features/taxi_booking/controllers/rider_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/footer_view.dart';
-import 'package:sixam_mart/common/widgets/no_data_screen.dart';
-import 'package:sixam_mart/common/widgets/paginated_list_view.dart';
+import 'package:sannip/features/taxi_booking/controllers/rider_controller.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/footer_view.dart';
+import 'package:sannip/common/widgets/no_data_screen.dart';
+import 'package:sannip/common/widgets/paginated_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../widgets/trip_history_item.dart';

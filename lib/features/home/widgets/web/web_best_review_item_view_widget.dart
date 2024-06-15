@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/features/item/controllers/item_controller.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/home/widgets/components/review_item_card_widget.dart';
-import 'package:sixam_mart/features/home/widgets/web/widgets/arrow_icon_button.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/title_widget.dart';
+import 'package:sannip/features/item/controllers/item_controller.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/home/widgets/components/review_item_card_widget.dart';
+import 'package:sannip/features/home/widgets/web/widgets/arrow_icon_button.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/title_widget.dart';
 
 class WebBestReviewItemViewWidget extends StatefulWidget {
   const WebBestReviewItemViewWidget({super.key});

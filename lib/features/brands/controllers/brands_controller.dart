@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/brands/domain/models/brands_model.dart';
-import 'package:sixam_mart/features/brands/domain/services/brands_service_interface.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/brands/domain/models/brands_model.dart';
+import 'package:sannip/features/brands/domain/services/brands_service_interface.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
 
 class BrandsController extends GetxController implements GetxService {
   final BrandsServiceInterface brandsServiceInterface;

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/features/home/widgets/views/category_view.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/features/home/widgets/bad_weather_widget.dart';
-import 'package:sixam_mart/features/home/widgets/views/best_reviewed_item_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/best_store_nearby_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/item_that_you_love_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/just_for_you_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/most_popular_item_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/new_on_mart_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/special_offer_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/visit_again_view.dart';
-import 'package:sixam_mart/features/home/widgets/banner_view.dart';
+import 'package:sannip/features/home/widgets/views/category_view.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/features/home/widgets/bad_weather_widget.dart';
+import 'package:sannip/features/home/widgets/views/best_reviewed_item_view.dart';
+import 'package:sannip/features/home/widgets/views/best_store_nearby_view.dart';
+import 'package:sannip/features/home/widgets/views/item_that_you_love_view.dart';
+import 'package:sannip/features/home/widgets/views/just_for_you_view.dart';
+import 'package:sannip/features/home/widgets/views/most_popular_item_view.dart';
+import 'package:sannip/features/home/widgets/views/new_on_mart_view.dart';
+import 'package:sannip/features/home/widgets/views/special_offer_view.dart';
+import 'package:sannip/features/home/widgets/views/visit_again_view.dart';
+import 'package:sannip/features/home/widgets/banner_view.dart';
 
 class FoodHomeScreen extends StatelessWidget {
   const FoodHomeScreen({super.key});

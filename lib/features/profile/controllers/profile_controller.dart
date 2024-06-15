@@ -1,15 +1,15 @@
 import 'dart:typed_data';
-import 'package:sixam_mart/features/favourite/controllers/favourite_controller.dart';
-import 'package:sixam_mart/features/chat/domain/models/conversation_model.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/profile/domain/models/userinfo_model.dart';
+import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
+import 'package:sannip/features/chat/domain/models/conversation_model.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/profile/domain/models/userinfo_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/features/auth/controllers/auth_controller.dart';
-import 'package:sixam_mart/helper/network_info.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/features/profile/domain/services/profile_service_interface.dart';
+import 'package:sannip/features/auth/controllers/auth_controller.dart';
+import 'package:sannip/helper/network_info.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/profile/domain/services/profile_service_interface.dart';
 
 class ProfileController extends GetxController implements GetxService {
   final ProfileServiceInterface profileServiceInterface;

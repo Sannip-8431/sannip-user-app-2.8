@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/custom_ink_well.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_image.dart';
-import 'package:sixam_mart/features/store/screens/store_screen.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_image.dart';
+import 'package:sannip/features/store/screens/store_screen.dart';
 
 class PopularStoreCard extends StatelessWidget {
   final Store store;

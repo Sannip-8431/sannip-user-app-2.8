@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/features/loyalty/controllers/loyalty_controller.dart';
-import 'package:sixam_mart/common/widgets/history_item_widget.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/no_data_screen.dart';
+import 'package:sannip/features/loyalty/controllers/loyalty_controller.dart';
+import 'package:sannip/common/widgets/history_item_widget.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/no_data_screen.dart';
 
 class LoyaltyHistoryWidget extends StatelessWidget {
   const LoyaltyHistoryWidget({super.key});

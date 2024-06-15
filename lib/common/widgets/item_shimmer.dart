@@ -1,6 +1,6 @@
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/rating_bar.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 
 class ItemShimmer extends StatelessWidget {

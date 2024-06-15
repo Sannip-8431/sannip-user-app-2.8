@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/auth/controllers/deliveryman_registration_controller.dart';
-import 'package:sixam_mart/features/auth/controllers/store_registration_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/auth/controllers/deliveryman_registration_controller.dart';
+import 'package:sannip/features/auth/controllers/store_registration_controller.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
 
 class PassViewWidget extends StatelessWidget {
   final bool forStoreRegistration;

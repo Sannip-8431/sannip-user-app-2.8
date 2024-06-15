@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/flash_sale/domain/models/flash_sale_model.dart';
-import 'package:sixam_mart/features/flash_sale/domain/models/product_flash_sale.dart';
-import 'package:sixam_mart/features/flash_sale/domain/repositories/flash_sale_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/flash_sale/domain/models/flash_sale_model.dart';
+import 'package:sannip/features/flash_sale/domain/models/product_flash_sale.dart';
+import 'package:sannip/features/flash_sale/domain/repositories/flash_sale_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class FlashSaleRepository implements FlashSaleRepositoryInterface {
   final ApiClient apiClient;

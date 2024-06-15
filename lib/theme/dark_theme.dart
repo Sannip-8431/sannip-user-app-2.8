@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/util/app_constants.dart';
 
 ThemeData dark({Color color = const Color(0xFF54b46b)}) => ThemeData(
       fontFamily: AppConstants.fontFamily,

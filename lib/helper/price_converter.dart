@@ -1,8 +1,8 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/util/styles.dart';
 
 class PriceConverter {
   static String convertPrice(double? price,

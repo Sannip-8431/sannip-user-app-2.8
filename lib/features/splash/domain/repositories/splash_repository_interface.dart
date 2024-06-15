@@ -1,5 +1,5 @@
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/interfaces/repository_interface.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/interfaces/repository_interface.dart';
 
 abstract class SplashRepositoryInterface extends RepositoryInterface {
   Future<dynamic> getConfigData();

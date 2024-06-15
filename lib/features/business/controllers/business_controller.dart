@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/business/domain/models/business_plan_body.dart';
-import 'package:sixam_mart/features/business/domain/models/package_model.dart';
-import 'package:sixam_mart/features/business/domain/services/business_service_interface.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/business/domain/models/business_plan_body.dart';
+import 'package:sannip/features/business/domain/models/package_model.dart';
+import 'package:sannip/features/business/domain/services/business_service_interface.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 
 class BusinessController extends GetxController implements GetxService {
   final BusinessServiceInterface businessServiceInterface;

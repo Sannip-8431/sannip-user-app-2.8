@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/home/widgets/components/review_item_card_widget.dart';
-import 'package:sixam_mart/features/home/widgets/web/widgets/sorting_text_button.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/home/widgets/components/review_item_card_widget.dart';
+import 'package:sannip/features/home/widgets/web/widgets/sorting_text_button.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
 
 class BestReviewedProductView extends StatelessWidget {
   const BestReviewedProductView({super.key});

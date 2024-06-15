@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/util/dimensions.dart';
+import 'package:sannip/util/dimensions.dart';
 
 class RippleButton extends StatelessWidget {
   const RippleButton(

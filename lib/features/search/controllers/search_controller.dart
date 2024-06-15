@@ -1,7 +1,7 @@
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/search/domain/services/search_service_interface.dart';
+import 'package:sannip/features/search/domain/services/search_service_interface.dart';
 
 class SearchController extends GetxController implements GetxService {
   final SearchServiceInterface searchServiceInterface;

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/category/domain/models/category_model.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/features/category/domain/reposotories/category_repository_interface.dart';
+import 'package:sannip/features/category/domain/models/category_model.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/features/category/domain/reposotories/category_repository_interface.dart';
 
 class CategoryRepository implements CategoryRepositoryInterface {
   final ApiClient apiClient;

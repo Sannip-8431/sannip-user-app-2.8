@@ -1,8 +1,8 @@
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/profile/domain/models/userinfo_model.dart';
-import 'package:sixam_mart/features/profile/domain/repositories/profile_repository_interface.dart';
-import 'package:sixam_mart/features/profile/domain/services/profile_service_interface.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/profile/domain/models/userinfo_model.dart';
+import 'package:sannip/features/profile/domain/repositories/profile_repository_interface.dart';
+import 'package:sannip/features/profile/domain/services/profile_service_interface.dart';
 
 class ProfileService implements ProfileServiceInterface {
   final ProfileRepositoryInterface profileRepositoryInterface;

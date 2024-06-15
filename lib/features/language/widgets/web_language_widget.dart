@@ -1,8 +1,8 @@
-import 'package:sixam_mart/features/language/controllers/language_controller.dart';
-import 'package:sixam_mart/features/language/domain/models/language_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/language/controllers/language_controller.dart';
+import 'package:sannip/features/language/domain/models/language_model.dart';
+import 'package:sannip/util/app_constants.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
 import 'package:flutter/material.dart';
 
 class WebLanguageWidget extends StatelessWidget {

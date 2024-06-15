@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/features/search/domain/repositories/search_repository_interface.dart';
-import 'package:sixam_mart/features/search/domain/services/search_service_interface.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/search/domain/repositories/search_repository_interface.dart';
+import 'package:sannip/features/search/domain/services/search_service_interface.dart';
+import 'package:sannip/helper/date_converter.dart';
 
 class SearchService implements SearchServiceInterface {
   final SearchRepositoryInterface searchRepositoryInterface;

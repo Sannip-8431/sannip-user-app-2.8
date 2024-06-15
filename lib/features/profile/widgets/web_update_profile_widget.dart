@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
-import 'package:sixam_mart/features/auth/controllers/auth_controller.dart';
-import 'package:sixam_mart/features/profile/controllers/profile_controller.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/profile/domain/models/userinfo_model.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_button.dart';
-import 'package:sixam_mart/common/widgets/custom_text_field.dart';
-import 'package:sixam_mart/common/widgets/image_picker_widget.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/auth/controllers/auth_controller.dart';
+import 'package:sannip/features/profile/controllers/profile_controller.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/profile/domain/models/userinfo_model.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
+import 'package:sannip/common/widgets/custom_text_field.dart';
+import 'package:sannip/common/widgets/image_picker_widget.dart';
 
 class WebUpdateProfileWidget extends StatefulWidget {
   const WebUpdateProfileWidget({super.key});

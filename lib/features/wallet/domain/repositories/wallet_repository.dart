@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/common/models/transaction_model.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/wallet/domain/models/fund_bonus_model.dart';
-import 'package:sixam_mart/features/wallet/domain/repositories/wallet_repository_interface.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/common/models/transaction_model.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/wallet/domain/models/fund_bonus_model.dart';
+import 'package:sannip/features/wallet/domain/repositories/wallet_repository_interface.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:universal_html/html.dart' as html;
 
 class WalletRepository implements WalletRepositoryInterface {

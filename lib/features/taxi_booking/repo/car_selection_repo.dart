@@ -1,7 +1,7 @@
 import 'package:get/get_connect/http/src/response/response.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/profile/domain/models/user_information_body.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/profile/domain/models/user_information_body.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class CarSelectionRepo {
   final ApiClient apiClient;

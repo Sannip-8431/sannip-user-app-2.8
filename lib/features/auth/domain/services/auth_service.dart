@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/signup_body_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/social_log_in_body.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/auth_repository_interface.dart';
-import 'package:sixam_mart/features/auth/domain/services/auth_service_interface.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/common/widgets/custom_snackbar.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/auth/domain/models/signup_body_model.dart';
+import 'package:sannip/features/auth/domain/models/social_log_in_body.dart';
+import 'package:sannip/features/auth/domain/reposotories/auth_repository_interface.dart';
+import 'package:sannip/features/auth/domain/services/auth_service_interface.dart';
+import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
 
 class AuthService implements AuthServiceInterface {
   final AuthRepositoryInterface authRepositoryInterface;

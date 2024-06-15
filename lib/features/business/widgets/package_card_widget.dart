@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/business/domain/models/package_model.dart';
-import 'package:sixam_mart/features/business/widgets/curve_clipper_widget.dart';
-import 'package:sixam_mart/features/business/widgets/package_widget.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/business/domain/models/package_model.dart';
+import 'package:sannip/features/business/widgets/curve_clipper_widget.dart';
+import 'package:sannip/features/business/widgets/package_widget.dart';
+import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
 
 class PackageCardWidget extends StatelessWidget {
   final bool canSelect;

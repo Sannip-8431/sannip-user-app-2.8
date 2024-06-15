@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/styles.dart';
 
 class WebScreenTitleWidget extends StatelessWidget {
   final String title;

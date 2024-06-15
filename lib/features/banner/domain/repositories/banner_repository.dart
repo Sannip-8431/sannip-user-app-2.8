@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/banner/domain/models/banner_model.dart';
-import 'package:sixam_mart/features/banner/domain/models/others_banner_model.dart';
-import 'package:sixam_mart/features/banner/domain/models/promotional_banner_model.dart';
-import 'package:sixam_mart/features/banner/domain/repositories/banner_repository_interface.dart';
-import 'package:sixam_mart/helper/header_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/banner/domain/models/banner_model.dart';
+import 'package:sannip/features/banner/domain/models/others_banner_model.dart';
+import 'package:sannip/features/banner/domain/models/promotional_banner_model.dart';
+import 'package:sannip/features/banner/domain/repositories/banner_repository_interface.dart';
+import 'package:sannip/helper/header_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class BannerRepository implements BannerRepositoryInterface {
   final ApiClient apiClient;

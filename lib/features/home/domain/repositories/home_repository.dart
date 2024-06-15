@@ -1,8 +1,8 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/home/domain/models/cashback_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/home/domain/models/cashback_model.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'home_repository_interface.dart';
 
 class HomeRepository implements HomeRepositoryInterface {

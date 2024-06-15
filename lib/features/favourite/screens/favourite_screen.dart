@@ -1,12 +1,12 @@
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/favourite/controllers/favourite_controller.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/common/widgets/custom_app_bar.dart';
-import 'package:sixam_mart/common/widgets/menu_drawer.dart';
-import 'package:sixam_mart/common/widgets/not_logged_in_screen.dart';
-import 'package:sixam_mart/features/favourite/widgets/fav_item_view_widget.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/common/widgets/custom_app_bar.dart';
+import 'package:sannip/common/widgets/menu_drawer.dart';
+import 'package:sannip/common/widgets/not_logged_in_screen.dart';
+import 'package:sannip/features/favourite/widgets/fav_item_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,7 @@
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/auth_repository_interface.dart';
-import 'package:sixam_mart/features/verification/domein/reposotories/verification_repository_interface.dart';
-import 'package:sixam_mart/features/verification/domein/services/verification_service_interface.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/auth/domain/reposotories/auth_repository_interface.dart';
+import 'package:sannip/features/verification/domein/reposotories/verification_repository_interface.dart';
+import 'package:sannip/features/verification/domein/services/verification_service_interface.dart';
 
 class VerificationService implements VerificationServiceInterface {
   final VerificationRepositoryInterface verificationRepoInterface;

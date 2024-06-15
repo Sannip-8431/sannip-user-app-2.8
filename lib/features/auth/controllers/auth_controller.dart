@@ -1,13 +1,13 @@
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/features/location/controllers/location_controller.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/profile/controllers/profile_controller.dart';
-import 'package:sixam_mart/features/auth/domain/models/social_log_in_body.dart';
-import 'package:sixam_mart/features/auth/domain/models/signup_body_model.dart';
-import 'package:sixam_mart/features/auth/domain/services/auth_service_interface.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/profile/controllers/profile_controller.dart';
+import 'package:sannip/features/auth/domain/models/social_log_in_body.dart';
+import 'package:sannip/features/auth/domain/models/signup_body_model.dart';
+import 'package:sannip/features/auth/domain/services/auth_service_interface.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthServiceInterface authServiceInterface;

@@ -1,4 +1,4 @@
-import 'package:sixam_mart/interfaces/repository_interface.dart';
+import 'package:sannip/interfaces/repository_interface.dart';
 
 abstract class SearchRepositoryInterface extends RepositoryInterface {
   Future<bool> saveSearchHistory(List<String> searchHistories);

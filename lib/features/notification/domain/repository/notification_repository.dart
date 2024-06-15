@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/notification/domain/models/notification_model.dart';
-import 'package:sixam_mart/features/notification/domain/repository/notification_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/notification/domain/models/notification_model.dart';
+import 'package:sannip/features/notification/domain/repository/notification_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class NotificationRepository implements NotificationRepositoryInterface {
   final ApiClient apiClient;

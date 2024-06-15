@@ -1,14 +1,14 @@
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
-import 'package:sixam_mart/features/home/widgets/web/web_store_shimmer_widget.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/common/widgets/no_data_screen.dart';
-import 'package:sixam_mart/common/widgets/item_shimmer.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/home/widgets/web/web_store_shimmer_widget.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/common/widgets/no_data_screen.dart';
+import 'package:sannip/common/widgets/item_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/common/widgets/web_item_widget.dart';
+import 'package:sannip/common/widgets/web_item_widget.dart';
 
 class WebItemsView extends StatefulWidget {
   final List<Item?>? items;

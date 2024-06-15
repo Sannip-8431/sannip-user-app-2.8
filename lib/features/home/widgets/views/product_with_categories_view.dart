@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/item/controllers/item_controller.dart';
-import 'package:sixam_mart/features/item/domain/models/basic_medicine_model.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/home/widgets/web/web_basic_medicine_nearby_view_widget.dart';
-import 'package:sixam_mart/features/home/widgets/web/widgets/medicine_item_card.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:sannip/features/item/controllers/item_controller.dart';
+import 'package:sannip/features/item/domain/models/basic_medicine_model.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/home/widgets/web/web_basic_medicine_nearby_view_widget.dart';
+import 'package:sannip/features/home/widgets/web/widgets/medicine_item_card.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/styles.dart';
 
 class ProductWithCategoriesView extends StatefulWidget {
   final bool fromShop;

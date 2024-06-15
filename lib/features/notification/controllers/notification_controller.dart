@@ -1,7 +1,7 @@
-import 'package:sixam_mart/features/notification/domain/models/notification_model.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
+import 'package:sannip/features/notification/domain/models/notification_model.dart';
+import 'package:sannip/helper/date_converter.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/notification/domain/service/notification_service_interface.dart';
+import 'package:sannip/features/notification/domain/service/notification_service_interface.dart';
 
 class NotificationController extends GetxController implements GetxService {
   final NotificationServiceInterface notificationServiceInterface;

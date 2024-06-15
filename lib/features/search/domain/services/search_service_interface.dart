@@ -1,6 +1,6 @@
 import 'package:get/get_connect/http/src/response/response.dart';
-import 'package:sixam_mart/features/item/domain/models/item_model.dart';
-import 'package:sixam_mart/features/store/domain/models/store_model.dart';
+import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
 
 abstract class SearchServiceInterface {
   Future<Response> getSearchData(String? query, bool isStore);

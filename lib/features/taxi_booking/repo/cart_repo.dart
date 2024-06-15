@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:sixam_mart/features/splash/controllers/splash_controller.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/checkout/domain/models/place_order_body_model.dart';
-import 'package:sixam_mart/features/cart/domain/models/cart_model.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
+import 'package:sannip/features/cart/domain/models/cart_model.dart';
+import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepo {

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animarker/widgets/animarker.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sixam_mart/features/taxi_booking/controllers/rider_controller.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/features/taxi_booking/select_map_location/widgets/dotted_line.dart';
-import 'package:sixam_mart/features/taxi_booking/select_map_location/widgets/pick_and_destination_address_info.dart';
+import 'package:sannip/features/taxi_booking/controllers/rider_controller.dart';
+import 'package:sannip/helper/date_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
+import 'package:sannip/util/styles.dart';
+import 'package:sannip/features/taxi_booking/select_map_location/widgets/dotted_line.dart';
+import 'package:sannip/features/taxi_booking/select_map_location/widgets/pick_and_destination_address_info.dart';
 
 class SeeDetailsWidget extends StatefulWidget {
   const SeeDetailsWidget({super.key});

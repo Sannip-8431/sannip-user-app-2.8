@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/common/models/module_model.dart';
-import 'package:sixam_mart/features/location/domain/models/zone_data_model.dart';
-import 'package:sixam_mart/features/auth/domain/models/store_body_model.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/deliveryman_registration_repository_interface.dart';
-import 'package:sixam_mart/features/auth/domain/reposotories/store_registration_repository_interface.dart';
-import 'package:sixam_mart/features/auth/domain/services/store_registration_service_interface.dart';
+import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/features/location/domain/models/zone_data_model.dart';
+import 'package:sannip/features/auth/domain/models/store_body_model.dart';
+import 'package:sannip/features/auth/domain/reposotories/deliveryman_registration_repository_interface.dart';
+import 'package:sannip/features/auth/domain/reposotories/store_registration_repository_interface.dart';
+import 'package:sannip/features/auth/domain/services/store_registration_service_interface.dart';
 
 class StoreRegistrationService implements StoreRegistrationServiceInterface {
   final StoreRegistrationRepositoryInterface storeRegistrationRepoInterface;

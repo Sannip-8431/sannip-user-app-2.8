@@ -1,10 +1,10 @@
 import 'package:get/get_connect/connect.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:sixam_mart/common/models/response_model.dart';
-import 'package:sixam_mart/api/api_client.dart';
-import 'package:sixam_mart/features/address/domain/models/address_model.dart';
-import 'package:sixam_mart/features/address/domain/repositories/address_repository_interface.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sannip/common/models/response_model.dart';
+import 'package:sannip/api/api_client.dart';
+import 'package:sannip/features/address/domain/models/address_model.dart';
+import 'package:sannip/features/address/domain/repositories/address_repository_interface.dart';
+import 'package:sannip/util/app_constants.dart';
 
 class AddressRepository implements AddressRepositoryInterface<AddressModel> {
   final ApiClient apiClient;

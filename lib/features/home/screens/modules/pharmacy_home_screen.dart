@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sixam_mart/features/home/widgets/bad_weather_widget.dart';
-import 'package:sixam_mart/features/home/widgets/views/product_with_categories_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/best_store_nearby_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/common_condition_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/just_for_you_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/middle_section_banner_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/new_on_mart_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/promotional_banner_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/visit_again_view.dart';
-import 'package:sixam_mart/features/home/widgets/banner_view.dart';
-import 'package:sixam_mart/features/home/widgets/views/category_view.dart';
-import 'package:sixam_mart/helper/auth_helper.dart';
+import 'package:sannip/features/home/widgets/bad_weather_widget.dart';
+import 'package:sannip/features/home/widgets/views/product_with_categories_view.dart';
+import 'package:sannip/features/home/widgets/views/best_store_nearby_view.dart';
+import 'package:sannip/features/home/widgets/views/common_condition_view.dart';
+import 'package:sannip/features/home/widgets/views/just_for_you_view.dart';
+import 'package:sannip/features/home/widgets/views/middle_section_banner_view.dart';
+import 'package:sannip/features/home/widgets/views/new_on_mart_view.dart';
+import 'package:sannip/features/home/widgets/views/promotional_banner_view.dart';
+import 'package:sannip/features/home/widgets/views/visit_again_view.dart';
+import 'package:sannip/features/home/widgets/banner_view.dart';
+import 'package:sannip/features/home/widgets/views/category_view.dart';
+import 'package:sannip/helper/auth_helper.dart';
 
 class PharmacyHomeScreen extends StatelessWidget {
   const PharmacyHomeScreen({super.key});
