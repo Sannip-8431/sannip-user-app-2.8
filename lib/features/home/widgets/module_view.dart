@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:sannip/util/images.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sannip/common/widgets/address_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
@@ -58,34 +60,54 @@ class ModuleView extends StatelessWidget {
                               spreadRadius: 1,
                               blurRadius: 3)
                         ],
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: CachedNetworkImageProvider(
+                            splashController.moduleList![index].iconFullUrl !=
+                                    null
+                                ? '${splashController.moduleList![index].iconFullUrl}'
+                                : Images.placeholder,
+                            errorListener: (error) => Image.asset(
+                                Images.placeholder,
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover),
+                            maxHeight: 50,
+                            maxWidth: 50,
+                          ),
+                        ),
                       ),
                       child: CustomInkWell(
                         onTap: () => splashController.switchModule(index, true),
                         radius: Dimensions.radiusDefault,
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall),
-                                child: CustomImage(
-                                  image:
-                                      '${splashController.moduleList![index].iconFullUrl}',
-                                  height: 50,
-                                  width: 50,
-                                ),
-                              ),
-                              const SizedBox(
-                                  height: Dimensions.paddingSizeSmall),
-                              Center(
+                              // ClipRRect(
+                              //   borderRadius: BorderRadius.circular(
+                              //       Dimensions.radiusSmall),
+                              //   child: CustomImage(
+                              //     image:
+                              //         '${splashController.moduleList![index].iconFullUrl}',
+                              //     height: 50,
+                              //     width: 50,
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //     height: Dimensions.paddingSizeSmall),
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: Dimensions.paddingSizeSmall,
+                                      left: Dimensions.paddingSizeExtraSmall),
                                   child: Text(
-                                splashController.moduleList![index].moduleName!,
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: robotoMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall),
-                              )),
+                                    splashController
+                                        .moduleList![index].moduleName!,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: robotoMedium.copyWith(
+                                        fontSize: Dimensions.fontSizeSmall),
+                                  )),
                             ]),
                       ),
                     );
