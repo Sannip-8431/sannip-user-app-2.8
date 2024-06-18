@@ -709,7 +709,7 @@ class FoodCategoryView extends StatelessWidget {
                                                           Radius.circular(100)),
                                                   child: CustomImage(
                                                     image:
-                                                        '${categoryController.categoryList![index].imageFullUrl}',
+                                                        '${categoryController.categoryList![index + number].imageFullUrl}',
                                                     height: 60,
                                                     width: double.infinity,
                                                     fit: BoxFit.cover,
