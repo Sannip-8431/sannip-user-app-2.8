@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sannip/util/app_constants.dart';
 
-ThemeData light({Color color = const Color(0xFF039D55)}) => ThemeData(
+// ThemeData light({Color color = const Color(0xFF039D55)}) => ThemeData(
+ThemeData light({Color color = const Color(0xFFaa2533)}) => ThemeData(
       fontFamily: AppConstants.fontFamily,
       primaryColor: color,
-      secondaryHeaderColor: const Color(0xFF1ED7AA),
+      secondaryHeaderColor: const Color(0xFFCA3746),
       disabledColor: const Color(0xFFBABFC4),
       brightness: Brightness.light,
       hintColor: const Color(0xFF9F9F9F),
