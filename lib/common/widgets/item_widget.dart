@@ -297,27 +297,6 @@ class ItemWidget extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          discount! > 0
-                                              ? Text(
-                                                  PriceConverter.convertPrice(
-                                                      item!.price),
-                                                  style: robotoMedium.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeExtraSmall,
-                                                    color: Theme.of(context)
-                                                        .disabledColor,
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                  textDirection:
-                                                      TextDirection.ltr,
-                                                )
-                                              : const SizedBox(),
-                                          SizedBox(
-                                              width: discount > 0
-                                                  ? Dimensions
-                                                      .paddingSizeExtraSmall
-                                                  : 0),
                                           Text(
                                             PriceConverter.convertPrice(
                                                 item!.price,
@@ -328,6 +307,26 @@ class ItemWidget extends StatelessWidget {
                                                     Dimensions.fontSizeDefault),
                                             textDirection: TextDirection.ltr,
                                           ),
+                                          SizedBox(
+                                              width: discount! > 0
+                                                  ? 2
+                                                  : 0),
+                                          discount > 0
+                                              ? Text(
+                                                  PriceConverter.convertPrice(
+                                                      item!.price),
+                                                  style: robotoMedium.copyWith(
+                                                    fontSize: Dimensions
+                                                        .fontSizeDefault,
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                )
+                                              : const SizedBox(),
                                         ]),
                                     Column(
                                         mainAxisAlignment: isStore
@@ -612,16 +611,16 @@ class TagClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final Path path = Path();
     path.lineTo(0, 0);
-    path.lineTo(0, size.height - 10);
+    path.lineTo(0, size.height - 5);
 
     // Creating sharp waves
     final double waveWidth = size.width / 3;
 
     path.lineTo(waveWidth / 2, size.height);
     path.lineTo(waveWidth, size.height - 6);
-    path.lineTo(waveWidth * 1.5, size.height);
-    path.lineTo(waveWidth * 2, size.height - 6);
-    path.lineTo(waveWidth * 2.5, size.height);
+    path.lineTo(waveWidth * 1.6, size.height);
+    path.lineTo(waveWidth * 2.1, size.height - 6);
+    path.lineTo(waveWidth * 2.6, size.height);
     path.lineTo(size.width, size.height - 6);
 
     path.lineTo(size.width, 0);
