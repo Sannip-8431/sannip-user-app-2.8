@@ -11,13 +11,17 @@ class OrganicTag extends StatelessWidget {
   final bool placeTop;
   final bool placeInImage;
   final bool fromDetails;
-  const OrganicTag(
-      {super.key,
-      this.fontSize,
-      required this.item,
-      this.placeTop = false,
-      this.placeInImage = false,
-      this.fromDetails = false});
+  final bool placeBottom;
+
+  const OrganicTag({
+    super.key,
+    this.fontSize,
+    required this.item,
+    this.placeTop = false,
+    this.placeInImage = false,
+    this.fromDetails = false,
+    this.placeBottom = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +52,12 @@ class OrganicTag extends StatelessWidget {
                 ? null
                 : placeTop
                     ? 10
-                    : 40,
-            left: placeInImage ? 0 : 10,
+                    : placeBottom
+                        ? null
+                        : 40,
+            left: placeInImage || placeBottom ? 0 : 10,
             right: placeInImage ? 0 : null,
-            bottom: placeInImage ? 0 : null,
+            bottom: placeInImage || placeBottom ? 0 : null,
             child: item.organic == 1 && item.moduleType == 'grocery'
                 ? Container(
                     padding: const EdgeInsets.symmetric(

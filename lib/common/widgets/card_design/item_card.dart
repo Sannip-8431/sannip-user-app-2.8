@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
+import 'package:sannip/common/widgets/item_widget.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
 import 'package:sannip/helper/price_converter.dart';
+import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/cart_count_view.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/organic_tag.dart';
@@ -41,12 +42,12 @@ class ItemCard extends StatelessWidget {
     return OnHover(
       isItem: true,
       child: Stack(children: [
-        Container(
-          width: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
-            color: Theme.of(context).cardColor,
-          ),
+        SizedBox(
+          width: 150,
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+          //   color: Theme.of(context).cardColor,
+          // ),
           child: CustomInkWell(
             onTap: () =>
                 Get.find<ItemController>().navigateToItemPage(item, context),
@@ -56,7 +57,14 @@ class ItemCard extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child: Stack(children: [
-                  Padding(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Theme.of(context).hintColor.withOpacity(0.3)),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radiusLarge),
+                      color: Theme.of(context).cardColor,
+                    ),
                     padding: EdgeInsets.only(
                         top: isPopularItem
                             ? Dimensions.paddingSizeExtraSmall
@@ -68,14 +76,14 @@ class ItemCard extends StatelessWidget {
                             ? Dimensions.paddingSizeExtraSmall
                             : 0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(Dimensions.radiusLarge),
-                        topRight: const Radius.circular(Dimensions.radiusLarge),
-                        bottomLeft: Radius.circular(
-                            isPopularItem ? Dimensions.radiusLarge : 0),
-                        bottomRight: Radius.circular(
-                            isPopularItem ? Dimensions.radiusLarge : 0),
-                      ),
+                      borderRadius: BorderRadius.circular(Dimensions.radiusLarge
+                          // topLeft: const Radius.circular(Dimensions.radiusLarge),
+                          // topRight: const Radius.circular(Dimensions.radiusLarge),
+                          // bottomLeft: Radius.circular(
+                          //     isPopularItem ? Dimensions.radiusLarge : 0),
+                          // bottomRight: Radius.circular(
+                          //     isPopularItem ? Dimensions.radiusLarge : 0),
+                          ),
                       child: CustomImage(
                         placeholder: Images.placeholder,
                         image: '${item.imageFullUrl}',
@@ -87,27 +95,55 @@ class ItemCard extends StatelessWidget {
                   ),
                   AddFavouriteView(
                     item: item,
+                    top: 3,
+                    right: 3,
                   ),
                   item.isStoreHalalActive! && item.isHalalItem!
                       ? const Positioned(
-                          top: 40,
-                          right: 15,
+                          bottom: 3,
+                          right: 3,
                           child: CustomAssetImageWidget(
                             Images.halalTag,
-                            height: 20,
-                            width: 20,
+                            height: 25,
+                            width: 25,
                           ),
                         )
                       : const SizedBox(),
-                  DiscountTag(
-                    discount: discount,
-                    discountType: discountType,
-                    freeDelivery: false,
+                  // DiscountTag(
+                  //   discount: discount,
+                  //   discountType: discountType,
+                  //   freeDelivery: false,
+                  // ),
+                  Positioned(
+                      left: 0,
+                      child: ClipPath(
+                        clipper: TagClipper(),
+                        child: Container(
+                          color: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 5.0),
+                          child: Text(
+                            discount! > 0
+                                ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
+                                : 'free_delivery'.tr,
+                            style: robotoMedium.copyWith(
+                              color: Colors.white,
+                              fontSize: (ResponsiveHelper.isMobile(Get.context)
+                                  ? 9
+                                  : 12),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )),
+                  OrganicTag(
+                    item: item,
+                    placeInImage: false,
+                    placeBottom: true,
                   ),
-                  OrganicTag(item: item, placeInImage: false),
                   (item.stock != null && item.stock! < 0)
                       ? Positioned(
-                          bottom: 10,
+                          bottom: 45,
                           left: 0,
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -131,15 +167,15 @@ class ItemCard extends StatelessWidget {
                           ),
                         )
                       : const SizedBox(),
-                  isShop
-                      ? const SizedBox()
-                      : Positioned(
-                          bottom: 10,
-                          right: 20,
-                          child: CartCountView(
-                            item: item,
-                          ),
-                        ),
+                  // isShop
+                  //     ? const SizedBox()
+                  //     : Positioned(
+                  //         bottom: 10,
+                  //         right: 20,
+                  //         child: CartCountView(
+                  //           item: item,
+                  //         ),
+                  //       ),
                   Get.find<ItemController>().isAvailable(item)
                       ? const SizedBox()
                       : NotAvailableWidget(
@@ -249,7 +285,7 @@ class ItemCard extends StatelessWidget {
                                     )
                                   : const SizedBox(),
 
-                          discount != null && discount > 0
+                          discount > 0
                               ? Text(
                                   PriceConverter.convertPrice(
                                       Get.find<ItemController>()
@@ -264,14 +300,55 @@ class ItemCard extends StatelessWidget {
                               : const SizedBox(),
                           // SizedBox(height: item.discount != null && item.discount! > 0 ? Dimensions.paddingSizeExtraSmall : 0),
 
-                          Text(
-                            PriceConverter.convertPrice(
-                              Get.find<ItemController>().getStartingPrice(item),
-                              discount: discount,
-                              discountType: discountType,
-                            ),
-                            textDirection: TextDirection.ltr,
-                            style: robotoMedium,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  PriceConverter.convertPrice(
+                                    Get.find<ItemController>()
+                                        .getStartingPrice(item),
+                                    discount: discount,
+                                    discountType: discountType,
+                                  ),
+                                  textDirection: TextDirection.ltr,
+                                  style: robotoMedium,
+                                ),
+                              ),
+                              isShop
+                                  ? const SizedBox()
+                                  : CartCountView(
+                                      item: item,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.radiusSmall),
+                                          color: Theme.of(context).cardColor,
+                                          border: Border.all(
+                                              color:
+                                                  Theme.of(context).hintColor),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 5,
+                                                spreadRadius: 1)
+                                          ],
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: Dimensions
+                                                .paddingSizeExtraSmall,
+                                            horizontal:
+                                                Dimensions.paddingSizeDefault),
+                                        child: Text(
+                                          'add'.tr,
+                                          style: robotoRegular.copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                            ],
                           ),
 
                           const SizedBox(

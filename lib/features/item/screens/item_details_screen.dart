@@ -474,16 +474,12 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                             color: Theme.of(
                                                                     context)
                                                                 .hintColor),
-                                                        boxShadow: [
+                                                        boxShadow: const [
                                                           BoxShadow(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .hintColor,
-                                                            blurRadius: 10,
-                                                            offset: const Offset(
-                                                                4,
-                                                                6), // Shadow position
-                                                          ),
+                                                              color: Colors
+                                                                  .black12,
+                                                              blurRadius: 5,
+                                                              spreadRadius: 1)
                                                         ],
                                                       ),
                                                       child: Row(children: [
