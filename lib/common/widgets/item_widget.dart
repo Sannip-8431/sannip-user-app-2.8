@@ -89,7 +89,7 @@ class ItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
             color: Theme.of(context).cardColor,
             boxShadow: const [
-              BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+              BoxShadow(color: Colors.black12, blurRadius: 1, spreadRadius: 1)
             ],
           ),
           child: CustomInkWell(
@@ -142,7 +142,7 @@ class ItemWidget extends StatelessWidget {
                   child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: desktop ? 0 : Dimensions.paddingSizeExtraSmall),
-                child: Row(children: [
+                child: Column(children: [
                   Stack(children: [
                     ClipRRect(
                       borderRadius:
@@ -187,7 +187,7 @@ class ItemWidget extends StatelessWidget {
                                   isStore ? store!.name! : item!.name!,
                                   style: robotoMedium.copyWith(
                                       fontSize: Dimensions.fontSizeSmall),
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(
@@ -249,21 +249,21 @@ class ItemWidget extends StatelessWidget {
                                           : item!.storeName != null))
                                   ? 5
                                   : 0),
-                          !isStore
-                              ? RatingBar(
-                                  rating: isStore
-                                      ? store!.avgRating
-                                      : item!.avgRating,
-                                  size: desktop ? 15 : 12,
-                                  ratingCount: isStore
-                                      ? store!.ratingCount
-                                      : item!.ratingCount,
-                                )
-                              : const SizedBox(),
+                          // !isStore
+                          //     ? RatingBar(
+                          //         rating: isStore
+                          //             ? store!.avgRating
+                          //             : item!.avgRating,
+                          //         size: desktop ? 15 : 12,
+                          //         ratingCount: isStore
+                          //             ? store!.ratingCount
+                          //             : item!.ratingCount,
+                          //       )
+                          //     : const SizedBox(),
                           SizedBox(
                               height: (!isStore && desktop)
                                   ? Dimensions.paddingSizeExtraSmall
-                                  : 0),
+                                  : Dimensions.paddingSizeExtraSmall),
                           (Get.find<SplashController>()
                                       .configModel!
                                       .moduleConfig!
@@ -288,38 +288,130 @@ class ItemWidget extends StatelessWidget {
                                       ? store!.ratingCount
                                       : item!.ratingCount,
                                 )
-                              : Row(children: [
-                                  Text(
-                                    PriceConverter.convertPrice(item!.price,
-                                        discount: discount,
-                                        discountType: discountType),
-                                    style: robotoMedium.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall),
-                                    textDirection: TextDirection.ltr,
-                                  ),
-                                  SizedBox(
-                                      width: discount! > 0
-                                          ? Dimensions.paddingSizeExtraSmall
-                                          : 0),
-                                  discount > 0
-                                      ? Text(
-                                          PriceConverter.convertPrice(
-                                              item!.price),
-                                          style: robotoMedium.copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeExtraSmall,
-                                            color:
-                                                Theme.of(context).disabledColor,
-                                            decoration:
-                                                TextDecoration.lineThrough,
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          discount! > 0
+                                              ? Text(
+                                                  PriceConverter.convertPrice(
+                                                      item!.price),
+                                                  style: robotoMedium.copyWith(
+                                                    fontSize: Dimensions
+                                                        .fontSizeExtraSmall,
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                                  textDirection:
+                                                      TextDirection.ltr,
+                                                )
+                                              : const SizedBox(),
+                                          SizedBox(
+                                              width: discount > 0
+                                                  ? Dimensions
+                                                      .paddingSizeExtraSmall
+                                                  : 0),
+                                          Text(
+                                            PriceConverter.convertPrice(
+                                                item!.price,
+                                                discount: discount,
+                                                discountType: discountType),
+                                            style: robotoMedium.copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeDefault),
+                                            textDirection: TextDirection.ltr,
                                           ),
-                                          textDirection: TextDirection.ltr,
-                                        )
-                                      : const SizedBox(),
-                                ]),
+                                        ]),
+                                    Column(
+                                        mainAxisAlignment: isStore
+                                            ? MainAxisAlignment.center
+                                            : MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const SizedBox(),
+                                          fromCartSuggestion
+                                              ? Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  padding: const EdgeInsets.all(
+                                                      Dimensions
+                                                          .paddingSizeExtraSmall),
+                                                  child: Icon(Icons.add,
+                                                      color: Theme.of(context)
+                                                          .cardColor,
+                                                      size: 12),
+                                                )
+                                              : GetBuilder<FavouriteController>(
+                                                  builder:
+                                                      (favouriteController) {
+                                                  bool isWished = isStore
+                                                      ? favouriteController
+                                                          .wishStoreIdList
+                                                          .contains(store!.id)
+                                                      : favouriteController
+                                                          .wishItemIdList
+                                                          .contains(item!.id);
+                                                  return InkWell(
+                                                    onTap:
+                                                        !favouriteController
+                                                                .isRemoving
+                                                            ? () {
+                                                                if (AuthHelper
+                                                                    .isLoggedIn()) {
+                                                                  isWished
+                                                                      ? favouriteController.removeFromFavouriteList(
+                                                                          isStore
+                                                                              ? store!
+                                                                                  .id
+                                                                              : item!
+                                                                                  .id,
+                                                                          isStore)
+                                                                      : favouriteController.addToFavouriteList(
+                                                                          item,
+                                                                          store,
+                                                                          isStore);
+                                                                } else {
+                                                                  showCustomSnackBar(
+                                                                      'you_are_not_logged_in'
+                                                                          .tr);
+                                                                }
+                                                              }
+                                                            : null,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.symmetric(
+                                                          vertical: desktop
+                                                              ? Dimensions
+                                                                  .paddingSizeSmall
+                                                              : 0),
+                                                      child: Icon(
+                                                        isWished
+                                                            ? Icons.favorite
+                                                            : Icons
+                                                                .favorite_border,
+                                                        size: desktop ? 30 : 25,
+                                                        color: isWished
+                                                            ? Theme.of(context)
+                                                                .primaryColor
+                                                            : Theme.of(context)
+                                                                .disabledColor,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                        ]),
+                                  ],
+                                ),
                         ]),
                   ),
-                  Column(
+                  /* Column(
                       mainAxisAlignment: isStore
                           ? MainAxisAlignment.center
                           : MainAxisAlignment.spaceBetween,
@@ -381,7 +473,7 @@ class ItemWidget extends StatelessWidget {
                                   ),
                                 );
                               }),
-                      ]),
+                      ]), */
                 ]),
               )),
             ]),

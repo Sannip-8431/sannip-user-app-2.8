@@ -248,60 +248,78 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                       !catController.isSearching)
                   ? Center(
                       child: Container(
-                      height: 40,
+                      height: 66,
                       width: Dimensions.webMaxWidth,
-                      color: Theme.of(context).cardColor,
                       padding: const EdgeInsets.symmetric(
                           vertical: Dimensions.paddingSizeExtraSmall),
-                      child: ListView.builder(
+                      child: ListView.separated(
                         key: scaffoldKey,
                         scrollDirection: Axis.horizontal,
                         itemCount: catController.subCategoryList!.length,
                         padding: const EdgeInsets.only(
-                            left: Dimensions.paddingSizeSmall),
+                            left: Dimensions.paddingSizeSmall,bottom: Dimensions.paddingSizeSmall),
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return InkWell(
+                          return  InkWell(
                             onTap: () => catController.setSubCategoryIndex(
                                 index, widget.categoryID),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: Dimensions.paddingSizeSmall,
                                   vertical: Dimensions.paddingSizeExtraSmall),
-                              margin: const EdgeInsets.only(
-                                  right: Dimensions.paddingSizeSmall),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall),
-                                color: index == catController.subCategoryIndex
-                                    ? Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.1)
-                                    : Colors.transparent,
+                                border: Border.all(
+                                    color: index ==
+                                            catController.subCategoryIndex
+                                        ? Theme.of(context).primaryColor.withOpacity(0.2)
+                                        : Theme.of(context).dividerColor),
                               ),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      catController
-                                          .subCategoryList![index].name!,
-                                      style: index ==
-                                              catController.subCategoryIndex
-                                          ? robotoMedium.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall,
-                                              color: Theme.of(context)
-                                                  .primaryColor)
-                                          : robotoRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 5,
                                     ),
-                                  ]),
+                                    child: Icon(Icons.fastfood_outlined,
+                                        size: 18,
+                                        color: index ==
+                                                catController.subCategoryIndex
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.black),
+                                  ),
+                                  const VerticalDivider(
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          catController
+                                              .subCategoryList![index].name!,
+                                          style: index ==
+                                                  catController
+                                                      .subCategoryIndex
+                                              ? robotoMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                      .fontSizeSmall,
+                                                  color: Theme.of(context)
+                                                      .primaryColor)
+                                              : robotoRegular.copyWith(
+                                                  fontSize: Dimensions
+                                                      .fontSizeSmall),
+                                        ),
+                                      ]),
+                                ],
+                              ),
                             ),
                           );
-                        },
+                        }, separatorBuilder: (BuildContext context, int index) { return const SizedBox(width: Dimensions.paddingSizeDefault); },
                       ),
-                    ))
+                                          ))
                   : const SizedBox(),
               Center(
                   child: Container(

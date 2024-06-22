@@ -83,10 +83,10 @@ class _ItemsViewState extends State<ItemsView> {
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
                                     ? 200
-                                    : 122
+                                    : 185
                                 : 122,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
-                        ? 1
+                        ? 2
                         : ResponsiveHelper.isDesktop(context) &&
                                 widget.stores != null
                             ? 3
@@ -152,10 +152,10 @@ class _ItemsViewState extends State<ItemsView> {
                         : ResponsiveHelper.isMobile(context)
                             ? widget.isStore
                                 ? 200
-                                : 110
+                                : 185
                             : 110,
                 crossAxisCount: ResponsiveHelper.isMobile(context)
-                    ? 1
+                    ? 2
                     : ResponsiveHelper.isDesktop(context)
                         ? 3
                         : 3,
@@ -171,10 +171,7 @@ class _ItemsViewState extends State<ItemsView> {
                     ? widget.isFoodOrGrocery!
                         ? const StoreCardShimmer()
                         : const NewOnShimmerView()
-                    : ItemShimmer(
-                        isEnabled: isNull,
-                        isStore: widget.isStore,
-                        hasDivider: index != widget.shimmerLength - 1);
+                    : const StoreCardShimmer();
               },
             ),
     ]);
