@@ -7,7 +7,8 @@ class AppConstants {
   static const String appName = 'Sannip';
   static const double appVersion = 1.0;
 
-  static const String fontFamily = 'Roboto';
+  // static const String fontFamily = 'Roboto';
+  static const String fontFamily = 'Poppins';
   static const bool payInWevView = false;
   static const int balanceInputLen = 10;
   static const String webHostedUrl = 'https://sannip.com';
