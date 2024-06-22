@@ -5,7 +5,7 @@ import 'package:sannip/util/images.dart';
 
 class AppConstants {
   static const String appName = 'Sannip';
-  static const double appVersion = 2.8;
+  static const double appVersion = 1.0;
 
   static const String fontFamily = 'Roboto';
   static const bool payInWevView = false;
