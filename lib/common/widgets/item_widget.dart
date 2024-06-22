@@ -410,6 +410,8 @@ class ItemWidget extends StatelessWidget {
                                           CartCountView(
                                             item: item!,
                                             child: Container(
+                                              width: 90,
+                                              alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(
@@ -418,7 +420,7 @@ class ItemWidget extends StatelessWidget {
                                                     Theme.of(context).cardColor,
                                                 border: Border.all(
                                                     color: Theme.of(context)
-                                                        .hintColor),
+                                                        .primaryColor),
                                                 boxShadow: const [
                                                   BoxShadow(
                                                       color: Colors.black12,
@@ -426,17 +428,14 @@ class ItemWidget extends StatelessWidget {
                                                       spreadRadius: 1)
                                                 ],
                                               ),
-                                              padding: const EdgeInsets
-                                                  .symmetric(
-                                                  vertical: Dimensions
-                                                      .paddingSizeExtraSmall,
-                                                  horizontal: Dimensions
-                                                      .paddingSizeDefault),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: Dimensions
+                                                    .paddingSizeExtraSmall,
+                                              ),
                                               child: Text(
                                                 'add'.tr,
-                                                style: robotoRegular.copyWith(
-                                                  fontSize:
-                                                      Dimensions.fontSizeSmall,
+                                                style: robotoMedium.copyWith(
                                                   color: Theme.of(context)
                                                       .primaryColor,
                                                 ),

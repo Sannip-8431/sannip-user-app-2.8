@@ -20,13 +20,78 @@ class CartCountView extends StatelessWidget {
       return cartQty != 0
           ? Center(
               child: Container(
-                width: 100,
+                width: 90,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius:
-                      BorderRadius.circular(Dimensions.radiusExtraLarge),
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                  color: Theme.of(context).cardColor,
+                  border: Border.all(color: Theme.of(context).primaryColor),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+                  ],
                 ),
+                // decoration: BoxDecoration(
+                //   color: Theme.of(context).primaryColor,
+                //   borderRadius:
+                //       BorderRadius.circular(Dimensions.radiusExtraLarge),
+                // ),
                 child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: cartController.isLoading
+                            ? null
+                            : () {
+                                if (cartController
+                                        .cartList[cartIndex].quantity! >
+                                    1) {
+                                  cartController.setQuantity(
+                                      false,
+                                      cartIndex,
+                                      cartController.cartList[cartIndex].stock,
+                                      cartController.cartList[cartIndex].item!
+                                          .quantityLimit);
+                                } else {
+                                  cartController.removeFromCart(cartIndex);
+                                }
+                              },
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                              Dimensions.paddingSizeExtraSmall),
+                          child: Icon(Icons.remove,
+                              size: 18, color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                      !cartController.isLoading
+                          ? Text(
+                              cartQty.toString(),
+                              style: robotoMedium.copyWith(
+                                  color: Theme.of(context).primaryColor),
+                            )
+                          : const SizedBox(
+                              height: 18,
+                              width: 18,
+                              child: CircularProgressIndicator()),
+                      InkWell(
+                        onTap: cartController.isLoading
+                            ? null
+                            : () {
+                                cartController.setQuantity(
+                                    true,
+                                    cartIndex,
+                                    cartController.cartList[cartIndex].stock,
+                                    cartController
+                                        .cartList[cartIndex].quantityLimit);
+                              },
+                        child: Padding(
+                          padding: const EdgeInsets.all(
+                              Dimensions.paddingSizeExtraSmall),
+                          child: Icon(Icons.add,
+                              size: 18, color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ]),
+                /* child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
@@ -105,7 +170,7 @@ class CartCountView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ]),
+                    ]),*/
               ),
             )
           : InkWell(

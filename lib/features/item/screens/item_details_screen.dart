@@ -215,33 +215,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                       height: 530,
                                                       // width: 100,
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(Dimensions
-                                                                .radiusDefault),
-                                                        gradient:
-                                                            LinearGradient(
-                                                                colors: [
-                                                                  Colors.grey
-                                                                      .withOpacity(
-                                                                          0.9),
-                                                                  Colors.grey
-                                                                      .withOpacity(
-                                                                          0.1),
-                                                                ],
-                                                                begin:
-                                                                    const FractionalOffset(
-                                                                        0.0,
-                                                                        0.0),
-                                                                end: const FractionalOffset(
-                                                                    0.0, 1.0),
-                                                                stops: const [
-                                                                  0.0,
-                                                                  1.0
-                                                                ],
-                                                                tileMode:
-                                                                    TileMode
-                                                                        .clamp),
-                                                      ),
+                                                          borderRadius: BorderRadius
+                                                              .circular(Dimensions
+                                                                  .radiusDefault),
+                                                          color: Colors.white),
                                                     ),
                                                     Column(
                                                       children: [
@@ -473,7 +450,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                         border: Border.all(
                                                             color: Theme.of(
                                                                     context)
-                                                                .hintColor),
+                                                                .primaryColor),
                                                         boxShadow: const [
                                                           BoxShadow(
                                                               color: Colors

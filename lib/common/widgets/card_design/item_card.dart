@@ -319,13 +319,15 @@ class ItemCard extends StatelessWidget {
                                   : CartCountView(
                                       item: item,
                                       child: Container(
+                                        width: 90,
+                                        alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
                                               Dimensions.radiusSmall),
                                           color: Theme.of(context).cardColor,
                                           border: Border.all(
-                                              color:
-                                                  Theme.of(context).hintColor),
+                                              color: Theme.of(context)
+                                                  .primaryColor),
                                           boxShadow: const [
                                             BoxShadow(
                                                 color: Colors.black12,
@@ -334,14 +336,12 @@ class ItemCard extends StatelessWidget {
                                           ],
                                         ),
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: Dimensions
-                                                .paddingSizeExtraSmall,
-                                            horizontal:
-                                                Dimensions.paddingSizeDefault),
+                                          vertical:
+                                              Dimensions.paddingSizeExtraSmall,
+                                        ),
                                         child: Text(
                                           'add'.tr,
-                                          style: robotoRegular.copyWith(
-                                            fontSize: Dimensions.fontSizeSmall,
+                                          style: robotoMedium.copyWith(
                                             color:
                                                 Theme.of(context).primaryColor,
                                           ),
