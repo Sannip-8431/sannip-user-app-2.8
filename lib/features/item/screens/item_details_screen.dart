@@ -198,30 +198,122 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                ItemImageViewWidget(
-                                                    item: itemController.item),
-                                                const SizedBox(height: 20),
+                                                Stack(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .topCenter,
+                                                  clipBehavior: Clip.none,
+                                                  children: [
+                                                    Container(
+                                                      // padding:
+                                                      //     const EdgeInsets.only(
+                                                      //         top: 250),
+                                                      margin: const EdgeInsets
+                                                          .only(
+                                                          top: Dimensions
+                                                              .paddingSizeExtraLarge),
+                                                      height: 530,
+                                                      // width: 100,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius
+                                                            .circular(Dimensions
+                                                                .radiusDefault),
+                                                        gradient:
+                                                            LinearGradient(
+                                                                colors: [
+                                                                  Colors.grey
+                                                                      .withOpacity(
+                                                                          0.9),
+                                                                  Colors.grey
+                                                                      .withOpacity(
+                                                                          0.1),
+                                                                ],
+                                                                begin:
+                                                                    const FractionalOffset(
+                                                                        0.0,
+                                                                        0.0),
+                                                                end: const FractionalOffset(
+                                                                    0.0, 1.0),
+                                                                stops: const [
+                                                                  0.0,
+                                                                  1.0
+                                                                ],
+                                                                tileMode:
+                                                                    TileMode
+                                                                        .clamp),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 300,
+                                                          child:
+                                                              ItemImageViewWidget(
+                                                            item: itemController
+                                                                .item,
+                                                            fit: BoxFit.fill,
+                                                            height: 280,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: Dimensions
+                                                              .webMaxWidth,
+                                                          child: Builder(
+                                                              builder:
+                                                                  (context) {
+                                                            return ItemTitleViewWidget(
+                                                              item:
+                                                                  itemController
+                                                                      .item,
+                                                              inStorePage: widget
+                                                                  .inStorePage,
+                                                              isCampaign:
+                                                                  itemController
+                                                                          .item!
+                                                                          .availableDateStarts !=
+                                                                      null,
+                                                              inStock: (Get.find<
+                                                                          SplashController>()
+                                                                      .configModel!
+                                                                      .moduleConfig!
+                                                                      .module!
+                                                                      .stock! &&
+                                                                  stock! <= 0),
+                                                            );
+                                                          }),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                // ItemImageViewWidget(
+                                                //     item: itemController.item),
+                                                // const SizedBox(height: 20),
+                                                //
+                                                // Builder(builder: (context) {
+                                                //   return ItemTitleViewWidget(
+                                                //     item: itemController.item,
+                                                //     inStorePage:
+                                                //         widget.inStorePage,
+                                                //     isCampaign: itemController
+                                                //             .item!
+                                                //             .availableDateStarts !=
+                                                //         null,
+                                                //     inStock: (Get.find<
+                                                //                 SplashController>()
+                                                //             .configModel!
+                                                //             .moduleConfig!
+                                                //             .module!
+                                                //             .stock! &&
+                                                //         stock! <= 0),
+                                                //   );
+                                                // }),
+                                                // const Divider(
+                                                //     height: 20, thickness: 2),
 
-                                                Builder(builder: (context) {
-                                                  return ItemTitleViewWidget(
-                                                    item: itemController.item,
-                                                    inStorePage:
-                                                        widget.inStorePage,
-                                                    isCampaign: itemController
-                                                            .item!
-                                                            .availableDateStarts !=
-                                                        null,
-                                                    inStock: (Get.find<
-                                                                SplashController>()
-                                                            .configModel!
-                                                            .moduleConfig!
-                                                            .module!
-                                                            .stock! &&
-                                                        stock! <= 0),
-                                                  );
-                                                }),
-                                                const Divider(
-                                                    height: 20, thickness: 2),
+                                                const SizedBox(
+                                                    height: Dimensions
+                                                        .paddingSizeSmall),
 
                                                 // Variation
                                                 ListView.builder(
@@ -373,12 +465,27 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                         child: SizedBox()),
                                                     Container(
                                                       decoration: BoxDecoration(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .disabledColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5)),
+                                                        borderRadius: BorderRadius
+                                                            .circular(Dimensions
+                                                                .radiusSmall),
+                                                        color: Theme.of(context)
+                                                            .cardColor,
+                                                        border: Border.all(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .hintColor),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .hintColor,
+                                                            blurRadius: 10,
+                                                            offset: const Offset(
+                                                                4,
+                                                                6), // Shadow position
+                                                          ),
+                                                        ],
+                                                      ),
                                                       child: Row(children: [
                                                         InkWell(
                                                           onTap:
@@ -407,8 +514,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                         }
                                                                       }
                                                                     },
-                                                          child: const Padding(
-                                                            padding: EdgeInsets.symmetric(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets
+                                                                .symmetric(
                                                                 horizontal:
                                                                     Dimensions
                                                                         .paddingSizeSmall,
@@ -416,7 +524,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                     .paddingSizeExtraSmall),
                                                             child: Icon(
                                                                 Icons.remove,
-                                                                size: 20),
+                                                                size: 20,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor),
                                                           ),
                                                         ),
                                                         !cartController
@@ -433,10 +544,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                     : itemController
                                                                         .quantity
                                                                         .toString(),
-                                                                style: robotoMedium
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            Dimensions.fontSizeExtraLarge),
+                                                                style: robotoMedium.copyWith(
+                                                                    fontSize:
+                                                                        Dimensions
+                                                                            .fontSizeExtraLarge,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor),
                                                               )
                                                             : const SizedBox(
                                                                 height: 20,
@@ -464,8 +578,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                       itemController
                                                                           .item!
                                                                           .quantityLimit),
-                                                          child: const Padding(
-                                                            padding: EdgeInsets.symmetric(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets
+                                                                .symmetric(
                                                                 horizontal:
                                                                     Dimensions
                                                                         .paddingSizeSmall,
@@ -473,7 +588,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                     .paddingSizeExtraSmall),
                                                             child: Icon(
                                                                 Icons.add,
-                                                                size: 20),
+                                                                size: 20,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor),
                                                           ),
                                                         ),
                                                       ]),
@@ -516,36 +634,36 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                     height: Dimensions
                                                         .paddingSizeExtraLarge),
 
-                                                (itemController.item!
-                                                                .description !=
-                                                            null &&
-                                                        itemController
-                                                            .item!
-                                                            .description!
-                                                            .isNotEmpty)
-                                                    ? Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text('description'.tr,
-                                                              style:
-                                                                  robotoMedium),
-                                                          const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeExtraSmall),
-                                                          Text(
-                                                              itemController
-                                                                  .item!
-                                                                  .description!,
-                                                              style:
-                                                                  robotoRegular),
-                                                          const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeLarge),
-                                                        ],
-                                                      )
-                                                    : const SizedBox(),
+                                                // (itemController.item!
+                                                //                 .description !=
+                                                //             null &&
+                                                //         itemController
+                                                //             .item!
+                                                //             .description!
+                                                //             .isNotEmpty)
+                                                //     ? Column(
+                                                //         crossAxisAlignment:
+                                                //             CrossAxisAlignment
+                                                //                 .start,
+                                                //         children: [
+                                                //           Text('description'.tr,
+                                                //               style:
+                                                //                   robotoMedium),
+                                                //           const SizedBox(
+                                                //               height: Dimensions
+                                                //                   .paddingSizeExtraSmall),
+                                                //           Text(
+                                                //               itemController
+                                                //                   .item!
+                                                //                   .description!,
+                                                //               style:
+                                                //                   robotoRegular),
+                                                //           const SizedBox(
+                                                //               height: Dimensions
+                                                //                   .paddingSizeLarge),
+                                                //         ],
+                                                //       )
+                                                //     : const SizedBox(),
 
                                                 itemController.item!
                                                         .isPrescriptionRequired!

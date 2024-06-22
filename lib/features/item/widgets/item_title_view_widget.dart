@@ -247,221 +247,350 @@ class ItemTitleViewWidget extends StatelessWidget {
             );
           })
         : Container(
-            color: Theme.of(context).cardColor,
+            // color: Theme.of(context).cardColor,
             padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
             child: GetBuilder<ItemController>(
               builder: (itemController) {
                 return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Flexible(
-                            child: Text(
-                          item?.name ?? '',
-                          style: robotoMedium.copyWith(
-                              fontSize: Dimensions.fontSizeExtraLarge),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        )),
-                        SizedBox(
-                            width:
-                                item!.isStoreHalalActive! && item!.isHalalItem!
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                                child: Text(
+                              item?.name ?? '',
+                              style: robotoMedium.copyWith(
+                                  fontSize: Dimensions.fontSizeExtraLarge),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                            SizedBox(
+                                width: item!.isStoreHalalActive! &&
+                                        item!.isHalalItem!
                                     ? Dimensions.paddingSizeExtraSmall
                                     : 0),
-                        item!.isStoreHalalActive! && item!.isHalalItem!
-                            ? CustomToolTip(
-                                message: 'this_is_a_halal_food'.tr,
-                                preferredDirection: AxisDirection.up,
-                                child: const CustomAssetImageWidget(
-                                    Images.halalTag,
-                                    height: 30,
-                                    width: 30),
-                              )
-                            : const SizedBox(),
-                        item!.availableTimeStarts != null
-                            ? const SizedBox()
-                            : GetBuilder<FavouriteController>(
-                                builder: (favouriteController) {
-                                return Row(
-                                  children: [
-                                    // Text(
-                                    //   favouriteController.localWishes.contains(item.id) ? (item.wishlistCount+1).toString() : favouriteController.localRemovedWishes
-                                    //       .contains(item.id) ? (item.wishlistCount-1).toString() : item.wishlistCount.toString(),
-                                    //   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
-                                    // ),
-                                    // SizedBox(width: 5),
+                            item!.isStoreHalalActive! && item!.isHalalItem!
+                                ? CustomToolTip(
+                                    message: 'this_is_a_halal_food'.tr,
+                                    preferredDirection: AxisDirection.up,
+                                    child: const CustomAssetImageWidget(
+                                        Images.halalTag,
+                                        height: 30,
+                                        width: 30),
+                                  )
+                                : const SizedBox(),
+                            item!.availableTimeStarts != null
+                                ? const SizedBox()
+                                : GetBuilder<FavouriteController>(
+                                    builder: (favouriteController) {
+                                    return Row(
+                                      children: [
+                                        // Text(
+                                        //   favouriteController.localWishes.contains(item.id) ? (item.wishlistCount+1).toString() : favouriteController.localRemovedWishes
+                                        //       .contains(item.id) ? (item.wishlistCount-1).toString() : item.wishlistCount.toString(),
+                                        //   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
+                                        // ),
+                                        // SizedBox(width: 5),
 
-                                    InkWell(
-                                      onTap: () {
-                                        if (isLoggedIn) {
-                                          if (favouriteController.wishItemIdList
-                                              .contains(item!.id)) {
-                                            favouriteController
-                                                .removeFromFavouriteList(
-                                                    item!.id, false);
-                                          } else {
-                                            favouriteController
-                                                .addToFavouriteList(
-                                                    item, null, false);
-                                          }
-                                        } else {
-                                          showCustomSnackBar(
-                                              'you_are_not_logged_in'.tr);
-                                        }
-                                      },
-                                      child: Icon(
-                                        favouriteController.wishItemIdList
-                                                .contains(item!.id)
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        size: 25,
-                                        color: favouriteController
-                                                .wishItemIdList
-                                                .contains(item!.id)
-                                            ? Theme.of(context).primaryColor
-                                            : Theme.of(context).disabledColor,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                      ]),
-                      const SizedBox(height: 5),
-                      InkWell(
-                        onTap: () {
-                          if (inStorePage) {
-                            Get.back();
-                          } else {
-                            Get.offNamed(RouteHelper.getStoreRoute(
-                                id: item!.storeId, page: 'item'));
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                          child: Text(
-                            item!.storeName!,
-                            style: robotoRegular.copyWith(
-                                fontSize: Dimensions.fontSizeSmall,
-                                color: Theme.of(context).primaryColor),
+                                        InkWell(
+                                          onTap: () {
+                                            if (isLoggedIn) {
+                                              if (favouriteController
+                                                  .wishItemIdList
+                                                  .contains(item!.id)) {
+                                                favouriteController
+                                                    .removeFromFavouriteList(
+                                                        item!.id, false);
+                                              } else {
+                                                favouriteController
+                                                    .addToFavouriteList(
+                                                        item, null, false);
+                                              }
+                                            } else {
+                                              showCustomSnackBar(
+                                                  'you_are_not_logged_in'.tr);
+                                            }
+                                          },
+                                          child: Icon(
+                                            favouriteController.wishItemIdList
+                                                    .contains(item!.id)
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            size: 25,
+                                            color: favouriteController
+                                                    .wishItemIdList
+                                                    .contains(item!.id)
+                                                ? Theme.of(context).primaryColor
+                                                : Theme.of(context)
+                                                    .disabledColor,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                          ]),
+                      const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+                      Center(
+                        child: InkWell(
+                          onTap: () {
+                            if (inStorePage) {
+                              Get.back();
+                            } else {
+                              Get.offNamed(RouteHelper.getStoreRoute(
+                                  id: item!.storeId, page: 'item'));
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                            child: Text(
+                              item!.storeName!,
+                              style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeSmall,
+                                  color: Theme.of(context).primaryColor),
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Expanded(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                  Text(
-                                    '${PriceConverter.convertPrice(startingPrice, discount: discount, discountType: discountType)}'
-                                    '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice, discount: discount, discountType: discountType)}' : ''}',
-                                    style: robotoMedium.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: Dimensions.fontSizeLarge),
-                                    textDirection: TextDirection.ltr,
-                                  ),
-                                  const SizedBox(height: 5),
-                                  discount! > 0
-                                      ? Text(
-                                          '${PriceConverter.convertPrice(startingPrice)}'
-                                          '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice)}' : ''}',
-                                          textDirection: TextDirection.ltr,
-                                          style: robotoRegular.copyWith(
-                                              color:
-                                                  Theme.of(context).hintColor,
-                                              decoration:
-                                                  TextDecoration.lineThrough),
-                                        )
-                                      : const SizedBox(),
-                                  SizedBox(height: discount > 0 ? 5 : 0),
-                                  !isCampaign
-                                      ? Row(children: [
-                                          Text(
-                                              item!.avgRating!
-                                                  .toStringAsFixed(1),
-                                              style: robotoRegular.copyWith(
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                fontSize:
-                                                    Dimensions.fontSizeLarge,
-                                              )),
-                                          const SizedBox(width: 5),
-                                          RatingBar(
-                                              rating: item!.avgRating,
-                                              ratingCount: item!.ratingCount),
-                                        ])
-                                      : const SizedBox(),
-                                ])),
-                            Column(children: [
-                              ((Get.find<SplashController>()
-                                              .configModel!
-                                              .moduleConfig!
-                                              .module!
-                                              .unit! &&
-                                          item!.unitType != null) ||
-                                      (Get.find<SplashController>()
-                                              .configModel!
-                                              .moduleConfig!
-                                              .module!
-                                              .vegNonVeg! &&
-                                          Get.find<SplashController>()
-                                              .configModel!
-                                              .toggleVegNonVeg!))
-                                  ? Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical:
-                                              Dimensions.paddingSizeExtraSmall,
-                                          horizontal:
-                                              Dimensions.paddingSizeSmall),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radiusSmall),
-                                        color: Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(0.1),
-                                      ),
-                                      child: Text(
-                                        Get.find<SplashController>()
-                                                .configModel!
-                                                .moduleConfig!
-                                                .module!
-                                                .unit!
-                                            ? item!.unitType ?? ''
-                                            : item!.veg == 0
-                                                ? 'non_veg'.tr
-                                                : 'veg'.tr,
-                                        style: robotoRegular.copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeExtraSmall,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                    )
-                                  : const SizedBox(),
-                              const SizedBox(
-                                  height: Dimensions.paddingSizeDefault),
-                              OrganicTag(item: item!, fromDetails: true),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: Dimensions.paddingSizeSmall,
-                                    vertical: Dimensions.paddingSizeExtraSmall),
-                                decoration: BoxDecoration(
-                                  color: inStock ? Colors.red : Colors.green,
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.radiusSmall),
-                                ),
-                                child: Text(
-                                    inStock ? 'out_of_stock'.tr : 'in_stock'.tr,
-                                    style: robotoRegular.copyWith(
-                                      color: Colors.white,
-                                      fontSize: Dimensions.fontSizeSmall,
-                                    )),
-                              ),
+                      if (item!.description != null &&
+                          item!.description!.isNotEmpty) ...[
+                        const SizedBox(
+                            height: Dimensions.paddingSizeExtraSmall),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                  child: Text(
+                                item?.description ?? '',
+                                style: robotoRegular.copyWith(
+                                    fontSize: Dimensions.fontSizeDefault),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              )),
                             ]),
-                          ]),
+                      ],
+                      const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+                      Wrap(
+                        spacing: Dimensions.paddingSizeSmall,
+                        runSpacing: Dimensions.paddingSizeExtraSmall,
+                        children: [
+                          Text(
+                            '${PriceConverter.convertPrice(startingPrice, discount: discount, discountType: discountType)}'
+                            '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice, discount: discount, discountType: discountType)}' : ''}',
+                            style: robotoMedium.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: Dimensions.fontSizeLarge),
+                            textDirection: TextDirection.ltr,
+                          ),
+                          if (discount! > 0) ...[
+                            Text(
+                              '${PriceConverter.convertPrice(startingPrice)}'
+                              '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice)}' : ''}',
+                              textDirection: TextDirection.ltr,
+                              style: robotoRegular.copyWith(
+                                  color: Theme.of(context).hintColor,
+                                  decoration: TextDecoration.lineThrough),
+                            ),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraLarge),
+                          ],
+                          !isCampaign
+                              ? Row(children: [
+                                  Text(item!.avgRating!.toStringAsFixed(1),
+                                      style: robotoRegular.copyWith(
+                                        color: Theme.of(context).hintColor,
+                                        fontSize: Dimensions.fontSizeLarge,
+                                      )),
+                                  const SizedBox(width: 5),
+                                  RatingBar(
+                                      rating: item!.avgRating,
+                                      ratingCount: item!.ratingCount),
+                                ])
+                              : const SizedBox(),
+                        ],
+                      ),
+                      const SizedBox(height: Dimensions.paddingSizeDefault),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ((Get.find<SplashController>()
+                                          .configModel!
+                                          .moduleConfig!
+                                          .module!
+                                          .unit! &&
+                                      item!.unitType != null) ||
+                                  (Get.find<SplashController>()
+                                          .configModel!
+                                          .moduleConfig!
+                                          .module!
+                                          .vegNonVeg! &&
+                                      Get.find<SplashController>()
+                                          .configModel!
+                                          .toggleVegNonVeg!))
+                              ? Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.paddingSizeExtraSmall,
+                                      horizontal: Dimensions.paddingSizeSmall),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusSmall),
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.1),
+                                  ),
+                                  child: Text(
+                                    Get.find<SplashController>()
+                                            .configModel!
+                                            .moduleConfig!
+                                            .module!
+                                            .unit!
+                                        ? item!.unitType ?? ''
+                                        : item!.veg == 0
+                                            ? 'non_veg'.tr
+                                            : 'veg'.tr,
+                                    style: robotoRegular.copyWith(
+                                        fontSize: Dimensions.fontSizeExtraSmall,
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                )
+                              : const SizedBox(),
+                          const SizedBox(width: Dimensions.paddingSizeDefault),
+                          OrganicTag(item: item!, fromDetails: true),
+                          const SizedBox(width: Dimensions.paddingSizeDefault),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeSmall,
+                                vertical: Dimensions.paddingSizeExtraSmall),
+                            decoration: BoxDecoration(
+                              color: inStock ? Colors.red : Colors.green,
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radiusSmall),
+                            ),
+                            child: Text(
+                                inStock ? 'out_of_stock'.tr : 'in_stock'.tr,
+                                style: robotoRegular.copyWith(
+                                  color: Colors.white,
+                                  fontSize: Dimensions.fontSizeSmall,
+                                )),
+                          ),
+                        ],
+                      ),
+                      // Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.end,
+                      //     children: [
+                      //       Expanded(
+                      //           child: Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //             Text(
+                      //               '${PriceConverter.convertPrice(startingPrice, discount: discount, discountType: discountType)}'
+                      //               '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice, discount: discount, discountType: discountType)}' : ''}',
+                      //               style: robotoMedium.copyWith(
+                      //                   color: Theme.of(context).primaryColor,
+                      //                   fontSize: Dimensions.fontSizeLarge),
+                      //               textDirection: TextDirection.ltr,
+                      //             ),
+                      //             const SizedBox(height: 5),
+                      //             discount! > 0
+                      //                 ? Text(
+                      //                     '${PriceConverter.convertPrice(startingPrice)}'
+                      //                     '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice)}' : ''}',
+                      //                     textDirection: TextDirection.ltr,
+                      //                     style: robotoRegular.copyWith(
+                      //                         color:
+                      //                             Theme.of(context).hintColor,
+                      //                         decoration:
+                      //                             TextDecoration.lineThrough),
+                      //                   )
+                      //                 : const SizedBox(),
+                      //             SizedBox(height: discount > 0 ? 5 : 0),
+                      //             !isCampaign
+                      //                 ? Row(children: [
+                      //                     Text(
+                      //                         item!.avgRating!
+                      //                             .toStringAsFixed(1),
+                      //                         style: robotoRegular.copyWith(
+                      //                           color:
+                      //                               Theme.of(context).hintColor,
+                      //                           fontSize:
+                      //                               Dimensions.fontSizeLarge,
+                      //                         )),
+                      //                     const SizedBox(width: 5),
+                      //                     RatingBar(
+                      //                         rating: item!.avgRating,
+                      //                         ratingCount: item!.ratingCount),
+                      //                   ])
+                      //                 : const SizedBox(),
+                      //           ])),
+                      //       Column(children: [
+                      //         ((Get.find<SplashController>()
+                      //                         .configModel!
+                      //                         .moduleConfig!
+                      //                         .module!
+                      //                         .unit! &&
+                      //                     item!.unitType != null) ||
+                      //                 (Get.find<SplashController>()
+                      //                         .configModel!
+                      //                         .moduleConfig!
+                      //                         .module!
+                      //                         .vegNonVeg! &&
+                      //                     Get.find<SplashController>()
+                      //                         .configModel!
+                      //                         .toggleVegNonVeg!))
+                      //             ? Container(
+                      //                 padding: const EdgeInsets.symmetric(
+                      //                     vertical:
+                      //                         Dimensions.paddingSizeExtraSmall,
+                      //                     horizontal:
+                      //                         Dimensions.paddingSizeSmall),
+                      //                 decoration: BoxDecoration(
+                      //                   borderRadius: BorderRadius.circular(
+                      //                       Dimensions.radiusSmall),
+                      //                   color: Theme.of(context)
+                      //                       .primaryColor
+                      //                       .withOpacity(0.1),
+                      //                 ),
+                      //                 child: Text(
+                      //                   Get.find<SplashController>()
+                      //                           .configModel!
+                      //                           .moduleConfig!
+                      //                           .module!
+                      //                           .unit!
+                      //                       ? item!.unitType ?? ''
+                      //                       : item!.veg == 0
+                      //                           ? 'non_veg'.tr
+                      //                           : 'veg'.tr,
+                      //                   style: robotoRegular.copyWith(
+                      //                       fontSize:
+                      //                           Dimensions.fontSizeExtraSmall,
+                      //                       color:
+                      //                           Theme.of(context).primaryColor),
+                      //                 ),
+                      //               )
+                      //             : const SizedBox(),
+                      //         const SizedBox(
+                      //             height: Dimensions.paddingSizeDefault),
+                      //         OrganicTag(item: item!, fromDetails: true),
+                      //         Container(
+                      //           padding: const EdgeInsets.symmetric(
+                      //               horizontal: Dimensions.paddingSizeSmall,
+                      //               vertical: Dimensions.paddingSizeExtraSmall),
+                      //           decoration: BoxDecoration(
+                      //             color: inStock ? Colors.red : Colors.green,
+                      //             borderRadius: BorderRadius.circular(
+                      //                 Dimensions.radiusSmall),
+                      //           ),
+                      //           child: Text(
+                      //               inStock ? 'out_of_stock'.tr : 'in_stock'.tr,
+                      //               style: robotoRegular.copyWith(
+                      //                 color: Colors.white,
+                      //                 fontSize: Dimensions.fontSizeSmall,
+                      //               )),
+                      //         ),
+                      //       ]),
+                      //     ]),
                     ]);
               },
             ),

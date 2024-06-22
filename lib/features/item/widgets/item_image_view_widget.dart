@@ -9,7 +9,9 @@ import 'package:sannip/common/widgets/custom_image.dart';
 
 class ItemImageViewWidget extends StatelessWidget {
   final Item? item;
-  ItemImageViewWidget({super.key, required this.item});
+  final double? height;
+  final BoxFit? fit;
+  ItemImageViewWidget({super.key, required this.item, this.height, this.fit});
 
   final PageController _controller = PageController();
 
@@ -30,7 +32,7 @@ class ItemImageViewWidget extends StatelessWidget {
             SizedBox(
               height: ResponsiveHelper.isDesktop(context)
                   ? 350
-                  : MediaQuery.of(context).size.width * 0.7,
+                  : height ?? MediaQuery.of(context).size.width * 0.7,
               child: PageView.builder(
                 controller: _controller,
                 itemCount: imageList.length,
@@ -38,6 +40,7 @@ class ItemImageViewWidget extends StatelessWidget {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CustomImage(
+                      fit: fit,
                       image: '${imageList[index]}',
                       height: 200,
                       width: MediaQuery.of(context).size.width,
