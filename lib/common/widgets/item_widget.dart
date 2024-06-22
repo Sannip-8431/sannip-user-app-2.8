@@ -1,4 +1,4 @@
-
+import 'package:sannip/common/widgets/cart_count_view.dart';
 import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
@@ -173,7 +173,7 @@ class ItemWidget extends StatelessWidget {
                         ? const SizedBox()
                         : NotAvailableWidget(isStore: isStore),
                   ]),
-                      !isStore  ? const SizedBox(height: 5) : const SizedBox(),
+                  !isStore ? const SizedBox(height: 5) : const SizedBox(),
                   const SizedBox(width: Dimensions.paddingSizeSmall),
                   Expanded(
                     child: Column(
@@ -278,7 +278,7 @@ class ItemWidget extends StatelessWidget {
                                       color: Theme.of(context).hintColor),
                                 )
                               : const SizedBox(),
-                           !isStore  ? const Spacer() : const SizedBox(),
+                          !isStore ? const Spacer() : const SizedBox(),
                           isStore
                               ? RatingBar(
                                   rating: isStore
@@ -335,78 +335,114 @@ class ItemWidget extends StatelessWidget {
                                             : MainAxisAlignment.spaceBetween,
                                         children: [
                                           const SizedBox(),
-                                          fromCartSuggestion
-                                              ? Container(
-                                                  decoration: BoxDecoration(
+                                          // fromCartSuggestion
+                                          //     ? Container(
+                                          //         decoration: BoxDecoration(
+                                          //           color: Theme.of(context)
+                                          //               .primaryColor,
+                                          //           shape: BoxShape.circle,
+                                          //         ),
+                                          //         padding: const EdgeInsets.all(
+                                          //             Dimensions
+                                          //                 .paddingSizeExtraSmall),
+                                          //         child: Icon(Icons.add,
+                                          //             color: Theme.of(context)
+                                          //                 .cardColor,
+                                          //             size: 12),
+                                          //       )
+                                          //     : GetBuilder<FavouriteController>(
+                                          //         builder:
+                                          //             (favouriteController) {
+                                          //         bool isWished = isStore
+                                          //             ? favouriteController
+                                          //                 .wishStoreIdList
+                                          //                 .contains(store!.id)
+                                          //             : favouriteController
+                                          //                 .wishItemIdList
+                                          //                 .contains(item!.id);
+                                          //         return InkWell(
+                                          //           onTap:
+                                          //               !favouriteController
+                                          //                       .isRemoving
+                                          //                   ? () {
+                                          //                       if (AuthHelper
+                                          //                           .isLoggedIn()) {
+                                          //                         isWished
+                                          //                             ? favouriteController.removeFromFavouriteList(
+                                          //                                 isStore
+                                          //                                     ? store!
+                                          //                                         .id
+                                          //                                     : item!
+                                          //                                         .id,
+                                          //                                 isStore)
+                                          //                             : favouriteController.addToFavouriteList(
+                                          //                                 item,
+                                          //                                 store,
+                                          //                                 isStore);
+                                          //                       } else {
+                                          //                         showCustomSnackBar(
+                                          //                             'you_are_not_logged_in'
+                                          //                                 .tr);
+                                          //                       }
+                                          //                     }
+                                          //                   : null,
+                                          //           child: Padding(
+                                          //             padding: EdgeInsets.symmetric(
+                                          //                 vertical: desktop
+                                          //                     ? Dimensions
+                                          //                         .paddingSizeSmall
+                                          //                     : 0),
+                                          //             child: Icon(
+                                          //               isWished
+                                          //                   ? Icons.favorite
+                                          //                   : Icons
+                                          //                       .favorite_border,
+                                          //               size: desktop ? 30 : 25,
+                                          //               color: isWished
+                                          //                   ? Theme.of(context)
+                                          //                       .primaryColor
+                                          //                   : Theme.of(context)
+                                          //                       .disabledColor,
+                                          //             ),
+                                          //           ),
+                                          //         );
+                                          //       }),
+                                          CartCountView(
+                                            item: item!,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions.radiusSmall),
+                                                color:
+                                                    Theme.of(context).cardColor,
+                                                border: Border.all(
                                                     color: Theme.of(context)
-                                                        .primaryColor,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                      Dimensions
-                                                          .paddingSizeExtraSmall),
-                                                  child: Icon(Icons.add,
-                                                      color: Theme.of(context)
-                                                          .cardColor,
-                                                      size: 12),
-                                                )
-                                              : GetBuilder<FavouriteController>(
-                                                  builder:
-                                                      (favouriteController) {
-                                                  bool isWished = isStore
-                                                      ? favouriteController
-                                                          .wishStoreIdList
-                                                          .contains(store!.id)
-                                                      : favouriteController
-                                                          .wishItemIdList
-                                                          .contains(item!.id);
-                                                  return InkWell(
-                                                    onTap:
-                                                        !favouriteController
-                                                                .isRemoving
-                                                            ? () {
-                                                                if (AuthHelper
-                                                                    .isLoggedIn()) {
-                                                                  isWished
-                                                                      ? favouriteController.removeFromFavouriteList(
-                                                                          isStore
-                                                                              ? store!
-                                                                                  .id
-                                                                              : item!
-                                                                                  .id,
-                                                                          isStore)
-                                                                      : favouriteController.addToFavouriteList(
-                                                                          item,
-                                                                          store,
-                                                                          isStore);
-                                                                } else {
-                                                                  showCustomSnackBar(
-                                                                      'you_are_not_logged_in'
-                                                                          .tr);
-                                                                }
-                                                              }
-                                                            : null,
-                                                    child: Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                          vertical: desktop
-                                                              ? Dimensions
-                                                                  .paddingSizeSmall
-                                                              : 0),
-                                                      child: Icon(
-                                                        isWished
-                                                            ? Icons.favorite
-                                                            : Icons
-                                                                .favorite_border,
-                                                        size: desktop ? 30 : 25,
-                                                        color: isWished
-                                                            ? Theme.of(context)
-                                                                .primaryColor
-                                                            : Theme.of(context)
-                                                                .disabledColor,
-                                                      ),
-                                                    ),
-                                                  );
-                                                }),
+                                                        .hintColor),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 5,
+                                                      spreadRadius: 1)
+                                                ],
+                                              ),
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  vertical: Dimensions
+                                                      .paddingSizeExtraSmall,
+                                                  horizontal: Dimensions
+                                                      .paddingSizeDefault),
+                                              child: Text(
+                                                'add'.tr,
+                                                style: robotoRegular.copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                         ]),
                                   ],
                                 ),
@@ -482,8 +518,8 @@ class ItemWidget extends StatelessWidget {
         ),
         (!isStore && isCornerTag! == false)
             ? Positioned(
-                right: /* ltr ? 0 : null, */ltr ? null : 0,
-                left: /* ltr ? null : 0, */ltr ? 0 : null,
+                right: /* ltr ? 0 : null, */ ltr ? null : 0,
+                left: /* ltr ? null : 0, */ ltr ? 0 : null,
                 child: /* CornerDiscountTag(
                   bannerPosition: ltr
                       ? CornerBannerPosition.topRight
@@ -493,31 +529,84 @@ class ItemWidget extends StatelessWidget {
                   discountType: discountType,
                   freeDelivery: isStore ? store!.freeDelivery : false,
                 )  */
-               ClipPath(
-      clipper: TagClipper(),
-      child: Container(
-        color: Colors.orange,
-        padding:const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
-        child: Text(
-                  discount! > 0
-                      ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
-                      : 'free_delivery'.tr,
-                  style: robotoMedium.copyWith(
-                    color: Colors.white,
-                    fontSize: 
-                        (ResponsiveHelper.isMobile(Get.context) ? 9 : 12),
+                    ClipPath(
+                  clipper: TagClipper(),
+                  child: Container(
+                    color: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 5.0),
+                    child: Text(
+                      discount! > 0
+                          ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
+                          : 'free_delivery'.tr,
+                      style: robotoMedium.copyWith(
+                        color: Colors.white,
+                        fontSize:
+                            (ResponsiveHelper.isMobile(Get.context) ? 9 : 12),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-      ),
-    )
-               )
+                ))
             : const SizedBox(),
+        isStore
+            ? const SizedBox()
+            : Positioned(
+                right: 3,
+                top: 3,
+                child: fromCartSuggestion
+                    ? Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(
+                            Dimensions.paddingSizeExtraSmall),
+                        child: Icon(Icons.add,
+                            color: Theme.of(context).cardColor, size: 12),
+                      )
+                    : GetBuilder<FavouriteController>(
+                        builder: (favouriteController) {
+                        bool isWished = isStore
+                            ? favouriteController.wishStoreIdList
+                                .contains(store!.id)
+                            : favouriteController.wishItemIdList
+                                .contains(item!.id);
+                        return InkWell(
+                          onTap: !favouriteController.isRemoving
+                              ? () {
+                                  if (AuthHelper.isLoggedIn()) {
+                                    isWished
+                                        ? favouriteController
+                                            .removeFromFavouriteList(
+                                                isStore ? store!.id : item!.id,
+                                                isStore)
+                                        : favouriteController
+                                            .addToFavouriteList(
+                                                item, store, isStore);
+                                  } else {
+                                    showCustomSnackBar(
+                                        'you_are_not_logged_in'.tr);
+                                  }
+                                }
+                              : null,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical:
+                                    desktop ? Dimensions.paddingSizeSmall : 0),
+                            child: Icon(
+                              isWished ? Icons.favorite : Icons.favorite_border,
+                              size: desktop ? 30 : 25,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        );
+                      }),
+              )
       ],
     );
   }
 }
-
 
 class TagClipper extends CustomClipper<Path> {
   @override
@@ -529,7 +618,7 @@ class TagClipper extends CustomClipper<Path> {
     // Creating sharp waves
     final double waveWidth = size.width / 3;
 
-      path.lineTo(waveWidth / 2, size.height);
+    path.lineTo(waveWidth / 2, size.height);
     path.lineTo(waveWidth, size.height - 6);
     path.lineTo(waveWidth * 1.5, size.height);
     path.lineTo(waveWidth * 2, size.height - 6);
@@ -539,8 +628,8 @@ class TagClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.lineTo(10, 0);
     path.arcToPoint(
-     const Offset(0, 10),
-      radius:const Radius.circular(10),
+      const Offset(0, 10),
+      radius: const Radius.circular(10),
       clockwise: false,
     );
     path.close();
