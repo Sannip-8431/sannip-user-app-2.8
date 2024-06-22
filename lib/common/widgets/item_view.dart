@@ -6,7 +6,6 @@ import 'package:sannip/features/home/widgets/web/widgets/store_card_widget.dart'
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/common/widgets/no_data_screen.dart';
-import 'package:sannip/common/widgets/item_shimmer.dart';
 import 'package:sannip/common/widgets/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,7 +82,7 @@ class _ItemsViewState extends State<ItemsView> {
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
                                     ? 200
-                                    : 185
+                                    : 222
                                 : 122,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
                         ? 2
@@ -152,7 +151,7 @@ class _ItemsViewState extends State<ItemsView> {
                         : ResponsiveHelper.isMobile(context)
                             ? widget.isStore
                                 ? 200
-                                : 185
+                                : 222
                             : 110,
                 crossAxisCount: ResponsiveHelper.isMobile(context)
                     ? 2

@@ -1,5 +1,4 @@
-import 'package:sannip/common/widgets/corner_banner/banner.dart';
-import 'package:sannip/common/widgets/corner_banner/corner_discount_tag.dart';
+
 import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
@@ -155,8 +154,8 @@ class ItemWidget extends StatelessWidget {
                                 ? 120
                                 : length == null
                                     ? 100
-                                    : 65),
-                        width: imageWidth ?? (desktop ? 120 : 80),
+                                    : 100),
+                        width: imageWidth ?? (desktop ? 120 : 100),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -174,6 +173,7 @@ class ItemWidget extends StatelessWidget {
                         ? const SizedBox()
                         : NotAvailableWidget(isStore: isStore),
                   ]),
+                      !isStore  ? const SizedBox(height: 5) : const SizedBox(),
                   const SizedBox(width: Dimensions.paddingSizeSmall),
                   Expanded(
                     child: Column(
@@ -278,6 +278,7 @@ class ItemWidget extends StatelessWidget {
                                       color: Theme.of(context).hintColor),
                                 )
                               : const SizedBox(),
+                           !isStore  ? const Spacer() : const SizedBox(),
                           isStore
                               ? RatingBar(
                                   rating: isStore
@@ -527,7 +528,6 @@ class TagClipper extends CustomClipper<Path> {
 
     // Creating sharp waves
     final double waveWidth = size.width / 3;
-    final double waveHeight = 10;
 
       path.lineTo(waveWidth / 2, size.height);
     path.lineTo(waveWidth, size.height - 6);
@@ -539,8 +539,8 @@ class TagClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.lineTo(10, 0);
     path.arcToPoint(
-      Offset(0, 10),
-      radius: Radius.circular(10),
+     const Offset(0, 10),
+      radius:const Radius.circular(10),
       clockwise: false,
     );
     path.close();
