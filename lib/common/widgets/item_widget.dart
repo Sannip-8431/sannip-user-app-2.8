@@ -481,9 +481,9 @@ class ItemWidget extends StatelessWidget {
         ),
         (!isStore && isCornerTag! == false)
             ? Positioned(
-                right: ltr ? 0 : null,
-                left: ltr ? null : 0,
-                child: CornerDiscountTag(
+                right: /* ltr ? 0 : null, */ltr ? null : 0,
+                left: /* ltr ? null : 0, */ltr ? 0 : null,
+                child: /* CornerDiscountTag(
                   bannerPosition: ltr
                       ? CornerBannerPosition.topRight
                       : CornerBannerPosition.topLeft,
@@ -491,9 +491,64 @@ class ItemWidget extends StatelessWidget {
                   discount: discount,
                   discountType: discountType,
                   freeDelivery: isStore ? store!.freeDelivery : false,
-                ))
+                )  */
+               ClipPath(
+      clipper: TagClipper(),
+      child: Container(
+        color: Colors.orange,
+        padding:const EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
+        child: Text(
+                  discount! > 0
+                      ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
+                      : 'free_delivery'.tr,
+                  style: robotoMedium.copyWith(
+                    color: Colors.white,
+                    fontSize: 
+                        (ResponsiveHelper.isMobile(Get.context) ? 9 : 12),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+      ),
+    )
+               )
             : const SizedBox(),
       ],
     );
+  }
+}
+
+
+class TagClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+    path.lineTo(0, 0);
+    path.lineTo(0, size.height - 10);
+
+    // Creating sharp waves
+    final double waveWidth = size.width / 3;
+    final double waveHeight = 10;
+
+      path.lineTo(waveWidth / 2, size.height);
+    path.lineTo(waveWidth, size.height - 6);
+    path.lineTo(waveWidth * 1.5, size.height);
+    path.lineTo(waveWidth * 2, size.height - 6);
+    path.lineTo(waveWidth * 2.5, size.height);
+    path.lineTo(size.width, size.height - 6);
+
+    path.lineTo(size.width, 0);
+    path.lineTo(10, 0);
+    path.arcToPoint(
+      Offset(0, 10),
+      radius: Radius.circular(10),
+      clockwise: false,
+    );
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }
