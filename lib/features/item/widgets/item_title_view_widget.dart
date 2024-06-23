@@ -35,7 +35,7 @@ class ItemTitleViewWidget extends StatelessWidget {
     if (kDebugMode) {
       print(inStock ? 'out_of_stock'.tr : 'in_stock'.tr);
     }
-    final bool isLoggedIn = AuthHelper.isLoggedIn();
+    // final bool isLoggedIn = AuthHelper.isLoggedIn();
     double? startingPrice;
     double? endingPrice;
     if (item!.variations!.isNotEmpty) {
@@ -255,15 +255,17 @@ class ItemTitleViewWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
                                 child: Text(
                               item?.name ?? '',
                               style: robotoMedium.copyWith(
-                                  fontSize: Dimensions.fontSizeExtraLarge),
+                                  fontSize: Dimensions.fontSizeOverLarge,
+                                  fontWeight: FontWeight.bold),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             )),
                             SizedBox(
                                 width: item!.isStoreHalalActive! &&
@@ -280,95 +282,90 @@ class ItemTitleViewWidget extends StatelessWidget {
                                         width: 30),
                                   )
                                 : const SizedBox(),
-                            item!.availableTimeStarts != null
-                                ? const SizedBox()
-                                : GetBuilder<FavouriteController>(
-                                    builder: (favouriteController) {
-                                    return Row(
-                                      children: [
-                                        // Text(
-                                        //   favouriteController.localWishes.contains(item.id) ? (item.wishlistCount+1).toString() : favouriteController.localRemovedWishes
-                                        //       .contains(item.id) ? (item.wishlistCount-1).toString() : item.wishlistCount.toString(),
-                                        //   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
-                                        // ),
-                                        // SizedBox(width: 5),
-
-                                        InkWell(
-                                          onTap: () {
-                                            if (isLoggedIn) {
-                                              if (favouriteController
-                                                  .wishItemIdList
-                                                  .contains(item!.id)) {
-                                                favouriteController
-                                                    .removeFromFavouriteList(
-                                                        item!.id, false);
-                                              } else {
-                                                favouriteController
-                                                    .addToFavouriteList(
-                                                        item, null, false);
-                                              }
-                                            } else {
-                                              showCustomSnackBar(
-                                                  'you_are_not_logged_in'.tr);
-                                            }
-                                          },
-                                          child: Icon(
-                                            favouriteController.wishItemIdList
-                                                    .contains(item!.id)
-                                                ? Icons.favorite
-                                                : Icons.favorite_border,
-                                            size: 25,
-                                            color: favouriteController
-                                                    .wishItemIdList
-                                                    .contains(item!.id)
-                                                ? Theme.of(context).primaryColor
-                                                : Theme.of(context)
-                                                    .disabledColor,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
+                            // item!.availableTimeStarts != null
+                            //     ? const SizedBox()
+                            //     : GetBuilder<FavouriteController>(
+                            //         builder: (favouriteController) {
+                            //         return Row(
+                            //           children: [
+                            //             // Text(
+                            //             //   favouriteController.localWishes.contains(item.id) ? (item.wishlistCount+1).toString() : favouriteController.localRemovedWishes
+                            //             //       .contains(item.id) ? (item.wishlistCount-1).toString() : item.wishlistCount.toString(),
+                            //             //   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
+                            //             // ),
+                            //             // SizedBox(width: 5),
+                            //
+                            //             InkWell(
+                            //               onTap: () {
+                            //                 if (isLoggedIn) {
+                            //                   if (favouriteController
+                            //                       .wishItemIdList
+                            //                       .contains(item!.id)) {
+                            //                     favouriteController
+                            //                         .removeFromFavouriteList(
+                            //                             item!.id, false);
+                            //                   } else {
+                            //                     favouriteController
+                            //                         .addToFavouriteList(
+                            //                             item, null, false);
+                            //                   }
+                            //                 } else {
+                            //                   showCustomSnackBar(
+                            //                       'you_are_not_logged_in'.tr);
+                            //                 }
+                            //               },
+                            //               child: Icon(
+                            //                 favouriteController.wishItemIdList
+                            //                         .contains(item!.id)
+                            //                     ? Icons.favorite
+                            //                     : Icons.favorite_border,
+                            //                 size: 25,
+                            //                 color: favouriteController
+                            //                         .wishItemIdList
+                            //                         .contains(item!.id)
+                            //                     ? Theme.of(context).primaryColor
+                            //                     : Theme.of(context)
+                            //                         .disabledColor,
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         );
+                            //       }),
                           ]),
                       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            if (inStorePage) {
-                              Get.back();
-                            } else {
-                              Get.offNamed(RouteHelper.getStoreRoute(
-                                  id: item!.storeId, page: 'item'));
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-                            child: Text(
-                              item!.storeName!,
-                              style: robotoRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeSmall,
-                                  color: Theme.of(context).primaryColor),
-                            ),
+                      InkWell(
+                        onTap: () {
+                          if (inStorePage) {
+                            Get.back();
+                          } else {
+                            Get.offNamed(RouteHelper.getStoreRoute(
+                                id: item!.storeId, page: 'item'));
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                          child: Text(
+                            item!.storeName!,
+                            style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeLarge,
+                                color: Theme.of(context).primaryColor),
                           ),
                         ),
                       ),
-                      if (item!.description != null &&
-                          item!.description!.isNotEmpty) ...[
-                        const SizedBox(
-                            height: Dimensions.paddingSizeExtraSmall),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                  child: Text(
-                                item?.description ?? '',
-                                style: robotoRegular.copyWith(
-                                    fontSize: Dimensions.fontSizeDefault),
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                              )),
-                            ]),
-                      ],
+                      // if (item!.description != null &&
+                      //     item!.description!.isNotEmpty) ...[
+                      //   const SizedBox(height: Dimensions.paddingSizeSmall),
+                      //   Row(children: [
+                      //     Flexible(
+                      //         child: Text(
+                      //           item?.description ?? '',
+                      //           style: robotoMedium.copyWith(
+                      //               fontSize: Dimensions.fontSizeExtraLarge),
+                      //           maxLines: 25,
+                      //           overflow: TextOverflow.ellipsis,
+                      //         )),
+                      //   ]),
+                      // ],
                       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                       Wrap(
                         spacing: Dimensions.paddingSizeSmall,
@@ -378,8 +375,8 @@ class ItemTitleViewWidget extends StatelessWidget {
                             '${PriceConverter.convertPrice(startingPrice, discount: discount, discountType: discountType)}'
                             '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice, discount: discount, discountType: discountType)}' : ''}',
                             style: robotoMedium.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: Dimensions.fontSizeLarge),
+                                fontWeight: FontWeight.bold,
+                                fontSize: Dimensions.fontSizeExtraLarge),
                             textDirection: TextDirection.ltr,
                           ),
                           if (discount! > 0) ...[
@@ -388,25 +385,23 @@ class ItemTitleViewWidget extends StatelessWidget {
                               '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice)}' : ''}',
                               textDirection: TextDirection.ltr,
                               style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeLarge,
                                   color: Theme.of(context).hintColor,
                                   decoration: TextDecoration.lineThrough),
                             ),
-                            const SizedBox(
-                                width: Dimensions.paddingSizeExtraLarge),
+                            // const SizedBox(
+                            //     width: Dimensions.paddingSizeExtraLarge),
                           ],
-                          !isCampaign
-                              ? Row(children: [
-                                  Text(item!.avgRating!.toStringAsFixed(1),
-                                      style: robotoRegular.copyWith(
-                                        color: Theme.of(context).hintColor,
-                                        fontSize: Dimensions.fontSizeLarge,
-                                      )),
-                                  const SizedBox(width: 5),
-                                  RatingBar(
-                                      rating: item!.avgRating,
-                                      ratingCount: item!.ratingCount),
-                                ])
-                              : const SizedBox(),
+                          if (!isCampaign) ...[
+                            Text(item!.avgRating!.toStringAsFixed(1),
+                                style: robotoRegular.copyWith(
+                                  color: Theme.of(context).hintColor,
+                                  fontSize: Dimensions.fontSizeLarge,
+                                )),
+                            RatingBar(
+                                rating: item!.avgRating,
+                                ratingCount: item!.ratingCount)
+                          ],
                         ],
                       ),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
@@ -449,14 +444,18 @@ class ItemTitleViewWidget extends StatelessWidget {
                                         : item!.veg == 0
                                             ? 'non_veg'.tr
                                             : 'veg'.tr,
-                                    style: robotoRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeExtraSmall,
+                                    style: robotoMedium.copyWith(
+                                        fontSize: Dimensions.fontSizeDefault,
                                         color: Theme.of(context).primaryColor),
                                   ),
                                 )
                               : const SizedBox(),
                           const SizedBox(width: Dimensions.paddingSizeDefault),
-                          OrganicTag(item: item!, fromDetails: true),
+                          OrganicTag(
+                            item: item!,
+                            fromDetails: true,
+                            fontSize: Dimensions.fontSizeDefault,
+                          ),
                           const SizedBox(width: Dimensions.paddingSizeDefault),
                           Container(
                             padding: const EdgeInsets.symmetric(
@@ -469,9 +468,9 @@ class ItemTitleViewWidget extends StatelessWidget {
                             ),
                             child: Text(
                                 inStock ? 'out_of_stock'.tr : 'in_stock'.tr,
-                                style: robotoRegular.copyWith(
+                                style: robotoMedium.copyWith(
                                   color: Colors.white,
-                                  fontSize: Dimensions.fontSizeSmall,
+                                  fontSize: Dimensions.fontSizeDefault,
                                 )),
                           ),
                         ],

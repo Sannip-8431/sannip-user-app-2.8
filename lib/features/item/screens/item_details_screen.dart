@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/expandable_text.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
 import 'package:sannip/features/cart/domain/models/cart_model.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
@@ -49,6 +52,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLoggedIn = AuthHelper.isLoggedIn();
+
     return GetBuilder<CartController>(builder: (cartController) {
       return GetBuilder<ItemController>(
         builder: (itemController) {
@@ -204,22 +209,22 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                           .topCenter,
                                                   clipBehavior: Clip.none,
                                                   children: [
-                                                    Container(
-                                                      // padding:
-                                                      //     const EdgeInsets.only(
-                                                      //         top: 250),
-                                                      margin: const EdgeInsets
-                                                          .only(
-                                                          top: Dimensions
-                                                              .paddingSizeExtraLarge),
-                                                      height: 530,
-                                                      // width: 100,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius
-                                                              .circular(Dimensions
-                                                                  .radiusDefault),
-                                                          color: Colors.white),
-                                                    ),
+                                                    // Container(
+                                                    // padding:
+                                                    //     const EdgeInsets.only(
+                                                    //         top: 250),
+                                                    //   margin: const EdgeInsets
+                                                    //       .only(
+                                                    //       top: Dimensions
+                                                    //           .paddingSizeExtraLarge),
+                                                    //   height: 530,
+                                                    //   // width: 100,
+                                                    //   decoration: BoxDecoration(
+                                                    //       borderRadius: BorderRadius
+                                                    //           .circular(Dimensions
+                                                    //               .radiusDefault),
+                                                    //       color: Colors.white),
+                                                    // ),
                                                     Column(
                                                       children: [
                                                         SizedBox(
@@ -261,6 +266,65 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                         ),
                                                       ],
                                                     ),
+                                                    Positioned(
+                                                      top: 3,
+                                                      right: 3,
+                                                      child: itemController
+                                                                  .item!
+                                                                  .availableTimeStarts !=
+                                                              null
+                                                          ? const SizedBox()
+                                                          : GetBuilder<
+                                                                  FavouriteController>(
+                                                              builder:
+                                                                  (favouriteController) {
+                                                              return Row(
+                                                                children: [
+                                                                  // Text(
+                                                                  //   favouriteController.localWishes.contains(item.id) ? (item.wishlistCount+1).toString() : favouriteController.localRemovedWishes
+                                                                  //       .contains(item.id) ? (item.wishlistCount-1).toString() : item.wishlistCount.toString(),
+                                                                  //   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
+                                                                  // ),
+                                                                  // SizedBox(width: 5),
+
+                                                                  InkWell(
+                                                                    onTap: () {
+                                                                      if (isLoggedIn) {
+                                                                        if (favouriteController
+                                                                            .wishItemIdList
+                                                                            .contains(itemController.item!.id)) {
+                                                                          favouriteController.removeFromFavouriteList(
+                                                                              itemController.item!.id,
+                                                                              false);
+                                                                        } else {
+                                                                          favouriteController.addToFavouriteList(
+                                                                              itemController.item,
+                                                                              null,
+                                                                              false);
+                                                                        }
+                                                                      } else {
+                                                                        showCustomSnackBar(
+                                                                            'you_are_not_logged_in'.tr);
+                                                                      }
+                                                                    },
+                                                                    child: Icon(
+                                                                      favouriteController.wishItemIdList.contains(itemController
+                                                                              .item!
+                                                                              .id)
+                                                                          ? Icons
+                                                                              .favorite
+                                                                          : Icons
+                                                                              .favorite_border,
+                                                                      size: 25,
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            }),
+                                                    )
                                                   ],
                                                 ),
                                                 // ItemImageViewWidget(
@@ -314,24 +378,26 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                   .choiceOptions![
                                                                       index]
                                                                   .title!,
-                                                              style: robotoMedium
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          Dimensions
-                                                                              .fontSizeLarge)),
+                                                              style: robotoMedium.copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                          .fontSizeExtraLarge)),
                                                           const SizedBox(
                                                               height: Dimensions
                                                                   .paddingSizeExtraSmall),
                                                           GridView.builder(
                                                             gridDelegate:
                                                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                                              crossAxisCount: 3,
+                                                              crossAxisCount: 4,
                                                               crossAxisSpacing:
                                                                   20,
                                                               mainAxisSpacing:
                                                                   10,
                                                               childAspectRatio:
-                                                                  (1 / 0.25),
+                                                                  (1 / 0.75),
                                                             ),
                                                             shrinkWrap: true,
                                                             physics:
@@ -345,6 +411,127 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                     .length,
                                                             itemBuilder:
                                                                 (context, i) {
+                                                              // return InkWell(
+                                                              //   onTap: () {
+                                                              //     itemController
+                                                              //         .setCartVariationIndex(
+                                                              //             index,
+                                                              //             i,
+                                                              //             itemController
+                                                              //                 .item);
+                                                              //   },
+                                                              //   child:
+                                                              //       Container(
+                                                              //     alignment:
+                                                              //         Alignment
+                                                              //             .center,
+                                                              //     padding: const EdgeInsets
+                                                              //         .symmetric(
+                                                              //         horizontal:
+                                                              //             Dimensions
+                                                              //                 .paddingSizeExtraSmall),
+                                                              //     decoration:
+                                                              //         BoxDecoration(
+                                                              //       color: itemController.variationIndex![index] !=
+                                                              //               i
+                                                              //           ? Theme.of(context)
+                                                              //               .disabledColor
+                                                              //           : Theme.of(context)
+                                                              //               .primaryColor,
+                                                              //       borderRadius:
+                                                              //           BorderRadius
+                                                              //               .circular(5),
+                                                              //       border: itemController.variationIndex![index] !=
+                                                              //               i
+                                                              //           ? Border.all(
+                                                              //               color:
+                                                              //                   Theme.of(context).disabledColor,
+                                                              //               width: 2)
+                                                              //           : null,
+                                                              //     ),
+                                                              //     child: Text(
+                                                              //       itemController
+                                                              //           .item!
+                                                              //           .choiceOptions![
+                                                              //               index]
+                                                              //           .options![
+                                                              //               i]
+                                                              //           .trim(),
+                                                              //       maxLines: 1,
+                                                              //       overflow:
+                                                              //           TextOverflow
+                                                              //               .ellipsis,
+                                                              //       style: robotoRegular
+                                                              //           .copyWith(
+                                                              //         color: itemController.variationIndex![index] != i
+                                                              //             ? Colors
+                                                              //                 .black
+                                                              //             : Colors
+                                                              //                 .white,
+                                                              //       ),
+                                                              //     ),
+                                                              //   ),
+                                                              // );
+                                                              double?
+                                                                  startingPrice;
+                                                              if (itemController
+                                                                  .item!
+                                                                  .variations!
+                                                                  .isNotEmpty) {
+                                                                List<double?>
+                                                                    priceList =
+                                                                    [];
+                                                                for (var variation
+                                                                    in itemController
+                                                                        .item!
+                                                                        .variations!) {
+                                                                  priceList.add(
+                                                                      variation
+                                                                          .price);
+                                                                }
+                                                                priceList.sort((a,
+                                                                        b) =>
+                                                                    a!.compareTo(
+                                                                        b!));
+                                                                startingPrice =
+                                                                    priceList[
+                                                                        i];
+                                                              } else {
+                                                                startingPrice =
+                                                                    itemController
+                                                                        .item!
+                                                                        .price;
+                                                              }
+
+                                                              double? discount = (Get.find<ItemController>()
+                                                                              .item!
+                                                                              .availableDateStarts !=
+                                                                          null ||
+                                                                      Get.find<ItemController>()
+                                                                              .item!
+                                                                              .storeDiscount ==
+                                                                          0)
+                                                                  ? Get.find<
+                                                                          ItemController>()
+                                                                      .item!
+                                                                      .discount
+                                                                  : Get.find<
+                                                                          ItemController>()
+                                                                      .item!
+                                                                      .storeDiscount;
+                                                              String? discountType = (Get.find<ItemController>()
+                                                                              .item!
+                                                                              .availableDateStarts !=
+                                                                          null ||
+                                                                      Get.find<ItemController>()
+                                                                              .item!
+                                                                              .storeDiscount ==
+                                                                          0)
+                                                                  ? Get.find<
+                                                                          ItemController>()
+                                                                      .item!
+                                                                      .discountType
+                                                                  : 'percent';
                                                               return InkWell(
                                                                 onTap: () {
                                                                   itemController
@@ -356,53 +543,70 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                 },
                                                                 child:
                                                                     Container(
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(
+                                                                          Dimensions
+                                                                              .radiusDefault),
+                                                                      border: Border.all(
+                                                                          color: itemController.variationIndex![index] == i
+                                                                              ? Theme.of(context)
+                                                                                  .primaryColor
+                                                                              : Theme.of(context)
+                                                                                  .hintColor),
+                                                                      color: itemController.variationIndex![index] ==
+                                                                              i
+                                                                          ? Theme.of(context)
+                                                                              .primaryColor
+                                                                              .withOpacity(0.2)
+                                                                          : Theme.of(context).cardColor),
                                                                   alignment:
                                                                       Alignment
                                                                           .center,
-                                                                  padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      horizontal:
-                                                                          Dimensions
-                                                                              .paddingSizeExtraSmall),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: itemController.variationIndex![index] !=
-                                                                            i
-                                                                        ? Theme.of(context)
-                                                                            .disabledColor
-                                                                        : Theme.of(context)
-                                                                            .primaryColor,
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(5),
-                                                                    border: itemController.variationIndex![index] !=
-                                                                            i
-                                                                        ? Border.all(
-                                                                            color:
-                                                                                Theme.of(context).disabledColor,
-                                                                            width: 2)
-                                                                        : null,
-                                                                  ),
-                                                                  child: Text(
-                                                                    itemController
-                                                                        .item!
-                                                                        .choiceOptions![
-                                                                            index]
-                                                                        .options![
-                                                                            i]
-                                                                        .trim(),
-                                                                    maxLines: 1,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style: robotoRegular
-                                                                        .copyWith(
-                                                                      color: itemController.variationIndex![index] != i
-                                                                          ? Colors
-                                                                              .black
-                                                                          : Colors
-                                                                              .white,
-                                                                    ),
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        itemController
+                                                                            .item!
+                                                                            .choiceOptions![index]
+                                                                            .options![i]
+                                                                            .trim(),
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        style: robotoMedium
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              Dimensions.fontSizeSmall,
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        PriceConverter.convertPrice(
+                                                                            startingPrice,
+                                                                            discount:
+                                                                                discount,
+                                                                            discountType:
+                                                                                discountType),
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        style: robotoMedium
+                                                                            .copyWith(
+                                                                          fontSize:
+                                                                              Dimensions.fontSizeLarge,
+                                                                          fontWeight:
+                                                                              FontWeight.w700,
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               );
@@ -597,46 +801,62 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                     textDirection:
                                                         TextDirection.ltr,
                                                     style: robotoBold.copyWith(
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        fontSize: Dimensions
-                                                            .fontSizeLarge),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: Dimensions
+                                                          .fontSizeExtraLarge,
+                                                    ),
                                                   ),
                                                 ]),
                                                 const SizedBox(
                                                     height: Dimensions
                                                         .paddingSizeExtraLarge),
 
-                                                // (itemController.item!
-                                                //                 .description !=
-                                                //             null &&
-                                                //         itemController
-                                                //             .item!
-                                                //             .description!
-                                                //             .isNotEmpty)
-                                                //     ? Column(
-                                                //         crossAxisAlignment:
-                                                //             CrossAxisAlignment
-                                                //                 .start,
-                                                //         children: [
-                                                //           Text('description'.tr,
-                                                //               style:
-                                                //                   robotoMedium),
-                                                //           const SizedBox(
-                                                //               height: Dimensions
-                                                //                   .paddingSizeExtraSmall),
-                                                //           Text(
-                                                //               itemController
-                                                //                   .item!
-                                                //                   .description!,
-                                                //               style:
-                                                //                   robotoRegular),
-                                                //           const SizedBox(
-                                                //               height: Dimensions
-                                                //                   .paddingSizeLarge),
-                                                //         ],
-                                                //       )
-                                                //     : const SizedBox(),
+                                                (itemController.item!
+                                                                .description !=
+                                                            null &&
+                                                        itemController
+                                                            .item!
+                                                            .description!
+                                                            .isNotEmpty)
+                                                    ? Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text('description'.tr,
+                                                              style: robotoMedium.copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                          .fontSizeExtraLarge)),
+                                                          const SizedBox(
+                                                              height: Dimensions
+                                                                  .paddingSizeExtraSmall),
+                                                          // Text(
+                                                          //   itemController.item!
+                                                          //       .description!,
+                                                          //   style: robotoRegular
+                                                          //       .copyWith(
+                                                          //     fontSize: Dimensions
+                                                          //         .fontSizeLarge,
+                                                          //     color: Theme.of(
+                                                          //             context)
+                                                          //         .hintColor,
+                                                          //   ),
+                                                          // ),
+                                                          ExpandableText(
+                                                              itemController
+                                                                  .item!
+                                                                  .description!),
+                                                          const SizedBox(
+                                                              height: Dimensions
+                                                                  .paddingSizeLarge),
+                                                        ],
+                                                      )
+                                                    : const SizedBox(),
 
                                                 itemController.item!
                                                         .isPrescriptionRequired!
