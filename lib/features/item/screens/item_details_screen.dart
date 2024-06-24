@@ -581,8 +581,6 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                             .copyWith(
                                                                           fontSize:
                                                                               Dimensions.fontSizeSmall,
-                                                                          color:
-                                                                              Colors.black,
                                                                         ),
                                                                       ),
                                                                       Text(
@@ -602,8 +600,6 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                               Dimensions.fontSizeLarge,
                                                                           fontWeight:
                                                                               FontWeight.w700,
-                                                                          color:
-                                                                              Colors.black,
                                                                         ),
                                                                       ),
                                                                     ],
