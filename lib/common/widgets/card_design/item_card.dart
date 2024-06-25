@@ -114,28 +114,28 @@ class ItemCard extends StatelessWidget {
                   //   discountType: discountType,
                   //   freeDelivery: false,
                   // ),
-                  Positioned(
-                      left: 0,
-                      child: ClipPath(
-                        clipper: TagClipper(),
-                        child: Container(
-                          color: Theme.of(context).primaryColor,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 5.0),
-                          child: Text(
-                            discount! > 0
-                                ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
-                                : 'free_delivery'.tr,
-                            style: robotoMedium.copyWith(
-                              color: Colors.white,
-                              fontSize: (ResponsiveHelper.isMobile(Get.context)
-                                  ? 9
-                                  : 12),
+                  if (discount! > 0)
+                    Positioned(
+                        left: 0,
+                        child: ClipPath(
+                          clipper: TagClipper(),
+                          child: Container(
+                            color: Theme.of(context).primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 5.0),
+                            child: Text(
+                              '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}',
+                              style: robotoMedium.copyWith(
+                                color: Colors.white,
+                                fontSize:
+                                    (ResponsiveHelper.isMobile(Get.context)
+                                        ? 9
+                                        : 12),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                      )),
+                        )),
                   OrganicTag(
                     item: item,
                     placeInImage: false,

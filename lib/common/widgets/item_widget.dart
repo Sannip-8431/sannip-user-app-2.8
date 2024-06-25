@@ -308,9 +308,7 @@ class ItemWidget extends StatelessWidget {
                                             textDirection: TextDirection.ltr,
                                           ),
                                           SizedBox(
-                                              width: discount! > 0
-                                                  ? 2
-                                                  : 0),
+                                              width: discount! > 0 ? 2 : 0),
                                           discount > 0
                                               ? Text(
                                                   PriceConverter.convertPrice(
@@ -417,9 +415,10 @@ class ItemWidget extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            Dimensions.radiusSmall),
-                                                    color:
-                                                        Theme.of(context).cardColor,
+                                                            Dimensions
+                                                                .radiusSmall),
+                                                    color: Theme.of(context)
+                                                        .cardColor,
                                                     border: Border.all(
                                                         color: Theme.of(context)
                                                             .primaryColor),
@@ -430,39 +429,53 @@ class ItemWidget extends StatelessWidget {
                                                           spreadRadius: 1)
                                                     ],
                                                   ),
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                     vertical: Dimensions
                                                         .paddingSizeExtraSmall,
                                                   ),
                                                   child: Text(
                                                     'add'.tr,
-                                                    style: robotoMedium.copyWith(
+                                                    style:
+                                                        robotoMedium.copyWith(
                                                       color: Theme.of(context)
                                                           .primaryColor,
                                                     ),
                                                   ),
                                                 ),
-                                                item?.choiceOptions?.isNotEmpty ?? false ?  Positioned(
-                                            left: 20,
-                                            right: 20,
-                                            bottom: -6,
-                                            child: Container(
-                                              padding: const EdgeInsets.symmetric(vertical: 02,horizontal: 1),
-                                              color: Theme.of(context).cardColor,
-                                              child: Text(
-                                                '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
-                                                textAlign: TextAlign.center,
-                                                 style: robotoMedium.copyWith(
-                                                    fontSize: 8,
-                                                    height: 1.2,
-                                                    
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              ),
-                                            ),
-                                          ) : const SizedBox(),
+                                                item?.choiceOptions
+                                                            ?.isNotEmpty ??
+                                                        false
+                                                    ? Positioned(
+                                                        left: 20,
+                                                        right: 20,
+                                                        bottom: -6,
+                                                        child: Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 02,
+                                                                  horizontal:
+                                                                      1),
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .cardColor,
+                                                          child: Text(
+                                                            '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: robotoMedium
+                                                                .copyWith(
+                                                              fontSize: 8,
+                                                              height: 1.2,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
                                               ],
                                             ),
                                           )
@@ -539,7 +552,7 @@ class ItemWidget extends StatelessWidget {
             ]),
           ),
         ),
-        (!isStore && isCornerTag! == false)
+        (!isStore && isCornerTag! == false && discount! > 0)
             ? Positioned(
                 right: /* ltr ? 0 : null, */ ltr ? null : 0,
                 left: /* ltr ? null : 0, */ ltr ? 0 : null,
@@ -559,9 +572,7 @@ class ItemWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 5.0),
                     child: Text(
-                      discount! > 0
-                          ? '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}'
-                          : 'free_delivery'.tr,
+                      '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}',
                       style: robotoMedium.copyWith(
                         color: Colors.white,
                         fontSize:
