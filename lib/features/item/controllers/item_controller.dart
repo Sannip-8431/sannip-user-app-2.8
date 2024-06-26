@@ -1,3 +1,4 @@
+import 'package:sannip/common/widgets/item_variations_bottom_sheet.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
@@ -599,6 +600,22 @@ class ItemController extends GetxController implements GetxService {
                       item: item,
                       inStorePage: inStore,
                       isCampaign: isCampaign)),
+            );
+    } else if (item.variations!.isEmpty &&
+        item.variations != null &&
+        item.moduleType == AppConstants.grocery) {
+      ResponsiveHelper.isMobile(context)
+          ? Get.bottomSheet(
+              ItemVariationsBottomSheet(
+                  item: item, inStorePage: inStore, isCampaign: isCampaign),
+              backgroundColor: Colors.transparent,
+              isScrollControlled: true,
+            )
+          : Get.dialog(
+              Dialog(
+                child: ItemVariationsBottomSheet(
+                    item: item, inStorePage: inStore, isCampaign: isCampaign),
+              ),
             );
     } else {
       Get.toNamed(RouteHelper.getItemDetailsRoute(item.id, inStore),
