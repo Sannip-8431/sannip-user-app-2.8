@@ -771,7 +771,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                     ),
                                                   ]);
                                                 }),
-                                                const SizedBox(
+                                                /* const SizedBox(
                                                     height: Dimensions
                                                         .paddingSizeLarge),
 
@@ -803,10 +803,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                           .fontSizeExtraLarge,
                                                     ),
                                                   ),
-                                                ]),
+                                                ]),*/
                                                 const SizedBox(
                                                     height: Dimensions
-                                                        .paddingSizeExtraLarge),
+                                                        .paddingSizeDefault),
 
                                                 (itemController.item!
                                                                 .description !=
@@ -892,128 +892,199 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                 builder: (cartController) {
                               return Container(
                                 width: 1170,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).cardColor,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Theme.of(context).hintColor,
+                                        blurRadius: 3,
+                                        spreadRadius: 1)
+                                  ],
+                                ),
                                 padding: const EdgeInsets.all(
                                     Dimensions.paddingSizeSmall),
-                                child: CustomButton(
-                                  isLoading: cartController.isLoading,
-                                  buttonText: (Get.find<SplashController>()
-                                              .configModel!
-                                              .moduleConfig!
-                                              .module!
-                                              .stock! &&
-                                          stock! <= 0)
-                                      ? 'out_of_stock'.tr
-                                      : itemController
-                                                  .item!.availableDateStarts !=
-                                              null
-                                          ? 'order_now'.tr
-                                          : itemController.cartIndex != -1
-                                              ? 'update_in_cart'.tr
-                                              : 'add_to_cart'.tr,
-                                  onPressed: (!Get.find<SplashController>()
-                                              .configModel!
-                                              .moduleConfig!
-                                              .module!
-                                              .stock! ||
-                                          stock! > 0)
-                                      ? () async {
-                                          if (!Get.find<SplashController>()
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "MRP",
+                                              textDirection: TextDirection.ltr,
+                                              style: robotoMedium.copyWith(
+                                                fontSize: Dimensions
+                                                    .fontSizeExtraLarge,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: Dimensions
+                                                  .paddingSizeExtraSmall,
+                                            ),
+                                            Text(
+                                              PriceConverter.convertPrice(
+                                                  itemController.cartIndex != -1
+                                                      ? _getItemDetailsDiscountPrice(
+                                                          cart: Get.find<
+                                                                      CartController>()
+                                                                  .cartList[
+                                                              itemController
+                                                                  .cartIndex])
+                                                      : priceWithAddons),
+                                              textDirection: TextDirection.ltr,
+                                              style: robotoBold.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: Dimensions
+                                                    .fontSizeExtraLarge,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "(Inclusive of all taxes)",
+                                          textDirection: TextDirection.ltr,
+                                          style: robotoRegular.copyWith(
+                                            fontSize:
+                                                Dimensions.fontSizeExtraSmall,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    CustomButton(
+                                      width: 170,
+                                      isLoading: cartController.isLoading,
+                                      buttonText: (Get.find<SplashController>()
+                                                  .configModel!
+                                                  .moduleConfig!
+                                                  .module!
+                                                  .stock! &&
+                                              stock! <= 0)
+                                          ? 'out_of_stock'.tr
+                                          : itemController.item!
+                                                      .availableDateStarts !=
+                                                  null
+                                              ? 'order_now'.tr
+                                              : itemController.cartIndex != -1
+                                                  ? 'update_in_cart'.tr
+                                                  : 'add_to_cart'.tr,
+                                      onPressed: (!Get.find<SplashController>()
                                                   .configModel!
                                                   .moduleConfig!
                                                   .module!
                                                   .stock! ||
-                                              stock! > 0) {
-                                            if (itemController.item!
-                                                    .availableDateStarts !=
-                                                null) {
-                                              Get.toNamed(
-                                                  RouteHelper.getCheckoutRoute(
-                                                      'campaign'),
-                                                  arguments: CheckoutScreen(
-                                                    storeId: null,
-                                                    fromCart: false,
-                                                    cartList: [cartModel],
-                                                  ));
-                                            } else {
-                                              if (cartController.existAnotherStoreItem(
-                                                  cartModel!.item!.storeId,
-                                                  Get.find<SplashController>()
-                                                              .module ==
-                                                          null
-                                                      ? Get.find<
-                                                              SplashController>()
-                                                          .cacheModule!
-                                                          .id
-                                                      : Get.find<
-                                                              SplashController>()
-                                                          .module!
-                                                          .id)) {
-                                                Get.dialog(
-                                                    ConfirmationDialog(
-                                                      icon: Images.warning,
-                                                      title:
-                                                          'are_you_sure_to_reset'
-                                                              .tr,
-                                                      description: Get.find<
-                                                                  SplashController>()
-                                                              .configModel!
-                                                              .moduleConfig!
-                                                              .module!
-                                                              .showRestaurantText!
-                                                          ? 'if_you_continue'.tr
-                                                          : 'if_you_continue_without_another_store'
-                                                              .tr,
-                                                      onYesPressed: () {
-                                                        Get.back();
-                                                        cartController
-                                                            .clearCartOnline()
-                                                            .then(
-                                                                (success) async {
-                                                          if (success) {
-                                                            await cartController
-                                                                .addToCartOnline(
-                                                                    cart!);
-                                                            itemController
-                                                                .setExistInCart(
-                                                                    widget
-                                                                        .item);
-                                                            showCartSnackBar();
-                                                          }
-                                                        });
-                                                      },
-                                                    ),
-                                                    barrierDismissible: false);
-                                              } else {
-                                                if (itemController.cartIndex ==
-                                                    -1) {
-                                                  await cartController
-                                                      .addToCartOnline(cart!)
-                                                      .then((success) {
-                                                    if (success) {
-                                                      itemController
-                                                          .setExistInCart(
-                                                              widget.item);
-                                                      showCartSnackBar();
-                                                      _key.currentState!
-                                                          .shake();
-                                                    }
-                                                  });
+                                              stock! > 0)
+                                          ? () async {
+                                              if (!Get.find<SplashController>()
+                                                      .configModel!
+                                                      .moduleConfig!
+                                                      .module!
+                                                      .stock! ||
+                                                  stock! > 0) {
+                                                if (itemController.item!
+                                                        .availableDateStarts !=
+                                                    null) {
+                                                  Get.toNamed(
+                                                      RouteHelper
+                                                          .getCheckoutRoute(
+                                                              'campaign'),
+                                                      arguments: CheckoutScreen(
+                                                        storeId: null,
+                                                        fromCart: false,
+                                                        cartList: [cartModel],
+                                                      ));
                                                 } else {
-                                                  await cartController
-                                                      .updateCartOnline(cart!)
-                                                      .then((success) {
-                                                    if (success) {
-                                                      showCartSnackBar();
-                                                      _key.currentState!
-                                                          .shake();
+                                                  if (cartController.existAnotherStoreItem(
+                                                      cartModel!.item!.storeId,
+                                                      Get.find<SplashController>()
+                                                                  .module ==
+                                                              null
+                                                          ? Get.find<
+                                                                  SplashController>()
+                                                              .cacheModule!
+                                                              .id
+                                                          : Get.find<
+                                                                  SplashController>()
+                                                              .module!
+                                                              .id)) {
+                                                    Get.dialog(
+                                                        ConfirmationDialog(
+                                                          icon: Images.warning,
+                                                          title:
+                                                              'are_you_sure_to_reset'
+                                                                  .tr,
+                                                          description: Get.find<
+                                                                      SplashController>()
+                                                                  .configModel!
+                                                                  .moduleConfig!
+                                                                  .module!
+                                                                  .showRestaurantText!
+                                                              ? 'if_you_continue'
+                                                                  .tr
+                                                              : 'if_you_continue_without_another_store'
+                                                                  .tr,
+                                                          onYesPressed: () {
+                                                            Get.back();
+                                                            cartController
+                                                                .clearCartOnline()
+                                                                .then(
+                                                                    (success) async {
+                                                              if (success) {
+                                                                await cartController
+                                                                    .addToCartOnline(
+                                                                        cart!);
+                                                                itemController
+                                                                    .setExistInCart(
+                                                                        widget
+                                                                            .item);
+                                                                showCartSnackBar();
+                                                              }
+                                                            });
+                                                          },
+                                                        ),
+                                                        barrierDismissible:
+                                                            false);
+                                                  } else {
+                                                    if (itemController
+                                                            .cartIndex ==
+                                                        -1) {
+                                                      await cartController
+                                                          .addToCartOnline(
+                                                              cart!)
+                                                          .then((success) {
+                                                        if (success) {
+                                                          itemController
+                                                              .setExistInCart(
+                                                                  widget.item);
+                                                          showCartSnackBar();
+                                                          _key.currentState!
+                                                              .shake();
+                                                        }
+                                                      });
+                                                    } else {
+                                                      await cartController
+                                                          .updateCartOnline(
+                                                              cart!)
+                                                          .then((success) {
+                                                        if (success) {
+                                                          showCartSnackBar();
+                                                          _key.currentState!
+                                                              .shake();
+                                                        }
+                                                      });
                                                     }
-                                                  });
+                                                  }
                                                 }
                                               }
                                             }
-                                          }
-                                        }
-                                      : null,
+                                          : null,
+                                    ),
+                                  ],
                                 ),
                               );
                             }),
