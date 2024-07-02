@@ -234,7 +234,7 @@ class _ItemVariationsBottomSheetState extends State<ItemVariationsBottomSheet> {
                                                 crossAxisCount: 4,
                                                 crossAxisSpacing: 20,
                                                 mainAxisSpacing: 10,
-                                                childAspectRatio: (1 / 0.75),
+                                                childAspectRatio: (1 / 0.55),
                                               ),
                                               shrinkWrap: true,
                                               physics:
@@ -245,7 +245,7 @@ class _ItemVariationsBottomSheetState extends State<ItemVariationsBottomSheet> {
                                                   .options
                                                   ?.length,
                                               itemBuilder: (context, i) {
-                                                double? startingPrice;
+                                                /* double? startingPrice;
                                                 if (widget.item!.variations!
                                                     .isNotEmpty) {
                                                   List<double?> priceList = [];
@@ -279,7 +279,7 @@ class _ItemVariationsBottomSheetState extends State<ItemVariationsBottomSheet> {
                                                                 .storeDiscount ==
                                                             0)
                                                     ? widget.item!.discountType
-                                                    : 'percent';
+                                                    : 'percent';*/
                                                 return InkWell(
                                                   onTap: () {
                                                     itemController
@@ -328,28 +328,30 @@ class _ItemVariationsBottomSheetState extends State<ItemVariationsBottomSheet> {
                                                           style: robotoMedium
                                                               .copyWith(
                                                             fontSize: Dimensions
-                                                                .fontSizeSmall,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          PriceConverter
-                                                              .convertPrice(
-                                                                  startingPrice,
-                                                                  discount:
-                                                                      discount,
-                                                                  discountType:
-                                                                      discountType),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: robotoMedium
-                                                              .copyWith(
-                                                            fontSize: Dimensions
                                                                 .fontSizeLarge,
                                                             fontWeight:
-                                                                FontWeight.w700,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
+                                                        // Text(
+                                                        //   PriceConverter
+                                                        //       .convertPrice(
+                                                        //           startingPrice,
+                                                        //           discount:
+                                                        //               discount,
+                                                        //           discountType:
+                                                        //               discountType),
+                                                        //   maxLines: 1,
+                                                        //   overflow: TextOverflow
+                                                        //       .ellipsis,
+                                                        //   style: robotoMedium
+                                                        //       .copyWith(
+                                                        //     fontSize: Dimensions
+                                                        //         .fontSizeLarge,
+                                                        //     fontWeight:
+                                                        //         FontWeight.w700,
+                                                        //   ),
+                                                        // ),
                                                       ],
                                                     ),
                                                   ),

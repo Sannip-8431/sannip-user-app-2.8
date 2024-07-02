@@ -397,7 +397,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                               mainAxisSpacing:
                                                                   10,
                                                               childAspectRatio:
-                                                                  (1 / 0.75),
+                                                                  (1 / 0.55),
                                                             ),
                                                             shrinkWrap: true,
                                                             physics:
@@ -472,7 +472,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                               //     ),
                                                               //   ),
                                                               // );
-                                                              double?
+                                                              /*double?
                                                                   startingPrice;
                                                               if (itemController
                                                                   .item!
@@ -531,7 +531,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                           ItemController>()
                                                                       .item!
                                                                       .discountType
-                                                                  : 'percent';
+                                                                  : 'percent';*/
                                                               return InkWell(
                                                                 onTap: () {
                                                                   itemController
@@ -580,28 +580,30 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                                         style: robotoMedium
                                                                             .copyWith(
                                                                           fontSize:
-                                                                              Dimensions.fontSizeSmall,
-                                                                        ),
-                                                                      ),
-                                                                      Text(
-                                                                        PriceConverter.convertPrice(
-                                                                            startingPrice,
-                                                                            discount:
-                                                                                discount,
-                                                                            discountType:
-                                                                                discountType),
-                                                                        maxLines:
-                                                                            1,
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        style: robotoMedium
-                                                                            .copyWith(
-                                                                          fontSize:
                                                                               Dimensions.fontSizeLarge,
                                                                           fontWeight:
-                                                                              FontWeight.w700,
+                                                                              FontWeight.w600,
                                                                         ),
                                                                       ),
+                                                                      // Text(
+                                                                      //   PriceConverter.convertPrice(
+                                                                      //       startingPrice,
+                                                                      //       discount:
+                                                                      //           discount,
+                                                                      //       discountType:
+                                                                      //           discountType),
+                                                                      //   maxLines:
+                                                                      //       1,
+                                                                      //   overflow:
+                                                                      //       TextOverflow.ellipsis,
+                                                                      //   style: robotoMedium
+                                                                      //       .copyWith(
+                                                                      //     fontSize:
+                                                                      //         Dimensions.fontSizeLarge,
+                                                                      //     fontWeight:
+                                                                      //         FontWeight.w700,
+                                                                      //   ),
+                                                                      // ),
                                                                     ],
                                                                   ),
                                                                 ),

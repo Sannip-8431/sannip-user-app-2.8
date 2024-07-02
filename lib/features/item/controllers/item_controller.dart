@@ -601,7 +601,7 @@ class ItemController extends GetxController implements GetxService {
                       inStorePage: inStore,
                       isCampaign: isCampaign)),
             );
-    } else if (item.variations!.isEmpty &&
+    } else if (item.variations!.isNotEmpty &&
         item.variations != null &&
         item.moduleType == AppConstants.grocery) {
       ResponsiveHelper.isMobile(context)
