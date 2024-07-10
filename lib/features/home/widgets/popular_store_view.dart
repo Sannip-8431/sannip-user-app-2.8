@@ -1,4 +1,5 @@
 import 'package:sannip/common/widgets/custom_ink_well.dart';
+import 'package:sannip/common/widgets/rating_card.dart';
 import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
@@ -63,7 +64,7 @@ class PopularStoreView extends StatelessWidget {
                 ),
                 storeList != null
                     ? ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         controller: ScrollController(),
                         physics: const BouncingScrollPhysics(),
                         // scrollDirection: Axis.horizontal,
@@ -75,14 +76,14 @@ class PopularStoreView extends StatelessWidget {
                           return Container(
                             height: 220,
                             padding: const EdgeInsets.only(
-                              right: Dimensions.paddingSizeDefault,
-                              bottom: 5),
+                                right: Dimensions.paddingSizeDefault,
+                                bottom: 5),
                             margin: const EdgeInsets.only(
                                 top: Dimensions.paddingSizeExtraSmall),
                             decoration: BoxDecoration(
                               color: Theme.of(context).cardColor,
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.radiusSmall),
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radiusSmall),
                               boxShadow: [
                                 BoxShadow(
                                     color: Theme.of(context)
@@ -95,8 +96,7 @@ class PopularStoreView extends StatelessWidget {
                             child: CustomInkWell(
                               onTap: () {
                                 if (isFeatured &&
-                                    Get.find<SplashController>()
-                                            .moduleList !=
+                                    Get.find<SplashController>().moduleList !=
                                         null) {
                                   for (ModuleModel module
                                       in Get.find<SplashController>()
@@ -112,8 +112,7 @@ class PopularStoreView extends StatelessWidget {
                                 Get.toNamed(
                                   RouteHelper.getStoreRoute(
                                       id: storeList[index].id,
-                                      page:
-                                          isFeatured ? 'module' : 'store'),
+                                      page: isFeatured ? 'module' : 'store'),
                                   arguments: StoreScreen(
                                       store: storeList[index],
                                       fromModule: isFeatured),
@@ -121,32 +120,29 @@ class PopularStoreView extends StatelessWidget {
                               },
                               radius: Dimensions.radiusSmall,
                               child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Stack(children: [
                                       ClipRRect(
                                         borderRadius:
                                             const BorderRadius.vertical(
                                                 top: Radius.circular(
-                                                    Dimensions
-                                                        .radiusSmall)),
+                                                    Dimensions.radiusSmall)),
                                         child: CustomImage(
                                           image:
                                               '${storeList[index].coverPhotoFullUrl}',
                                           height: 150,
-                                          width: MediaQuery.of(context).size.width,
+                                          width:
+                                              MediaQuery.of(context).size.width,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       DiscountTag(
                                         discount: storeController
                                             .getDiscount(storeList[index]),
-                                        discountType:
-                                            storeController.getDiscountType(
-                                                storeList[index]),
+                                        discountType: storeController
+                                            .getDiscountType(storeList[index]),
                                         freeDelivery:
                                             storeList[index].freeDelivery,
                                       ),
@@ -156,38 +152,29 @@ class PopularStoreView extends StatelessWidget {
                                           : const NotAvailableWidget(
                                               isStore: true),
                                       Positioned(
-                                        top: Dimensions
-                                            .paddingSizeExtraSmall,
-                                        right: Dimensions
-                                            .paddingSizeExtraSmall,
-                                        child:
-                                            GetBuilder<FavouriteController>(
-                                                builder:
-                                                    (favouriteController) {
-                                          bool isWished =
-                                              favouriteController
-                                                  .wishStoreIdList
-                                                  .contains(
-                                                      storeList[index].id);
+                                        top: Dimensions.paddingSizeExtraSmall,
+                                        right: Dimensions.paddingSizeExtraSmall,
+                                        child: GetBuilder<FavouriteController>(
+                                            builder: (favouriteController) {
+                                          bool isWished = favouriteController
+                                              .wishStoreIdList
+                                              .contains(storeList[index].id);
                                           return InkWell(
                                             onTap: () {
                                               if (AuthHelper.isLoggedIn()) {
                                                 isWished
                                                     ? favouriteController
                                                         .removeFromFavouriteList(
-                                                            storeList[index]
-                                                                .id,
+                                                            storeList[index].id,
                                                             true)
                                                     : favouriteController
                                                         .addToFavouriteList(
                                                             null,
-                                                            storeList[
-                                                                index],
+                                                            storeList[index],
                                                             true);
                                               } else {
                                                 showCustomSnackBar(
-                                                    'you_are_not_logged_in'
-                                                        .tr);
+                                                    'you_are_not_logged_in'.tr);
                                               }
                                             },
                                             child: Container(
@@ -195,12 +182,11 @@ class PopularStoreView extends StatelessWidget {
                                                   Dimensions
                                                       .paddingSizeExtraSmall),
                                               decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .cardColor,
+                                                color:
+                                                    Theme.of(context).cardColor,
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                        Dimensions
-                                                            .radiusSmall),
+                                                        Dimensions.radiusSmall),
                                               ),
                                               child: Icon(
                                                 isWished
@@ -224,8 +210,10 @@ class PopularStoreView extends StatelessWidget {
                                             horizontal: Dimensions
                                                 .paddingSizeExtraSmall),
                                         child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
                                                 crossAxisAlignment:
@@ -243,8 +231,7 @@ class PopularStoreView extends StatelessWidget {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
-                                                  const SizedBox(
-                                                      height: 2),
+                                                  const SizedBox(height: 2),
                                                   Text(
                                                     storeList[index].address ??
                                                         '',
@@ -260,20 +247,24 @@ class PopularStoreView extends StatelessWidget {
                                                   const SizedBox(
                                                       height: Dimensions
                                                           .paddingSizeExtraSmall),
-                                                  
                                                 ]),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(top:Dimensions.paddingSizeDefault
-                                                          ),
-                                                  child: RatingBar(
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: Dimensions
+                                                      .paddingSizeExtraSmall),
+                                              child: /* RatingBar(
                                                   rating: storeList[index]
                                                       .avgRating,
                                                   ratingCount:
                                                       storeList[index]
                                                           .ratingCount,
-                                                  size: 12,
-                                                                                                ),
-                                                ),
+                                                  size: 12,) */
+                                                  RatingCard(
+                                                rating: storeList[index]
+                                                        .avgRating ??
+                                                    0,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -283,7 +274,7 @@ class PopularStoreView extends StatelessWidget {
                           );
                         },
                       )
-                    :  PopularStoreShimmer(storeController: storeController),
+                    : PopularStoreShimmer(storeController: storeController),
               ],
             );
     });
