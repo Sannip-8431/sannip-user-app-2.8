@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
-import 'package:sannip/common/widgets/custom_tool_tip_widget.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
@@ -12,7 +10,6 @@ import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/common/widgets/organic_tag.dart';
@@ -81,7 +78,7 @@ class ItemTitleViewWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        SizedBox(
+                        /* SizedBox(
                             width:
                                 item!.isStoreHalalActive! && item!.isHalalItem!
                                     ? Dimensions.paddingSizeSmall
@@ -95,7 +92,8 @@ class ItemTitleViewWidget extends StatelessWidget {
                                     height: 35,
                                     width: 35),
                               )
-                            : const SizedBox(),
+                            : const SizedBox(), */
+                        const SizedBox(),
                         const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                         ((Get.find<SplashController>()
                                         .configModel!
@@ -267,7 +265,7 @@ class ItemTitleViewWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                             )),
-                            SizedBox(
+                           /*  SizedBox(
                                 width: item!.isStoreHalalActive! &&
                                         item!.isHalalItem!
                                     ? Dimensions.paddingSizeExtraSmall
@@ -281,7 +279,8 @@ class ItemTitleViewWidget extends StatelessWidget {
                                         height: 30,
                                         width: 30),
                                   )
-                                : const SizedBox(),
+                                : const SizedBox(), */
+                                const SizedBox(),
                             // item!.availableTimeStarts != null
                             //     ? const SizedBox()
                             //     : GetBuilder<FavouriteController>(

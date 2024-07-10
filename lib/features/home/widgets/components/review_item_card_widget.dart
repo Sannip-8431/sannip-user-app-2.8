@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -227,7 +226,7 @@ class ReviewItemCard extends StatelessWidget {
                           right: 10,
                           item: item!,
                         ),
-                        item!.isStoreHalalActive! && item!.isHalalItem!
+                        /* item!.isStoreHalalActive! && item!.isHalalItem!
                             ? const Positioned(
                                 top: 35,
                                 right: 10,
@@ -237,7 +236,8 @@ class ReviewItemCard extends StatelessWidget {
                                   width: 20,
                                 ),
                               )
-                            : const SizedBox(),
+                            : const SizedBox(), */
+                        const SizedBox(),
                         DiscountTag(
                           isFloating: true,
                           discount:

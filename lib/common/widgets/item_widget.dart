@@ -209,7 +209,7 @@ class ItemWidget extends StatelessWidget {
                                         width: 10,
                                         fit: BoxFit.contain)
                                     : const SizedBox(),
-                                SizedBox(
+                                /* SizedBox(
                                     width: item!.isStoreHalalActive! &&
                                             item!.isHalalItem!
                                         ? Dimensions.paddingSizeExtraSmall
@@ -221,7 +221,8 @@ class ItemWidget extends StatelessWidget {
                                         Images.halalTag,
                                         height: 13,
                                         width: 13)
-                                    : const SizedBox(),
+                                    : const SizedBox(), */
+                                    const SizedBox(),
                               ]),
                           SizedBox(
                               height: isStore

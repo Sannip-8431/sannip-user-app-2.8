@@ -218,7 +218,7 @@ class CartItemWidget extends StatelessWidget {
                                         ),
                                       )
                                 : const SizedBox(),
-                            SizedBox(
+                            /* SizedBox(
                                 width: cart.item!.isStoreHalalActive! &&
                                         cart.item!.isHalalItem!
                                     ? Dimensions.paddingSizeExtraSmall
@@ -227,7 +227,8 @@ class CartItemWidget extends StatelessWidget {
                                     cart.item!.isHalalItem!
                                 ? const CustomAssetImageWidget(Images.halalTag,
                                     height: 13, width: 13)
-                                : const SizedBox(),
+                                : const SizedBox(), */
+                                const SizedBox(),
                           ]),
                           const SizedBox(height: 2),
                           RatingBar(

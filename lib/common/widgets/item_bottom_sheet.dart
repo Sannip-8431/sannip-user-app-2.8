@@ -426,7 +426,7 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                               const SizedBox(
                                                   height: Dimensions
                                                       .paddingSizeDefault),
-                                              widget.item!.isStoreHalalActive! &&
+                                             /*  widget.item!.isStoreHalalActive! &&
                                                       widget.item!.isHalalItem!
                                                   ? Padding(
                                                       padding: const EdgeInsets
@@ -448,7 +448,8 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                                                 width: 35),
                                                       ),
                                                     )
-                                                  : const SizedBox(),
+                                                  : const SizedBox(), */
+                                                  const SizedBox(),
                                             ]),
                                       ]),
 
