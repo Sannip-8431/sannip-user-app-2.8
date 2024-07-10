@@ -1,5 +1,4 @@
 import 'package:sannip/common/widgets/cart_count_view.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';

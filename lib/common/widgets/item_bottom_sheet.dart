@@ -1,5 +1,4 @@
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
-import 'package:sannip/common/widgets/custom_tool_tip_widget.dart';
+
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -26,8 +25,6 @@ import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:sannip/features/checkout/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'cart_snackbar.dart';
 
 class ItemBottomSheet extends StatefulWidget {
   final Item? item;

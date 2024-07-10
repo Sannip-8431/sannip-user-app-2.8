@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:sannip/common/widgets/title_widget.dart';
 import 'package:sannip/features/category/controllers/category_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
@@ -18,7 +20,7 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController scrollController = ScrollController();
+     ScrollController scrollController = ScrollController();
 
     return GetBuilder<SplashController>(builder: (splashController) {
       bool isPharmacy = splashController.module != null &&
@@ -581,7 +583,7 @@ class FoodCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
+     final ScrollController scrollController = ScrollController();
     int number = ((categoryController.categoryList?.length ?? 0) / 2).ceil();
     return Stack(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
