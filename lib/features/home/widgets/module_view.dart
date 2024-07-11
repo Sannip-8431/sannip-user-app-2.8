@@ -13,7 +13,6 @@ import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
-import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_loader.dart';
 import 'package:sannip/common/widgets/title_widget.dart';
 import 'package:flutter/material.dart';

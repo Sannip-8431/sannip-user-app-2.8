@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';

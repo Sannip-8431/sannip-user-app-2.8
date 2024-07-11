@@ -1,5 +1,4 @@
 import 'package:sannip/common/widgets/cart_count_view.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
@@ -209,7 +208,7 @@ class ItemWidget extends StatelessWidget {
                                         width: 10,
                                         fit: BoxFit.contain)
                                     : const SizedBox(),
-                                SizedBox(
+                                /* SizedBox(
                                     width: item!.isStoreHalalActive! &&
                                             item!.isHalalItem!
                                         ? Dimensions.paddingSizeExtraSmall
@@ -221,7 +220,8 @@ class ItemWidget extends StatelessWidget {
                                         Images.halalTag,
                                         height: 13,
                                         width: 13)
-                                    : const SizedBox(),
+                                    : const SizedBox(), */
+                                    const SizedBox(),
                               ]),
                           SizedBox(
                               height: isStore

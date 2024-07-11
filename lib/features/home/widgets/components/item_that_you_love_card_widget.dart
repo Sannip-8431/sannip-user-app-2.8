@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
@@ -9,7 +8,6 @@ import 'package:sannip/features/item/domain/models/item_model.dart';
 import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/cart_count_view.dart';
@@ -73,7 +71,7 @@ class ItemThatYouLoveCard extends StatelessWidget {
                   discountType: discountType,
                   freeDelivery: false,
                 ),
-                item.isStoreHalalActive! && item.isHalalItem!
+               /*  item.isStoreHalalActive! && item.isHalalItem!
                     ? const Positioned(
                         top: 40,
                         right: 15,
@@ -83,7 +81,8 @@ class ItemThatYouLoveCard extends StatelessWidget {
                           width: 20,
                         ),
                       )
-                    : const SizedBox(),
+                    : const SizedBox(), */
+                const SizedBox(),
                 AddFavouriteView(
                   item: item,
                 ),

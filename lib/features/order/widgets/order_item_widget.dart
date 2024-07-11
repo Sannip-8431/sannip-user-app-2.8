@@ -153,7 +153,8 @@ class OrderItemWidget extends StatelessWidget {
                             ),
                           )
                     : const SizedBox(),
-                SizedBox(
+                      const SizedBox()
+                /* SizedBox(
                     width: orderDetails.itemDetails!.isStoreHalalActive! &&
                             orderDetails.itemDetails!.isHalalItem!
                         ? Dimensions.paddingSizeExtraSmall
@@ -162,7 +163,7 @@ class OrderItemWidget extends StatelessWidget {
                         orderDetails.itemDetails!.isHalalItem!
                     ? const CustomAssetImageWidget(Images.halalTag,
                         height: 13, width: 13)
-                    : const SizedBox(),
+                    : const SizedBox(), */
               ]),
             ]),
           ),

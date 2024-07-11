@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/common/widgets/item_widget.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
@@ -98,7 +97,7 @@ class ItemCard extends StatelessWidget {
                     top: 3,
                     right: 3,
                   ),
-                  item.isStoreHalalActive! && item.isHalalItem!
+                 /*  item.isStoreHalalActive! && item.isHalalItem!
                       ? const Positioned(
                           bottom: 3,
                           right: 3,
@@ -108,7 +107,8 @@ class ItemCard extends StatelessWidget {
                             width: 25,
                           ),
                         )
-                      : const SizedBox(),
+                      : const SizedBox(), */
+                  const SizedBox(),
                   // DiscountTag(
                   //   discount: discount,
                   //   discountType: discountType,
