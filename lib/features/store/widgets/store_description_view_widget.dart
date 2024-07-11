@@ -217,10 +217,7 @@ class StoreDescriptionViewWidget extends StatelessWidget {
                   ])),
             ])
           : const SizedBox(),
-      SizedBox(
-          height: ResponsiveHelper.isDesktop(context)
-              ? 30
-              : Dimensions.paddingSizeSmall),
+      SizedBox(height: ResponsiveHelper.isDesktop(context) ? 30 : 0),
       ResponsiveHelper.isDesktop(context)
           ? IntrinsicHeight(
               child: Row(children: [
@@ -313,7 +310,7 @@ class StoreDescriptionViewWidget extends StatelessWidget {
                 const Expanded(child: SizedBox()),
               ]),
             )
-          : Row(children: [
+          /*: Row(children: [
               const Expanded(child: SizedBox()),
               InkWell(
                 onTap: () => Get.toNamed(RouteHelper.getStoreReviewRoute(
@@ -396,7 +393,8 @@ class StoreDescriptionViewWidget extends StatelessWidget {
                     ])
                   : const SizedBox(),
               const Expanded(child: SizedBox()),
-            ]),
+            ]),*/
+          : const SizedBox()
     ]);
   }
 }

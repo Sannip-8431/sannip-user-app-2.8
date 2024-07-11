@@ -1241,5 +1241,6 @@
   "write_street_number": "Escriba el número de la calle",
   "write_house_number": "Escriba el número de la casa",
   "write_floor_number": "Escriba el número del piso",
-  "popular_cuisines": "Cocinas populares"
+  "popular_cuisines": "Cocinas populares",
+  "away": "Lejos"
 }
