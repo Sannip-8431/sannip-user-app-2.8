@@ -810,18 +810,14 @@ class _StoreScreenState extends State<StoreScreen> {
                                                         style: robotoMedium.copyWith(
                                                             fontSize: Dimensions
                                                                 .fontSizeSmall,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .cardColor,
+                                                            color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
                                                       const SizedBox(width: 2),
-                                                      Icon(Icons.star,
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cardColor,
+                                                      const Icon(Icons.star,
+                                                          color: Colors.white,
                                                           size: 16),
                                                     ],
                                                   ),
