@@ -97,7 +97,7 @@ class ItemCard extends StatelessWidget {
                     top: 3,
                     right: 3,
                   ),
-                 /*  item.isStoreHalalActive! && item.isHalalItem!
+                  /*  item.isStoreHalalActive! && item.isHalalItem!
                       ? const Positioned(
                           bottom: 3,
                           right: 3,
@@ -184,7 +184,7 @@ class ItemCard extends StatelessWidget {
                 ]),
               ),
               Expanded(
-                flex: 5,
+                flex: (isFood || isShop) ? 6 : 5,
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: Dimensions.paddingSizeSmall,
