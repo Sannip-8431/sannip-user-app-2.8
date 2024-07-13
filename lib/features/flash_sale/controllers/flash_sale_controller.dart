@@ -17,7 +17,7 @@ class FlashSaleController extends GetxController implements GetxService {
   FlashSaleModel? _flashSaleModel;
   FlashSaleModel? get flashSaleModel => _flashSaleModel;
 
-  int _pageIndex = 1;
+  int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
   ProductFlashSale? _productFlashSale;

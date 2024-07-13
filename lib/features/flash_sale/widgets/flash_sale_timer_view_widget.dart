@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/features/flash_sale/widgets/timer_widget.dart';
 
 class FlashSaleTimerView extends StatelessWidget {
@@ -25,17 +24,17 @@ class FlashSaleTimerView extends StatelessWidget {
               timeCount: days ?? 0,
               timeUnit: 'days'.tr,
             ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
+            const SizedBox(width: 8),
             TimerWidget(
               timeCount: hours ?? 0,
               timeUnit: 'hours'.tr,
             ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
+            const SizedBox(width: 8),
             TimerWidget(
               timeCount: minutes ?? 0,
               timeUnit: 'mins'.tr,
             ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
+            const SizedBox(width: 8),
             TimerWidget(
               timeCount: seconds ?? 0,
               timeUnit: 'sec'.tr,

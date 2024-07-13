@@ -28,11 +28,11 @@ class _WebFlashSaleViewWidgetState extends State<WebFlashSaleViewWidget> {
       if (flashSaleController.flashSaleModel != null &&
           flashSaleController.flashSaleModel!.activeProducts != null) {
         item = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex - 1].item;
+            .activeProducts![flashSaleController.pageIndex].item;
         stock = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex - 1].stock!;
+            .activeProducts![flashSaleController.pageIndex].stock!;
         int sold = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex - 1].sold!;
+            .activeProducts![flashSaleController.pageIndex].sold!;
         if (stock >= sold) {
           remaining = stock - sold;
         }
@@ -41,7 +41,7 @@ class _WebFlashSaleViewWidgetState extends State<WebFlashSaleViewWidget> {
       return flashSaleController.flashSaleModel != null
           ? flashSaleController.flashSaleModel!.activeProducts != null
               ? Container(
-                  width: Get.width,
+                  width: Get.width + 20,
                   margin:
                       const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
                   decoration: BoxDecoration(
