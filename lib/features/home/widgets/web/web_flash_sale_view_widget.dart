@@ -28,11 +28,11 @@ class _WebFlashSaleViewWidgetState extends State<WebFlashSaleViewWidget> {
       if (flashSaleController.flashSaleModel != null &&
           flashSaleController.flashSaleModel!.activeProducts != null) {
         item = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex].item;
+            .activeProducts![flashSaleController.pageIndex - 1].item;
         stock = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex].stock!;
+            .activeProducts![flashSaleController.pageIndex - 1].stock!;
         int sold = flashSaleController.flashSaleModel!
-            .activeProducts![flashSaleController.pageIndex].sold!;
+            .activeProducts![flashSaleController.pageIndex - 1].sold!;
         if (stock >= sold) {
           remaining = stock - sold;
         }
