@@ -106,7 +106,7 @@ class CartItemWidget extends StatelessWidget {
             },
             radius: Dimensions.radiusDefault,
             padding: const EdgeInsets.symmetric(
-                vertical: Dimensions.paddingSizeExtraSmall,
+                vertical: Dimensions.paddingSizeSmall,
                 horizontal: Dimensions.paddingSizeSmall),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,17 +154,6 @@ class CartItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(children: [
-                            Flexible(
-                              child: Text(
-                                cart.item!.name!,
-                                style: robotoMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(
-                                width: Dimensions.paddingSizeExtraSmall),
                             ((Get.find<SplashController>()
                                             .configModel!
                                             .moduleConfig!
@@ -218,6 +207,17 @@ class CartItemWidget extends StatelessWidget {
                                         ),
                                       )
                                 : const SizedBox(),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraSmall),
+                            Flexible(
+                              child: Text(
+                                cart.item!.name!,
+                                style: robotoMedium.copyWith(
+                                    fontSize: Dimensions.fontSizeLarge),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                             /* SizedBox(
                                 width: cart.item!.isStoreHalalActive! &&
                                         cart.item!.isHalalItem!
@@ -228,7 +228,7 @@ class CartItemWidget extends StatelessWidget {
                                 ? const CustomAssetImageWidget(Images.halalTag,
                                     height: 13, width: 13)
                                 : const SizedBox(), */
-                                const SizedBox(),
+                            const SizedBox(),
                           ]),
                           const SizedBox(height: 2),
                           RatingBar(

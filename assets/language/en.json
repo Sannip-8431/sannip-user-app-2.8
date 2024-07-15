@@ -1255,5 +1255,8 @@
   "your_registration_not_setup_yet" : "Your registration not setup yet",
   "whats_new_on" : "What's New on",
   "popular_cuisines": "Popular Cuisines",
-  "away": "Away"
+  "away": "Away",
+  "your_orders" : "Your Orders",
+  "thanks_to_delivery_partner_with_a_tip": "Thanks to Delivery partner with a tip",
+  "delivery_man_tip_description": "Your Kindness means a lot! The entire tip will be transferred directly to them as soon as the order is delivered"
 }

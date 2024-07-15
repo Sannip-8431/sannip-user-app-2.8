@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/cart/widgets/extra_packaging_widget.dart';
 import 'package:sannip/features/cart/widgets/not_available_bottom_sheet_widget.dart';
+import 'package:sannip/features/checkout/screens/checkout_screen.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -87,6 +88,7 @@ class _CartScreenState extends State<CartScreen> {
     bool isDesktop = ResponsiveHelper.isDesktop(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).hintColor.withOpacity(0.2),
       appBar: CustomAppBar(
           title: 'my_cart'.tr,
           backButton: (ResponsiveHelper.isDesktop(context) || !widget.fromNav)),
@@ -173,6 +175,24 @@ class _CartScreenState extends State<CartScreen> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
+                                                            Padding(
+                                                              padding: const EdgeInsets
+                                                                  .only(
+                                                                  left: Dimensions
+                                                                      .paddingSizeSmall,
+                                                                  top: Dimensions
+                                                                      .paddingSizeSmall),
+                                                              child: Text(
+                                                                  'your_orders'
+                                                                      .tr,
+                                                                  style: robotoMedium.copyWith(
+                                                                      fontSize:
+                                                                          Dimensions
+                                                                              .fontSizeLarge,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600)),
+                                                            ),
                                                             ListView.builder(
                                                               physics:
                                                                   const NeverScrollableScrollPhysics(),
@@ -181,11 +201,14 @@ class _CartScreenState extends State<CartScreen> {
                                                                   cartController
                                                                       .cartList
                                                                       .length,
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(
-                                                                      Dimensions
-                                                                          .paddingSizeDefault),
+                                                              padding: const EdgeInsets
+                                                                  .only(
+                                                                  left: Dimensions
+                                                                      .paddingSizeDefault,
+                                                                  top: Dimensions
+                                                                      .paddingSizeDefault,
+                                                                  right: Dimensions
+                                                                      .paddingSizeDefault),
                                                               itemBuilder:
                                                                   (context,
                                                                       index) {
@@ -203,17 +226,16 @@ class _CartScreenState extends State<CartScreen> {
                                                                             .availableList[index]);
                                                               },
                                                             ),
-                                                            const Divider(
-                                                                thickness: 0.5,
-                                                                height: 5),
+                                                            // const Divider(
+                                                            //     thickness: 0.5,
+                                                            //     height: 5),
                                                             Padding(
                                                               padding: const EdgeInsets
                                                                   .only(
                                                                   left: Dimensions
-                                                                      .paddingSizeExtraSmall),
-                                                              child: TextButton
-                                                                  .icon(
-                                                                onPressed: () {
+                                                                      .paddingSizeSmall),
+                                                              child: InkWell(
+                                                                onTap: () {
                                                                   cartController.forcefullySetModule(
                                                                       cartController
                                                                           .cartList[
@@ -240,20 +262,28 @@ class _CartScreenState extends State<CartScreen> {
                                                                             false),
                                                                   );
                                                                 },
-                                                                icon: Icon(
-                                                                    Icons
-                                                                        .add_circle_outline_sharp,
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor),
-                                                                label: Text(
-                                                                    'add_more_items'
-                                                                        .tr,
-                                                                    style: robotoMedium.copyWith(
+                                                                child: Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                        Icons
+                                                                            .add,
                                                                         color: Theme.of(context)
                                                                             .primaryColor,
-                                                                        fontSize:
-                                                                            Dimensions.fontSizeDefault)),
+                                                                        size:
+                                                                            20),
+                                                                    const SizedBox(
+                                                                      width: Dimensions
+                                                                          .paddingSizeExtraSmall,
+                                                                    ),
+                                                                    Text(
+                                                                        'add_more_items'
+                                                                            .tr,
+                                                                        style: robotoMedium.copyWith(
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                            fontSize: Dimensions.fontSizeDefault)),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                             ExtraPackagingWidget(
@@ -520,15 +550,31 @@ class _CartScreenState extends State<CartScreen> {
               : Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    border: Border.all(
-                        color: Theme.of(context).primaryColor, width: 0.5),
+                    borderRadius: ResponsiveHelper.isDesktop(context)
+                        ? null
+                        : BorderRadius.circular(Dimensions.radiusDefault),
+                    border: ResponsiveHelper.isDesktop(context)
+                        ? Border.all(
+                            color: Theme.of(context).primaryColor, width: 0.5)
+                        : null,
+                    boxShadow: !ResponsiveHelper.isMobile(context)
+                        ? [const BoxShadow()]
+                        : [
+                            const BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                            )
+                          ],
                   ),
                   padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                   margin: ResponsiveHelper.isDesktop(context)
                       ? const EdgeInsets.symmetric(
                           horizontal: Dimensions.paddingSizeDefault,
                           vertical: Dimensions.paddingSizeSmall)
-                      : EdgeInsets.zero,
+                      : const EdgeInsets.symmetric(
+                          horizontal: Dimensions.paddingSizeDefault,
+                        ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

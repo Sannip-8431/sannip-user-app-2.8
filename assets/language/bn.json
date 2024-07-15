@@ -1243,5 +1243,8 @@
   "write_house_number": "বাড়ির নম্বর লিখুন",
   "write_floor_number": "তলার নম্বর লিখুন",
   "popular_cuisines": "জনপ্রিয় খাবার",
-  "away": "দূরে"
+  "away": "দূরে",
+  "your_orders" : "তোমার আদেশ",
+  "thanks_to_delivery_partner_with_a_tip": "একটি টিপ সহ ডেলিভারি অংশীদারকে ধন্যবাদ",
+  "delivery_man_tip_description": "আপনার দয়া অনেক মানে! অর্ডার দেওয়ার সাথে সাথে সম্পূর্ণ টিপ সরাসরি তাদের কাছে হস্তান্তর করা হবে"
 }

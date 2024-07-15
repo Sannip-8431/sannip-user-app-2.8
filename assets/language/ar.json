@@ -1243,5 +1243,8 @@
   "write_house_number": "اكتب رقم المنزل",
   "write_floor_number": "اكتب رقم الطابق",
   "popular_cuisines": "المطابخ الشعبية",
-  "away": "بعيد"
+  "away": "بعيد",
+  "your_orders" : "طلباتك",
+  "thanks_to_delivery_partner_with_a_tip": "بفضل شريك التسليم مع معلومات سرية",
+  "delivery_man_tip_description": "لطفك يعني الكثير! سيتم تحويل الإكرامية بالكامل إليهم مباشرةً بمجرد تسليم الطلب"
 }

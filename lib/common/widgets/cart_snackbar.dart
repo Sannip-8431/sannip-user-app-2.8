@@ -23,9 +23,9 @@ void showCartSnackBar() {
         borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
     content: Text('item_added_to_cart'.tr,
         style: robotoMedium.copyWith(color: Colors.white)),
-    action: SnackBarAction(
-        label: 'view_cart'.tr,
-        onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
-        textColor: Colors.white),
+    // action: SnackBarAction(
+    //     label: 'view_cart'.tr,
+    //     onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
+    //     textColor: Colors.white),
   ));
 }

@@ -437,7 +437,7 @@ class TopSection extends StatelessWidget {
                   ],
                 ),
           padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.paddingSizeLarge,
+              vertical: Dimensions.paddingSizeSmall,
               horizontal: Dimensions.paddingSizeLarge),
           child: Column(children: [
             PaymentSection(
@@ -449,7 +449,7 @@ class TopSection extends StatelessWidget {
               checkoutController: checkoutController,
               isOfflinePaymentActive: isOfflinePaymentActive,
             ),
-            SizedBox(height: isGuestLoggedIn ? 0 : Dimensions.paddingSizeLarge),
+            SizedBox(height: isGuestLoggedIn ? 0 : Dimensions.paddingSizeSmall),
             !isDesktop && !isGuestLoggedIn
                 ? PartialPayView(
                     totalPrice: total, isPrescription: storeId != null)

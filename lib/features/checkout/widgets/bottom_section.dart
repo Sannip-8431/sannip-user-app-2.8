@@ -77,14 +77,14 @@ class BottomSection extends StatelessWidget {
               ],
             )
           : null,
-      padding:
-          const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+      padding: const EdgeInsets.symmetric(
+          vertical: Dimensions.paddingSizeExtraSmall),
       child: Column(children: [
         isDesktop
             ? pricingView(context: context, takeAway: takeAway)
             : const SizedBox(),
 
-        const SizedBox(height: Dimensions.paddingSizeSmall),
+        const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
         /// Coupon
         isDesktop && !isGuestLoggedIn

@@ -40,14 +40,16 @@ class TipsWidget extends StatelessWidget {
               border: Border.all(
                   color: ResponsiveHelper.isDesktop(context)
                       ? Theme.of(context).primaryColor
-                      : Theme.of(context).cardColor),
+                      : isSelected
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).disabledColor),
               boxShadow: ResponsiveHelper.isDesktop(context)
                   ? []
                   : const [
-                      BoxShadow(
-                          color: Colors.black12,
-                          spreadRadius: 0.5,
-                          blurRadius: 0.5)
+                      // BoxShadow(
+                      //     color: Colors.black12,
+                      //     spreadRadius: 0.5,
+                      //     blurRadius: 0.5)
                     ],
             ),
             child: Column(children: [
@@ -69,7 +71,7 @@ class TipsWidget extends StatelessWidget {
                         ? Theme.of(context).cardColor
                         : ResponsiveHelper.isDesktop(context)
                             ? Theme.of(context).primaryColor
-                            : Theme.of(context).disabledColor,
+                            : null,
                   ),
                 ),
               ),
@@ -95,7 +97,10 @@ class TipsWidget extends StatelessWidget {
             ]),
           ),
         ),
-        const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+        SizedBox(
+            height: ResponsiveHelper.isDesktop(context)
+                ? Dimensions.paddingSizeExtraSmall
+                : 0),
         isSuggested && !ResponsiveHelper.isDesktop(context)
             ? Text(
                 'most_tipped'.tr,
