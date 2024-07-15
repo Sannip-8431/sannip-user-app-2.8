@@ -77,11 +77,11 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/font/Poppins-Regular.ttf
+        - asset: assets/font/Roboto-Regular.ttf
           weight: 400
-        - asset: assets/font/Poppins-Medium.ttf
+        - asset: assets/font/Roboto-Medium.ttf
           weight: 500
-        - asset: assets/font/Poppins-Bold.ttf
+        - asset: assets/font/Roboto-Bold.ttf
           weight: 700
-        - asset: assets/font/Poppins-Black.ttf
+        - asset: assets/font/Roboto-Black.ttf
           weight: 900
