@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/common/widgets/hover/text_hover.dart';
 import 'package:sannip/features/auth/controllers/auth_controller.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/features/home/screens/home_screen.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
 import 'package:sannip/common/controllers/theme_controller.dart';
 import 'package:sannip/features/auth/screens/sign_in_screen.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/helper/address_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/app_constants.dart';
@@ -322,10 +326,48 @@ class WebMenuBar extends StatelessWidget implements PreferredSizeWidget {
                         onTap: () =>
                             Get.toNamed(RouteHelper.getNotificationRoute())),
                     const SizedBox(width: 20),
-                    MenuIconButton(
+                    GetBuilder<CartController>(builder: (cartController) {
+                      return MenuIconButton(
                         icon: Icons.shopping_cart,
                         isCart: true,
-                        onTap: () => Get.toNamed(RouteHelper.getCartRoute())),
+                        // onTap: () => Get.toNamed(RouteHelper.getCartRoute()),
+                        onTap: () {
+                          if (!cartController
+                                  .cartList.first.item!.scheduleOrder! &&
+                              cartController.availableList.contains(false)) {
+                            showCustomSnackBar(
+                                'one_or_more_product_unavailable'.tr);
+                          } /*else if(AuthHelper.isGuestLoggedIn() && !Get.find<SplashController>().configModel!.guestCheckoutStatus!) {
+                        showCustomSnackBar('currently_your_zone_have_no_permission_to_place_any_order'.tr);
+                                          }*/
+                          else {
+                            if (Get.find<SplashController>().module == null) {
+                              int i = 0;
+                              for (i = 0;
+                                  i <
+                                      Get.find<SplashController>()
+                                          .moduleList!
+                                          .length;
+                                  i++) {
+                                if (cartController.cartList[0].item!.moduleId ==
+                                    Get.find<SplashController>()
+                                        .moduleList![i]
+                                        .id) {
+                                  break;
+                                }
+                              }
+                              Get.find<SplashController>().setModule(
+                                  Get.find<SplashController>().moduleList![i]);
+                              HomeScreen.loadData(true);
+                            }
+                            Get.find<CouponController>()
+                                .removeCouponData(false);
+
+                            Get.toNamed(RouteHelper.getCheckoutRoute('cart'));
+                          }
+                        },
+                      );
+                    }),
                     const SizedBox(width: 20),
                     GetBuilder<AuthController>(builder: (authController) {
                       return InkWell(

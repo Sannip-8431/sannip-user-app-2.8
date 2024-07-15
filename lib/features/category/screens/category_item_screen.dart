@@ -1,5 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/category/controllers/category_controller.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/features/home/screens/home_screen.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
 import 'package:sannip/features/store/domain/models/store_model.dart';
@@ -184,12 +188,49 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                         color: Theme.of(context).textTheme.bodyLarge!.color,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
-                      icon: CartWidget(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
-                          size: 25),
-                    ),
+                    GetBuilder<CartController>(builder: (cartController) {
+                      return IconButton(
+                        // onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
+                        onPressed: () {
+                          if (!cartController
+                                  .cartList.first.item!.scheduleOrder! &&
+                              cartController.availableList.contains(false)) {
+                            showCustomSnackBar(
+                                'one_or_more_product_unavailable'.tr);
+                          } /*else if(AuthHelper.isGuestLoggedIn() && !Get.find<SplashController>().configModel!.guestCheckoutStatus!) {
+                        showCustomSnackBar('currently_your_zone_have_no_permission_to_place_any_order'.tr);
+                                          }*/
+                          else {
+                            if (Get.find<SplashController>().module == null) {
+                              int i = 0;
+                              for (i = 0;
+                                  i <
+                                      Get.find<SplashController>()
+                                          .moduleList!
+                                          .length;
+                                  i++) {
+                                if (cartController.cartList[0].item!.moduleId ==
+                                    Get.find<SplashController>()
+                                        .moduleList![i]
+                                        .id) {
+                                  break;
+                                }
+                              }
+                              Get.find<SplashController>().setModule(
+                                  Get.find<SplashController>().moduleList![i]);
+                              HomeScreen.loadData(true);
+                            }
+                            Get.find<CouponController>()
+                                .removeCouponData(false);
+
+                            Get.toNamed(RouteHelper.getCheckoutRoute('cart'));
+                          }
+                        },
+                        icon: CartWidget(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                            size: 25),
+                      );
+                    }),
                     VegFilterWidget(
                         type: catController.type,
                         fromAppBar: true,
@@ -257,10 +298,11 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                         scrollDirection: Axis.horizontal,
                         itemCount: catController.subCategoryList!.length,
                         padding: const EdgeInsets.only(
-                            left: Dimensions.paddingSizeSmall,bottom: Dimensions.paddingSizeSmall),
+                            left: Dimensions.paddingSizeSmall,
+                            bottom: Dimensions.paddingSizeSmall),
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return  InkWell(
+                          return InkWell(
                             onTap: () => catController.setSubCategoryIndex(
                                 index, widget.categoryID),
                             child: Container(
@@ -271,10 +313,12 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall),
                                 border: Border.all(
-                                    color: index ==
-                                            catController.subCategoryIndex
-                                        ? Theme.of(context).primaryColor.withOpacity(0.2)
-                                        : Theme.of(context).dividerColor),
+                                    color:
+                                        index == catController.subCategoryIndex
+                                            ? Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(0.2)
+                                            : Theme.of(context).dividerColor),
                               ),
                               child: Row(
                                 children: [
@@ -301,25 +345,28 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                                           catController
                                               .subCategoryList![index].name!,
                                           style: index ==
-                                                  catController
-                                                      .subCategoryIndex
+                                                  catController.subCategoryIndex
                                               ? robotoMedium.copyWith(
-                                                  fontSize: Dimensions
-                                                      .fontSizeSmall,
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall,
                                                   color: Theme.of(context)
                                                       .primaryColor)
                                               : robotoRegular.copyWith(
-                                                  fontSize: Dimensions
-                                                      .fontSizeSmall),
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall),
                                         ),
                                       ]),
                                 ],
                               ),
                             ),
                           );
-                        }, separatorBuilder: (BuildContext context, int index) { return const SizedBox(width: Dimensions.paddingSizeDefault); },
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                              width: Dimensions.paddingSizeDefault);
+                        },
                       ),
-                                          ))
+                    ))
                   : const SizedBox(),
               Center(
                   child: Container(

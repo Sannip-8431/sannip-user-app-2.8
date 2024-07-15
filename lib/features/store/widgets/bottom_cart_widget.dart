@@ -19,11 +19,8 @@ class BottomCartWidget extends StatelessWidget {
     return GetBuilder<CartController>(builder: (cartController) {
       return InkWell(
         onTap: () {
-          print('====fff===> ${cartController.notAvailableIndex}');
-          if (!cartController.cartList.first.item!
-                  .scheduleOrder! /*&&
-              availableList.contains(false)*/
-              ) {
+          if (!cartController.cartList.first.item!.scheduleOrder! &&
+              cartController.availableList.contains(false)) {
             showCustomSnackBar('one_or_more_product_unavailable'.tr);
           } /*else if(AuthHelper.isGuestLoggedIn() && !Get.find<SplashController>().configModel!.guestCheckoutStatus!) {
                     showCustomSnackBar('currently_your_zone_have_no_permission_to_place_any_order'.tr);
@@ -97,11 +94,8 @@ class BottomCartWidget extends StatelessWidget {
               width: 130,
               height: 45,
               onPressed: () {
-                print('====fff===> ${cartController.notAvailableIndex}');
-                if (!cartController.cartList.first.item!
-                        .scheduleOrder! /*&&
-              availableList.contains(false)*/
-                    ) {
+                if (!cartController.cartList.first.item!.scheduleOrder! &&
+                    cartController.availableList.contains(false)) {
                   showCustomSnackBar('one_or_more_product_unavailable'.tr);
                 } /*else if(AuthHelper.isGuestLoggedIn() && !Get.find<SplashController>().configModel!.guestCheckoutStatus!) {
                     showCustomSnackBar('currently_your_zone_have_no_permission_to_place_any_order'.tr);

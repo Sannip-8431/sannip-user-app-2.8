@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
+import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
+import 'package:sannip/features/home/screens/home_screen.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
@@ -72,12 +76,48 @@ class DetailsAppBarWidgetState extends State<DetailsAppBarWidget>
                   left: offsetAnimation.value + 15.0,
                   right: 15.0 - offsetAnimation.value),
               child: Stack(children: [
-                IconButton(
+                GetBuilder<CartController>(builder: (cartController) {
+                  return IconButton(
                     icon: Icon(Icons.shopping_cart,
                         color: Theme.of(context).primaryColor),
+                    // onPressed: () {
+                    //   Navigator.pushNamed(context, RouteHelper.getCartRoute());
+                    // },
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteHelper.getCartRoute());
-                    }),
+                      if (!cartController.cartList.first.item!.scheduleOrder! &&
+                          cartController.availableList.contains(false)) {
+                        showCustomSnackBar(
+                            'one_or_more_product_unavailable'.tr);
+                      } /*else if(AuthHelper.isGuestLoggedIn() && !Get.find<SplashController>().configModel!.guestCheckoutStatus!) {
+                            showCustomSnackBar('currently_your_zone_have_no_permission_to_place_any_order'.tr);
+                                              }*/
+                      else {
+                        if (Get.find<SplashController>().module == null) {
+                          int i = 0;
+                          for (i = 0;
+                              i <
+                                  Get.find<SplashController>()
+                                      .moduleList!
+                                      .length;
+                              i++) {
+                            if (cartController.cartList[0].item!.moduleId ==
+                                Get.find<SplashController>()
+                                    .moduleList![i]
+                                    .id) {
+                              break;
+                            }
+                          }
+                          Get.find<SplashController>().setModule(
+                              Get.find<SplashController>().moduleList![i]);
+                          HomeScreen.loadData(true);
+                        }
+                        Get.find<CouponController>().removeCouponData(false);
+
+                        Get.toNamed(RouteHelper.getCheckoutRoute('cart'));
+                      }
+                    },
+                  );
+                }),
                 Positioned(
                   top: 5,
                   right: 5,
