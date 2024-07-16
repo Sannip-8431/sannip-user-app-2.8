@@ -1258,5 +1258,7 @@
   "away": "Away",
   "your_orders" : "Your Orders",
   "thanks_to_delivery_partner_with_a_tip": "Thanks to Delivery partner with a tip",
-  "delivery_man_tip_description": "Your Kindness means a lot! The entire tip will be transferred directly to them as soon as the order is delivered"
+  "delivery_man_tip_description": "Your Kindness means a lot! The entire tip will be transferred directly to them as soon as the order is delivered",
+  "do_you_have_any_instructions?": "Do you have any instructions?",
+  "add_note_bottomSheet_description": "The Vendor will try their best to follow your instructions. However, no cancellation or refund will be possible if your request is not met."
 }

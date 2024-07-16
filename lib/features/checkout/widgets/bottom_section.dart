@@ -114,8 +114,9 @@ class BottomSection extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ///Additional Note & prescription..
-            NoteAndPrescriptionSection(
-                checkoutController: checkoutController, storeId: storeId),
+            if (isDesktop)
+              NoteAndPrescriptionSection(
+                  checkoutController: checkoutController, storeId: storeId),
 
             isDesktop && !isGuestLoggedIn
                 ? PartialPayView(

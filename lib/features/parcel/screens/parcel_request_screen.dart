@@ -452,7 +452,8 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                 SizedBox(
                                                   height: (parcelController
                                                                   .selectedTips ==
-                                                              AppConstants.tips
+                                                              AppConstants
+                                                                      .tipsWithEmoji
                                                                       .length -
                                                                   1) &&
                                                           parcelController
@@ -461,7 +462,8 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                       : 60,
                                                   child: (parcelController
                                                                   .selectedTips ==
-                                                              AppConstants.tips
+                                                              AppConstants
+                                                                      .tipsWithEmoji
                                                                       .length -
                                                                   1) &&
                                                           parcelController
@@ -475,26 +477,30 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                               const BouncingScrollPhysics(),
                                                           itemCount:
                                                               AppConstants
-                                                                  .tips.length,
+                                                                  .tipsWithEmoji
+                                                                  .length,
                                                           itemBuilder:
                                                               (context, index) {
                                                             return TipsWidget(
                                                               title: AppConstants
-                                                                              .tips[
-                                                                          index] ==
+                                                                              .tipsWithEmoji[index]
+                                                                          [
+                                                                          "amount"] ==
                                                                       '0'
                                                                   ? 'not_now'.tr
                                                                   : (index !=
-                                                                          AppConstants.tips.length -
+                                                                          AppConstants.tipsWithEmoji.length -
                                                                               1)
                                                                       ? PriceConverter.convertPrice(
-                                                                          double.parse(AppConstants.tips[index]
+                                                                          double.parse(AppConstants.tipsWithEmoji[index]["amount"]
                                                                               .toString()),
                                                                           forDM:
                                                                               true)
                                                                       : AppConstants
-                                                                          .tips[
+                                                                          .tipsWithEmoji[
                                                                               index]
+                                                                              ["amount"]
+                                                                          .toString()
                                                                           .tr,
                                                               isSelected:
                                                                   parcelController
@@ -502,8 +508,10 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                                       index,
                                                               isSuggested: index !=
                                                                       0 &&
-                                                                  AppConstants.tips[
-                                                                          index] ==
+                                                                  AppConstants.tipsWithEmoji[
+                                                                              index]
+                                                                          [
+                                                                          "amount"] ==
                                                                       parcelController
                                                                           .mostDmTipAmount
                                                                           .toString(),
@@ -516,17 +524,18 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                                         0 &&
                                                                     parcelController
                                                                             .selectedTips !=
-                                                                        AppConstants.tips.length -
+                                                                        AppConstants.tipsWithEmoji.length -
                                                                             1) {
                                                                   parcelController.addTips(
                                                                       double.parse(
-                                                                          AppConstants
-                                                                              .tips[index]));
+                                                                          AppConstants.tipsWithEmoji[index]
+                                                                              [
+                                                                              "amount"]));
                                                                 }
                                                                 if (parcelController
                                                                         .selectedTips ==
                                                                     AppConstants
-                                                                            .tips
+                                                                            .tipsWithEmoji
                                                                             .length -
                                                                         1) {
                                                                   parcelController
@@ -546,7 +555,7 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                     height: (parcelController
                                                                     .selectedTips ==
                                                                 AppConstants
-                                                                        .tips
+                                                                        .tipsWithEmoji
                                                                         .length -
                                                                     1) &&
                                                             parcelController
@@ -556,7 +565,8 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                         : 0),
                                                 parcelController.selectedTips ==
                                                         AppConstants
-                                                                .tips.length -
+                                                                .tipsWithEmoji
+                                                                .length -
                                                             1
                                                     ? const SizedBox()
                                                     : ListTile(
@@ -598,7 +608,8 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                 SizedBox(
                                                     height: parcelController
                                                                 .selectedTips ==
-                                                            AppConstants.tips
+                                                            AppConstants
+                                                                    .tipsWithEmoji
                                                                     .length -
                                                                 1
                                                         ? Dimensions
@@ -606,7 +617,8 @@ class _ParcelRequestScreenState extends State<ParcelRequestScreen> {
                                                         : 0),
                                                 parcelController.selectedTips ==
                                                         AppConstants
-                                                                .tips.length -
+                                                                .tipsWithEmoji
+                                                                .length -
                                                             1
                                                     ? Row(children: [
                                                         Expanded(

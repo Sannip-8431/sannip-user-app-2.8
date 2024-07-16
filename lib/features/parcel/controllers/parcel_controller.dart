@@ -376,7 +376,7 @@ class ParcelController extends GetxController implements GetxService {
     if (_selectedTips == 0 || _selectedTips == 5) {
       _tips = 0;
     } else {
-      _tips = double.parse(AppConstants.tips[index]);
+      _tips = double.parse(AppConstants.tipsWithEmoji[index]["amount"]);
     }
     if (notify) {
       update();

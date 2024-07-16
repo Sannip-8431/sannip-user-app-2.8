@@ -213,7 +213,7 @@ class CartItemWidget extends StatelessWidget {
                               child: Text(
                                 cart.item!.name!,
                                 style: robotoMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeLarge),
+                                    fontSize: Dimensions.fontSizeDefault),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -236,7 +236,7 @@ class CartItemWidget extends StatelessWidget {
                               size: 12,
                               ratingCount: cart.item!.ratingCount),
                           const SizedBox(height: 5),
-                          Wrap(children: [
+                          Row /*Wrap*/ (children: [
                             Text(
                               '${PriceConverter.convertPrice(startingPrice, discount: discount, discountType: discountType)}'
                               '${endingPrice != null ? ' - ${PriceConverter.convertPrice(endingPrice, discount: discount, discountType: discountType)}' : ''}',
@@ -260,6 +260,155 @@ class CartItemWidget extends StatelessWidget {
                                     ),
                                   )
                                 : const SizedBox(),
+                            const Spacer(),
+                            GetBuilder<CartController>(
+                                builder: (cartController) {
+                              /*return Row(children: [
+                                QuantityButton(
+                                  onTap: cartController.isLoading
+                                      ? null
+                                      : () {
+                                          if (cart.quantity! > 1) {
+                                            Get.find<CartController>()
+                                                .setQuantity(
+                                                    false,
+                                                    cartIndex,
+                                                    cart.stock,
+                                                    cart.quantityLimit);
+                                          } else {
+                                            Get.find<CartController>()
+                                                .removeFromCart(cartIndex,
+                                                    item: cart.item);
+                                          }
+                                        },
+                                  isIncrement: false,
+                                  showRemoveIcon: cart.quantity! == 1,
+                                ),
+                                Text(
+                                  cart.quantity.toString(),
+                                  style: robotoMedium.copyWith(
+                                      fontSize: Dimensions.fontSizeExtraLarge),
+                                ),
+                                QuantityButton(
+                                  onTap: cartController.isLoading
+                                      ? null
+                                      : () {
+                                          Get.find<CartController>()
+                                              .forcefullySetModule(
+                                                  Get.find<CartController>()
+                                                      .cartList[0]
+                                                      .item!
+                                                      .moduleId!);
+                                          Get.find<CartController>()
+                                              .setQuantity(
+                                                  true,
+                                                  cartIndex,
+                                                  cart.stock,
+                                                  cart.quantityLimit);
+                                        },
+                                  isIncrement: true,
+                                  color: cartController.isLoading
+                                      ? Theme.of(context).disabledColor
+                                      : null,
+                                ),
+                              ]);*/
+                              return Center(
+                                child: Container(
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusSmall),
+                                    color: Theme.of(context).cardColor,
+                                    border: Border.all(
+                                        color: Theme.of(context).primaryColor),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 5,
+                                          spreadRadius: 1)
+                                    ],
+                                  ),
+                                  // decoration: BoxDecoration(
+                                  //   color: Theme.of(context).primaryColor,
+                                  //   borderRadius:
+                                  //       BorderRadius.circular(Dimensions.radiusExtraLarge),
+                                  // ),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: cartController.isLoading
+                                              ? null
+                                              : () {
+                                                  if (cart.quantity! > 1) {
+                                                    Get.find<CartController>()
+                                                        .setQuantity(
+                                                            false,
+                                                            cartIndex,
+                                                            cart.stock,
+                                                            cart.quantityLimit);
+                                                  } else {
+                                                    Get.find<CartController>()
+                                                        .removeFromCart(
+                                                            cartIndex,
+                                                            item: cart.item);
+                                                  }
+                                                },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(
+                                                Dimensions
+                                                    .paddingSizeExtraSmall),
+                                            child: Icon(Icons.remove,
+                                                size: 18,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                        ),
+                                        !cartController.isLoading
+                                            ? Text(
+                                                cart.quantity.toString(),
+                                                style: robotoMedium.copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
+                                              )
+                                            : const SizedBox(
+                                                height: 18,
+                                                width: 18,
+                                                child:
+                                                    CircularProgressIndicator()),
+                                        InkWell(
+                                          onTap: cartController.isLoading
+                                              ? null
+                                              : () {
+                                                  Get.find<CartController>()
+                                                      .forcefullySetModule(
+                                                          Get.find<
+                                                                  CartController>()
+                                                              .cartList[0]
+                                                              .item!
+                                                              .moduleId!);
+                                                  Get.find<CartController>()
+                                                      .setQuantity(
+                                                          true,
+                                                          cartIndex,
+                                                          cart.stock,
+                                                          cart.quantityLimit);
+                                                },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(
+                                                Dimensions
+                                                    .paddingSizeExtraSmall),
+                                            child: Icon(Icons.add,
+                                                size: 18,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                              );
+                            }),
                           ]),
                           cart.item!.isPrescriptionRequired!
                               ? Padding(
@@ -333,51 +482,6 @@ class CartItemWidget extends StatelessWidget {
                               : const SizedBox(),
                         ]),
                   ),
-                  GetBuilder<CartController>(builder: (cartController) {
-                    return Row(children: [
-                      QuantityButton(
-                        onTap: cartController.isLoading
-                            ? null
-                            : () {
-                                if (cart.quantity! > 1) {
-                                  Get.find<CartController>().setQuantity(
-                                      false,
-                                      cartIndex,
-                                      cart.stock,
-                                      cart.quantityLimit);
-                                } else {
-                                  Get.find<CartController>().removeFromCart(
-                                      cartIndex,
-                                      item: cart.item);
-                                }
-                              },
-                        isIncrement: false,
-                        showRemoveIcon: cart.quantity! == 1,
-                      ),
-                      Text(
-                        cart.quantity.toString(),
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeExtraLarge),
-                      ),
-                      QuantityButton(
-                        onTap: cartController.isLoading
-                            ? null
-                            : () {
-                                Get.find<CartController>().forcefullySetModule(
-                                    Get.find<CartController>()
-                                        .cartList[0]
-                                        .item!
-                                        .moduleId!);
-                                Get.find<CartController>().setQuantity(true,
-                                    cartIndex, cart.stock, cart.quantityLimit);
-                              },
-                        isIncrement: true,
-                        color: cartController.isLoading
-                            ? Theme.of(context).disabledColor
-                            : null,
-                      ),
-                    ]);
-                  }),
                 ]),
                 !ResponsiveHelper.isDesktop(context)
                     ? (Get.find<SplashController>()

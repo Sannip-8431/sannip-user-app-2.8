@@ -9,12 +9,15 @@ class TipsWidget extends StatelessWidget {
   final bool isSelected;
   final Function onTap;
   final bool isSuggested;
-  const TipsWidget(
-      {super.key,
-      required this.title,
-      required this.isSelected,
-      required this.onTap,
-      required this.isSuggested});
+  final bool? isTitleBold;
+  const TipsWidget({
+    super.key,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+    required this.isSuggested,
+    this.isTitleBold,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +70,7 @@ class TipsWidget extends StatelessWidget {
                   title,
                   textDirection: TextDirection.ltr,
                   style: robotoRegular.copyWith(
+                    fontWeight: (isTitleBold ?? false) ? FontWeight.bold : null,
                     color: isSelected
                         ? Theme.of(context).cardColor
                         : ResponsiveHelper.isDesktop(context)

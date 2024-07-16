@@ -1245,5 +1245,7 @@
   "away": "Lejos",
   "your_orders" : "Tus ordenes",
   "thanks_to_delivery_partner_with_a_tip": "Gracias al socio de entrega con una propina.",
-  "delivery_man_tip_description": "¡Tu amabilidad significa mucho! La propina completa se les transferirá directamente tan pronto como se entregue el pedido."
+  "delivery_man_tip_description": "¡Tu amabilidad significa mucho! La propina completa se les transferirá directamente tan pronto como se entregue el pedido.",
+  "do_you_have_any_instructions?": "¿Tiene alguna instrucción?",
+  "add_note_bottomSheet_description": "El Proveedor hará todo lo posible para seguir sus instrucciones. Sin embargo, no será posible ninguna cancelación o reembolso si no se atiende su solicitud."
 }

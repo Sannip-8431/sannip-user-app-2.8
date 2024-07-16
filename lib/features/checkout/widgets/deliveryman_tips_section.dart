@@ -103,39 +103,55 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                 style: robotoRegular),
                             SizedBox(
                               height: (checkoutController.selectedTips ==
-                                          AppConstants.tips.length - 1) &&
+                                          AppConstants.tipsWithEmoji.length -
+                                              1) &&
                                       checkoutController.canShowTipsField
                                   ? 0
                                   : ResponsiveHelper.isDesktop(context)
                                       ? 80
                                       : 45,
                               child: (checkoutController.selectedTips ==
-                                          AppConstants.tips.length - 1) &&
+                                          AppConstants.tipsWithEmoji.length -
+                                              1) &&
                                       checkoutController.canShowTipsField
                                   ? const SizedBox()
                                   : ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
-                                      itemCount: AppConstants.tips.length,
+                                      itemCount:
+                                          AppConstants.tipsWithEmoji.length,
                                       itemBuilder: (context, index) {
                                         return TipsWidget(
-                                          title: AppConstants.tips[index] == '0'
+                                          title: AppConstants.tipsWithEmoji[index]
+                                                      ["amount"] ==
+                                                  '0'
                                               ? 'not_now'.tr
                                               : (index !=
-                                                      AppConstants.tips.length -
+                                                      AppConstants.tipsWithEmoji
+                                                              .length -
                                                           1)
-                                                  ? PriceConverter.convertPrice(
-                                                      double.parse(AppConstants
-                                                          .tips[index]
-                                                          .toString()),
-                                                      forDM: true)
-                                                  : AppConstants.tips[index].tr,
+                                                  ? AppConstants.tipsWithEmoji[index]
+                                                          ["emoji"] +
+                                                      ' ' +
+                                                      PriceConverter.convertPrice(
+                                                          double.parse(AppConstants
+                                                              .tipsWithEmoji[index]
+                                                                  ["amount"]
+                                                              .toString()),
+                                                          forDM: true)
+                                                  : AppConstants
+                                                      .tipsWithEmoji[index]
+                                                          ["amount"]
+                                                      .toString()
+                                                      .tr,
                                           isSelected:
                                               checkoutController.selectedTips ==
                                                   index,
+                                          isTitleBold: true,
                                           isSuggested: index != 0 &&
-                                              AppConstants.tips[index] ==
+                                              AppConstants.tipsWithEmoji[index]
+                                                      ["amount"] ==
                                                   checkoutController
                                                       .mostDmTipAmount
                                                       .toString(),
@@ -146,14 +162,19 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                                 .updateTips(index);
                                             if (checkoutController
                                                     .selectedTips !=
-                                                AppConstants.tips.length - 1) {
+                                                AppConstants
+                                                        .tipsWithEmoji.length -
+                                                    1) {
                                               checkoutController.addTips(
                                                   double.parse(AppConstants
-                                                      .tips[index]));
+                                                          .tipsWithEmoji[index]
+                                                      ["amount"]));
                                             }
                                             if (checkoutController
                                                     .selectedTips ==
-                                                AppConstants.tips.length - 1) {
+                                                AppConstants
+                                                        .tipsWithEmoji.length -
+                                                    1) {
                                               checkoutController
                                                   .showTipsField();
                                             }
@@ -181,12 +202,13 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                             ),
                             SizedBox(
                                 height: (checkoutController.selectedTips ==
-                                            AppConstants.tips.length - 1) &&
+                                            AppConstants.tipsWithEmoji.length -
+                                                1) &&
                                         checkoutController.canShowTipsField
                                     ? Dimensions.paddingSizeExtraSmall
                                     : 0),
                             checkoutController.selectedTips ==
-                                    AppConstants.tips.length - 1
+                                    AppConstants.tipsWithEmoji.length - 1
                                 ? const SizedBox()
                                 : ListTile(
                                     onTap: () =>
@@ -212,11 +234,11 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                   ),
                             SizedBox(
                                 height: checkoutController.selectedTips ==
-                                        AppConstants.tips.length - 1
+                                        AppConstants.tipsWithEmoji.length - 1
                                     ? Dimensions.paddingSizeDefault
                                     : 0),
                             checkoutController.selectedTips ==
-                                    AppConstants.tips.length - 1
+                                    AppConstants.tipsWithEmoji.length - 1
                                 ? Row(children: [
                                     Expanded(
                                       child: CustomTextField(

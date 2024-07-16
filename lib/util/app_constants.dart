@@ -222,7 +222,15 @@ class AppConstants {
   ];
 
   /// Delivery Tips
-  static List<String> tips = ['0', '15', '10', '20', '40', 'custom'];
+  // static List<String> tips = ['0', '15', '10', '20', '40', 'custom'];
+  static List<Map<String, dynamic>> tipsWithEmoji = [
+    {"amount": "0", "emoji": ""},
+    {"amount": "15", "emoji": "😀"},
+    {"amount": "10", "emoji": "😊"},
+    {"amount": "20", "emoji": "🥰"},
+    {"amount": "40", "emoji": "😍"},
+    {"amount": "custom", "emoji": ""},
+  ];
   static List<String> deliveryInstructionList = [
     'deliver_to_front_door'.tr,
     'deliver_the_reception_desk'.tr,

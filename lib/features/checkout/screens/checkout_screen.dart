@@ -15,6 +15,7 @@ import 'package:sannip/features/cart/widgets/extra_packaging_widget.dart';
 import 'package:sannip/features/cart/widgets/not_available_bottom_sheet_widget.dart';
 import 'package:sannip/features/cart/widgets/web_cart_items_widget.dart';
 import 'package:sannip/features/cart/widgets/web_suggested_item_view_widget.dart';
+import 'package:sannip/features/checkout/widgets/note_prescription_section.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
@@ -166,7 +167,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
     );
     Get.find<CheckoutController>().tipController.text =
         Get.find<CheckoutController>().selectedTips != -1
-            ? AppConstants.tips[Get.find<CheckoutController>().selectedTips]
+            ? AppConstants
+                    .tipsWithEmoji[Get.find<CheckoutController>().selectedTips]
+                ["amount"]
             : '';
 
     /// Cart screen changes
@@ -552,15 +555,16 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                         },
                                                                                         child: Row(
                                                                                           children: [
-                                                                                            Icon(Icons.add, color: Theme.of(context).primaryColor, size: 20),
+                                                                                            Icon(Icons.add, color: Theme.of(context).primaryColor, size: 18),
                                                                                             const SizedBox(
                                                                                               width: Dimensions.paddingSizeExtraSmall,
                                                                                             ),
-                                                                                            Text('add_more_items'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeDefault)),
+                                                                                            Text('add_more_items'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall)),
                                                                                           ],
                                                                                         ),
                                                                                       ),
                                                                                     ),
+                                                                                    NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
                                                                                     ExtraPackagingWidget(cartController: cartController),
                                                                                     !ResponsiveHelper.isDesktop(context) ? suggestedItemView(cartController.cartList) : const SizedBox(),
                                                                                   ]),

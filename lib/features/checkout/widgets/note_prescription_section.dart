@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/features/checkout/controllers/checkout_controller.dart';
+import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_text_field.dart';
 
+// ignore: must_be_immutable
 class NoteAndPrescriptionSection extends StatelessWidget {
   final CheckoutController checkoutController;
   final int? storeId;
-  const NoteAndPrescriptionSection({
+  NoteAndPrescriptionSection({
     super.key,
     required this.checkoutController,
     this.storeId,
   });
 
+  FocusNode textFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('additional_note'.tr, style: robotoMedium),
-      const SizedBox(height: Dimensions.paddingSizeSmall),
-      CustomTextField(
-        controller: checkoutController.noteController,
-        titleText: 'please_provide_extra_napkin'.tr,
-        showLabelText: false,
-        maxLines: 3,
-        inputType: TextInputType.multiline,
-        inputAction: TextInputAction.done,
-        capitalization: TextCapitalization.sentences,
-      ),
-      const SizedBox(height: Dimensions.paddingSizeLarge),
+    return ResponsiveHelper.isDesktop(context)
+        ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('additional_note'.tr, style: robotoMedium),
+            const SizedBox(height: Dimensions.paddingSizeSmall),
+            CustomTextField(
+              controller: checkoutController.noteController,
+              titleText: 'please_provide_extra_napkin'.tr,
+              showLabelText: false,
+              maxLines: 3,
+              inputType: TextInputType.multiline,
+              inputAction: TextInputAction.done,
+              capitalization: TextCapitalization.sentences,
+            ),
+            const SizedBox(height: Dimensions.paddingSizeLarge),
 
-      /*storeId == null && Get.find<SplashController>().configModel!.moduleConfig!.module!.orderAttachment! ? Column(
+            /*storeId == null && Get.find<SplashController>().configModel!.moduleConfig!.module!.orderAttachment! ? Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -53,6 +59,114 @@ class NoteAndPrescriptionSection extends StatelessWidget {
           ),
         ],
       ) : const SizedBox(),*/
-    ]);
+          ])
+        : mobileNoteWidget(context);
+  }
+
+  Widget mobileNoteWidget(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5,
+            spreadRadius: 1,
+          )
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(
+        horizontal: Dimensions.paddingSizeDefault,
+        vertical: Dimensions.paddingSizeExtraSmall,
+      ),
+      padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+      child: InkWell(
+        onTap: () {
+          textFocusNode.requestFocus();
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (con) => Padding(
+                padding: MediaQuery.of(con).viewInsets,
+                child: bottomSheetWidget(con)),
+          );
+        },
+        child: Row(children: [
+          Icon(Icons.menu, size: 18, color: Theme.of(context).hintColor),
+          const SizedBox(
+            width: Dimensions.paddingSizeDefault,
+          ),
+          Expanded(
+              child: Text(
+                  checkoutController.noteController.text.isNotEmpty
+                      ? checkoutController.noteController.text
+                      : 'do_you_have_any_instructions?'.tr,
+                  style:
+                      robotoMedium.copyWith(color: Theme.of(context).hintColor),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis)),
+        ]),
+      ),
+    );
+  }
+
+  Widget bottomSheetWidget(BuildContext context) {
+    return Container(
+      width: 550,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: ResponsiveHelper.isMobile(context)
+            ? const BorderRadius.vertical(
+                top: Radius.circular(Dimensions.radiusExtraLarge))
+            : const BorderRadius.all(
+                Radius.circular(Dimensions.radiusExtraLarge)),
+      ),
+      child: SingleChildScrollView(
+        padding:
+            const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('additional_note'.tr,
+                style:
+                    robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
+            InkWell(
+              onTap: () {
+                checkoutController.noteController.clear();
+                checkoutController.noteController.text == '';
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Get.back();
+                });
+              },
+              child: Icon(Icons.clear, color: Theme.of(context).disabledColor),
+            )
+          ]),
+          const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+          CustomTextField(
+            controller: checkoutController.noteController,
+            titleText: 'please_provide_extra_napkin'.tr,
+            showLabelText: false,
+            focusNode: textFocusNode,
+            maxLines: 3,
+            inputType: TextInputType.multiline,
+            inputAction: TextInputAction.done,
+            capitalization: TextCapitalization.sentences,
+          ),
+          const SizedBox(height: Dimensions.paddingSizeSmall),
+          Text('add_note_bottomSheet_description'.tr,
+              style:
+                  robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+          const SizedBox(height: Dimensions.paddingSizeSmall),
+          CustomButton(
+              buttonText: 'add'.tr,
+              onPressed: () {
+                Get.back();
+              }),
+          const SizedBox(height: Dimensions.paddingSizeSmall),
+        ]),
+      ),
+    );
   }
 }
