@@ -364,16 +364,17 @@ class TopSection extends StatelessWidget {
                 : 0),
 
         ///delivery section
-        DeliverySection(
-          checkoutController: checkoutController,
-          address: address,
-          addressList: addressList,
-          guestNameTextEditingController: guestNameTextEditingController,
-          guestNumberTextEditingController: guestNumberTextEditingController,
-          guestNumberNode: guestNumberNode,
-          guestEmailController: guestEmailController,
-          guestEmailNode: guestEmailNode,
-        ),
+        if (isDesktop)
+          DeliverySection(
+            checkoutController: checkoutController,
+            address: address,
+            addressList: addressList,
+            guestNameTextEditingController: guestNameTextEditingController,
+            guestNumberTextEditingController: guestNumberTextEditingController,
+            guestNumberNode: guestNumberNode,
+            guestEmailController: guestEmailController,
+            guestEmailNode: guestEmailNode,
+          ),
 
         SizedBox(
             height: !takeAway

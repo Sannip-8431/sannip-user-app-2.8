@@ -66,12 +66,15 @@ class DeliverySection extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SizedBox(
+                          height: Dimensions.paddingSizeExtraSmall,
+                        ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('deliver_to'.tr, style: robotoMedium),
-                              TextButton.icon(
-                                onPressed: () async {
+                              InkWell(
+                                onTap: () async {
                                   var address = await Get.toNamed(
                                       RouteHelper.getAddAddressRoute(
                                           true,
@@ -95,12 +98,29 @@ class DeliverySection extends StatelessWidget {
                                         address.floor ?? '';
                                   }
                                 },
-                                icon: const Icon(Icons.add, size: 20),
-                                label: Text('add_new'.tr,
-                                    style: robotoMedium.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall)),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.add,
+                                      size: 20,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    const SizedBox(
+                                      width: Dimensions.paddingSizeExtraSmall,
+                                    ),
+                                    Text('add_new'.tr,
+                                        style: robotoMedium.copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize:
+                                                Dimensions.fontSizeSmall)),
+                                  ],
+                                ),
                               ),
                             ]),
+                        const SizedBox(
+                          height: Dimensions.paddingSizeExtraSmall,
+                        ),
                         isDesktop
                             ? Stack(children: [
                                 Container(
@@ -344,21 +364,22 @@ class DeliverySection extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                        const SizedBox(height: Dimensions.paddingSizeLarge),
-                        !isDesktop
-                            ? CustomTextField(
-                                labelText: 'street_number'.tr,
-                                titleText: 'write_street_number'.tr,
-                                inputType: TextInputType.streetAddress,
-                                focusNode: checkoutController.streetNode,
-                                nextFocus: checkoutController.houseNode,
-                                controller:
-                                    checkoutController.streetNumberController,
-                              )
-                            : const SizedBox(),
-                        SizedBox(
-                            height:
-                                !isDesktop ? Dimensions.paddingSizeLarge : 0),
+                        if (isDesktop)
+                          const SizedBox(height: Dimensions.paddingSizeLarge),
+                        // !isDesktop
+                        //     ? CustomTextField(
+                        //         labelText: 'street_number'.tr,
+                        //         titleText: 'write_street_number'.tr,
+                        //         inputType: TextInputType.streetAddress,
+                        //         focusNode: checkoutController.streetNode,
+                        //         nextFocus: checkoutController.houseNode,
+                        //         controller:
+                        //             checkoutController.streetNumberController,
+                        //       )
+                        //     : const SizedBox(),
+                        // SizedBox(
+                        //     height:
+                        //         !isDesktop ? Dimensions.paddingSizeLarge : 0),
                         Row(children: [
                           isDesktop
                               ? Expanded(
@@ -377,31 +398,35 @@ class DeliverySection extends StatelessWidget {
                               width:
                                   isDesktop ? Dimensions.paddingSizeSmall : 0),
 
-                          Expanded(
-                            child: CustomTextField(
-                              titleText: 'write_house_number'.tr,
-                              labelText: 'house'.tr,
-                              inputType: TextInputType.text,
-                              focusNode: checkoutController.houseNode,
-                              nextFocus: checkoutController.floorNode,
-                              controller: checkoutController.houseController,
+                          if (isDesktop)
+                            Expanded(
+                              child: CustomTextField(
+                                titleText: 'write_house_number'.tr,
+                                labelText: 'house'.tr,
+                                inputType: TextInputType.text,
+                                focusNode: checkoutController.houseNode,
+                                nextFocus: checkoutController.floorNode,
+                                controller: checkoutController.houseController,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: Dimensions.paddingSizeSmall),
+                          if (isDesktop)
+                            const SizedBox(width: Dimensions.paddingSizeSmall),
 
-                          Expanded(
-                            child: CustomTextField(
-                              titleText: 'write_floor_number'.tr,
-                              labelText: 'floor'.tr,
-                              inputType: TextInputType.text,
-                              focusNode: checkoutController.floorNode,
-                              inputAction: TextInputAction.done,
-                              controller: checkoutController.floorController,
+                          if (isDesktop)
+                            Expanded(
+                              child: CustomTextField(
+                                titleText: 'write_floor_number'.tr,
+                                labelText: 'floor'.tr,
+                                inputType: TextInputType.text,
+                                focusNode: checkoutController.floorNode,
+                                inputAction: TextInputAction.done,
+                                controller: checkoutController.floorController,
+                              ),
                             ),
-                          ),
                           //const SizedBox(height: Dimensions.paddingSizeLarge),
                         ]),
-                        const SizedBox(height: Dimensions.paddingSizeLarge),
+                        if (isDesktop)
+                          const SizedBox(height: Dimensions.paddingSizeLarge),
                       ]),
                 )
               : const SizedBox(),

@@ -15,6 +15,7 @@ import 'package:sannip/features/cart/widgets/extra_packaging_widget.dart';
 import 'package:sannip/features/cart/widgets/not_available_bottom_sheet_widget.dart';
 import 'package:sannip/features/cart/widgets/web_cart_items_widget.dart';
 import 'package:sannip/features/cart/widgets/web_suggested_item_view_widget.dart';
+import 'package:sannip/features/checkout/widgets/delivery_section.dart';
 import 'package:sannip/features/checkout/widgets/note_prescription_section.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
@@ -701,39 +702,52 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                   ),
                                   child: Column(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal:
-                                                Dimensions.paddingSizeLarge,
-                                            vertical: Dimensions
-                                                .paddingSizeExtraSmall),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                checkoutController.isPartialPay
-                                                    ? 'due_payment'.tr
-                                                    : 'total_amount'.tr,
-                                                style: robotoMedium.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeLarge,
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
-                                              ),
-                                              PriceConverter
-                                                  .convertAnimationPrice(
-                                                checkoutController
-                                                    .viewTotalPrice,
-                                                textStyle:
-                                                    robotoMedium.copyWith(
-                                                        fontSize: Dimensions
-                                                            .fontSizeLarge,
-                                                        color: Theme.of(context)
-                                                            .primaryColor),
-                                              ),
-                                            ]),
+                                      DeliverySection(
+                                        checkoutController: checkoutController,
+                                        address: address,
+                                        addressList: addressList,
+                                        guestNameTextEditingController:
+                                            guestContactPersonNameController,
+                                        guestNumberTextEditingController:
+                                            guestContactPersonNumberController,
+                                        guestNumberNode: guestNumberNode,
+                                        guestEmailController:
+                                            guestEmailController,
+                                        guestEmailNode: guestEmailNode,
                                       ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(
+                                      //       horizontal:
+                                      //           Dimensions.paddingSizeLarge,
+                                      //       vertical: Dimensions
+                                      //           .paddingSizeExtraSmall),
+                                      //   child: Row(
+                                      //       mainAxisAlignment:
+                                      //           MainAxisAlignment.spaceBetween,
+                                      //       children: [
+                                      //         Text(
+                                      //           checkoutController.isPartialPay
+                                      //               ? 'due_payment'.tr
+                                      //               : 'total_amount'.tr,
+                                      //           style: robotoMedium.copyWith(
+                                      //               fontSize: Dimensions
+                                      //                   .fontSizeLarge,
+                                      //               color: Theme.of(context)
+                                      //                   .primaryColor),
+                                      //         ),
+                                      //         PriceConverter
+                                      //             .convertAnimationPrice(
+                                      //           checkoutController
+                                      //               .viewTotalPrice,
+                                      //           textStyle:
+                                      //               robotoMedium.copyWith(
+                                      //                   fontSize: Dimensions
+                                      //                       .fontSizeLarge,
+                                      //                   color: Theme.of(context)
+                                      //                       .primaryColor),
+                                      //         ),
+                                      //       ]),
+                                      // ),
                                       _orderPlaceButton(
                                         checkoutController,
                                         todayClosed,
