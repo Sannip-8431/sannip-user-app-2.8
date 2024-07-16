@@ -61,6 +61,8 @@ class StoreScreen extends StatefulWidget {
 class _StoreScreenState extends State<StoreScreen> {
   final ScrollController scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
+  bool isVegSelected = false;
+  bool isNonVegSelected = false;
 
   @override
   void initState() {
@@ -1708,7 +1710,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                 ? SliverPersistentHeader(
                                     pinned: true,
                                     delegate: SliverDelegate(
-                                        height: 90,
+                                        height: 120,
                                         child: Center(
                                             child: Container(
                                           width: Dimensions.webMaxWidth,
@@ -1731,67 +1733,83 @@ class _StoreScreenState extends State<StoreScreen> {
                                                     const EdgeInsets.symmetric(
                                                         horizontal: Dimensions
                                                             .paddingSizeSmall),
-                                                child: Row(children: [
-                                                  Text('all_products'.tr,
-                                                      style: robotoBold.copyWith(
-                                                          fontSize: Dimensions
-                                                              .fontSizeDefault)),
-                                                  const Expanded(
-                                                      child: SizedBox()),
-                                                  !ResponsiveHelper.isDesktop(
-                                                          context)
-                                                      ? InkWell(
-                                                          onTap: () => Get
-                                                              .toNamed(RouteHelper
-                                                                  .getSearchStoreItemRoute(
-                                                                      store!
-                                                                          .id)),
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      Dimensions
-                                                                          .radiusDefault),
-                                                              color: Theme.of(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          storeController.type
+                                                                  .isNotEmpty
+                                                              ? /* VegFilterWidget(
+                                                              type: storeController
+                                                                  .type,
+                                                              onSelected:
+                                                                  (String type) {
+                                                                print(
+                                                                    "id==> ${storeController.store!.id} <<<------->>>> type $type");
+                                                                storeController
+                                                                    .getStoreItemList(
+                                                                        storeController
+                                                                            .store!
+                                                                            .id,
+                                                                        1,
+                                                                        type,
+                                                                        true);
+                                                              },
+                                                            ) */
+                                                              toggleButton(
+                                                                  storeController:
+                                                                      storeController)
+                                                              : const SizedBox(),
+                                                          const Expanded(
+                                                              child:
+                                                                  SizedBox()),
+                                                          !ResponsiveHelper
+                                                                  .isDesktop(
                                                                       context)
-                                                                  .primaryColor
-                                                                  .withOpacity(
-                                                                      0.1),
-                                                            ),
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(
-                                                                    Dimensions
-                                                                        .paddingSizeExtraSmall),
-                                                            child: Icon(
-                                                                Icons.search,
-                                                                size: 28,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .primaryColor),
-                                                          ),
-                                                        )
-                                                      : const SizedBox(),
-                                                  storeController
-                                                          .type.isNotEmpty
-                                                      ? VegFilterWidget(
-                                                          type: storeController
-                                                              .type,
-                                                          onSelected:
-                                                              (String type) {
-                                                            storeController
-                                                                .getStoreItemList(
-                                                                    storeController
-                                                                        .store!
-                                                                        .id,
-                                                                    1,
-                                                                    type,
-                                                                    true);
-                                                          },
-                                                        )
-                                                      : const SizedBox(),
-                                                ]),
+                                                              ? InkWell(
+                                                                  onTap: () => Get.toNamed(
+                                                                      RouteHelper.getSearchStoreItemRoute(
+                                                                          store!
+                                                                              .id)),
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              Dimensions.radiusDefault),
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .primaryColor
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                    ),
+                                                                    padding: const EdgeInsets
+                                                                        .all(
+                                                                        Dimensions
+                                                                            .paddingSizeExtraSmall),
+                                                                    child: Icon(
+                                                                        Icons
+                                                                            .search,
+                                                                        size:
+                                                                            28,
+                                                                        color: Theme.of(context)
+                                                                            .primaryColor),
+                                                                  ),
+                                                                )
+                                                              : const SizedBox(),
+                                                        ]),
+                                                    Text('all_products'.tr,
+                                                        style: robotoBold.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeDefault)),
+                                                  ],
+                                                ),
                                               ),
                                               const SizedBox(
                                                   height: Dimensions
@@ -1999,6 +2017,106 @@ class _StoreScreenState extends State<StoreScreen> {
                 ? const BottomCartWidget()
                 : const SizedBox();
           })),
+    );
+  }
+
+  Widget toggleButton({required StoreController storeController}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        // Veg Switch
+        Theme(
+          data: ThemeData(useMaterial3: false),
+          child: SizedBox(
+            width: 35,
+            child: Switch(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              value: isVegSelected,
+              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                  (Set<WidgetState> states) {
+                return const Icon(
+                  Icons.radio_button_checked,
+                  color: Colors.green,
+                );
+              }),
+              thumbColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
+                return Colors.transparent;
+              }),
+              onChanged: (bool value) {
+                setState(() {
+                  isVegSelected = value;
+                  if (value) {
+                    storeController.getStoreItemList(
+                        storeController.store!.id, 1, 'veg', true);
+                    isNonVegSelected = false;
+                  }
+                  if (!isVegSelected && !isNonVegSelected) {
+                    storeController.getStoreItemList(
+                        storeController.store!.id, 1, 'all', true);
+                  }
+                });
+              },
+              activeColor: Colors.green,
+            ),
+          ),
+        ),
+        const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+        Text(
+          'Veg',
+          textAlign: TextAlign.center,
+          style: robotoRegular.copyWith(
+              color: Theme.of(context).textTheme.bodyMedium!.color,
+              fontSize: Dimensions.fontSizeSmall),
+        ),
+        const SizedBox(width: Dimensions.paddingSizeExtraLarge),
+        // Non-Veg Switch
+        Theme(
+          data: ThemeData(useMaterial3: false),
+          child: SizedBox(
+            width: 35,
+            child: Switch(
+              value: isNonVegSelected,
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                  (Set<WidgetState> states) {
+                return const Icon(
+                  Icons.change_history,
+                  color: Colors.red,
+                );
+              }),
+              thumbColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
+                return Colors.transparent;
+              }),
+              onChanged: (bool value) {
+                setState(() {
+                  isNonVegSelected = value;
+                  if (value) {
+                    storeController.getStoreItemList(
+                        storeController.store!.id, 1, 'non_veg', true);
+                    isVegSelected = false;
+                  }
+                  if (!isVegSelected && !isNonVegSelected) {
+                    storeController.getStoreItemList(
+                        storeController.store!.id, 1, 'all', true);
+                  }
+                });
+              },
+              activeColor: Colors.red,
+            ),
+          ),
+        ),
+        const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+
+        Text(
+          'Non-Veg',
+          textAlign: TextAlign.center,
+          style: robotoRegular.copyWith(
+              color: Theme.of(context).textTheme.bodyMedium!.color,
+              fontSize: Dimensions.fontSizeSmall),
+        ),
+      ],
     );
   }
 }
