@@ -29,13 +29,11 @@ import 'package:sannip/common/widgets/item_view.dart';
 import 'package:sannip/common/widgets/item_widget.dart';
 import 'package:sannip/common/widgets/menu_drawer.dart';
 import 'package:sannip/common/widgets/paginated_list_view.dart';
-import 'package:sannip/common/widgets/veg_filter_widget.dart';
 import 'package:sannip/common/widgets/web_item_view.dart';
 import 'package:sannip/common/widgets/web_item_widget.dart';
 import 'package:sannip/common/widgets/web_menu_bar.dart';
 import 'package:sannip/features/checkout/screens/checkout_screen.dart';
 import 'package:sannip/features/search/widgets/custom_check_box_widget.dart';
-import 'package:sannip/features/store/widgets/customizable_space_bar_widget.dart';
 import 'package:sannip/features/store/widgets/store_banner_widget.dart';
 import 'package:sannip/features/store/widgets/store_description_view_widget.dart';
 import 'package:flutter/material.dart';
@@ -1761,10 +1759,21 @@ class _StoreScreenState extends State<StoreScreen> {
                                                                         true);
                                                               },
                                                             ) */
-                                                              toggleButton(
-                                                                  storeController:
-                                                                      storeController)
-                                                              : const SizedBox(),
+                                                              (Get.find<SplashController>()
+                                                                          .configModel!
+                                                                          .moduleConfig!
+                                                                          .module!
+                                                                          .vegNonVeg! &&
+                                                                      Get.find<
+                                                                              SplashController>()
+                                                                          .configModel!
+                                                                          .toggleVegNonVeg!)
+                                                                  ? toggleButton(
+                                                                      storeController:
+                                                                          storeController)
+                                                                  : const SizedBox()
+                                                              : const SizedBox
+                                                                  .shrink(),
                                                           const Expanded(
                                                               child:
                                                                   SizedBox()),

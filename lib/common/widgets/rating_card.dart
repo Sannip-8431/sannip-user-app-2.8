@@ -31,7 +31,7 @@ class RatingCard extends StatelessWidget {
             ),
             const SizedBox(width: 2),
             Text(
-              rating == 0.0 ? "0" : rating.toString(),
+              rating == 0.0 ? "0" : rating?.toStringAsFixed(1) ?? '0',
               style: robotoMedium.copyWith(
                   fontSize: Dimensions.fontSizeSmall, color: Colors.white),
               maxLines: 1,

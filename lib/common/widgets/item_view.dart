@@ -73,16 +73,21 @@ class _ItemsViewState extends State<ItemsView> {
                         : widget.stores != null && widget.isStore
                             ? Dimensions.paddingSizeLarge
                             : Dimensions.paddingSizeSmall,
-                    // childAspectRatio: ResponsiveHelper.isDesktop(context) && widget.isStore ? (1/0.6)
-                    //     : ResponsiveHelper.isMobile(context) ? widget.stores != null && widget.isStore ? 2 : 3.8
-                    //     : 3.3,
+                    childAspectRatio:
+                        ResponsiveHelper.isDesktop(context) && widget.isStore
+                            ? (1 / 0.6)
+                            : ResponsiveHelper.isMobile(context)
+                                ? widget.stores != null && widget.isStore
+                                    ? 2
+                                    : 3.8
+                                : 3.3,
                     mainAxisExtent:
                         ResponsiveHelper.isDesktop(context) && widget.isStore
                             ? 220
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
                                     ? 200
-                                    : 250
+                                    : 300
                                 : 260,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
                         ? 2
@@ -142,16 +147,21 @@ class _ItemsViewState extends State<ItemsView> {
                     : widget.stores != null
                         ? Dimensions.paddingSizeLarge
                         : Dimensions.paddingSizeSmall,
-                // childAspectRatio: ResponsiveHelper.isDesktop(context) && widget.isStore ? (1/0.6)
-                //     : ResponsiveHelper.isMobile(context) ? widget.isStore ? 2 : 3.8
-                //     : 3,
+                childAspectRatio:
+                    ResponsiveHelper.isDesktop(context) && widget.isStore
+                        ? (1 / 0.6)
+                        : ResponsiveHelper.isMobile(context)
+                            ? widget.isStore
+                                ? 2
+                                : 3.8
+                            : 3,
                 mainAxisExtent:
                     ResponsiveHelper.isDesktop(context) && widget.isStore
                         ? 220
                         : ResponsiveHelper.isMobile(context)
                             ? widget.isStore
                                 ? 200
-                                : 250
+                                : 300
                             : 250,
                 crossAxisCount: ResponsiveHelper.isMobile(context)
                     ? 2

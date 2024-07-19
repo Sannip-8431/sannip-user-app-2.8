@@ -131,15 +131,14 @@ class ItemWidget extends StatelessWidget {
                 ? EdgeInsets.all(fromCartSuggestion
                     ? Dimensions.paddingSizeExtraSmall
                     : Dimensions.paddingSizeSmall)
-                : const EdgeInsets.symmetric(
-                    horizontal: Dimensions.paddingSizeSmall,
-                    vertical: Dimensions.paddingSizeExtraSmall),
+                : EdgeInsets.zero,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Expanded(
                   child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: desktop ? 0 : Dimensions.paddingSizeExtraSmall),
+                    vertical:
+                        desktop ? 0 : /* Dimensions.paddingSizeExtraSmall */ 0),
                 child: Column(children: [
                   Stack(children: [
                     ClipRRect(
@@ -153,8 +152,8 @@ class ItemWidget extends StatelessWidget {
                                 ? 120
                                 : length == null
                                     ? 100
-                                    : 100),
-                        width: imageWidth ?? (desktop ? 120 : 100),
+                                    : 178),
+                        width: imageWidth ?? (desktop ? 120 : 190),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -179,50 +178,54 @@ class ItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Wrap(
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              children: [
-                                Text(
-                                  isStore ? store!.name! : item!.name!,
-                                  style: robotoMedium.copyWith(
-                                      fontSize: Dimensions.fontSizeSmall),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraSmall),
-                                (!isStore &&
-                                        Get.find<SplashController>()
-                                            .configModel!
-                                            .moduleConfig!
-                                            .module!
-                                            .vegNonVeg! &&
-                                        Get.find<SplashController>()
-                                            .configModel!
-                                            .toggleVegNonVeg!)
-                                    ? Image.asset(
-                                        item != null && item!.veg == 0
-                                            ? Images.nonVegImage
-                                            : Images.vegImage,
-                                        height: 10,
-                                        width: 10,
-                                        fit: BoxFit.contain)
-                                    : const SizedBox(),
-                                /* SizedBox(
-                                    width: item!.isStoreHalalActive! &&
-                                            item!.isHalalItem!
-                                        ? Dimensions.paddingSizeExtraSmall
-                                        : 0),
-                                !isStore &&
-                                        item!.isStoreHalalActive! &&
-                                        item!.isHalalItem!
-                                    ? const CustomAssetImageWidget(
-                                        Images.halalTag,
-                                        height: 13,
-                                        width: 13)
-                                    : const SizedBox(), */
-                                    const SizedBox(),
-                              ]),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeExtraSmall),
+                            child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  Text(
+                                    isStore ? store!.name! : item!.name!,
+                                    style: robotoMedium.copyWith(
+                                        fontSize: Dimensions.fontSizeSmall),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                      width: Dimensions.paddingSizeExtraSmall),
+                                  (!isStore &&
+                                          Get.find<SplashController>()
+                                              .configModel!
+                                              .moduleConfig!
+                                              .module!
+                                              .vegNonVeg! &&
+                                          Get.find<SplashController>()
+                                              .configModel!
+                                              .toggleVegNonVeg!)
+                                      ? Image.asset(
+                                          item != null && item!.veg == 0
+                                              ? Images.nonVegImage
+                                              : Images.vegImage,
+                                          height: 10,
+                                          width: 10,
+                                          fit: BoxFit.contain)
+                                      : const SizedBox(),
+                                  /* SizedBox(
+                                      width: item!.isStoreHalalActive! &&
+                                              item!.isHalalItem!
+                                          ? Dimensions.paddingSizeExtraSmall
+                                          : 0),
+                                  !isStore &&
+                                          item!.isStoreHalalActive! &&
+                                          item!.isHalalItem!
+                                      ? const CustomAssetImageWidget(
+                                          Images.halalTag,
+                                          height: 13,
+                                          width: 13)
+                                      : const SizedBox(), */
+                                  const SizedBox(),
+                                ]),
+                          ),
                           SizedBox(
                               height: isStore
                                   ? Dimensions.paddingSizeExtraSmall
@@ -230,16 +233,21 @@ class ItemWidget extends StatelessWidget {
                           (isStore
                                   ? store!.address != null
                                   : item!.storeName != null)
-                              ? Text(
-                                  isStore
-                                      ? store!.address ?? ''
-                                      : item!.storeName ?? '',
-                                  style: robotoRegular.copyWith(
-                                    fontSize: Dimensions.fontSizeExtraSmall,
-                                    color: Theme.of(context).disabledColor,
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal:
+                                          Dimensions.paddingSizeExtraSmall),
+                                  child: Text(
+                                    isStore
+                                        ? store!.address ?? ''
+                                        : item!.storeName ?? '',
+                                    style: robotoRegular.copyWith(
+                                      fontSize: Dimensions.fontSizeExtraSmall,
+                                      color: Theme.of(context).disabledColor,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 )
                               : const SizedBox(),
                           SizedBox(
@@ -278,7 +286,7 @@ class ItemWidget extends StatelessWidget {
                                       color: Theme.of(context).hintColor),
                                 )
                               : const SizedBox(),
-                          !isStore ? const Spacer() : const SizedBox(),
+                          // !isStore ? const Spacer() : const SizedBox(),
                           isStore
                               ? RatingBar(
                                   rating: isStore
@@ -293,39 +301,45 @@ class ItemWidget extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            PriceConverter.convertPrice(
-                                                item!.price,
-                                                discount: discount,
-                                                discountType: discountType),
-                                            style: robotoMedium.copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeDefault),
-                                            textDirection: TextDirection.ltr,
-                                          ),
-                                          SizedBox(
-                                              width: discount! > 0 ? 2 : 0),
-                                          discount > 0
-                                              ? Text(
-                                                  PriceConverter.convertPrice(
-                                                      item!.price),
-                                                  style: robotoMedium.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeDefault,
-                                                    color: Theme.of(context)
-                                                        .disabledColor,
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                  textDirection:
-                                                      TextDirection.ltr,
-                                                )
-                                              : const SizedBox(),
-                                        ]),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              PriceConverter.convertPrice(
+                                                  item!.price,
+                                                  discount: discount,
+                                                  discountType: discountType),
+                                              style: robotoMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                      .fontSizeDefault),
+                                              textDirection: TextDirection.ltr,
+                                            ),
+                                            SizedBox(
+                                                width: discount! > 0 ? 2 : 0),
+                                            discount > 0
+                                                ? Text(
+                                                    PriceConverter.convertPrice(
+                                                        item!.price),
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                      fontSize: Dimensions
+                                                          .fontSizeDefault,
+                                                      color: Theme.of(context)
+                                                          .disabledColor,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                    ),
+                                                    textDirection:
+                                                        TextDirection.ltr,
+                                                  )
+                                                : const SizedBox(),
+                                          ]),
+                                    ),
                                     Column(
                                         mainAxisAlignment: isStore
                                             ? MainAxisAlignment.center
