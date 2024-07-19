@@ -246,32 +246,30 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: Dimensions.paddingSizeSmall),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            padding: const EdgeInsets.all(2),
-                            // decoration: const BoxDecoration(
-                            //     shape: BoxShape.circle, color: Colors.red),
-                            child: Image.asset(
-                                AuthHelper.isLoggedIn()
-                                    ? Images.menuLogOutIcon
-                                    : Images.menuPowerButtonIcon,
-                                height: 22,
-                                width: 22,
-                                color: Colors.red)
-                            // child: Icon(Icons.power_settings_new_sharp,
-                            //     size: 18, color: Theme.of(context).cardColor),
-                            ),
-                        const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                        Text(
-                            AuthHelper.isLoggedIn()
-                                ? 'logout'.tr
-                                : 'sign_in'.tr,
-                            style: robotoMedium.copyWith(
-                                fontSize: Dimensions.fontSizeLarge))
-                      ]),
+                      vertical: Dimensions.paddingSizeDefault),
+                  child: Column(children: [
+                    Row(children: [
+                      Image.asset(
+                        AuthHelper.isLoggedIn()
+                            ? Images.menuLogOutIcon
+                            : Images.menuPowerButtonIcon,
+                        height: 22,
+                        width: 22,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(width: Dimensions.paddingSizeSmall),
+                      Expanded(
+                          child: Text(
+                              AuthHelper.isLoggedIn()
+                                  ? 'logout'.tr
+                                  : 'sign_in'.tr,
+                              style: robotoRegular.copyWith(
+                                fontSize: Dimensions.fontSizeDefault,
+                                color: Colors.red,
+                              ))),
+                    ]),
+                    // hideDivider ? const SizedBox() : const Divider()
+                  ]),
                 ),
               ),
               SizedBox(
