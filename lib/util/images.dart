@@ -295,6 +295,32 @@ class Images {
   static const String shoppingCart = 'assets/image/shopping_cart.png';
   static const String addressUnselect = 'assets/image/address_unselect.png';
   static const String addressSelect = 'assets/image/address_select.png';
+  static const String menuAddressIcon = 'assets/image/menu_address_icon.png';
+  static const String menuCouponCodeIcon =
+      'assets/image/menu_coupon_code_icon.png';
+  static const String menuHelpAndSupportIcon =
+      'assets/image/menu_help_and_support_icon.png';
+  static const String menuLanguageIcon = 'assets/image/menu_language_icon.png';
+  static const String menuLiveChatIcon = 'assets/image/menu_live_chat_icon.png';
+  static const String menuAboutUsIcon = 'assets/image/menu_about_us_icon.png';
+  static const String menuDarkModeIcon = 'assets/image/menu_dark_mode_icon.png';
+  static const String menuLockIcon = 'assets/image/menu_lock_icon.png';
+  static const String menuCallIcon = 'assets/image/menu_call_icon.png';
+  static const String menuLocationIcon = 'assets/image/menu_location_icon.png';
+  static const String menuMailIcon = 'assets/image/menu_mail_icon.png';
+  static const String menuLogOutIcon = 'assets/image/menu_log_out_icon.png';
+  static const String menuNotificationIcon =
+      'assets/image/menu_notification_icon.png';
+  static const String menuPowerButtonIcon =
+      'assets/image/menu_power_button_icon.png';
+  static const String menuDeleteUserIcon =
+      'assets/image/menu_delete_user_icon.png';
+  static const String menuRefundPolicyIcon =
+      'assets/image/menu_refund_policy_icon.png';
+  static const String menuPrivacyPolicyIcon =
+      'assets/image/menu_privacy_policy_icon.png';
+  static const String menuTermsAndConditionsIcon =
+      'assets/image/menu_terms_and_conditions_icon.png';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';

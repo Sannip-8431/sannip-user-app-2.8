@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
@@ -109,10 +110,177 @@ class _MenuScreenState extends State<MenuScreen> {
                               ),
                       ]),
                 ),
+                const SizedBox(width: Dimensions.paddingSizeDefault),
+                CustomInkWell(
+                  onTap: () => Get.toNamed(RouteHelper.getProfileRoute()),
+                  child: Image.asset(
+                    Images.edit,
+                    height: 16,
+                    width: 16,
+                    color: Theme.of(context).cardColor,
+                  ),
+                ),
               ]),
             ),
           ),
           Expanded(
+              child: SingleChildScrollView(
+            padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
+            child: Column(children: [
+              PortionWidget(
+                  icon: Images.menuAddressIcon,
+                  title: 'my_address'.tr,
+                  route: RouteHelper.getAddressRoute()),
+              PortionWidget(
+                  icon: Images.menuLanguageIcon,
+                  title: 'language'.tr,
+                  route: RouteHelper.getLanguageRoute('menu')),
+              PortionWidget(
+                icon: Images.menuCouponCodeIcon,
+                title: 'coupon'.tr,
+                route: RouteHelper.getCouponRoute(),
+              ),
+              (Get.find<SplashController>().configModel!.loyaltyPointStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.pointIcon,
+                      title: 'loyalty_points'.tr,
+                      route: RouteHelper.getLoyaltyRoute(),
+                      suffix: !isLoggedIn
+                          ? null
+                          : '${profileController.userInfoModel?.loyaltyPoint != null ? profileController.userInfoModel!.loyaltyPoint.toString() : '0'} ${'points'.tr}',
+                    )
+                  : const SizedBox(),
+              (Get.find<SplashController>().configModel!.customerWalletStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.walletIcon,
+                      title: 'my_wallet'.tr,
+                      route: RouteHelper.getWalletRoute(),
+                      suffix: !isLoggedIn
+                          ? null
+                          : PriceConverter.convertPrice(
+                              profileController.userInfoModel != null
+                                  ? profileController
+                                      .userInfoModel!.walletBalance
+                                  : 0),
+                    )
+                  : const SizedBox(),
+              PortionWidget(
+                  icon: Images.menuLiveChatIcon,
+                  title: 'live_chat'.tr,
+                  route: RouteHelper.getConversationRoute()),
+              PortionWidget(
+                  icon: Images.menuHelpAndSupportIcon,
+                  title: 'help_and_support'.tr,
+                  route: RouteHelper.getSupportRoute()),
+              PortionWidget(
+                  icon: Images.menuAboutUsIcon,
+                  title: 'about_us'.tr,
+                  route: RouteHelper.getHtmlRoute('about-us')),
+              PortionWidget(
+                  icon: Images.menuTermsAndConditionsIcon,
+                  title: 'terms_conditions'.tr,
+                  route: RouteHelper.getHtmlRoute('terms-and-condition')),
+              PortionWidget(
+                  icon: Images.menuPrivacyPolicyIcon,
+                  title: 'privacy_policy'.tr,
+                  route: RouteHelper.getHtmlRoute('privacy-policy')),
+              (Get.find<SplashController>().configModel!.refundPolicyStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.menuRefundPolicyIcon,
+                      title: 'refund_policy'.tr,
+                      route: RouteHelper.getHtmlRoute('refund-policy'),
+                    )
+                  : const SizedBox(),
+              (Get.find<SplashController>()
+                          .configModel!
+                          .cancellationPolicyStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.cancelationIcon,
+                      title: 'cancellation_policy'.tr,
+                      route: RouteHelper.getHtmlRoute('cancellation-policy'),
+                    )
+                  : const SizedBox(),
+              (Get.find<SplashController>().configModel!.shippingPolicyStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.shippingIcon,
+                      title: 'shipping_policy'.tr,
+                      route: RouteHelper.getHtmlRoute('shipping-policy'),
+                    )
+                  : const SizedBox(),
+              InkWell(
+                onTap: () async {
+                  if (AuthHelper.isLoggedIn()) {
+                    Get.dialog(
+                        ConfirmationDialog(
+                            icon: Images.support,
+                            description: 'are_you_sure_to_logout'.tr,
+                            isLogOut: true,
+                            onYesPressed: () {
+                              Get.find<ProfileController>().clearUserInfo();
+                              Get.find<AuthController>().clearSharedData();
+                              Get.find<AuthController>().socialLogout();
+                              Get.find<FavouriteController>().removeFavourite();
+                              Get.find<HomeController>()
+                                  .forcefullyNullCashBackOffers();
+                              if (ResponsiveHelper.isDesktop(context)) {
+                                Get.offAllNamed(RouteHelper.getInitialRoute());
+                              } else {
+                                Get.offAllNamed(RouteHelper.getSignInRoute(
+                                    RouteHelper.splash));
+                              }
+                            }),
+                        useSafeArea: false);
+                  } else {
+                    Get.find<FavouriteController>().removeFavourite();
+                    await Get.toNamed(
+                        RouteHelper.getSignInRoute(Get.currentRoute));
+                    if (AuthHelper.isLoggedIn()) {
+                      profileController.getUserInfo();
+                    }
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimensions.paddingSizeSmall),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(2),
+                            // decoration: const BoxDecoration(
+                            //     shape: BoxShape.circle, color: Colors.red),
+                            child: Image.asset(
+                                AuthHelper.isLoggedIn()
+                                    ? Images.menuLogOutIcon
+                                    : Images.menuPowerButtonIcon,
+                                height: 22,
+                                width: 22,
+                                color: Colors.red)
+                            // child: Icon(Icons.power_settings_new_sharp,
+                            //     size: 18, color: Theme.of(context).cardColor),
+                            ),
+                        const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                        Text(
+                            AuthHelper.isLoggedIn()
+                                ? 'logout'.tr
+                                : 'sign_in'.tr,
+                            style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeLarge))
+                      ]),
+                ),
+              ),
+              SizedBox(
+                  height: ResponsiveHelper.isDesktop(context)
+                      ? Dimensions.paddingSizeExtremeLarge
+                      : 100),
+            ]),
+          )),
+          /*Expanded(
               child: SingleChildScrollView(
             child: Ink(
               color: Theme.of(context).primaryColor.withOpacity(0.1),
@@ -519,7 +687,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         : 100),
               ]),
             ),
-          )),
+          )),*/
         ]);
       }),
     );

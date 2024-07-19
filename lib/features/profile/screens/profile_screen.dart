@@ -322,7 +322,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const SizedBox(
                                         height: Dimensions.paddingSizeDefault),
                                     ProfileButtonWidget(
-                                        icon: Icons.tonality_outlined,
+                                        // icon: Icons.tonality_outlined,
+                                        iconImage: Images.menuDarkModeIcon,
                                         title: 'dark_mode'.tr,
                                         isButtonActive: Get.isDarkMode,
                                         onTap: () {
@@ -335,7 +336,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ? GetBuilder<AuthController>(
                                             builder: (authController) {
                                             return ProfileButtonWidget(
-                                              icon: Icons.notifications,
+                                              // icon: Icons.notifications,
+                                              iconImage:
+                                                  Images.menuNotificationIcon,
                                               title: 'notification'.tr,
                                               isButtonActive:
                                                   authController.notification,
@@ -357,7 +360,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     .userInfoModel!.socialId ==
                                                 null
                                             ? ProfileButtonWidget(
-                                                icon: Icons.lock,
+                                                // icon: Icons.lock,
+                                                iconImage: Images.menuLockIcon,
                                                 title: 'change_password'.tr,
                                                 onTap: () {
                                                   Get.toNamed(RouteHelper
@@ -378,9 +382,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             : 0),
                                     isLoggedIn
                                         ? ProfileButtonWidget(
-                                            icon: Icons.delete,
+                                            // icon: Icons.delete,
                                             title: 'delete_account'.tr,
-                                            iconImage: Images.profileDelete,
+                                            iconImage:
+                                                Images.menuDeleteUserIcon,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .error,

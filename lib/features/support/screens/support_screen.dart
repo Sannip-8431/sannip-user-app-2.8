@@ -48,7 +48,8 @@ class _SupportScreenState extends State<SupportScreen> {
                     Image.asset(Images.logo, width: 200),
                     const SizedBox(height: 40),
                     SupportButtonWidget(
-                      icon: Icons.location_on,
+                      // icon: Icons.location_on,
+                      iconImage: Images.menuLocationIcon,
                       title: 'address'.tr,
                       color: Colors.blue,
                       info: Get.find<SplashController>().configModel!.address,
@@ -56,7 +57,8 @@ class _SupportScreenState extends State<SupportScreen> {
                     ),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
                     SupportButtonWidget(
-                      icon: Icons.call,
+                      // icon: Icons.call,
+                      iconImage: Images.menuCallIcon,
                       title: 'call'.tr,
                       color: Colors.red,
                       info: Get.find<SplashController>().configModel!.phone,
@@ -73,7 +75,8 @@ class _SupportScreenState extends State<SupportScreen> {
                     ),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
                     SupportButtonWidget(
-                      icon: Icons.mail_outline,
+                      // icon: Icons.mail_outline,
+                      iconImage: Images.menuMailIcon,
                       title: 'email_us'.tr,
                       color: Colors.green,
                       info: Get.find<SplashController>().configModel!.email,
