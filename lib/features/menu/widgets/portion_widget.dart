@@ -23,10 +23,15 @@ class PortionWidget extends StatelessWidget {
       onTap: () => Get.toNamed(route),
       child: Container(
         padding:
-            const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+            const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
         child: Column(children: [
           Row(children: [
-            Image.asset(icon, height: 16, width: 16),
+            Image.asset(
+              icon,
+              height: 22,
+              width: 22,
+              color: Theme.of(context).primaryColor,
+            ),
             const SizedBox(width: Dimensions.paddingSizeSmall),
             Expanded(
                 child: Text(title,
@@ -50,7 +55,7 @@ class PortionWidget extends StatelessWidget {
                   )
                 : const SizedBox(),
           ]),
-          hideDivider ? const SizedBox() : const Divider()
+          // hideDivider ? const SizedBox() : const Divider()
         ]),
       ),
     );

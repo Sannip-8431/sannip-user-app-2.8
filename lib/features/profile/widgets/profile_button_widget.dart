@@ -43,7 +43,7 @@ class ProfileButtonWidget extends StatelessWidget {
         ),
         child: Row(children: [
           iconImage != null
-              ? Image.asset(iconImage!, height: 18, width: 25)
+              ? Image.asset(iconImage!, height: 22, width: 25)
               : Icon(icon,
                   size: 25,
                   color:

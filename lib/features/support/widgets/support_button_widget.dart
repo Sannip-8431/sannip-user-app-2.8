@@ -3,18 +3,21 @@ import 'package:sannip/util/styles.dart';
 import 'package:flutter/material.dart';
 
 class SupportButtonWidget extends StatelessWidget {
-  final IconData icon;
+  // final IconData icon;
   final String title;
   final String? info;
   final Color color;
   final Function onTap;
-  const SupportButtonWidget(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.info,
-      required this.color,
-      required this.onTap});
+  final String iconImage;
+  const SupportButtonWidget({
+    super.key,
+    // required this.icon,
+    required this.title,
+    required this.info,
+    required this.color,
+    required this.onTap,
+    required this.iconImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +33,16 @@ class SupportButtonWidget extends StatelessWidget {
           ],
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.2),
-            ),
-            child: Icon(icon, color: color, size: 20),
-          ),
+          Image.asset(iconImage, height: 25, width: 25, color: color),
+          // Container(
+          //   height: 40,
+          //   width: 40,
+          //   decoration: BoxDecoration(
+          //     shape: BoxShape.circle,
+          //     color: color.withOpacity(0.2),
+          //   ),
+          //   child: Icon(icon, color: color, size: 20),
+          // ),
           const SizedBox(width: Dimensions.paddingSizeSmall),
           Expanded(
               child: Column(
