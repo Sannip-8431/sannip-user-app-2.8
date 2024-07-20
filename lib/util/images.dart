@@ -349,4 +349,6 @@ class Images {
 
   static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieCart = 'assets/lottie/cart.json';
+  static const String vegImageCircular = 'assets/image/veg_circular.png';
+  static const String nonVegImageCircular = 'assets/image/non_veg_circular.png';
 }

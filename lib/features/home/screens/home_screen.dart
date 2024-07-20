@@ -468,32 +468,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                             margin: const EdgeInsets.symmetric(
                                                 vertical: 3),
                                             decoration: BoxDecoration(
-                                              color:
-                                                  Theme.of(context).cardColor,
-                                              border: Border.all(
+                                              color: Colors.grey[200],
+                                              /* border: Border.all(
                                                   color: Theme.of(context)
                                                       .primaryColor
                                                       .withOpacity(0.2),
-                                                  width: 1),
+                                                  width: 1), */
                                               borderRadius:
-                                                  BorderRadius.circular(25),
-                                              boxShadow: const [
+                                                  BorderRadius.circular(
+                                                      Dimensions.radiusDefault),
+                                              /*  boxShadow: const [
                                                 BoxShadow(
                                                     color: Colors.black12,
                                                     blurRadius: 5,
                                                     spreadRadius: 1)
-                                              ],
+                                              ], */
                                             ),
                                             child: Row(children: [
-                                              Icon(
-                                                CupertinoIcons.search,
-                                                size: 25,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
-                                              const SizedBox(
-                                                  width: Dimensions
-                                                      .paddingSizeExtraSmall),
                                               Expanded(
                                                   child: Text(
                                                 Get.find<SplashController>()
@@ -511,6 +502,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .hintColor,
                                                 ),
                                               )),
+                                              const SizedBox(
+                                                  width: Dimensions
+                                                      .paddingSizeExtraSmall),
+                                              Icon(
+                                                CupertinoIcons.search,
+                                                size: 25,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
                                             ]),
                                           ),
                                         ),

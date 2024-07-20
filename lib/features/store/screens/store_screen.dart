@@ -2041,13 +2041,15 @@ class _StoreScreenState extends State<StoreScreen> {
             child: Switch(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               value: isVegSelected,
-              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+              activeThumbImage: const AssetImage(Images.vegImageCircular),
+              inactiveThumbImage: const AssetImage(Images.vegImageCircular),
+              /* thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
                   (Set<WidgetState> states) {
                 return const Icon(
                   Icons.radio_button_checked,
                   color: Colors.green,
                 );
-              }),
+              }), */
               thumbColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
                 return Colors.transparent;
@@ -2087,13 +2089,15 @@ class _StoreScreenState extends State<StoreScreen> {
             child: Switch(
               value: isNonVegSelected,
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+              /* thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
                   (Set<WidgetState> states) {
                 return const Icon(
                   Icons.change_history,
                   color: Colors.red,
                 );
-              }),
+              }), */
+              activeThumbImage: const AssetImage(Images.nonVegImageCircular),
+              inactiveThumbImage: const AssetImage(Images.nonVegImageCircular),
               thumbColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
                 return Colors.transparent;
