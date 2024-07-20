@@ -313,6 +313,7 @@ class Images {
   static const String menuWalletIcon = 'assets/image/menu_wallet_icon.png';
   static const String bottomHomeIcon = 'assets/image/bottom_home_icon.png';
   static const String bottomOrderIcon = 'assets/image/bottom_order_icon.png';
+  static const String notificationIcon = 'assets/image/notification_icon.png';
   static const String bottomMenuSelectedIcon =
       'assets/image/bottom_menu_selected_icon.png';
   static const String bottomMenuUnselectedIcon =
@@ -349,6 +350,7 @@ class Images {
 
   static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieCart = 'assets/lottie/cart.json';
+  static const String lottieOrderOngoing = 'assets/lottie/order_ongoing.json';
   static const String vegImageCircular = 'assets/image/veg_circular.png';
   static const String nonVegImageCircular = 'assets/image/non_veg_circular.png';
 }
