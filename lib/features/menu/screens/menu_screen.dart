@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -52,14 +54,34 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   padding: const EdgeInsets.all(1),
                   child: ClipOval(
-                      child: CustomImage(
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          '${(profileController.userInfoModel != null && isLoggedIn) ? profileController.userInfoModel!.imageFullUrl : ''}',
+                      height: 70,
+                      width: 70,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Lottie.asset(
+                        Images.lottieProfile,
+                        height: 70,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
+                      errorWidget: (context, url, error) => Lottie.asset(
+                        Images.lottieProfile,
+                        height: 70,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    /*child: CustomImage(
                     placeholder: Images.guestIconLight,
                     image:
                         '${(profileController.userInfoModel != null && isLoggedIn) ? profileController.userInfoModel!.imageFullUrl : ''}',
                     height: 70,
                     width: 70,
                     fit: BoxFit.cover,
-                  )),
+                  ),*/
+                  ),
                 ),
                 const SizedBox(width: Dimensions.paddingSizeDefault),
                 Expanded(
@@ -127,6 +149,21 @@ class _MenuScreenState extends State<MenuScreen> {
               child: SingleChildScrollView(
             padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
             child: Column(children: [
+              (Get.find<SplashController>().configModel!.customerWalletStatus ==
+                      1)
+                  ? PortionWidget(
+                      icon: Images.menuWalletIcon,
+                      title: 'my_wallet'.tr,
+                      route: RouteHelper.getWalletRoute(),
+                      suffix: !isLoggedIn
+                          ? null
+                          : PriceConverter.convertPrice(
+                              profileController.userInfoModel != null
+                                  ? profileController
+                                      .userInfoModel!.walletBalance
+                                  : 0),
+                    )
+                  : const SizedBox(),
               PortionWidget(
                   icon: Images.menuAddressIcon,
                   title: 'my_address'.tr,
@@ -143,7 +180,7 @@ class _MenuScreenState extends State<MenuScreen> {
               (Get.find<SplashController>().configModel!.loyaltyPointStatus ==
                       1)
                   ? PortionWidget(
-                      icon: Images.pointIcon,
+                      icon: Images.menuLoyaltyPointsIcon,
                       title: 'loyalty_points'.tr,
                       route: RouteHelper.getLoyaltyRoute(),
                       suffix: !isLoggedIn
@@ -151,20 +188,42 @@ class _MenuScreenState extends State<MenuScreen> {
                           : '${profileController.userInfoModel?.loyaltyPoint != null ? profileController.userInfoModel!.loyaltyPoint.toString() : '0'} ${'points'.tr}',
                     )
                   : const SizedBox(),
-              (Get.find<SplashController>().configModel!.customerWalletStatus ==
-                      1)
-                  ? PortionWidget(
-                      icon: Images.walletIcon,
-                      title: 'my_wallet'.tr,
-                      route: RouteHelper.getWalletRoute(),
-                      suffix: !isLoggedIn
-                          ? null
-                          : PriceConverter.convertPrice(
-                              profileController.userInfoModel != null
-                                  ? profileController
-                                      .userInfoModel!.walletBalance
-                                  : 0),
-                    )
+              (Get.find<SplashController>().configModel!.refEarningStatus ==
+                          1) ||
+                      (Get.find<SplashController>()
+                              .configModel!
+                              .toggleDmRegistration! &&
+                          !ResponsiveHelper.isDesktop(context)) ||
+                      (Get.find<SplashController>()
+                              .configModel!
+                              .toggleStoreRegistration! &&
+                          !ResponsiveHelper.isDesktop(context))
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                          (Get.find<SplashController>()
+                                      .configModel!
+                                      .refEarningStatus ==
+                                  1)
+                              ? PortionWidget(
+                                  icon: Images.referIcon,
+                                  title: 'refer_and_earn'.tr,
+                                  route: RouteHelper.getReferAndEarnRoute(),
+                                  hideDivider: (Get.find<SplashController>()
+                                                  .configModel!
+                                                  .toggleDmRegistration! &&
+                                              !ResponsiveHelper.isDesktop(
+                                                  context)) ||
+                                          (Get.find<SplashController>()
+                                                  .configModel!
+                                                  .toggleStoreRegistration! &&
+                                              !ResponsiveHelper.isDesktop(
+                                                  context))
+                                      ? false
+                                      : true,
+                                )
+                              : const SizedBox()
+                        ])
                   : const SizedBox(),
               PortionWidget(
                   icon: Images.menuLiveChatIcon,
@@ -199,7 +258,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           .cancellationPolicyStatus ==
                       1)
                   ? PortionWidget(
-                      icon: Images.cancelationIcon,
+                      icon: Images.menuCancelPolicyIcon,
                       title: 'cancellation_policy'.tr,
                       route: RouteHelper.getHtmlRoute('cancellation-policy'),
                     )
@@ -207,7 +266,7 @@ class _MenuScreenState extends State<MenuScreen> {
               (Get.find<SplashController>().configModel!.shippingPolicyStatus ==
                       1)
                   ? PortionWidget(
-                      icon: Images.shippingIcon,
+                      icon: Images.menuShippingIcon,
                       title: 'shipping_policy'.tr,
                       route: RouteHelper.getHtmlRoute('shipping-policy'),
                     )
@@ -246,7 +305,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: Dimensions.paddingSizeDefault),
+                      vertical: Dimensions.paddingSizeExtraSmall),
                   child: Column(children: [
                     Row(children: [
                       Image.asset(

@@ -426,10 +426,10 @@ class DashboardScreenState extends State<DashboardScreen> {
                                                       children: [
                                                         BottomNavItemWidget(
                                                           title: 'home'.tr,
-                                                          selectedIcon:
-                                                              Images.homeSelect,
+                                                          selectedIcon: Images
+                                                              .bottomHomeIcon,
                                                           unSelectedIcon: Images
-                                                              .homeUnselect,
+                                                              .bottomHomeIcon,
                                                           isSelected:
                                                               _pageIndex == 0,
                                                           onTap: () =>
@@ -443,12 +443,12 @@ class DashboardScreenState extends State<DashboardScreen> {
                                                               ? Images
                                                                   .addressSelect
                                                               : Images
-                                                                  .favouriteSelect,
+                                                                  .bottomFavouriteIcon,
                                                           unSelectedIcon: isParcel
                                                               ? Images
                                                                   .addressUnselect
                                                               : Images
-                                                                  .favouriteUnselect,
+                                                                  .bottomFavouriteIcon,
                                                           isSelected:
                                                               _pageIndex == 1,
                                                           onTap: () =>
@@ -460,9 +460,9 @@ class DashboardScreenState extends State<DashboardScreen> {
                                                         BottomNavItemWidget(
                                                           title: 'orders'.tr,
                                                           selectedIcon: Images
-                                                              .orderSelect,
+                                                              .bottomOrderIcon,
                                                           unSelectedIcon: Images
-                                                              .orderUnselect,
+                                                              .bottomOrderIcon,
                                                           isSelected:
                                                               _pageIndex == 3,
                                                           onTap: () =>
@@ -470,10 +470,10 @@ class DashboardScreenState extends State<DashboardScreen> {
                                                         ),
                                                         BottomNavItemWidget(
                                                           title: 'menu'.tr,
-                                                          selectedIcon:
-                                                              Images.menu,
-                                                          unSelectedIcon:
-                                                              Images.menu,
+                                                          selectedIcon: Images
+                                                              .bottomMenuSelectedIcon,
+                                                          unSelectedIcon: Images
+                                                              .bottomMenuUnselectedIcon,
                                                           isSelected:
                                                               _pageIndex == 4,
                                                           onTap: () =>

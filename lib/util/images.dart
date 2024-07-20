@@ -309,6 +309,20 @@ class Images {
   static const String menuLocationIcon = 'assets/image/menu_location_icon.png';
   static const String menuMailIcon = 'assets/image/menu_mail_icon.png';
   static const String menuLogOutIcon = 'assets/image/menu_log_out_icon.png';
+  static const String menuShippingIcon = 'assets/image/menu_shipping_icon.png';
+  static const String menuWalletIcon = 'assets/image/menu_wallet_icon.png';
+  static const String bottomHomeIcon = 'assets/image/bottom_home_icon.png';
+  static const String bottomOrderIcon = 'assets/image/bottom_order_icon.png';
+  static const String bottomMenuSelectedIcon =
+      'assets/image/bottom_menu_selected_icon.png';
+  static const String bottomMenuUnselectedIcon =
+      'assets/image/bottom_menu_unselected_icon.png';
+  static const String bottomFavouriteIcon =
+      'assets/image/bottom_favourite_icon.png';
+  static const String menuCancelPolicyIcon =
+      'assets/image/menu_cancel_policy_icon.png';
+  static const String menuLoyaltyPointsIcon =
+      'assets/image/menu_loyalty_points_icon.png';
   static const String menuNotificationIcon =
       'assets/image/menu_notification_icon.png';
   static const String menuPowerButtonIcon =
@@ -332,4 +346,7 @@ class Images {
       'assets/image/store_registration_success.svg';
   static const String checkGif = 'assets/image/check.gif';
   static const String cancelGif = 'assets/image/cancel.gif';
+
+  static const String lottieProfile = 'assets/lottie/profile.json';
+  static const String lottieCart = 'assets/lottie/cart.json';
 }

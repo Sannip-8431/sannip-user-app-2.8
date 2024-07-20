@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
@@ -16,13 +17,14 @@ class CartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(clipBehavior: Clip.none, children: [
-      Image.asset(Images.shoppingCart, height: size, width: size, color: color),
-      GetBuilder<CartController>(builder: (cartController) {
-        return cartController.cartList.isNotEmpty
-            ? Positioned(
-                top: -5,
-                right: -5,
+    return GetBuilder<CartController>(builder: (cartController) {
+      return cartController.cartList.isNotEmpty
+          ? Stack(clipBehavior: Clip.none, children: [
+              Lottie.asset(Images.lottieCart,
+                  height: size + 32, width: size + 32),
+              Positioned(
+                top: 5,
+                right: 5,
                 child: Container(
                   height: size < 20 ? 10 : size / 2,
                   width: size < 20 ? 10 : size / 2,
@@ -49,8 +51,9 @@ class CartWidget extends StatelessWidget {
                   ),
                 ),
               )
-            : const SizedBox();
-      }),
-    ]);
+            ])
+          : Image.asset(Images.shoppingCart,
+              height: size, width: size, color: color);
+    });
   }
 }

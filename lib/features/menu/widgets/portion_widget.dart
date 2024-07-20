@@ -21,43 +21,53 @@ class PortionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Get.toNamed(route),
-      child: Container(
-        padding:
-            const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
-        child: Column(children: [
-          Row(children: [
-            Image.asset(
-              icon,
-              height: 22,
-              width: 22,
-              color: Theme.of(context).primaryColor,
-            ),
-            const SizedBox(width: Dimensions.paddingSizeSmall),
-            Expanded(
-                child: Text(title,
-                    style: robotoRegular.copyWith(
-                        fontSize: Dimensions.fontSizeDefault))),
-            suffix != null
-                ? Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.error,
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radiusDefault),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: Dimensions.paddingSizeExtraSmall,
-                        horizontal: Dimensions.paddingSizeSmall),
-                    child: Text(suffix!,
-                        style: robotoRegular.copyWith(
-                            fontSize: Dimensions.fontSizeSmall,
-                            color: Colors.white),
-                        textDirection: TextDirection.ltr),
-                  )
-                : const SizedBox(),
-          ]),
-          // hideDivider ? const SizedBox() : const Divider()
+      child: Column(children: [
+        Row(children: [
+          Image.asset(
+            icon,
+            height: 22,
+            width: 22,
+            color: Theme.of(context).primaryColor,
+          ),
+          const SizedBox(width: Dimensions.paddingSizeSmall),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: robotoRegular.copyWith(
+                      fontSize: Dimensions.fontSizeDefault)),
+              if (suffix != null)
+                Text(suffix!,
+                    style: robotoMedium.copyWith(
+                        fontSize: Dimensions.fontSizeDefault,
+                        fontWeight: FontWeight.bold),
+                    textDirection: TextDirection.ltr),
+            ],
+          )),
+          /*suffix != null
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.error,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimensions.paddingSizeExtraSmall,
+                      horizontal: Dimensions.paddingSizeSmall),
+                  child: Text(suffix!,
+                      style: robotoRegular.copyWith(
+                          fontSize: Dimensions.fontSizeSmall,
+                          color: Colors.white),
+                      textDirection: TextDirection.ltr),
+                )
+              : const SizedBox(),*/
         ]),
-      ),
+        const Divider(
+          height: 34,
+        )
+        // hideDivider ? const SizedBox() : const Divider()
+      ]),
     );
   }
 }
