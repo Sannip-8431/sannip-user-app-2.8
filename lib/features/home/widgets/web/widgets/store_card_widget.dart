@@ -15,7 +15,6 @@ import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
@@ -27,9 +26,9 @@ class StoreCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? discount = store!.discount != null ? store!.discount!.discount : 0;
-    String? discountType =
-        store!.discount != null ? store!.discount!.discountType : 'percent';
+    // double? discount = store!.discount != null ? store!.discount!.discount : 0;
+    // String? discountType =
+    //     store!.discount != null ? store!.discount!.discountType : 'percent';
     bool isAvailable = store!.open == 1 && store!.active!;
     return OnHover(
       isItem: true,
@@ -84,10 +83,10 @@ class StoreCardWidget extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      DiscountTag(
+                      /* DiscountTag(
                         discount: discount,
                         discountType: discountType,
-                      ),
+                      ), */
                       isAvailable
                           ? const SizedBox()
                           : NotAvailableWidget(

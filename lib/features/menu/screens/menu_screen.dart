@@ -18,7 +18,6 @@ import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/confirmation_dialog.dart';
-import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/features/menu/widgets/portion_widget.dart';
 
 class MenuScreen extends StatefulWidget {

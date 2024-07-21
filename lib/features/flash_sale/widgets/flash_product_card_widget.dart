@@ -11,7 +11,6 @@ import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/cart_count_view.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/organic_tag.dart';
 
 class FlashProductCardWidget extends StatelessWidget {
@@ -20,12 +19,12 @@ class FlashProductCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? discount = product.item!.storeDiscount == 0
+    /*  double? discount = product.item!.storeDiscount == 0
         ? product.item!.discount
         : product.item!.storeDiscount;
     String? discountType = product.item!.storeDiscount == 0
         ? product.item!.discountType
-        : 'percent';
+        : 'percent'; */
 
     int stock = product.stock!;
     int sold = product.sold!;
@@ -62,12 +61,12 @@ class FlashProductCardWidget extends StatelessWidget {
                   height: double.infinity,
                 ),
               ),
-              DiscountTag(
+              /* DiscountTag(
                 discount: discount,
                 discountType: discountType,
                 freeDelivery: false,
                 isFloating: true,
-              ),
+              ), */
               OrganicTag(item: product.item!, placeInImage: false),
               AddFavouriteView(
                 top: 5,

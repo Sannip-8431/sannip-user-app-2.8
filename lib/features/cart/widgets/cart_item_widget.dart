@@ -13,7 +13,6 @@ import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/item_bottom_sheet.dart';
-import 'package:sannip/common/widgets/quantity_button.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

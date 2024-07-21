@@ -1,4 +1,4 @@
-import 'package:sannip/features/splash/controllers/splash_controller.dart';
+/* import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
@@ -74,3 +74,4 @@ class DiscountTag extends StatelessWidget {
         : const SizedBox();
   }
 }
+ */

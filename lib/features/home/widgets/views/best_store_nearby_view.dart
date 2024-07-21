@@ -20,7 +20,6 @@ import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:sannip/common/widgets/title_widget.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
@@ -391,14 +390,14 @@ class BestStoreNearbyView extends StatelessWidget {
                                                                     width: double
                                                                         .infinity,
                                                                   ),
-                                                                  DiscountTag(
+                                                                  /*  DiscountTag(
                                                                     discount: storeController
                                                                         .getDiscount(
                                                                             storeList[index]),
                                                                     discountType:
                                                                         storeController
                                                                             .getDiscountType(storeList[index]),
-                                                                  ),
+                                                                  ), */
                                                                   Positioned(
                                                                     bottom: 0,
                                                                     left: 0,

@@ -12,7 +12,6 @@ import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/cart_count_view.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 
@@ -25,10 +24,10 @@ class ItemThatYouLoveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? discount =
+    /* ouble? discount =
         item.storeDiscount == 0 ? item.discount : item.storeDiscount;
     String? discountType =
-        item.storeDiscount == 0 ? item.discountType : 'percent';
+        item.storeDiscount == 0 ? item.discountType : 'percent'; */
     return OnHover(
       isItem: true,
       child: Container(
@@ -66,12 +65,12 @@ class ItemThatYouLoveCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                DiscountTag(
+                /* DiscountTag(
                   discount: discount,
                   discountType: discountType,
                   freeDelivery: false,
-                ),
-               /*  item.isStoreHalalActive! && item.isHalalItem!
+                ), */
+                /*  item.isStoreHalalActive! && item.isHalalItem!
                     ? const Positioned(
                         top: 40,
                         right: 15,
