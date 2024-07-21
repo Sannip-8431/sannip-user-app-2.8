@@ -547,6 +547,13 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                               isFree: checkoutController.store!.freeDelivery,
                                                                                               fromWeb: true,
                                                                                               total: total,
+                                                                                              isDesignChange: true,
+                                                                                              icon: Images.checkoutDeliveryIcon,
+                                                                                              cartList: _cartList,
+                                                                                              storeId: widget.storeId,
+                                                                                              tomorrowClosed: tomorrowClosed,
+                                                                                              todayClosed: tomorrowClosed,
+                                                                                              module: module,
                                                                                             )
                                                                                           : SingleChildScrollView(
                                                                                               scrollDirection: Axis.horizontal,
@@ -559,9 +566,16 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                                         isFree: checkoutController.store!.freeDelivery,
                                                                                                         fromWeb: true,
                                                                                                         total: total,
+                                                                                                        isDesignChange: true,
+                                                                                                        icon: Images.checkoutDeliveryIcon,
+                                                                                                        cartList: _cartList,
+                                                                                                        storeId: widget.storeId,
+                                                                                                        tomorrowClosed: tomorrowClosed,
+                                                                                                        todayClosed: tomorrowClosed,
+                                                                                                        module: module,
                                                                                                       )
                                                                                                     : const SizedBox(),
-                                                                                                const SizedBox(width: Dimensions.paddingSizeDefault),
+                                                                                                const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                                                                                                 Get.find<SplashController>().configModel!.takeawayStatus == 1 && checkoutController.store!.takeAway!
                                                                                                     ? DeliveryOptionButtonWidget(
                                                                                                         value: 'take_away',
@@ -570,6 +584,13 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                                         isFree: true,
                                                                                                         fromWeb: true,
                                                                                                         total: total,
+                                                                                                        isDesignChange: true,
+                                                                                                        icon: Images.checkoutTakeAwayIcon,
+                                                                                                        cartList: _cartList,
+                                                                                                        storeId: widget.storeId,
+                                                                                                        tomorrowClosed: tomorrowClosed,
+                                                                                                        todayClosed: tomorrowClosed,
+                                                                                                        module: module,
                                                                                                       )
                                                                                                     : const SizedBox(),
                                                                                               ]),
@@ -577,31 +598,14 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                     ],
                                                                                   ),
                                                                                 ),
-                                                                                const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                                                                                ///Delivery_fee
-                                                                                !(checkoutController.orderType == 'take_away') && !(AuthHelper.isGuestLoggedIn())
-                                                                                    ? Center(
-                                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                                                                        Text('${'delivery_charge'.tr}: '),
-                                                                                        Text(
-                                                                                          checkoutController.store!.freeDelivery!
-                                                                                              ? 'free'.tr
-                                                                                              : checkoutController.distance != -1
-                                                                                                  ? PriceConverter.convertPrice(originalCharge)
-                                                                                                  : 'calculating'.tr,
-                                                                                          textDirection: TextDirection.ltr,
-                                                                                        ),
-                                                                                      ]))
-                                                                                    : const SizedBox(),
-                                                                                SizedBox(height: !(checkoutController.orderType == 'take_away') && !(AuthHelper.isGuestLoggedIn()) ? Dimensions.paddingSizeLarge : 0),
+                                                                                const SizedBox(height: Dimensions.paddingSizeSmall),
                                                                                 WebConstrainedBox(
                                                                                   dataLength: cartController.cartList.length,
                                                                                   minLength: 5,
                                                                                   minHeight: 0.6,
                                                                                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                                                                     Padding(
-                                                                                      padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, top: Dimensions.paddingSizeSmall),
+                                                                                      padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
                                                                                       child: Text('your_orders'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
                                                                                     ),
                                                                                     ListView.builder(

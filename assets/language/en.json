@@ -1263,5 +1263,6 @@
   "add_note_bottomSheet_description": "The Vendor will try their best to follow your instructions. However, no cancellation or refund will be possible if your request is not met.",
   "billing_information": "Billing Information",
   "packaging_fee": "Packaging Fee",
-  "additional_charges_description": "Sannip has no role to play in taxes levied by the govt. and charges decided by restaurants"
+  "additional_charges_description": "Sannip has no role to play in taxes levied by the govt. and charges decided by restaurants",
+  "select_delivery_day_and_time":"Select Delivery Day & Time"
 }

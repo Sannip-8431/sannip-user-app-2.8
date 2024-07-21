@@ -1250,5 +1250,6 @@
   "add_note_bottomSheet_description": "El Proveedor hará todo lo posible para seguir sus instrucciones. Sin embargo, no será posible ninguna cancelación o reembolso si no se atiende su solicitud.",
   "billing_information": "Información de facturación",
   "packaging_fee": "Tarifa de embalaje",
-  "additional_charges_description": "Sannip no desempeña ningún papel en los impuestos recaudados por el gobierno. y cargos decididos por los restaurantes"
+  "additional_charges_description": "Sannip no desempeña ningún papel en los impuestos recaudados por el gobierno. y cargos decididos por los restaurantes",
+  "select_delivery_day_and_time":"Seleccione día y hora de entrega"
 }

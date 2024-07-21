@@ -315,6 +315,10 @@ class Images {
   static const String bottomOrderIcon = 'assets/image/bottom_order_icon.png';
   static const String notificationIcon = 'assets/image/notification_icon.png';
   static const String infoIcon = 'assets/image/info_icon.png';
+  static const String checkoutDeliveryIcon =
+      'assets/image/checkout_delivery_icon.png';
+  static const String checkoutTakeAwayIcon =
+      'assets/image/checkout_take_away_icon.png';
   static const String bottomMenuSelectedIcon =
       'assets/image/bottom_menu_selected_icon.png';
   static const String bottomMenuUnselectedIcon =

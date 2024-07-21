@@ -397,15 +397,16 @@ class TopSection extends StatelessWidget {
         SizedBox(height: !takeAway ? Dimensions.paddingSizeSmall : 0),
 
         /// Time Slot
-        TimeSlotSection(
-          storeId: storeId,
-          checkoutController: checkoutController,
-          cartList: cartList,
-          tooltipController2: tooltipController2,
-          tomorrowClosed: tomorrowClosed,
-          todayClosed: todayClosed,
-          module: module,
-        ),
+        if (isDesktop)
+          TimeSlotSection(
+            storeId: storeId,
+            checkoutController: checkoutController,
+            cartList: cartList,
+            tooltipController2: tooltipController2,
+            tomorrowClosed: tomorrowClosed,
+            todayClosed: todayClosed,
+            module: module,
+          ),
 
         /// Coupon..
         !isDesktop && !isGuestLoggedIn
