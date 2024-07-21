@@ -1,4 +1,3 @@
-
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -19,7 +18,6 @@ import 'package:sannip/common/widgets/confirmation_dialog.dart';
 import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/quantity_button.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:sannip/features/checkout/screens/checkout_screen.dart';
@@ -223,32 +221,29 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                                             widget.item!));
                                                   }
                                                 },
-                                          child: Stack(children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions.radiusSmall),
-                                              child: CustomImage(
-                                                image:
-                                                    '${widget.item!.imageFullUrl}',
-                                                width:
-                                                    ResponsiveHelper.isMobile(
-                                                            context)
-                                                        ? 100
-                                                        : 140,
-                                                height:
-                                                    ResponsiveHelper.isMobile(
-                                                            context)
-                                                        ? 100
-                                                        : 140,
-                                                fit: BoxFit.cover,
-                                              ),
+                                          child: /* Stack(children: [ */
+                                              ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusSmall),
+                                            child: CustomImage(
+                                              image:
+                                                  '${widget.item!.imageFullUrl}',
+                                              width: ResponsiveHelper.isMobile(
+                                                      context)
+                                                  ? 100
+                                                  : 140,
+                                              height: ResponsiveHelper.isMobile(
+                                                      context)
+                                                  ? 100
+                                                  : 140,
+                                              fit: BoxFit.cover,
                                             ),
-                                            DiscountTag(
+                                          ),
+                                          /*  DiscountTag(
                                                 discount: initialDiscount,
                                                 discountType: discountType,
                                                 fromTop: 20),
-                                          ]),
+                                          ]), */
                                         ),
                                         const SizedBox(width: 10),
                                         Expanded(
@@ -423,7 +418,7 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                               const SizedBox(
                                                   height: Dimensions
                                                       .paddingSizeDefault),
-                                             /*  widget.item!.isStoreHalalActive! &&
+                                              /*  widget.item!.isStoreHalalActive! &&
                                                       widget.item!.isHalalItem!
                                                   ? Padding(
                                                       padding: const EdgeInsets
@@ -446,7 +441,7 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                                       ),
                                                     )
                                                   : const SizedBox(), */
-                                                  const SizedBox(),
+                                              const SizedBox(),
                                             ]),
                                       ]),
 

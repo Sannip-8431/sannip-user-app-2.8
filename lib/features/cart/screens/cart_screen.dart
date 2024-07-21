@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/cart/widgets/extra_packaging_widget.dart';
 import 'package:sannip/features/cart/widgets/not_available_bottom_sheet_widget.dart';
-import 'package:sannip/features/checkout/screens/checkout_screen.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';

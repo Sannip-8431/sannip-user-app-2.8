@@ -19,7 +19,6 @@ import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/card_design/store_card.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/common/widgets/title_widget.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
@@ -315,14 +314,14 @@ class _WebBestStoreNearbyViewWidgetState
                                                                               double.infinity,
                                                                         ),
                                                                       ),
-                                                                      DiscountTag(
+                                                                      /* DiscountTag(
                                                                         discount:
                                                                             storeController.getDiscount(storeList[index]),
                                                                         discountType:
                                                                             storeController.getDiscountType(storeList[index]),
                                                                         freeDelivery:
                                                                             storeList[index].freeDelivery,
-                                                                      ),
+                                                                      ), */
                                                                     ]),
                                                               ),
                                                               const SizedBox(

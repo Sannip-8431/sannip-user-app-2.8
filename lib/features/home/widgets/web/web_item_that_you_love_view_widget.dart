@@ -12,7 +12,6 @@ import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/features/home/widgets/web/widgets/arrow_icon_button.dart';
 
@@ -135,7 +134,7 @@ class _WebItemThatYouLoveViewWidgetState
                                                                 index]
                                                             .id),
                                                   ),
-                                                  DiscountTag(
+                                                  /* DiscountTag(
                                                     discount: Get.find<
                                                             ItemController>()
                                                         .getDiscount(
@@ -146,7 +145,7 @@ class _WebItemThatYouLoveViewWidgetState
                                                         .getDiscountType(
                                                             recommendItems[
                                                                 index]),
-                                                  ),
+                                                  ), */
                                                   Positioned(
                                                     bottom: 0,
                                                     left: 0,
@@ -447,7 +446,7 @@ class _WebItemThatYouLoveForShopState extends State<WebItemThatYouLoveForShop> {
                                               item: Item(
                                                   id: recommendItems[index].id),
                                             ),
-                                            DiscountTag(
+                                            /* DiscountTag(
                                               discount: Get.find<
                                                       ItemController>()
                                                   .getDiscount(
@@ -456,7 +455,7 @@ class _WebItemThatYouLoveForShopState extends State<WebItemThatYouLoveForShop> {
                                                       ItemController>()
                                                   .getDiscountType(
                                                       recommendItems[index]),
-                                            ),
+                                            ), */
                                             Positioned(
                                               bottom: 0,
                                               left: 0,

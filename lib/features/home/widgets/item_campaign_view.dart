@@ -7,7 +7,6 @@ import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +97,7 @@ class ItemCampaignView extends StatelessWidget {
                                               fit: BoxFit.cover,
                                             ),
                                           ),
-                                          DiscountTag(
+                                          /* DiscountTag(
                                             discount: campaignController
                                                         .itemCampaignList![
                                                             index]
@@ -119,7 +118,7 @@ class ItemCampaignView extends StatelessWidget {
                                                 : campaignController
                                                     .itemCampaignList![index]
                                                     .discountType,
-                                          ),
+                                          ), */
                                           Get.find<ItemController>().isAvailable(
                                                   campaignController
                                                       .itemCampaignList![index])

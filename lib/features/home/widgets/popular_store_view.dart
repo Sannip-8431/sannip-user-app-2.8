@@ -12,7 +12,6 @@ import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:sannip/common/widgets/title_widget.dart';
@@ -138,14 +137,14 @@ class PopularStoreView extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      DiscountTag(
+                                      /*  DiscountTag(
                                         discount: storeController
                                             .getDiscount(storeList[index]),
                                         discountType: storeController
                                             .getDiscountType(storeList[index]),
                                         freeDelivery:
                                             storeList[index].freeDelivery,
-                                      ),
+                                      ), */
                                       storeController
                                               .isOpenNow(storeList[index])
                                           ? const SizedBox()

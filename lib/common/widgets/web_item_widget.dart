@@ -12,7 +12,6 @@ import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/organic_tag.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
@@ -141,11 +140,11 @@ class WebItemWidget extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        DiscountTag(
+                        /*  DiscountTag(
                           discount: discount,
                           discountType: discountType,
                           freeDelivery: isStore ? store!.freeDelivery : false,
-                        ),
+                        ), */
                         !isStore
                             ? OrganicTag(
                                 item: item!,

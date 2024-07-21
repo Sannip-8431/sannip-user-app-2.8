@@ -17,7 +17,6 @@ import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/new_tag.dart';
 import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
@@ -82,12 +81,12 @@ class StoreCardWithDistance extends StatelessWidget {
                       height: double.infinity,
                       width: double.infinity,
                     ),
-                    DiscountTag(
+                    /* DiscountTag(
                       discount: Get.find<StoreController>().getDiscount(store),
                       discountType:
                           Get.find<StoreController>().getDiscountType(store),
                       freeDelivery: store.freeDelivery,
-                    ),
+                    ), */
                     Get.find<StoreController>().isOpenNow(store)
                         ? const SizedBox()
                         : const NotAvailableWidget(isStore: true),

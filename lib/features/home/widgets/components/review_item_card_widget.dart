@@ -12,7 +12,6 @@ import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/add_favourite_view.dart';
 import 'package:sannip/common/widgets/cart_count_view.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
-import 'package:sannip/common/widgets/discount_tag.dart';
 import 'package:sannip/common/widgets/hover/on_hover.dart';
 import 'package:sannip/common/widgets/organic_tag.dart';
 
@@ -82,13 +81,13 @@ class ReviewItemCard extends StatelessWidget {
                             AddFavouriteView(
                               item: item!,
                             ),
-                            DiscountTag(
+                            /* DiscountTag(
                               isFloating: true,
                               discount:
                                   Get.find<ItemController>().getDiscount(item!),
                               discountType: Get.find<ItemController>()
                                   .getDiscountType(item!),
-                            ),
+                            ), */
                           ],
                         ),
                       ),
@@ -238,13 +237,13 @@ class ReviewItemCard extends StatelessWidget {
                               )
                             : const SizedBox(), */
                         const SizedBox(),
-                        DiscountTag(
+                        /* DiscountTag(
                           isFloating: true,
                           discount:
                               Get.find<ItemController>().getDiscount(item!),
                           discountType:
                               Get.find<ItemController>().getDiscountType(item!),
-                        ),
+                        ), */
                         OrganicTag(item: item!, placeInImage: false),
                         Positioned(
                           bottom: 0,
