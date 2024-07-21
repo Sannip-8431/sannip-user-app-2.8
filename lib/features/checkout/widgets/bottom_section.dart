@@ -1,5 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/checkout/widgets/prescription_image_picker_widget.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
@@ -11,6 +14,7 @@ import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/features/checkout/widgets/condition_check_box.dart';
 import 'package:sannip/features/checkout/widgets/coupon_section.dart';
@@ -39,7 +43,7 @@ class BottomSection extends StatelessWidget {
   final bool isPrescriptionRequired;
   final double referralDiscount;
 
-  const BottomSection(
+  BottomSection(
       {super.key,
       required this.checkoutController,
       required this.total,
@@ -61,6 +65,8 @@ class BottomSection extends StatelessWidget {
       this.checkoutButton,
       required this.isPrescriptionRequired,
       required this.referralDiscount});
+
+  bool isAdditionalChargeExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +328,7 @@ class BottomSection extends StatelessWidget {
                           const SizedBox(height: Dimensions.paddingSizeSmall),
                         ])
                       : const SizedBox(),
-                  storeId == null
+                  /*storeId == null
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -338,12 +344,13 @@ class BottomSection extends StatelessWidget {
                       : const SizedBox(),
                   SizedBox(
                       height:
-                          storeId == null ? Dimensions.paddingSizeSmall : 0),
+                          storeId == null ? Dimensions.paddingSizeSmall : 0),*/
                   (!takeAway &&
                           Get.find<SplashController>()
                                   .configModel!
                                   .dmTipsStatus ==
-                              1)
+                              1 &&
+                          checkoutController.tips != 0.0)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -360,7 +367,8 @@ class BottomSection extends StatelessWidget {
                               Get.find<SplashController>()
                                       .configModel!
                                       .dmTipsStatus ==
-                                  1
+                                  1 &&
+                              checkoutController.tips != 0.0
                           ? Dimensions.paddingSizeSmall
                           : 0.0),
                   (checkoutController.store!.extraPackagingStatus! &&
@@ -368,7 +376,7 @@ class BottomSection extends StatelessWidget {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('extra_packaging'.tr, style: robotoRegular),
+                            Text('packaging_fee'.tr, style: robotoRegular),
                             Text(
                                 '(+) ${PriceConverter.convertPrice(checkoutController.store!.extraPackagingAmount!)}',
                                 style: robotoRegular,
@@ -401,7 +409,8 @@ class BottomSection extends StatelessWidget {
                                                   'free_delivery'))
                                       ? Text(
                                           'free'.tr,
-                                          style: robotoRegular.copyWith(
+                                          style: robotoMedium.copyWith(
+                                              fontWeight: FontWeight.bold,
                                               color: Theme.of(context)
                                                   .primaryColor),
                                         )
@@ -422,20 +431,89 @@ class BottomSection extends StatelessWidget {
                   Get.find<SplashController>()
                           .configModel!
                           .additionalChargeStatus!
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                              Text(
-                                  Get.find<SplashController>()
-                                      .configModel!
-                                      .additionalChargeName!,
-                                  style: robotoRegular),
-                              Text(
-                                '(+) ${PriceConverter.convertPrice(Get.find<SplashController>().configModel!.additionCharge)}',
-                                style: robotoRegular,
-                                textDirection: TextDirection.ltr,
-                              ),
-                            ])
+                      ? StatefulBuilder(builder: (context, set) {
+                          return Column(
+                            children: [
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                            Get.find<SplashController>()
+                                                .configModel!
+                                                .additionalChargeName!,
+                                            style: robotoRegular),
+                                        const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall,
+                                        ),
+                                        CustomInkWell(
+                                          onTap: () {
+                                            Get.dialog(
+                                                additionalChargeDialog());
+                                          },
+                                          child: Image.asset(
+                                            Images.infoIcon,
+                                            height: 13,
+                                            width: 13,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        CustomInkWell(
+                                            child: Icon(
+                                                !isAdditionalChargeExpanded
+                                                    ? Icons.expand_more
+                                                    : Icons.expand_less),
+                                            onTap: () {
+                                              set(() {
+                                                isAdditionalChargeExpanded =
+                                                    !isAdditionalChargeExpanded;
+                                              });
+                                            }),
+                                        const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall,
+                                        ),
+                                        Text(
+                                          '(+) ${PriceConverter.convertPrice(Get.find<SplashController>().configModel!.additionCharge)}',
+                                          style: robotoRegular,
+                                          textDirection: TextDirection.ltr,
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                              if (isAdditionalChargeExpanded)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSizeSmall),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Platform Charges',
+                                            style: robotoRegular.copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeSmall)),
+                                        Text(
+                                          PriceConverter.convertPrice(
+                                              Get.find<SplashController>()
+                                                  .configModel!
+                                                  .additionCharge),
+                                          style: robotoMedium.copyWith(
+                                              fontSize:
+                                                  Dimensions.fontSizeSmall),
+                                          textDirection: TextDirection.ltr,
+                                        ),
+                                      ]),
+                                ),
+                            ],
+                          );
+                        })
                       : const SizedBox(),
                   SizedBox(
                       height: checkoutController.isPartialPay
@@ -523,5 +601,46 @@ class BottomSection extends StatelessWidget {
         ),
       ),
     ]);
+  }
+
+  Widget additionalChargeDialog() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+      insetPadding: const EdgeInsets.all(60),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: Dimensions.paddingSizeExtraSmall,
+          ),
+          Text(Get.find<SplashController>().configModel!.additionalChargeName!,
+              style: robotoBold),
+          const SizedBox(
+            height: Dimensions.paddingSizeSmall,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: Dimensions.paddingSizeSmall),
+            child:
+                Text('additional_charges_description'.tr, style: robotoRegular),
+          ),
+          const SizedBox(
+            height: Dimensions.paddingSizeSmall,
+          ),
+          const Divider(
+            height: 0,
+          ),
+          CustomInkWell(
+              padding: const EdgeInsets.symmetric(
+                  vertical: Dimensions.paddingSizeExtraSmall),
+              child: Text('okay'.tr, style: robotoBold),
+              onTap: () {
+                Get.back();
+              })
+        ],
+      ),
+    );
   }
 }

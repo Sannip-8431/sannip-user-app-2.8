@@ -314,6 +314,7 @@ class Images {
   static const String bottomHomeIcon = 'assets/image/bottom_home_icon.png';
   static const String bottomOrderIcon = 'assets/image/bottom_order_icon.png';
   static const String notificationIcon = 'assets/image/notification_icon.png';
+  static const String infoIcon = 'assets/image/info_icon.png';
   static const String bottomMenuSelectedIcon =
       'assets/image/bottom_menu_selected_icon.png';
   static const String bottomMenuUnselectedIcon =
