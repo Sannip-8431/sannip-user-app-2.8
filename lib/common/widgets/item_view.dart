@@ -58,9 +58,87 @@ class _ItemsViewState extends State<ItemsView> {
     }
 
     return Column(children: [
-      !isNull
-          ? length > 0
-              ? GridView.builder(
+      (widget.isFoodOrGrocery! && widget.isStore)
+          ? !isNull
+              ? length > 0
+                  ? GridView.builder(
+                      key: UniqueKey(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: ResponsiveHelper.isDesktop(context)
+                            ? Dimensions.paddingSizeExtremeLarge
+                            : widget.stores != null
+                                ? Dimensions.paddingSizeLarge
+                                : Dimensions.paddingSizeLarge,
+                        mainAxisSpacing: ResponsiveHelper.isDesktop(context)
+                            ? Dimensions.paddingSizeExtremeLarge
+                            : widget.stores != null && widget.isStore
+                                ? Dimensions.paddingSizeLarge
+                                : Dimensions.paddingSizeSmall,
+                        childAspectRatio: ResponsiveHelper.isDesktop(context) &&
+                                widget.isStore
+                            ? (1 / 0.6)
+                            : ResponsiveHelper.isMobile(context)
+                                ? widget.stores != null && widget.isStore
+                                    ? 2
+                                    : 3.8
+                                : 3.3,
+                        mainAxisExtent: ResponsiveHelper.isDesktop(context) &&
+                                widget.isStore
+                            ? 220
+                            : ResponsiveHelper.isMobile(context)
+                                ? widget.stores != null && widget.isStore
+                                    ? 200
+                                    : 300
+                                : 260,
+                        crossAxisCount: ResponsiveHelper.isMobile(context)
+                            ? 2
+                            : ResponsiveHelper.isDesktop(context) &&
+                                    widget.stores != null
+                                ? 3
+                                : 3,
+                      ),
+                      physics: widget.isScrollable
+                          ? const BouncingScrollPhysics()
+                          : const NeverScrollableScrollPhysics(),
+                      shrinkWrap: widget.isScrollable ? false : true,
+                      itemCount: length,
+                      padding: widget.padding,
+                      itemBuilder: (context, index) {
+                        return widget.stores != null && widget.isStore
+                            ? widget.isFoodOrGrocery! && widget.isStore
+                                ? StoreCardWidget(store: widget.stores![index])
+                                : StoreCardWithDistance(
+                                    store: widget.stores![index]!,
+                                    fromAllStore: true)
+                            : ItemWidget(
+                                isStore: widget.isStore,
+                                item: widget.isStore
+                                    ? null
+                                    : widget.items![index],
+                                isFeatured: widget.isFeatured,
+                                store: widget.isStore
+                                    ? widget.stores![index]
+                                    : null,
+                                index: index,
+                                length: length,
+                                isCampaign: widget.isCampaign,
+                                inStore: widget.inStorePage,
+                              );
+                      },
+                    )
+                  : NoDataScreen(
+                      text: widget.noDataText ??
+                          (widget.isStore
+                              ? Get.find<SplashController>()
+                                      .configModel!
+                                      .moduleConfig!
+                                      .module!
+                                      .showRestaurantText!
+                                  ? 'no_restaurant_available'.tr
+                                  : 'no_store_available'.tr
+                              : 'no_item_available'.tr),
+                    )
+              : GridView.builder(
                   key: UniqueKey(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: ResponsiveHelper.isDesktop(context)
@@ -69,30 +147,29 @@ class _ItemsViewState extends State<ItemsView> {
                             ? Dimensions.paddingSizeLarge
                             : Dimensions.paddingSizeLarge,
                     mainAxisSpacing: ResponsiveHelper.isDesktop(context)
-                        ? Dimensions.paddingSizeExtremeLarge
-                        : widget.stores != null && widget.isStore
+                        ? Dimensions.paddingSizeLarge
+                        : widget.stores != null
                             ? Dimensions.paddingSizeLarge
                             : Dimensions.paddingSizeSmall,
                     childAspectRatio:
                         ResponsiveHelper.isDesktop(context) && widget.isStore
                             ? (1 / 0.6)
                             : ResponsiveHelper.isMobile(context)
-                                ? widget.stores != null && widget.isStore
+                                ? widget.isStore
                                     ? 2
                                     : 3.8
-                                : 3.3,
+                                : 3,
                     mainAxisExtent:
                         ResponsiveHelper.isDesktop(context) && widget.isStore
                             ? 220
                             : ResponsiveHelper.isMobile(context)
-                                ? widget.stores != null && widget.isStore
+                                ? widget.isStore
                                     ? 200
                                     : 300
-                                : 260,
+                                : 250,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
                         ? 2
-                        : ResponsiveHelper.isDesktop(context) &&
-                                widget.stores != null
+                        : ResponsiveHelper.isDesktop(context)
                             ? 3
                             : 3,
                   ),
@@ -100,16 +177,24 @@ class _ItemsViewState extends State<ItemsView> {
                       ? const BouncingScrollPhysics()
                       : const NeverScrollableScrollPhysics(),
                   shrinkWrap: widget.isScrollable ? false : true,
-                  itemCount: length,
+                  itemCount: widget.shimmerLength,
                   padding: widget.padding,
                   itemBuilder: (context, index) {
-                    return widget.stores != null && widget.isStore
-                        ? widget.isFoodOrGrocery! && widget.isStore
-                            ? StoreCardWidget(store: widget.stores![index])
-                            : StoreCardWithDistance(
-                                store: widget.stores![index]!,
-                                fromAllStore: true)
-                        : ItemWidget(
+                    return widget.isStore
+                        ? widget.isFoodOrGrocery!
+                            ? const StoreCardShimmer()
+                            : const NewOnShimmerView()
+                        : const StoreCardShimmer();
+                  },
+                )
+          : ListView.builder(
+              itemCount: length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (ctx, index) {
+                return !isNull
+                    ? length > 0
+                        ? ListViewItemWidget(
                             isStore: widget.isStore,
                             item: widget.isStore ? null : widget.items![index],
                             isFeatured: widget.isFeatured,
@@ -119,70 +204,21 @@ class _ItemsViewState extends State<ItemsView> {
                             length: length,
                             isCampaign: widget.isCampaign,
                             inStore: widget.inStorePage,
-                          );
-                  },
-                )
-              : NoDataScreen(
-                  text: widget.noDataText ??
-                      (widget.isStore
-                          ? Get.find<SplashController>()
-                                  .configModel!
-                                  .moduleConfig!
-                                  .module!
-                                  .showRestaurantText!
-                              ? 'no_restaurant_available'.tr
-                              : 'no_store_available'.tr
-                          : 'no_item_available'.tr),
-                )
-          : GridView.builder(
-              key: UniqueKey(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisSpacing: ResponsiveHelper.isDesktop(context)
-                    ? Dimensions.paddingSizeExtremeLarge
-                    : widget.stores != null
-                        ? Dimensions.paddingSizeLarge
-                        : Dimensions.paddingSizeLarge,
-                mainAxisSpacing: ResponsiveHelper.isDesktop(context)
-                    ? Dimensions.paddingSizeLarge
-                    : widget.stores != null
-                        ? Dimensions.paddingSizeLarge
-                        : Dimensions.paddingSizeSmall,
-                childAspectRatio:
-                    ResponsiveHelper.isDesktop(context) && widget.isStore
-                        ? (1 / 0.6)
-                        : ResponsiveHelper.isMobile(context)
-                            ? widget.isStore
-                                ? 2
-                                : 3.8
-                            : 3,
-                mainAxisExtent:
-                    ResponsiveHelper.isDesktop(context) && widget.isStore
-                        ? 220
-                        : ResponsiveHelper.isMobile(context)
-                            ? widget.isStore
-                                ? 200
-                                : 300
-                            : 250,
-                crossAxisCount: ResponsiveHelper.isMobile(context)
-                    ? 2
-                    : ResponsiveHelper.isDesktop(context)
-                        ? 3
-                        : 3,
-              ),
-              physics: widget.isScrollable
-                  ? const BouncingScrollPhysics()
-                  : const NeverScrollableScrollPhysics(),
-              shrinkWrap: widget.isScrollable ? false : true,
-              itemCount: widget.shimmerLength,
-              padding: widget.padding,
-              itemBuilder: (context, index) {
-                return widget.isStore
-                    ? widget.isFoodOrGrocery!
-                        ? const StoreCardShimmer()
-                        : const NewOnShimmerView()
-                    : const StoreCardShimmer();
-              },
-            ),
+                          )
+                        : NoDataScreen(
+                            text: widget.noDataText ??
+                                (widget.isStore
+                                    ? Get.find<SplashController>()
+                                            .configModel!
+                                            .moduleConfig!
+                                            .module!
+                                            .showRestaurantText!
+                                        ? 'no_restaurant_available'.tr
+                                        : 'no_store_available'.tr
+                                    : "${'no_item_available'.tr} +++++"),
+                          )
+                    : const NewOnShimmerView();
+              }),
     ]);
   }
 }
