@@ -410,12 +410,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: GetBuilder<NotificationController>(
                                           builder: (notificationController) {
                                         return Stack(children: [
-                                          Icon(CupertinoIcons.bell,
-                                              size: 25,
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge!
-                                                  .color),
+                                          Image.asset(
+                                            Images.notificationIcon,
+                                            height: 22,
+                                            width: 22,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .color,
+                                          ),
+                                          // Icon(CupertinoIcons.bell,
+                                          //     size: 25,
+                                          //     color: Theme.of(context)
+                                          //         .textTheme
+                                          //         .bodyLarge!
+                                          //         .color),
                                           notificationController.hasNotification
                                               ? Positioned(
                                                   top: 0,

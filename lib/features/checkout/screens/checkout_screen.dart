@@ -11,6 +11,7 @@ import 'package:sannip/features/address/controllers/address_controller.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/cart/screens/cart_screen.dart';
 import 'package:sannip/features/cart/widgets/cart_item_widget.dart';
+import 'package:sannip/features/cart/widgets/delivery_option_button_widget.dart';
 import 'package:sannip/features/cart/widgets/extra_packaging_widget.dart';
 import 'package:sannip/features/cart/widgets/not_available_bottom_sheet_widget.dart';
 import 'package:sannip/features/cart/widgets/web_cart_items_widget.dart';
@@ -523,6 +524,77 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                           child: Column(
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
+                                                                                // delivery option
+                                                                                Container(
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Theme.of(context).cardColor,
+                                                                                    boxShadow: [
+                                                                                      BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.05), blurRadius: 10)
+                                                                                    ],
+                                                                                  ),
+                                                                                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
+                                                                                  width: double.infinity,
+                                                                                  child: Column(
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Text('delivery_type'.tr, style: robotoMedium),
+                                                                                      const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                                      widget.storeId != null
+                                                                                          ? DeliveryOptionButtonWidget(
+                                                                                              value: 'delivery',
+                                                                                              title: 'home_delivery'.tr,
+                                                                                              charge: originalCharge,
+                                                                                              isFree: checkoutController.store!.freeDelivery,
+                                                                                              fromWeb: true,
+                                                                                              total: total,
+                                                                                            )
+                                                                                          : SingleChildScrollView(
+                                                                                              scrollDirection: Axis.horizontal,
+                                                                                              child: Row(children: [
+                                                                                                Get.find<SplashController>().configModel!.homeDeliveryStatus == 1 && checkoutController.store!.delivery!
+                                                                                                    ? DeliveryOptionButtonWidget(
+                                                                                                        value: 'delivery',
+                                                                                                        title: 'home_delivery'.tr,
+                                                                                                        charge: originalCharge,
+                                                                                                        isFree: checkoutController.store!.freeDelivery,
+                                                                                                        fromWeb: true,
+                                                                                                        total: total,
+                                                                                                      )
+                                                                                                    : const SizedBox(),
+                                                                                                const SizedBox(width: Dimensions.paddingSizeDefault),
+                                                                                                Get.find<SplashController>().configModel!.takeawayStatus == 1 && checkoutController.store!.takeAway!
+                                                                                                    ? DeliveryOptionButtonWidget(
+                                                                                                        value: 'take_away',
+                                                                                                        title: 'take_away'.tr,
+                                                                                                        charge: deliveryCharge,
+                                                                                                        isFree: true,
+                                                                                                        fromWeb: true,
+                                                                                                        total: total,
+                                                                                                      )
+                                                                                                    : const SizedBox(),
+                                                                                              ]),
+                                                                                            ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                                const SizedBox(height: Dimensions.paddingSizeDefault),
+
+                                                                                ///Delivery_fee
+                                                                                !(checkoutController.orderType == 'take_away') && !(AuthHelper.isGuestLoggedIn())
+                                                                                    ? Center(
+                                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                                                                        Text('${'delivery_charge'.tr}: '),
+                                                                                        Text(
+                                                                                          checkoutController.store!.freeDelivery!
+                                                                                              ? 'free'.tr
+                                                                                              : checkoutController.distance != -1
+                                                                                                  ? PriceConverter.convertPrice(originalCharge)
+                                                                                                  : 'calculating'.tr,
+                                                                                          textDirection: TextDirection.ltr,
+                                                                                        ),
+                                                                                      ]))
+                                                                                    : const SizedBox(),
+                                                                                SizedBox(height: !(checkoutController.orderType == 'take_away') && !(AuthHelper.isGuestLoggedIn()) ? Dimensions.paddingSizeLarge : 0),
                                                                                 WebConstrainedBox(
                                                                                   dataLength: cartController.cartList.length,
                                                                                   minLength: 5,
@@ -566,7 +638,13 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                       ),
                                                                                     ),
                                                                                     NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
-                                                                                    ExtraPackagingWidget(cartController: cartController),
+                                                                                    if (checkoutController.orderType == 'take_away')
+                                                                                      ExtraPackagingWidget(
+                                                                                        cartController: cartController,
+                                                                                        onChanged: (val) {
+                                                                                          setState(() {});
+                                                                                        },
+                                                                                      ),
                                                                                     !ResponsiveHelper.isDesktop(context) ? suggestedItemView(cartController.cartList) : const SizedBox(),
                                                                                   ]),
                                                                                 ),

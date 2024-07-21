@@ -8,7 +8,9 @@ import 'package:sannip/util/styles.dart';
 
 class ExtraPackagingWidget extends StatelessWidget {
   final CartController cartController;
-  const ExtraPackagingWidget({super.key, required this.cartController});
+  final void Function(bool?)? onChanged;
+  const ExtraPackagingWidget(
+      {super.key, required this.cartController, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class ExtraPackagingWidget extends StatelessWidget {
                   value: cartController.needExtraPackage,
                   onChanged: (bool? isChecked) {
                     cartController.toggleExtraPackage();
+                    onChanged?.call(isChecked);
                   },
                 ),
                 const SizedBox(width: Dimensions.paddingSizeExtraSmall),

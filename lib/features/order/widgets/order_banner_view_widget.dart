@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/order/controllers/order_controller.dart';
 import 'package:sannip/features/order/domain/models/order_model.dart';
@@ -35,17 +36,22 @@ class OrderBannerViewWidget extends StatelessWidget {
               ? Column(children: [
                   ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        order.orderStatus == 'pending'
-                            ? Images.pendingFoodOrderDetails
-                            : (order.orderStatus == 'confirmed' ||
-                                    order.orderStatus == 'processing' ||
-                                    order.orderStatus == 'handover')
-                                ? Images.preparingFoodOrderDetails
-                                : Images.ongoingAnimation,
-                        fit: BoxFit.contain,
-                        height: 200,
-                      )),
+                      child: (order.orderStatus == 'pending' ||
+                              order.orderStatus == 'confirmed' ||
+                              order.orderStatus == 'processing' ||
+                              order.orderStatus == 'handover')
+                          ? Image.asset(
+                              order.orderStatus == 'pending'
+                                  ? Images.pendingFoodOrderDetails
+                                  : Images.preparingFoodOrderDetails,
+                              fit: BoxFit.contain,
+                              height: 200,
+                            )
+                          : Lottie.asset(
+                              Images.lottieOrderOngoing,
+                              fit: BoxFit.contain,
+                              height: 200,
+                            )),
                   const SizedBox(height: Dimensions.paddingSizeDefault),
                   Text('your_food_will_delivered_within'.tr,
                       style: robotoRegular.copyWith(
@@ -95,16 +101,29 @@ class OrderBannerViewWidget extends StatelessWidget {
           : const SizedBox(),
       prescriptionOrder
           ? ongoing
-              ? Image.asset(
+              ? (order.orderStatus == 'pending' ||
+                      order.orderStatus == 'confirmed' ||
+                      order.orderStatus == 'processing' ||
+                      order.orderStatus == 'handover')
+                  ? Image.asset(
+                      order.orderStatus == 'pending'
+                          ? Images.pendingFoodOrderDetails
+                          : Images.preparingFoodOrderDetails,
+                      height: 160,
+                      width: double.infinity)
+                  : Lottie.asset(Images.lottieOrderOngoing,
+                      height: 160,
+                      width: double
+                          .infinity) /*Image.asset(
                   order.orderStatus == 'pending'
                       ? Images.pendingOrderDetails
                       : (order.orderStatus == 'confirmed' ||
                               order.orderStatus == 'processing' ||
                               order.orderStatus == 'handover')
                           ? Images.preparingGroceryOrderDetails
-                          : Images.ongoingAnimation,
+                          : Images.lottieOrderOngoing,
                   height: 160,
-                  width: double.infinity)
+                  width: double.infinity)*/
               : CustomImage(
                   image: '${order.store?.coverPhotoFullUrl}',
                   height: 160,
