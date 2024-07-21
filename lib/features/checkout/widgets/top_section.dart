@@ -430,37 +430,40 @@ class TopSection extends StatelessWidget {
         ),
 
         ///Payment..
-        Container(
-          decoration: isDesktop
-              ? const BoxDecoration()
-              : BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Theme.of(context).primaryColor.withOpacity(0.05),
-                        blurRadius: 10)
-                  ],
-                ),
-          padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.paddingSizeSmall,
-              horizontal: Dimensions.paddingSizeLarge),
-          child: Column(children: [
-            PaymentSection(
-              storeId: storeId,
-              isCashOnDeliveryActive: isCashOnDeliveryActive,
-              isDigitalPaymentActive: isDigitalPaymentActive,
-              isWalletActive: isWalletActive,
-              total: total,
-              checkoutController: checkoutController,
-              isOfflinePaymentActive: isOfflinePaymentActive,
-            ),
-            SizedBox(height: isGuestLoggedIn ? 0 : Dimensions.paddingSizeSmall),
-            !isDesktop && !isGuestLoggedIn
-                ? PartialPayView(
-                    totalPrice: total, isPrescription: storeId != null)
-                : const SizedBox(),
-          ]),
-        ),
+        if (isDesktop)
+          Container(
+            decoration: isDesktop
+                ? const BoxDecoration()
+                : BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    boxShadow: [
+                      BoxShadow(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.05),
+                          blurRadius: 10)
+                    ],
+                  ),
+            padding: const EdgeInsets.symmetric(
+                vertical: Dimensions.paddingSizeSmall,
+                horizontal: Dimensions.paddingSizeLarge),
+            child: Column(children: [
+              PaymentSection(
+                storeId: storeId,
+                isCashOnDeliveryActive: isCashOnDeliveryActive,
+                isDigitalPaymentActive: isDigitalPaymentActive,
+                isWalletActive: isWalletActive,
+                total: total,
+                checkoutController: checkoutController,
+                isOfflinePaymentActive: isOfflinePaymentActive,
+              ),
+              SizedBox(
+                  height: isGuestLoggedIn ? 0 : Dimensions.paddingSizeSmall),
+              !isDesktop && !isGuestLoggedIn
+                  ? PartialPayView(
+                      totalPrice: total, isPrescription: storeId != null)
+                  : const SizedBox(),
+            ]),
+          ),
         SizedBox(height: isDesktop ? Dimensions.paddingSizeLarge : 0),
       ]),
     );

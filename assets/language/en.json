@@ -1261,5 +1261,7 @@
   "delivery_man_tip_description": "Your Kindness means a lot! The entire tip will be transferred directly to them as soon as the order is delivered",
   "do_you_have_any_instructions?": "Do you have any instructions?",
   "add_note_bottomSheet_description": "The Vendor will try their best to follow your instructions. However, no cancellation or refund will be possible if your request is not met.",
-  "billing_information": "Billing Information"
+  "billing_information": "Billing Information",
+  "packaging_fee": "Packaging Fee",
+  "additional_charges_description": "Sannip has no role to play in taxes levied by the govt. and charges decided by restaurants"
 }
