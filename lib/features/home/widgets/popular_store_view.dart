@@ -231,21 +231,93 @@ class PopularStoreView extends StatelessWidget {
                                                         TextOverflow.ellipsis,
                                                   ),
                                                   const SizedBox(height: 2),
-                                                  Text(
-                                                    storeList[index].address ??
-                                                        '',
-                                                    style: robotoMedium.copyWith(
-                                                        fontSize: Dimensions
-                                                            .fontSizeExtraSmall,
-                                                        color: Theme.of(context)
-                                                            .disabledColor),
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.location_pin,
+                                                          size: 16,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColor),
+                                                      Text(
+                                                        storeList[index]
+                                                                .address ??
+                                                            '',
+                                                        style: robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ],
                                                   ),
                                                   const SizedBox(
                                                       height: Dimensions
                                                           .paddingSizeExtraSmall),
+                                                  /*  Row(
+                                                    children: [
+                                                      Text(
+                                                        "OPEN : ",
+                                                        style: robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color:
+                                                                Colors.green),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                      Text(
+                                                        storeList[index]
+                                                                .schedules
+                                                                ?.last
+                                                                .openingTime ??
+                                                            '',
+                                                        style: robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "CLOSE : ",
+                                                        style: robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color: Colors.red),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                      Text(
+                                                        storeList[index]
+                                                                .schedules
+                                                                ?.last
+                                                                .closingTime ??
+                                                            '',
+                                                        style: robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ],
+                                                  ), */
                                                 ]),
                                             Padding(
                                               padding: const EdgeInsets.only(

@@ -814,12 +814,15 @@ class ListViewItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       // Food title
-                      Text(
-                        item!.name!,
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeDefault),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Text(
+                          item!.name!,
+                          style: robotoMedium.copyWith(
+                              fontSize: Dimensions.fontSizeDefault),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                       // Restaurant name
