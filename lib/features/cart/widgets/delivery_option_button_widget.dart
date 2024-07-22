@@ -150,7 +150,9 @@ class _DeliveryOptionButtonWidgetState
                         widget.storeId == null &&
                         checkoutController.store!.scheduleOrder! &&
                         widget.cartList!.isNotEmpty &&
-                        widget.cartList![0]!.item!.availableDateStarts == null)
+                        widget.cartList![0]!.item!.availableDateStarts ==
+                            null &&
+                        select)
                       InkWell(
                         onTap: () {
                           if (ResponsiveHelper.isDesktop(context)) {
