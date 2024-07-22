@@ -9,6 +9,7 @@ import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/common/widgets/custom_text_field.dart';
@@ -49,8 +50,7 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: Dimensions.paddingSizeDefault),
                       child: Row(children: [
-                        Text('thanks_to_delivery_partner_with_a_tip'.tr,
-                            style: robotoMedium),
+                        Text('rider_tip'.tr, style: robotoMedium),
                         const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                         JustTheTooltip(
                           backgroundColor: Colors.black87,
@@ -69,7 +69,12 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                           child: InkWell(
                             onTap: () =>
                                 widget.tooltipController3.showTooltip(),
-                            child: const Icon(Icons.info_outline),
+                            // child: const Icon(Icons.info_outline),
+                            child: Image.asset(
+                              Images.infoIcon,
+                              height: 13,
+                              width: 13,
+                            ),
                           ),
                         ),
                       ]),
@@ -109,7 +114,7 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                   ? 0
                                   : ResponsiveHelper.isDesktop(context)
                                       ? 80
-                                      : 45,
+                                      : 52,
                               child: (checkoutController.selectedTips ==
                                           AppConstants.tipsWithEmoji.length -
                                               1) &&

@@ -1245,11 +1245,12 @@
   "away": "Lejos",
   "your_orders" : "Tus ordenes",
   "thanks_to_delivery_partner_with_a_tip": "Gracias al socio de entrega con una propina.",
-  "delivery_man_tip_description": "¡Tu amabilidad significa mucho! La propina completa se les transferirá directamente tan pronto como se entregue el pedido.",
+  "delivery_man_tip_description": "¿Quieres darle propina a tu repartidor?",
   "do_you_have_any_instructions?": "¿Tiene alguna instrucción?",
   "add_note_bottomSheet_description": "El Proveedor hará todo lo posible para seguir sus instrucciones. Sin embargo, no será posible ninguna cancelación o reembolso si no se atiende su solicitud.",
   "billing_information": "Información de facturación",
   "packaging_fee": "Tarifa de embalaje",
   "additional_charges_description": "Sannip no desempeña ningún papel en los impuestos recaudados por el gobierno. y cargos decididos por los restaurantes",
-  "select_delivery_day_and_time":"Seleccione día y hora de entrega"
+  "select_delivery_day_and_time":"Seleccione día y hora de entrega",
+  "rider_tip": "Consejo para el ciclista"
 }

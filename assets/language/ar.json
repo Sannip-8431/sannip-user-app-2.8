@@ -1246,11 +1246,12 @@
   "away": "بعيد",
   "your_orders" : "طلباتك",
   "thanks_to_delivery_partner_with_a_tip": "بفضل شريك التسليم مع معلومات سرية",
-  "delivery_man_tip_description": "لطفك يعني الكثير! سيتم تحويل الإكرامية بالكامل إليهم مباشرةً بمجرد تسليم الطلب",
+  "delivery_man_tip_description": "هل ترغب في إعطاء إكرامية لموظف التوصيل الخاص بك؟",
   "do_you_have_any_instructions?": "هل لديك أي تعليمات؟",
   "add_note_bottomSheet_description":"سيبذل البائع قصارى جهده لاتباع تعليماتك. ومع ذلك، لن يكون من الممكن الإلغاء أو استرداد الأموال إذا لم يتم تلبية طلبك.",
   "billing_information": "معلومات الفواتير",
   "packaging_fee": "رسوم التعبئة والتغليف",
   "additional_charges_description": "ليس لدى سانيب أي دور تلعبه في الضرائب التي تفرضها الحكومة. والرسوم التي تقررها المطاعم",
-  "select_delivery_day_and_time":"حدد يوم ووقت التسليم"
+  "select_delivery_day_and_time":"حدد يوم ووقت التسليم",
+  "rider_tip": "نصيحة رايدر"
 }
