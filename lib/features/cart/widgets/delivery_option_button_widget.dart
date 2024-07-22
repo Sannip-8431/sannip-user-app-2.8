@@ -70,7 +70,6 @@ class _DeliveryOptionButtonWidgetState
     return GetBuilder<CheckoutController>(
       builder: (checkoutController) {
         bool select = checkoutController.orderType == widget.value;
-        print('-------s---s--------s--- ${checkoutController.preferableTime}');
         return InkWell(
           onTap: () {
             checkoutController.setOrderType(widget.value);
@@ -98,10 +97,20 @@ class _DeliveryOptionButtonWidgetState
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(Dimensions.radiusSmall),
-                          bottomLeft: Radius.circular(Dimensions.radiusSmall),
-                        ),
+                        borderRadius: (!isGuestLoggedIn &&
+                                widget.storeId == null &&
+                                checkoutController.store!.scheduleOrder! &&
+                                widget.cartList!.isNotEmpty &&
+                                widget.cartList![0]!.item!
+                                        .availableDateStarts ==
+                                    null)
+                            ? const BorderRadius.only(
+                                topLeft:
+                                    Radius.circular(Dimensions.radiusSmall),
+                                bottomLeft:
+                                    Radius.circular(Dimensions.radiusSmall),
+                              )
+                            : BorderRadius.circular(Dimensions.radiusSmall),
                         color: select
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).disabledColor.withOpacity(0.3),
