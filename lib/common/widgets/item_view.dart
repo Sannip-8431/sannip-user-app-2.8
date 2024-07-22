@@ -4,6 +4,7 @@ import 'package:sannip/features/item/domain/models/item_model.dart';
 import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/features/home/widgets/web/widgets/store_card_widget.dart';
 import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/common/widgets/no_data_screen.dart';
 import 'package:sannip/common/widgets/item_widget.dart';
@@ -58,7 +59,9 @@ class _ItemsViewState extends State<ItemsView> {
     }
 
     return Column(children: [
-      (widget.isFoodOrGrocery! && widget.isStore)
+      ((widget.isFoodOrGrocery! && widget.isStore) ||
+              Get.find<SplashController>().module!.moduleType.toString() ==
+                  AppConstants.grocery)
           ? !isNull
               ? length > 0
                   ? GridView.builder(
