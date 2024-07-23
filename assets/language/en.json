@@ -1265,5 +1265,7 @@
   "packaging_fee": "Packaging Fee",
   "additional_charges_description": "Sannip has no role to play in taxes levied by the govt. and charges decided by restaurants",
   "select_delivery_day_and_time":"Select Delivery Day & Time",
-  "rider_tip": "Rider Tip"
+  "rider_tip": "Rider Tip",
+  "cutlery_selected_text":"No cutlery provided. Thanks for reducing waste!",
+  "cutlery_not_selected_text":"If available, your order will come with cutlery"
 }
