@@ -642,7 +642,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                       ),
                                                                                     ),
                                                                                     NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
-                                                                                    if (checkoutController.orderType == 'take_away')
+                                                                                    if (checkoutController.orderType != 'take_away')
                                                                                       ExtraPackagingWidget(
                                                                                         cartController: cartController,
                                                                                         onChanged: (val) {

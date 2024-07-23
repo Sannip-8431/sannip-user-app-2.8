@@ -67,8 +67,8 @@ class CartController extends GetxController implements GetxService {
   bool _isExpanded = true;
   bool get isExpanded => _isExpanded;
 
-  void toggleExtraPackage({bool willUpdate = true}) {
-    _needExtraPackage = !_needExtraPackage;
+  void toggleExtraPackage({bool willUpdate = true, bool? isSetTrue}) {
+    _needExtraPackage = isSetTrue == true ? isSetTrue! : !_needExtraPackage;
     if (willUpdate) {
       update();
     }

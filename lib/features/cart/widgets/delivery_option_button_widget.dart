@@ -1,3 +1,4 @@
+import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/cart/domain/models/cart_model.dart';
 import 'package:sannip/features/checkout/widgets/time_slot_bottom_sheet.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -76,6 +77,7 @@ class _DeliveryOptionButtonWidgetState
             checkoutController.setInstruction(-1);
 
             if (checkoutController.orderType == 'take_away') {
+              Get.find<CartController>().toggleExtraPackage(isSetTrue: true);
               if (checkoutController.isPartialPay) {
                 double tips = 0;
                 try {
@@ -85,6 +87,7 @@ class _DeliveryOptionButtonWidgetState
                     widget.total, widget.charge! + tips);
               }
             } else {
+              Get.find<CartController>().toggleExtraPackage();
               if (checkoutController.isPartialPay) {
                 checkoutController.changePartialPayment();
               } else {
@@ -103,7 +106,8 @@ class _DeliveryOptionButtonWidgetState
                                 widget.cartList!.isNotEmpty &&
                                 widget.cartList![0]!.item!
                                         .availableDateStarts ==
-                                    null)
+                                    null &&
+                                select)
                             ? const BorderRadius.only(
                                 topLeft:
                                     Radius.circular(Dimensions.radiusSmall),
