@@ -82,7 +82,7 @@ class BottomCartWidget extends StatelessWidget {
                       textDirection: TextDirection.ltr,
                     ),
                     Text(
-                      ' ${'total'.tr}',
+                      ' + ${'taxes'.tr}',
                       style: robotoMedium.copyWith(
                           fontSize: Dimensions.fontSizeSmall,
                           color: Colors.white),

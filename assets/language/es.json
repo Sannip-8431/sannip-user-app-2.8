@@ -1254,5 +1254,6 @@
   "select_delivery_day_and_time":"Seleccione día y hora de entrega",
   "rider_tip": "Consejo para el ciclista",
   "cutlery_selected_text":"No se proporcionan cubiertos. ¡Gracias por reducir el desperdicio!",
-  "cutlery_not_selected_text":"Si está disponible, tu pedido vendrá con cubiertos."
+  "cutlery_not_selected_text":"Si está disponible, tu pedido vendrá con cubiertos.",
+  "taxes": "Impuestos"
 }
