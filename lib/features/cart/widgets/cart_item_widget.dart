@@ -153,37 +153,39 @@ class CartItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(children: [
-                            ((Get.find<SplashController>()
-                                            .configModel!
-                                            .moduleConfig!
-                                            .module!
-                                            .unit! &&
-                                        cart.item!.unitType != null &&
-                                        !Get.find<SplashController>()
-                                            .getModuleConfig(
-                                                cart.item!.moduleType)
-                                            .newVariation!) ||
-                                    (Get.find<SplashController>()
-                                            .configModel!
-                                            .moduleConfig!
-                                            .module!
-                                            .vegNonVeg! &&
-                                        Get.find<SplashController>()
-                                            .configModel!
-                                            .toggleVegNonVeg!))
-                                ? !Get.find<SplashController>()
+                            if ((Get.find<SplashController>()
                                         .configModel!
                                         .moduleConfig!
                                         .module!
-                                        .unit!
-                                    ? CustomAssetImageWidget(
-                                        cart.item!.veg == 0
-                                            ? Images.nonVegImage
-                                            : Images.vegImage,
-                                        height: 11,
-                                        width: 11,
-                                      )
-                                    : Container(
+                                        .unit! &&
+                                    cart.item!.unitType != null &&
+                                    !Get.find<SplashController>()
+                                        .getModuleConfig(cart.item!.moduleType)
+                                        .newVariation!) ||
+                                (Get.find<SplashController>()
+                                        .configModel!
+                                        .moduleConfig!
+                                        .module!
+                                        .vegNonVeg! &&
+                                    Get.find<SplashController>()
+                                        .configModel!
+                                        .toggleVegNonVeg!))
+                              if (!Get.find<SplashController>()
+                                  .configModel!
+                                  .moduleConfig!
+                                  .module!
+                                  .unit!) ...[
+                                CustomAssetImageWidget(
+                                  cart.item!.veg == 0
+                                      ? Images.nonVegImage
+                                      : Images.vegImage,
+                                  height: 11,
+                                  width: 11,
+                                ),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                              ],
+                            /*: Container(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: Dimensions
                                                 .paddingSizeExtraSmall,
@@ -205,9 +207,10 @@ class CartItemWidget extends StatelessWidget {
                                                   .primaryColor),
                                         ),
                                       )
+                                    : const SizedBox()
                                 : const SizedBox(),
                             const SizedBox(
-                                width: Dimensions.paddingSizeExtraSmall),
+                                width: Dimensions.paddingSizeExtraSmall),*/
                             Flexible(
                               child: Text(
                                 cart.item!.name!,
@@ -229,6 +232,39 @@ class CartItemWidget extends StatelessWidget {
                                 : const SizedBox(), */
                             const SizedBox(),
                           ]),
+                          const SizedBox(height: 2),
+                          if ((Get.find<SplashController>()
+                                      .configModel!
+                                      .moduleConfig!
+                                      .module!
+                                      .unit! &&
+                                  cart.item!.unitType != null &&
+                                  !Get.find<SplashController>()
+                                      .getModuleConfig(cart.item!.moduleType)
+                                      .newVariation!) ||
+                              (Get.find<SplashController>()
+                                      .configModel!
+                                      .moduleConfig!
+                                      .module!
+                                      .vegNonVeg! &&
+                                  Get.find<SplashController>()
+                                      .configModel!
+                                      .toggleVegNonVeg!))
+                            if (!Get.find<SplashController>()
+                                .configModel!
+                                .moduleConfig!
+                                .module!
+                                .unit!)
+                              const SizedBox()
+                            else
+                              Text(
+                                cart.item!.unitType ?? '',
+                                style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeExtraSmall,
+                                ),
+                              )
+                          else
+                            const SizedBox(),
                           const SizedBox(height: 2),
                           RatingBar(
                               rating: cart.item!.avgRating,
