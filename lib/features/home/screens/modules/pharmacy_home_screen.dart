@@ -25,7 +25,10 @@ class PharmacyHomeScreen extends StatelessWidget {
         child: const Column(
           children: [
             BadWeatherWidget(),
-            BannerView(isFeatured: false),
+            BannerView(
+              isFeatured: false,
+              isDesignChange: true,
+            ),
             SizedBox(height: 12),
           ],
         ),

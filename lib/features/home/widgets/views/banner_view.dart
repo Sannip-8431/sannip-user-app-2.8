@@ -8,7 +8,6 @@ import 'package:sannip/common/models/module_model.dart';
 import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
@@ -35,11 +34,13 @@ class BannerView extends StatelessWidget {
           ? const SizedBox()
           : Container(
               width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
               height: GetPlatform.isDesktop
                   ? 500
                   : MediaQuery.of(context).size.width * 0.45,
-              padding:
-                  const EdgeInsets.only(top: Dimensions.paddingSizeDefault),
+              margin: const EdgeInsets.all(Dimensions.paddingSizeSmall),
               child: bannerList != null
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,7 +51,7 @@ class BannerView extends StatelessWidget {
                               autoPlay: true,
                               enlargeCenterPage: true,
                               disableCenter: true,
-                              viewportFraction: 0.95,
+                              viewportFraction: 1,
                               autoPlayInterval: const Duration(seconds: 7),
                               onPageChanged: (index, reason) {
                                 bannerController.setCurrentIndex(index, true);
@@ -111,17 +112,21 @@ class BannerView extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(
-                                        Dimensions.radiusLarge),
+                                        Dimensions.radiusSmall),
                                     boxShadow: const [
                                       BoxShadow(
                                           color: Colors.black12,
                                           blurRadius: 5,
-                                          spreadRadius: 1)
+                                          spreadRadius: 0)
                                     ],
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radiusLarge),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(
+                                          Dimensions.radiusSmall),
+                                      topRight: Radius.circular(
+                                          Dimensions.radiusSmall),
+                                    ),
                                     child: GetBuilder<SplashController>(
                                         builder: (splashController) {
                                       return CustomImage(
@@ -143,50 +148,31 @@ class BannerView extends StatelessWidget {
                               bannerController.bannerImageList!.map((bnr) {
                             int index =
                                 bannerController.bannerImageList!.indexOf(bnr);
-                            int totalBanner =
-                                bannerController.bannerImageList!.length;
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3),
-                              child: index == bannerController.currentIndex
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: BorderRadius.circular(
-                                              Dimensions.radiusDefault)),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 1),
-                                      child: Text('${(index) + 1}/$totalBanner',
-                                          style: robotoRegular.copyWith(
-                                              color:
-                                                  Theme.of(context).cardColor,
-                                              fontSize: 12)),
-                                    )
-                                  : Container(
-                                      height: 5,
-                                      width: 6,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .primaryColor
-                                              .withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(
-                                              Dimensions.radiusDefault)),
-                                    ),
+                            // int totalBanner =
+                            //     bannerController.bannerImageList!.length;
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                color: index == bannerController.currentIndex
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).disabledColor,
+                                shape: BoxShape.circle,
+                              ),
                             );
                           }).toList(),
                         ),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeExtraSmall),
                       ],
                     )
                   : Shimmer(
                       duration: const Duration(seconds: 2),
                       enabled: bannerList == null,
                       child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusLarge),
-                            color: Colors.grey[300],
-                          )),
+                        color: Colors.grey[300],
+                      ),
                     ),
             );
     });
