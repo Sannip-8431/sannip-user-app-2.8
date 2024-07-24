@@ -76,11 +76,17 @@ class StoreCardWidget extends StatelessWidget {
                       ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(Dimensions.radiusDefault)),
-                        child: CustomImage(
-                          image: '${store!.coverPhotoFullUrl}',
-                          height: 120,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
+                        child: ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                            !isAvailable ? Colors.transparent : Colors.grey,
+                            BlendMode.saturation,
+                          ),
+                          child: CustomImage(
+                            image: '${store!.coverPhotoFullUrl}',
+                            height: 120,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       /* DiscountTag(

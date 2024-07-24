@@ -128,13 +128,23 @@ class PopularStoreView extends StatelessWidget {
                                             const BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.radiusSmall)),
-                                        child: CustomImage(
-                                          image:
-                                              '${storeList[index].coverPhotoFullUrl}',
-                                          height: 150,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          fit: BoxFit.cover,
+                                        child: ColorFiltered(
+                                          colorFilter: ColorFilter.mode(
+                                            Get.find<StoreController>()
+                                                    .isOpenNow(storeList[index])
+                                                ? Colors.transparent
+                                                : Colors.grey,
+                                            BlendMode.saturation,
+                                          ),
+                                          child: CustomImage(
+                                            image:
+                                                '${storeList[index].coverPhotoFullUrl}',
+                                            height: 150,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                       /*  DiscountTag(
