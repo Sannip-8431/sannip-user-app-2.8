@@ -60,6 +60,7 @@ dependencies:
   flutter_widget_from_html_core: ^0.14.12
   image: ^4.2.0
   lottie: ^3.1.2
+  animated_toggle_switch: ^0.8.2
 
 dev_dependencies:
   flutter_test:

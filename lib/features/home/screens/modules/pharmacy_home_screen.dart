@@ -19,9 +19,9 @@ class PharmacyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = AuthHelper.isLoggedIn();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
+      SizedBox(
         width: MediaQuery.of(context).size.width,
-        color: Theme.of(context).disabledColor.withOpacity(0.1),
+        // color: Theme.of(context).disabledColor.withOpacity(0.1),
         child: const Column(
           children: [
             BadWeatherWidget(),

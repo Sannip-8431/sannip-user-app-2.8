@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sannip/features/home/widgets/brands_view_widget.dart';
 import 'package:sannip/helper/auth_helper.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/features/flash_sale/widgets/flash_sale_view_widget.dart';
 import 'package:sannip/features/home/widgets/bad_weather_widget.dart';
 import 'package:sannip/features/home/widgets/views/product_with_categories_view.dart';
@@ -25,14 +24,14 @@ class ShopHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = AuthHelper.isLoggedIn();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
+      SizedBox(
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
+        /*decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Images.shopModuleBannerBg),
             fit: BoxFit.cover,
           ),
-        ),
+        ),*/
         child: const Column(
           children: [
             BadWeatherWidget(),

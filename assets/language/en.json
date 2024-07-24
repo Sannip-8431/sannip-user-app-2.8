@@ -1258,11 +1258,15 @@
   "away": "Away",
   "your_orders" : "Your Orders",
   "thanks_to_delivery_partner_with_a_tip": "Thanks to Delivery partner with a tip",
-  "delivery_man_tip_description": "Your Kindness means a lot! The entire tip will be transferred directly to them as soon as the order is delivered",
+  "delivery_man_tip_description": "Would you like to give tip to your delivery person?",
   "do_you_have_any_instructions?": "Do you have any instructions?",
   "add_note_bottomSheet_description": "The Vendor will try their best to follow your instructions. However, no cancellation or refund will be possible if your request is not met.",
   "billing_information": "Billing Information",
   "packaging_fee": "Packaging Fee",
   "additional_charges_description": "Sannip has no role to play in taxes levied by the govt. and charges decided by restaurants",
-  "select_delivery_day_and_time":"Select Delivery Day & Time"
+  "select_delivery_day_and_time":"Select Delivery Day & Time",
+  "rider_tip": "Rider Tip",
+  "cutlery_selected_text":"No cutlery provided. Thanks for reducing waste!",
+  "cutlery_not_selected_text":"If available, your order will come with cutlery",
+  "taxes": "Taxes"
 }

@@ -1,5 +1,4 @@
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:sannip/common/widgets/address_widget.dart';
@@ -55,6 +54,7 @@ import 'package:get/get.dart';
 import 'package:sannip/features/checkout/widgets/bottom_section.dart';
 import 'package:sannip/features/checkout/widgets/top_section.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final List<CartModel?>? cartList;
@@ -642,7 +642,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                       ),
                                                                                     ),
                                                                                     NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
-                                                                                    if (checkoutController.orderType == 'take_away')
+                                                                                    if (checkoutController.orderType != 'take_away')
                                                                                       ExtraPackagingWidget(
                                                                                         cartController: cartController,
                                                                                         onChanged: (val) {
@@ -1902,39 +1902,85 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: Dimensions.paddingSizeDefault,
                       vertical: Dimensions.paddingSizeSmall),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(Images.cutlery, height: 18, width: 18),
-                        const SizedBox(width: Dimensions.paddingSizeDefault),
-                        Expanded(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('add_cutlery'.tr,
-                                    style: robotoMedium.copyWith(
-                                        color: Theme.of(context).primaryColor)),
-                                const SizedBox(
-                                    height: Dimensions.paddingSizeExtraSmall),
-                                Text('do_not_have_cutlery'.tr,
-                                    style: robotoRegular.copyWith(
-                                        color: Theme.of(context).disabledColor,
-                                        fontSize: Dimensions.fontSizeSmall)),
-                              ]),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: CupertinoSwitch(
-                            value: cartController.addCutlery,
-                            activeColor: Theme.of(context).primaryColor,
-                            onChanged: (bool? value) {
-                              cartController.updateCutlery();
-                            },
-                            trackColor:
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                          ),
-                        )
-                      ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(Images.cutlery, height: 18, width: 18),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeDefault),
+                            Expanded(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('add_cutlery'.tr, style: robotoMedium),
+                                    /*const SizedBox(
+                                        height: Dimensions.paddingSizeExtraSmall),
+                                    Text('do_not_have_cutlery'.tr,
+                                        style: robotoRegular.copyWith(
+                                            color: Theme.of(context).disabledColor,
+                                            fontSize: Dimensions.fontSizeSmall)),*/
+                                  ]),
+                            ),
+                            SizedBox(
+                              width: 45.0,
+                              child: AnimatedToggleSwitch<bool>.dual(
+                                current: cartController.addCutlery,
+                                first: true,
+                                second: false,
+                                // spacing: 90.0,
+                                style: const ToggleStyle(
+                                  borderColor: Colors.transparent,
+                                ),
+                                borderWidth: 0.0,
+                                height: 26,
+                                onChanged: (b) =>
+                                    cartController.updateCutlery(),
+                                styleBuilder: (b) => ToggleStyle(
+                                  backgroundColor: b
+                                      ? Theme.of(context).hintColor
+                                      : Theme.of(context).primaryColor,
+                                  indicatorColor: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radiusSmall),
+                                  indicatorBorderRadius: BorderRadius.circular(
+                                      Dimensions.radiusSmall),
+                                ),
+                                iconBuilder: (value) => Container(
+                                  width: 20.0,
+                                  height: 20.0,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusSmall),
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            /*Transform.scale(
+                              scale: 0.7,
+                              child: CupertinoSwitch(
+                                value: cartController.addCutlery,
+                                activeColor: Theme.of(context).primaryColor,
+                                onChanged: (bool? value) {
+                                  cartController.updateCutlery();
+                                },
+                                trackColor: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5),
+                              ),
+                            )*/
+                          ]),
+                      Text(
+                          cartController.addCutlery
+                              ? 'cutlery_selected_text'.tr
+                              : 'cutlery_not_selected_text'.tr,
+                          style: robotoRegular.copyWith(
+                              color: Theme.of(context).disabledColor,
+                              fontSize: Dimensions.fontSizeDefault)),
+                    ],
+                  ),
                 )
               : const SizedBox(),
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sannip/features/home/widgets/views/category_view.dart';
 import 'package:sannip/helper/auth_helper.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/features/home/widgets/bad_weather_widget.dart';
 import 'package:sannip/features/home/widgets/views/best_reviewed_item_view.dart';
 import 'package:sannip/features/home/widgets/views/best_store_nearby_view.dart';
@@ -20,14 +19,14 @@ class FoodHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = AuthHelper.isLoggedIn();
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
+      SizedBox(
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
+        /*decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Images.foodModuleBannerBg),
             fit: BoxFit.cover,
           ),
-        ),
+        ),*/
         child: const Column(
           children: [
             BadWeatherWidget(),

@@ -632,13 +632,24 @@ class BottomSection extends StatelessWidget {
           const Divider(
             height: 0,
           ),
-          CustomInkWell(
-              padding: const EdgeInsets.symmetric(
-                  vertical: Dimensions.paddingSizeExtraSmall),
-              child: Text('okay'.tr, style: robotoBold),
-              onTap: () {
-                Get.back();
-              })
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: CustomInkWell(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: Dimensions.paddingSizeExtraSmall),
+                    child: Text(
+                      'okay'.tr,
+                      style: robotoBold,
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      Get.back();
+                    }),
+              ),
+            ],
+          )
         ],
       ),
     );

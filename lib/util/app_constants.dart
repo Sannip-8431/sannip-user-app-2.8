@@ -225,10 +225,10 @@ class AppConstants {
   // static List<String> tips = ['0', '15', '10', '20', '40', 'custom'];
   static List<Map<String, dynamic>> tipsWithEmoji = [
     {"amount": "0", "emoji": ""},
-    {"amount": "15", "emoji": "😀"},
-    {"amount": "10", "emoji": "😊"},
-    {"amount": "20", "emoji": "🥰"},
-    {"amount": "40", "emoji": "😍"},
+    {"amount": "10", "emoji": "🍪"},
+    {"amount": "20", "emoji": "☕"},
+    {"amount": "30", "emoji": "🍫"},
+    {"amount": "40", "emoji": "🍩"},
     {"amount": "custom", "emoji": ""},
   ];
   static List<String> deliveryInstructionList = [
