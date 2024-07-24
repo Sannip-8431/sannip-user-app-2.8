@@ -60,9 +60,9 @@ class _ItemsViewState extends State<ItemsView> {
 
     return Column(children: [
       ((widget.isFoodOrGrocery! && widget.isStore) ||
-              Get.find<SplashController>().module!.moduleType.toString() ==
+              Get.find<SplashController>().module?.moduleType.toString() ==
                   AppConstants.grocery ||
-              Get.find<SplashController>().module!.moduleType.toString() ==
+              Get.find<SplashController>().module?.moduleType.toString() ==
                   AppConstants.ecommerce)
           ? !isNull
               ? length > 0

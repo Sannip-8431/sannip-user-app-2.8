@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
@@ -28,7 +29,7 @@ class NoDataScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
-                child: Image.asset(
+                /*child: Image.asset(
                   fromAddress
                       ? Images.address
                       : isCart
@@ -36,7 +37,18 @@ class NoDataScreen extends StatelessWidget {
                           : Images.noDataFound,
                   width: MediaQuery.of(context).size.height * 0.15,
                   height: MediaQuery.of(context).size.height * 0.15,
-                ),
+                ),*/
+                child: fromAddress || isCart
+                    ? Image.asset(
+                        fromAddress ? Images.address : Images.emptyCart,
+                        width: MediaQuery.of(context).size.height * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                      )
+                    : Lottie.asset(
+                        Images.lottieNoDataFound,
+                        width: MediaQuery.of(context).size.height * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                      ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Text(
