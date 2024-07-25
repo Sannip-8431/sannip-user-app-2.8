@@ -84,7 +84,7 @@ class _ItemsViewState extends State<ItemsView> {
                             ? (1 / 0.6)
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
-                                    ? 2
+                                    ? 3
                                     : 3.8
                                 : 3.3,
                         mainAxisExtent: ResponsiveHelper.isDesktop(context) &&
@@ -93,7 +93,7 @@ class _ItemsViewState extends State<ItemsView> {
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
                                     ? 200
-                                    : 300
+                                    : 325
                                 : 260,
                         crossAxisCount: ResponsiveHelper.isMobile(context)
                             ? 2
@@ -161,7 +161,7 @@ class _ItemsViewState extends State<ItemsView> {
                             ? (1 / 0.6)
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.isStore
-                                    ? 2
+                                    ? 3
                                     : 3.8
                                 : 3,
                     mainAxisExtent:
@@ -170,7 +170,7 @@ class _ItemsViewState extends State<ItemsView> {
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.isStore
                                     ? 200
-                                    : 300
+                                    : 325
                                 : 250,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
                         ? 2

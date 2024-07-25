@@ -267,10 +267,10 @@ class ItemWidget extends StatelessWidget {
                           //             : item!.ratingCount,
                           //       )
                           //     : const SizedBox(),
-                          SizedBox(
-                              height: (!isStore && desktop)
-                                  ? Dimensions.paddingSizeExtraSmall
-                                  : Dimensions.paddingSizeExtraSmall),
+                          // SizedBox(
+                          //     height: (!isStore && desktop)
+                          //         ? Dimensions.paddingSizeExtraSmall
+                          //         : 0),
                           (Get.find<SplashController>()
                                       .configModel!
                                       .moduleConfig!
@@ -278,11 +278,14 @@ class ItemWidget extends StatelessWidget {
                                       .unit! &&
                                   item != null &&
                                   item!.unitType != null)
-                              ? Text(
-                                  '(${item!.unitType ?? ''})',
-                                  style: robotoRegular.copyWith(
-                                      fontSize: Dimensions.fontSizeExtraSmall,
-                                      color: Theme.of(context).hintColor),
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 4.0),
+                                  child: Text(
+                                    '(${item!.unitType ?? ''})',
+                                    style: robotoRegular.copyWith(
+                                        fontSize: Dimensions.fontSizeExtraSmall,
+                                        color: Theme.of(context).hintColor),
+                                  ),
                                 )
                               : const SizedBox(),
                           // !isStore ? const Spacer() : const SizedBox(),
@@ -296,205 +299,192 @@ class ItemWidget extends StatelessWidget {
                                       ? store!.ratingCount
                                       : item!.ratingCount,
                                 )
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal:
-                                              Dimensions.paddingSizeExtraSmall),
-                                      child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              PriceConverter.convertPrice(
-                                                  item!.price,
-                                                  discount: discount,
-                                                  discountType: discountType),
-                                              style: robotoMedium.copyWith(
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal:
+                                          Dimensions.paddingSizeExtraSmall),
+                                  child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          PriceConverter.convertPrice(
+                                              item!.price,
+                                              discount: discount,
+                                              discountType: discountType),
+                                          style: robotoMedium.copyWith(
+                                              fontSize:
+                                                  Dimensions.fontSizeDefault),
+                                          textDirection: TextDirection.ltr,
+                                        ),
+                                        SizedBox(width: discount! > 0 ? 2 : 0),
+                                        discount > 0
+                                            ? Text(
+                                                PriceConverter.convertPrice(
+                                                    item!.price),
+                                                style: robotoMedium.copyWith(
                                                   fontSize: Dimensions
-                                                      .fontSizeDefault),
-                                              textDirection: TextDirection.ltr,
+                                                      .fontSizeExtraSmall,
+                                                  color: Theme.of(context)
+                                                      .disabledColor,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                ),
+                                                textDirection:
+                                                    TextDirection.ltr,
+                                              )
+                                            : const SizedBox(),
+                                      ]),
+                                ),
+                          SizedBox(
+                              height: isStore
+                                  ? Dimensions.paddingSizeExtraSmall
+                                  : 0),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                                mainAxisAlignment: isStore
+                                    ? MainAxisAlignment.center
+                                    : MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(),
+                                  // fromCartSuggestion
+                                  //     ? Container(
+                                  //         decoration: BoxDecoration(
+                                  //           color: Theme.of(context)
+                                  //               .primaryColor,
+                                  //           shape: BoxShape.circle,
+                                  //         ),
+                                  //         padding: const EdgeInsets.all(
+                                  //             Dimensions
+                                  //                 .paddingSizeExtraSmall),
+                                  //         child: Icon(Icons.add,
+                                  //             color: Theme.of(context)
+                                  //                 .cardColor,
+                                  //             size: 12),
+                                  //       )
+                                  //     : GetBuilder<FavouriteController>(
+                                  //         builder:
+                                  //             (favouriteController) {
+                                  //         bool isWished = isStore
+                                  //             ? favouriteController
+                                  //                 .wishStoreIdList
+                                  //                 .contains(store!.id)
+                                  //             : favouriteController
+                                  //                 .wishItemIdList
+                                  //                 .contains(item!.id);
+                                  //         return InkWell(
+                                  //           onTap:
+                                  //               !favouriteController
+                                  //                       .isRemoving
+                                  //                   ? () {
+                                  //                       if (AuthHelper
+                                  //                           .isLoggedIn()) {
+                                  //                         isWished
+                                  //                             ? favouriteController.removeFromFavouriteList(
+                                  //                                 isStore
+                                  //                                     ? store!
+                                  //                                         .id
+                                  //                                     : item!
+                                  //                                         .id,
+                                  //                                 isStore)
+                                  //                             : favouriteController.addToFavouriteList(
+                                  //                                 item,
+                                  //                                 store,
+                                  //                                 isStore);
+                                  //                       } else {
+                                  //                         showCustomSnackBar(
+                                  //                             'you_are_not_logged_in'
+                                  //                                 .tr);
+                                  //                       }
+                                  //                     }
+                                  //                   : null,
+                                  //           child: Padding(
+                                  //             padding: EdgeInsets.symmetric(
+                                  //                 vertical: desktop
+                                  //                     ? Dimensions
+                                  //                         .paddingSizeSmall
+                                  //                     : 0),
+                                  //             child: Icon(
+                                  //               isWished
+                                  //                   ? Icons.favorite
+                                  //                   : Icons
+                                  //                       .favorite_border,
+                                  //               size: desktop ? 30 : 25,
+                                  //               color: isWished
+                                  //                   ? Theme.of(context)
+                                  //                       .primaryColor
+                                  //                   : Theme.of(context)
+                                  //                       .disabledColor,
+                                  //             ),
+                                  //           ),
+                                  //         );
+                                  //       }),
+                                  CartCountView(
+                                    item: item!,
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Container(
+                                          width: 120,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusSmall),
+                                            color: Theme.of(context).cardColor,
+                                            border: Border.all(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black12,
+                                                  blurRadius: 5,
+                                                  spreadRadius: 1)
+                                            ],
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: Dimensions
+                                                .paddingSizeExtraSmall,
+                                          ),
+                                          child: Text(
+                                            'add_to_cart'.tr,
+                                            style: robotoMedium.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                             ),
-                                            SizedBox(
-                                                width: discount! > 0 ? 2 : 0),
-                                            discount > 0
-                                                ? Text(
-                                                    PriceConverter.convertPrice(
-                                                        item!.price),
-                                                    style:
-                                                        robotoMedium.copyWith(
-                                                      fontSize: Dimensions
-                                                          .fontSizeDefault,
-                                                      color: Theme.of(context)
-                                                          .disabledColor,
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    ),
-                                                    textDirection:
-                                                        TextDirection.ltr,
-                                                  )
-                                                : const SizedBox(),
-                                          ]),
-                                    ),
-                                    Column(
-                                        mainAxisAlignment: isStore
-                                            ? MainAxisAlignment.center
-                                            : MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const SizedBox(),
-                                          // fromCartSuggestion
-                                          //     ? Container(
-                                          //         decoration: BoxDecoration(
-                                          //           color: Theme.of(context)
-                                          //               .primaryColor,
-                                          //           shape: BoxShape.circle,
-                                          //         ),
-                                          //         padding: const EdgeInsets.all(
-                                          //             Dimensions
-                                          //                 .paddingSizeExtraSmall),
-                                          //         child: Icon(Icons.add,
-                                          //             color: Theme.of(context)
-                                          //                 .cardColor,
-                                          //             size: 12),
-                                          //       )
-                                          //     : GetBuilder<FavouriteController>(
-                                          //         builder:
-                                          //             (favouriteController) {
-                                          //         bool isWished = isStore
-                                          //             ? favouriteController
-                                          //                 .wishStoreIdList
-                                          //                 .contains(store!.id)
-                                          //             : favouriteController
-                                          //                 .wishItemIdList
-                                          //                 .contains(item!.id);
-                                          //         return InkWell(
-                                          //           onTap:
-                                          //               !favouriteController
-                                          //                       .isRemoving
-                                          //                   ? () {
-                                          //                       if (AuthHelper
-                                          //                           .isLoggedIn()) {
-                                          //                         isWished
-                                          //                             ? favouriteController.removeFromFavouriteList(
-                                          //                                 isStore
-                                          //                                     ? store!
-                                          //                                         .id
-                                          //                                     : item!
-                                          //                                         .id,
-                                          //                                 isStore)
-                                          //                             : favouriteController.addToFavouriteList(
-                                          //                                 item,
-                                          //                                 store,
-                                          //                                 isStore);
-                                          //                       } else {
-                                          //                         showCustomSnackBar(
-                                          //                             'you_are_not_logged_in'
-                                          //                                 .tr);
-                                          //                       }
-                                          //                     }
-                                          //                   : null,
-                                          //           child: Padding(
-                                          //             padding: EdgeInsets.symmetric(
-                                          //                 vertical: desktop
-                                          //                     ? Dimensions
-                                          //                         .paddingSizeSmall
-                                          //                     : 0),
-                                          //             child: Icon(
-                                          //               isWished
-                                          //                   ? Icons.favorite
-                                          //                   : Icons
-                                          //                       .favorite_border,
-                                          //               size: desktop ? 30 : 25,
-                                          //               color: isWished
-                                          //                   ? Theme.of(context)
-                                          //                       .primaryColor
-                                          //                   : Theme.of(context)
-                                          //                       .disabledColor,
-                                          //             ),
-                                          //           ),
-                                          //         );
-                                          //       }),
-                                          CartCountView(
-                                            item: item!,
-                                            child: Stack(
-                                              clipBehavior: Clip.none,
-                                              children: [
-                                                Container(
-                                                  width: 90,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            Dimensions
-                                                                .radiusSmall),
-                                                    color: Theme.of(context)
-                                                        .cardColor,
-                                                    border: Border.all(
-                                                        color: Theme.of(context)
-                                                            .primaryColor),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                          color: Colors.black12,
-                                                          blurRadius: 5,
-                                                          spreadRadius: 1)
-                                                    ],
-                                                  ),
+                                          ),
+                                        ),
+                                        item?.choiceOptions?.isNotEmpty ?? false
+                                            ? Positioned(
+                                                left: 20,
+                                                right: 20,
+                                                bottom: -6,
+                                                child: Container(
                                                   padding: const EdgeInsets
                                                       .symmetric(
-                                                    vertical: Dimensions
-                                                        .paddingSizeExtraSmall,
-                                                  ),
+                                                      vertical: 02,
+                                                      horizontal: 1),
+                                                  color: Theme.of(context)
+                                                      .cardColor,
                                                   child: Text(
-                                                    'add'.tr,
+                                                    '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                    textAlign: TextAlign.center,
                                                     style:
                                                         robotoMedium.copyWith(
+                                                      fontSize: 8,
+                                                      height: 1.2,
                                                       color: Theme.of(context)
                                                           .primaryColor,
                                                     ),
                                                   ),
                                                 ),
-                                                item?.choiceOptions
-                                                            ?.isNotEmpty ??
-                                                        false
-                                                    ? Positioned(
-                                                        left: 20,
-                                                        right: 20,
-                                                        bottom: -6,
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 02,
-                                                                  horizontal:
-                                                                      1),
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cardColor,
-                                                          child: Text(
-                                                            '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: robotoMedium
-                                                                .copyWith(
-                                                              fontSize: 8,
-                                                              height: 1.2,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
-                                              ],
-                                            ),
-                                          )
-                                        ]),
-                                  ],
-                                ),
+                                              )
+                                            : const SizedBox(),
+                                      ],
+                                    ),
+                                  )
+                                ]),
+                          ),
                         ]),
                   ),
                   /* Column(
