@@ -34,9 +34,6 @@ class BannerView extends StatelessWidget {
           ? const SizedBox()
           : Container(
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).secondaryHeaderColor,
-                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
               height: GetPlatform.isDesktop
                   ? 500
                   : MediaQuery.of(context).size.width * 0.45,
@@ -121,12 +118,8 @@ class BannerView extends StatelessWidget {
                                     ],
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          Dimensions.radiusSmall),
-                                      topRight: Radius.circular(
-                                          Dimensions.radiusSmall),
-                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusSmall),
                                     child: GetBuilder<SplashController>(
                                         builder: (splashController) {
                                       return CustomImage(
