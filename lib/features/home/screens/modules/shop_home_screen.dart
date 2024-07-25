@@ -37,7 +37,6 @@ class ShopHomeScreen extends StatelessWidget {
             BadWeatherWidget(),
             BannerView(
               isFeatured: false,
-              isDesignChange: true,
             ),
             SizedBox(height: 12),
           ],
