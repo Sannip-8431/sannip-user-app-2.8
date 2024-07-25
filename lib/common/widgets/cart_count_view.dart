@@ -197,4 +197,50 @@ class CartCountView extends StatelessWidget {
             );
     });
   }
+
+/*   DateTime parseTimeString(String timeString) {
+    DateFormat timeFormat =
+        DateFormat.Hms(); // Hms represents hours, minutes, and seconds.
+    DateTime time = timeFormat.parse(timeString);
+
+    // Set the parsed time to the current date
+    DateTime now = DateTime.now();
+    DateTime dateTime = DateTime(
+        now.year, now.month, now.day, time.hour, time.minute, time.second);
+
+    return dateTime;
+  }
+
+  void _showNotAcceptingOrdersDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          title: Text(
+            'Currently not accepting orders',
+            style: robotoRegular.copyWith(
+                color: Theme.of(context).primaryColor, fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          actionsAlignment: MainAxisAlignment.end,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'OK',
+                style: robotoRegular.copyWith(
+                    color: Theme.of(context).primaryColor, fontSize: 16),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  } */
 }

@@ -12,7 +12,6 @@ import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
-import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/common/widgets/rating_bar.dart';
 import 'package:sannip/common/widgets/title_widget.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
@@ -130,7 +129,7 @@ class PopularStoreView extends StatelessWidget {
                                                     Dimensions.radiusSmall)),
                                         child: ColorFiltered(
                                           colorFilter: ColorFilter.mode(
-                                            Get.find<StoreController>()
+                                            storeController
                                                     .isOpenNow(storeList[index])
                                                 ? Colors.transparent
                                                 : Colors.grey,
@@ -155,11 +154,11 @@ class PopularStoreView extends StatelessWidget {
                                         freeDelivery:
                                             storeList[index].freeDelivery,
                                       ), */
-                                      storeController
+                                      /*  storeController
                                               .isOpenNow(storeList[index])
                                           ? const SizedBox()
                                           : const NotAvailableWidget(
-                                              isStore: true),
+                                              isStore: true), */
                                       Positioned(
                                         top: Dimensions.paddingSizeExtraSmall,
                                         right: Dimensions.paddingSizeExtraSmall,

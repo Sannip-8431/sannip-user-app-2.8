@@ -78,7 +78,7 @@ class StoreCardWidget extends StatelessWidget {
                             top: Radius.circular(Dimensions.radiusDefault)),
                         child: ColorFiltered(
                           colorFilter: ColorFilter.mode(
-                            !isAvailable ? Colors.transparent : Colors.grey,
+                            isAvailable ? Colors.transparent : Colors.grey,
                             BlendMode.saturation,
                           ),
                           child: CustomImage(

@@ -18,7 +18,6 @@ import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/common/widgets/new_tag.dart';
-import 'package:sannip/common/widgets/not_available_widget.dart';
 import 'package:sannip/features/store/screens/store_screen.dart';
 
 class StoreCardWithDistance extends StatelessWidget {
@@ -75,11 +74,19 @@ class StoreCardWithDistance extends StatelessWidget {
                       topLeft: Radius.circular(Dimensions.radiusDefault),
                       topRight: Radius.circular(Dimensions.radiusDefault)),
                   child: Stack(clipBehavior: Clip.none, children: [
-                    CustomImage(
-                      image: '${store.coverPhotoFullUrl}',
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
+                    ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Get.find<StoreController>().isOpenNow(store)
+                            ? Colors.transparent
+                            : Colors.grey,
+                        BlendMode.saturation,
+                      ),
+                      child: CustomImage(
+                        image: '${store.coverPhotoFullUrl}',
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                        width: double.infinity,
+                      ),
                     ),
                     /* DiscountTag(
                       discount: Get.find<StoreController>().getDiscount(store),
@@ -87,9 +94,9 @@ class StoreCardWithDistance extends StatelessWidget {
                           Get.find<StoreController>().getDiscountType(store),
                       freeDelivery: store.freeDelivery,
                     ), */
-                    Get.find<StoreController>().isOpenNow(store)
+                    /*  Get.find<StoreController>().isOpenNow(store)
                         ? const SizedBox()
-                        : const NotAvailableWidget(isStore: true),
+                        : const NotAvailableWidget(isStore: true), */
 
                     /* AddFavouriteView(
                       item: Item(id: store.id),
