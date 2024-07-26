@@ -359,4 +359,5 @@ class Images {
   static const String lottieNoDataFound = 'assets/lottie/no_data_found.json';
   static const String vegImageCircular = 'assets/image/veg_circular.png';
   static const String nonVegImageCircular = 'assets/image/non_veg_circular.png';
+  static const String sannipGreyLogo = 'assets/image/sannip_text_logo.png';
 }
