@@ -647,39 +647,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     )
-                                  : SliverToBoxAdapter(
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Live\nit up!',
-                                              style: robotoBlack.copyWith(
-                                                  height: 0.8,
-                                                  fontSize: 100,
-                                                  color: Colors.grey
-                                                      .withOpacity(0.9)),
+                                  : ResponsiveHelper.isDesktop(context)
+                                      ? const SliverToBoxAdapter(
+                                          child: SizedBox())
+                                      : SliverToBoxAdapter(
+                                          child: Container(
+                                            alignment: Alignment.centerLeft,
+                                            padding: const EdgeInsets.only(
+                                                left: Dimensions
+                                                    .paddingSizeSmall),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Live\nit up!',
+                                                  style: robotoBlack.copyWith(
+                                                      height: 0.8,
+                                                      fontSize: 100,
+                                                      color: Colors.grey
+                                                          .withOpacity(0.9)),
+                                                ),
+                                                const SizedBox(
+                                                  height: Dimensions
+                                                      .paddingSizeDefault,
+                                                ),
+                                                Text(
+                                                  'Crafted with ❤️ in Karnataka, India',
+                                                  style: robotoRegular.copyWith(
+                                                      fontSize: Dimensions
+                                                          .fontSizeDefault,
+                                                      color: Colors.grey
+                                                          .withOpacity(0.9)),
+                                                ),
+                                                const SizedBox(height: 30)
+                                              ],
                                             ),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                            Text(
-                                              'Crafted with ❤️ in Karnataka, India',
-                                              style: robotoRegular.copyWith(
-                                                  fontSize: Dimensions
-                                                      .fontSizeDefault,
-                                                  color: Colors.grey
-                                                      .withOpacity(0.9)),
-                                            ),
-                                            const SizedBox(height: 30)
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
                               const SliverToBoxAdapter(
                                 child: SizedBox(height: 80),
                               ),
