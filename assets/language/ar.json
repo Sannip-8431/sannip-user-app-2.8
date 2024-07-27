@@ -1262,5 +1262,6 @@
   "register_here": "سجل هنا",
   "create_new_account": "انشاء حساب جديد",
   "or_create_your_own_account": "أو إنشاء حسابك الخاص",
-  "account": "حساب"
+  "account": "حساب",
+  "currently_not_accepting_orders": "حاليا لا نقبل الطلبات"
 }

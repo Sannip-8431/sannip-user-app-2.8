@@ -1274,5 +1274,6 @@
   "register_here": "Register Here",
   "create_new_account": "Create New Account",
   "or_create_your_own_account": "or create your own account",
-  "account": "Account"
+  "account": "Account",
+  "currently_not_accepting_orders": "Currently not accepting orders"
 }

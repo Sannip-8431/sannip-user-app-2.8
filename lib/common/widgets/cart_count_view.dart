@@ -3,20 +3,41 @@ import 'package:get/get.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 
-class CartCountView extends StatelessWidget {
+class CartCountView extends StatefulWidget {
   final Item item;
   final Widget? child;
   const CartCountView({super.key, required this.item, this.child});
 
   @override
+  State<CartCountView> createState() => _CartCountViewState();
+}
+
+class _CartCountViewState extends State<CartCountView> {
+  Store? store;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getStoreData();
+  }
+
+  getStoreData() async {
+    store = await Get.find<StoreController>()
+        .getStoreDetails(Store(id: widget.item.storeId), false);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(builder: (cartController) {
-      int cartQty = cartController.cartQuantity(item.id!);
-      int cartIndex = cartController.isExistInCart(
-          item.id, cartController.cartVariant(item.id!), false, null);
+      int cartQty = cartController.cartQuantity(widget.item.id!);
+      int cartIndex = cartController.isExistInCart(widget.item.id,
+          cartController.cartVariant(widget.item.id!), false, null);
+
       return cartQty != 0
           ? Center(
               child: Container(
@@ -175,9 +196,15 @@ class CartCountView extends StatelessWidget {
             )
           : InkWell(
               onTap: () {
-                Get.find<ItemController>().itemDirectlyAddToCart(item, context);
+                if (Get.find<ItemController>().isAvailable(widget.item) &&
+                    Get.find<StoreController>().isOpenNow(store ?? Store())) {
+                  Get.find<ItemController>()
+                      .itemDirectlyAddToCart(widget.item, context);
+                } else {
+                  _showNotAcceptingOrdersDialog(context);
+                }
               },
-              child: child ??
+              child: widget.child ??
                   Container(
                     height: 25,
                     width: 25,
@@ -209,38 +236,36 @@ class CartCountView extends StatelessWidget {
         now.year, now.month, now.day, time.hour, time.minute, time.second);
 
     return dateTime;
-  }
+  }*/
 
   void _showNotAcceptingOrdersDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          title: Text(
-            'Currently not accepting orders',
-            style: robotoRegular.copyWith(
-                color: Theme.of(context).primaryColor, fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          actionsAlignment: MainAxisAlignment.end,
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'OK',
-                style: robotoRegular.copyWith(
-                    color: Theme.of(context).primaryColor, fontSize: 16),
-              ),
+    Get.dialog(
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        ),
+        contentPadding: EdgeInsets.zero,
+        title: Text(
+          'currently_not_accepting_orders'.tr,
+          style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeLarge),
+          textAlign: TextAlign.center,
+        ),
+        actionsAlignment: MainAxisAlignment.end,
+        actionsPadding: EdgeInsets.zero,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'okay'.tr,
+              style: robotoRegular.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: Dimensions.fontSizeLarge),
             ),
-          ],
-        );
-      },
+          ),
+        ],
+      ),
     );
-  } */
+  }
 }
