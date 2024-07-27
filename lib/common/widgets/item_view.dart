@@ -63,7 +63,9 @@ class _ItemsViewState extends State<ItemsView> {
               Get.find<SplashController>().module?.moduleType.toString() ==
                   AppConstants.grocery ||
               Get.find<SplashController>().module?.moduleType.toString() ==
-                  AppConstants.ecommerce)
+                  AppConstants.ecommerce ||
+              Get.find<SplashController>().module?.moduleType.toString() ==
+                  AppConstants.pharmacy)
           ? !isNull
               ? length > 0
                   ? GridView.builder(

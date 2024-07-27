@@ -469,11 +469,11 @@ class DashboardScreenState extends State<DashboardScreen> {
                                                               _setPage(3),
                                                         ),
                                                         BottomNavItemWidget(
-                                                          title: 'menu'.tr,
+                                                          title: 'account'.tr,
                                                           selectedIcon: Images
-                                                              .bottomMenuSelectedIcon,
+                                                              .bottomAccountSelectedIcon,
                                                           unSelectedIcon: Images
-                                                              .bottomMenuUnselectedIcon,
+                                                              .bottomAccountUnselectedIcon,
                                                           isSelected:
                                                               _pageIndex == 4,
                                                           onTap: () =>

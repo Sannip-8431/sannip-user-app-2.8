@@ -321,6 +321,10 @@ class Images {
       'assets/image/checkout_take_away_icon.png';
   static const String bottomMenuSelectedIcon =
       'assets/image/bottom_menu_selected_icon.png';
+  static const String bottomAccountUnselectedIcon =
+      'assets/image/bottom_account_unselected_icon.png';
+  static const String bottomAccountSelectedIcon =
+      'assets/image/bottom_account_selected_icon.png';
   static const String bottomMenuUnselectedIcon =
       'assets/image/bottom_menu_unselected_icon.png';
   static const String bottomFavouriteIcon =
