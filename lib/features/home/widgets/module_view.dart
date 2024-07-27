@@ -200,7 +200,7 @@ class ModuleView extends StatelessWidget {
                     locationController.addressList == null);
       }),
       const PopularStoreView(isPopular: false, isFeatured: true),
-      const SizedBox(height: 120),
+      const SizedBox(height: 40),
     ]);
   }
 }

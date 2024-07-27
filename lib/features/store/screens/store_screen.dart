@@ -1942,6 +1942,50 @@ class _StoreScreenState extends State<StoreScreen> {
                                   ),
                                 ),
                               )),
+                        ResponsiveHelper.isDesktop(context)
+                            ? const SliverToBoxAdapter(child: SizedBox())
+                            : const SliverToBoxAdapter(
+                                child: SizedBox(height: 40),
+                              ),
+                        ResponsiveHelper.isDesktop(context)
+                            ? const SliverToBoxAdapter(child: SizedBox())
+                            : SliverToBoxAdapter(
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: const EdgeInsets.only(
+                                      left: Dimensions.paddingSizeExtraSmall),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        Images.fssaiLogo,
+                                        // height: 70,
+                                        width: 36,
+                                        fit: BoxFit.fill,
+                                        color: Colors.grey.withOpacity(0.9),
+                                      ),
+                                      const SizedBox(
+                                          height:
+                                              Dimensions.paddingSizeExtraSmall /
+                                                  2),
+                                      Text(
+                                        'Lic. No. 1234567890',
+                                        style: robotoMedium.copyWith(
+                                            fontSize:
+                                                Dimensions.fontSizeDefault,
+                                            color:
+                                                Colors.grey.withOpacity(0.9)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                        ResponsiveHelper.isDesktop(context)
+                            ? const SliverToBoxAdapter(child: SizedBox())
+                            : const SliverToBoxAdapter(
+                                child: SizedBox(height: 30),
+                              ),
                       ],
                     )
                   : const StoreDetailsScreenShimmerWidget();
@@ -2165,3 +2209,17 @@ class CategoryProduct {
   List<Item> products;
   CategoryProduct(this.category, this.products);
 }
+
+
+/* Container(
+                                        alignment: Alignment.centerLeft,
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Image.asset(
+                                          Images.sannipGreyLogo,
+                                          // height: 70,
+                                          width: 100,
+                                          fit: BoxFit.contain,
+                                          color: Colors.grey.withOpacity(0.9),
+                                        ),
+                                      ) */
