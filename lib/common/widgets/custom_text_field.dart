@@ -126,7 +126,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                       : null,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               borderSide: BorderSide(
                   style:
                       widget.showBorder ? BorderStyle.solid : BorderStyle.none,
@@ -134,7 +134,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                   color: Theme.of(context).disabledColor),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               borderSide: BorderSide(
                   style:
                       widget.showBorder ? BorderStyle.solid : BorderStyle.none,
@@ -142,7 +142,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                   color: Theme.of(context).primaryColor),
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               borderSide: BorderSide(
                   style:
                       widget.showBorder ? BorderStyle.solid : BorderStyle.none,
@@ -150,14 +150,14 @@ class CustomTextFieldState extends State<CustomTextField> {
                   color: Theme.of(context).primaryColor),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               borderSide: BorderSide(
                   style:
                       widget.showBorder ? BorderStyle.solid : BorderStyle.none,
                   color: Theme.of(context).colorScheme.error),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               borderSide: BorderSide(
                   style:
                       widget.showBorder ? BorderStyle.solid : BorderStyle.none,

@@ -2,10 +2,8 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/auth/controllers/auth_controller.dart';
 import 'package:sannip/features/auth/domain/models/social_log_in_body.dart';
-import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
-import 'package:sannip/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -29,16 +27,16 @@ class SocialLoginWidget extends StatelessWidget {
                     .socialLogin![1]
                     .status!)
         ? Column(children: [
-            Center(
-                child: Text(
-                    ResponsiveHelper.isDesktop(context)
-                        ? 'or_continue_with'.tr
-                        : 'social_login'.tr,
-                    style: robotoMedium.copyWith(
-                        color: ResponsiveHelper.isDesktop(context)
-                            ? Theme.of(context).hintColor
-                            : null))),
-            const SizedBox(height: Dimensions.paddingSizeSmall),
+            // Center(
+            //     child: Text(
+            //         ResponsiveHelper.isDesktop(context)
+            //             ? 'or_continue_with'.tr
+            //             : 'social_login'.tr,
+            //         style: robotoMedium.copyWith(
+            //             color: ResponsiveHelper.isDesktop(context)
+            //                 ? Theme.of(context).hintColor
+            //                 : null))),
+            // const SizedBox(height: Dimensions.paddingSizeSmall),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Get.find<SplashController>().configModel!.socialLogin![0].status!
                   ? InkWell(
@@ -61,8 +59,9 @@ class SocialLoginWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(
                             Dimensions.paddingSizeExtraSmall),
                         decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          // borderRadius: BorderRadius.all(Radius.circular(5)),
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black12,
@@ -79,7 +78,7 @@ class SocialLoginWidget extends StatelessWidget {
                           .configModel!
                           .socialLogin![0]
                           .status!
-                      ? Dimensions.paddingSizeSmall
+                      ? Dimensions.paddingSizeLarge
                       : 0),
               // SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
@@ -107,7 +106,8 @@ class SocialLoginWidget extends StatelessWidget {
                             Dimensions.paddingSizeExtraSmall),
                         decoration: const BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          shape: BoxShape.circle,
+                          // borderRadius: BorderRadius.all(Radius.circular(5)),
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black12,
@@ -119,7 +119,7 @@ class SocialLoginWidget extends StatelessWidget {
                       ),
                     )
                   : const SizedBox(),
-              const SizedBox(width: Dimensions.paddingSizeSmall),
+              const SizedBox(width: Dimensions.paddingSizeLarge),
 
               Get.find<SplashController>()
                           .configModel!
@@ -162,7 +162,8 @@ class SocialLoginWidget extends StatelessWidget {
                             Dimensions.paddingSizeExtraSmall),
                         decoration: const BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          shape: BoxShape.circle,
+                          // borderRadius: BorderRadius.all(Radius.circular(5)),
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black12,
@@ -175,7 +176,7 @@ class SocialLoginWidget extends StatelessWidget {
                     )
                   : const SizedBox(),
             ]),
-            const SizedBox(height: Dimensions.paddingSizeSmall),
+            // const SizedBox(height: Dimensions.paddingSizeSmall),
           ])
         : const SizedBox();
   }

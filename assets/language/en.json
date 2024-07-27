@@ -1268,5 +1268,8 @@
   "rider_tip": "Rider Tip",
   "cutlery_selected_text":"No cutlery provided. Thanks for reducing waste!",
   "cutlery_not_selected_text":"If available, your order will come with cutlery",
-  "taxes": "Taxes"
+  "taxes": "Taxes",
+  "login_to_your_account": "Login to your account",
+  "or_use_your_email_account": "or use your email account",
+  "register_here": "Register Here"
 }

@@ -1256,5 +1256,8 @@
   "rider_tip": "نصيحة رايدر",
   "cutlery_selected_text":"لم يتم توفير أدوات المائدة. شكرا لتقليل النفايات!",
   "cutlery_not_selected_text":"إذا كان ذلك متاحًا، فسوف يأتي طلبك مع أدوات المائدة",
-  "taxes": "الضرائب"
+  "taxes": "الضرائب",
+  "login_to_your_account": "تسجيل الدخول إلى حسابك",
+  "or_use_your_email_account": "أو استخدم حساب البريد الإلكتروني الخاص بك",
+  "register_here": "سجل هنا"
 }

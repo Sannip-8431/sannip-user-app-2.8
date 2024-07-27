@@ -341,6 +341,7 @@ class Images {
       'assets/image/menu_privacy_policy_icon.png';
   static const String menuTermsAndConditionsIcon =
       'assets/image/menu_terms_and_conditions_icon.png';
+  static const String sannipFullLogo = 'assets/image/sannip_full_logo.png';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';
@@ -350,6 +351,7 @@ class Images {
   static const String vatTaxIcon = 'assets/image/vat_tax_icon.svg';
   static const String storeRegistrationSuccess =
       'assets/image/store_registration_success.svg';
+
   static const String checkGif = 'assets/image/check.gif';
   static const String cancelGif = 'assets/image/cancel.gif';
 
