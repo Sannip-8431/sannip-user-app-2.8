@@ -1262,5 +1262,5 @@
   "create_new_account": "Crear una nueva cuenta",
   "or_create_your_own_account": "o crea tu propia cuenta",
   "account": "Cuenta",
-  "currently_not_accepting_orders": "Actualmente no aceptamos pedidos"
+  "item_is_currently_unavailable": "El artículo no está disponible actualmente"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
@@ -240,31 +241,53 @@ class _CartCountViewState extends State<CartCountView> {
 
   void _showNotAcceptingOrdersDialog(BuildContext context) {
     Get.dialog(
-      AlertDialog(
+      Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        ),
-        contentPadding: EdgeInsets.zero,
-        title: Text(
-          'currently_not_accepting_orders'.tr,
-          style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeLarge),
-          textAlign: TextAlign.center,
-        ),
-        actionsAlignment: MainAxisAlignment.end,
-        actionsPadding: EdgeInsets.zero,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'okay'.tr,
-              style: robotoRegular.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: Dimensions.fontSizeLarge),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+        insetPadding: const EdgeInsets.all(80),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.paddingSizeExtraLarge),
+              child: Text(
+                'item_is_currently_unavailable'.tr,
+                style: robotoBold,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
+            ),
+            const Divider(
+              height: 0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CustomInkWell(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: Dimensions.paddingSizeExtraSmall),
+                      child: Text(
+                        'okay'.tr,
+                        style: robotoBold,
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        Get.back();
+                      }),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

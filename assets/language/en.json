@@ -1275,5 +1275,5 @@
   "create_new_account": "Create New Account",
   "or_create_your_own_account": "or create your own account",
   "account": "Account",
-  "currently_not_accepting_orders": "Currently not accepting orders"
+  "item_is_currently_unavailable": "The Item is Currently Unavailable"
 }
