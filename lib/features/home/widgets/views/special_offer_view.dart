@@ -50,17 +50,20 @@ class SpecialOfferView extends StatelessWidget {
                               left: Dimensions.paddingSizeDefault),
                           itemCount: discountedItemList.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: Dimensions.paddingSizeDefault,
-                                  right: Dimensions.paddingSizeDefault,
-                                  top: Dimensions.paddingSizeDefault),
-                              child: ItemCard(
-                                  item: discountedItemList[index],
-                                  isPopularItem: false,
-                                  isFood: isFood,
-                                  isShop: isShop),
-                            );
+                            return Get.find<ItemController>()
+                                    .isAvailable(discountedItemList[index])
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: Dimensions.paddingSizeDefault,
+                                        right: Dimensions.paddingSizeDefault,
+                                        top: Dimensions.paddingSizeDefault),
+                                    child: ItemCard(
+                                        item: discountedItemList[index],
+                                        isPopularItem: false,
+                                        isFood: isFood,
+                                        isShop: isShop),
+                                  )
+                                : const SizedBox();
                           },
                         ),
                       ),
