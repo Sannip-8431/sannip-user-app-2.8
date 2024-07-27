@@ -1259,5 +1259,7 @@
   "taxes": "করের",
   "login_to_your_account": "আপনার অ্যাকাউন্টে লগ ইন করুন",
   "or_use_your_email_account": "অথবা আপনার ইমেল অ্যাকাউন্ট ব্যবহার করুন",
-  "register_here": "এখানে নিবন্ধন করুন"
+  "register_here": "এখানে নিবন্ধন করুন",
+  "create_new_account": "নতুন অ্যাকাউন্ট তৈরি",
+  "or_create_your_own_account": "অথবা আপনার নিজের অ্যাকাউন্ট তৈরি করুন"
 }

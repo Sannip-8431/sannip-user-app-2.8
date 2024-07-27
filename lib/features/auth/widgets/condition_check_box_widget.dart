@@ -25,6 +25,7 @@ class ConditionCheckBoxWidget extends StatelessWidget {
                   return GetBuilder<AuthController>(builder: (authController) {
                     return Checkbox(
                       activeColor: Theme.of(context).primaryColor,
+                      shape: const CircleBorder(),
                       visualDensity:
                           const VisualDensity(horizontal: -4, vertical: -4),
                       value: forSignUp

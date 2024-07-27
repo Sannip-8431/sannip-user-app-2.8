@@ -1271,5 +1271,7 @@
   "taxes": "Taxes",
   "login_to_your_account": "Login to your account",
   "or_use_your_email_account": "or use your email account",
-  "register_here": "Register Here"
+  "register_here": "Register Here",
+  "create_new_account": "Create New Account",
+  "or_create_your_own_account": "or create your own account"
 }

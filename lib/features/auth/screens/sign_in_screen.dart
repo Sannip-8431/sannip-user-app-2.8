@@ -450,7 +450,8 @@ class SignInScreenState extends State<SignInScreen> {
                                                               .all(Dimensions
                                                                   .paddingSizeExtraSmall),
                                                           child: Text(
-                                                              'sign_up'.tr,
+                                                              'register_here'
+                                                                  .tr,
                                                               style: robotoMedium.copyWith(
                                                                   color: Theme.of(
                                                                           context)

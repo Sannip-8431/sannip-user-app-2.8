@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:sannip/features/auth/widgets/social_login_widget.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -70,9 +71,6 @@ class SignUpScreenState extends State<SignUpScreen> {
           child: Center(
         child: Container(
           width: context.width > 700 ? 700 : context.width,
-          padding: context.width > 700
-              ? const EdgeInsets.all(0)
-              : const EdgeInsets.all(Dimensions.paddingSizeLarge),
           margin: context.width > 700
               ? const EdgeInsets.all(Dimensions.paddingSizeDefault)
               : null,
@@ -108,10 +106,434 @@ class SignUpScreenState extends State<SignUpScreen> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(Images.logo, width: 125),
                             const SizedBox(
-                                height: Dimensions.paddingSizeExtraLarge),
-                            Align(
+                                height: Dimensions.paddingSizeDefault),
+                            Image.asset(Images.sannipFullLogo, width: 250),
+                            const SizedBox(
+                                height: Dimensions.paddingSizeDefault),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .disabledColor
+                                    .withOpacity(0.3),
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50)),
+                              ),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: context.width > 700
+                                        ? const EdgeInsets.symmetric(
+                                            horizontal: 0)
+                                        : const EdgeInsets.all(
+                                            Dimensions.paddingSizeSmall),
+                                    child: Text('create_new_account'.tr,
+                                        style: robotoMedium.copyWith(
+                                            fontSize:
+                                                Dimensions.fontSizeOverLarge)),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).cardColor,
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(50),
+                                          topRight: Radius.circular(50)),
+                                    ),
+                                    padding: context.width > 700
+                                        ? const EdgeInsets.symmetric(
+                                            horizontal: 0)
+                                        : const EdgeInsets.all(
+                                            Dimensions.paddingSizeExtremeLarge),
+                                    child: Column(
+                                      children: [
+                                        const SocialLoginWidget(),
+                                        const SizedBox(
+                                            height:
+                                                Dimensions.paddingSizeSmall),
+                                        Text(
+                                            '${'or_create_your_own_account'.tr} ',
+                                            style: robotoRegular.copyWith(
+                                                color: Theme.of(context)
+                                                    .disabledColor)),
+                                        const SizedBox(
+                                            height:
+                                                Dimensions.paddingSizeLarge),
+                                        Row(children: [
+                                          Expanded(
+                                            child: CustomTextField(
+                                              labelText: 'first_name'.tr,
+                                              titleText: 'ex_jhon'.tr,
+                                              controller: _firstNameController,
+                                              focusNode: _firstNameFocus,
+                                              nextFocus: _lastNameFocus,
+                                              inputType: TextInputType.name,
+                                              capitalization:
+                                                  TextCapitalization.words,
+                                              prefixIcon: Icons.person,
+                                              required: true,
+                                              validator: (value) =>
+                                                  ValidateCheck
+                                                      .validateEmptyText(
+                                                          value, null),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                              width:
+                                                  Dimensions.paddingSizeSmall),
+                                          Expanded(
+                                            child: CustomTextField(
+                                              labelText: 'last_name'.tr,
+                                              titleText: 'ex_doe'.tr,
+                                              controller: _lastNameController,
+                                              focusNode: _lastNameFocus,
+                                              nextFocus:
+                                                  ResponsiveHelper.isDesktop(
+                                                          context)
+                                                      ? _emailFocus
+                                                      : _phoneFocus,
+                                              inputType: TextInputType.name,
+                                              capitalization:
+                                                  TextCapitalization.words,
+                                              prefixIcon: Icons.person,
+                                              required: true,
+                                              validator: (value) =>
+                                                  ValidateCheck
+                                                      .validateEmptyText(
+                                                          value, null),
+                                            ),
+                                          )
+                                        ]),
+                                        const SizedBox(
+                                            height: Dimensions
+                                                .paddingSizeExtraLarge),
+                                        Row(children: [
+                                          ResponsiveHelper.isDesktop(context)
+                                              ? Expanded(
+                                                  child: CustomTextField(
+                                                    labelText: 'email'.tr,
+                                                    titleText: 'enter_email'.tr,
+                                                    controller:
+                                                        _emailController,
+                                                    focusNode: _emailFocus,
+                                                    nextFocus: ResponsiveHelper
+                                                            .isDesktop(context)
+                                                        ? _phoneFocus
+                                                        : _passwordFocus,
+                                                    inputType: TextInputType
+                                                        .emailAddress,
+                                                    prefixImage: Images.mail,
+                                                    required: true,
+                                                    validator: (value) =>
+                                                        ValidateCheck
+                                                            .validateEmail(
+                                                                value),
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                          SizedBox(
+                                              width: ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? Dimensions.paddingSizeSmall
+                                                  : 0),
+                                          Expanded(
+                                            child: CustomTextField(
+                                              labelText: 'phone'.tr,
+                                              titleText:
+                                                  'enter_phone_number'.tr,
+                                              controller: _phoneController,
+                                              focusNode: _phoneFocus,
+                                              nextFocus:
+                                                  ResponsiveHelper.isDesktop(
+                                                          context)
+                                                      ? _passwordFocus
+                                                      : _emailFocus,
+                                              inputType: TextInputType.phone,
+                                              isPhone: true,
+                                              onCountryChanged:
+                                                  (CountryCode countryCode) {
+                                                _countryDialCode =
+                                                    countryCode.dialCode;
+                                              },
+                                              countryDialCode: _countryDialCode != null
+                                                  ? CountryCode.fromCountryCode(
+                                                          Get.find<
+                                                                  SplashController>()
+                                                              .configModel!
+                                                              .country!)
+                                                      .code
+                                                  : Get.find<
+                                                          LocalizationController>()
+                                                      .locale
+                                                      .countryCode,
+                                              required: true,
+                                              validator: (value) =>
+                                                  ValidateCheck.validatePhone(
+                                                      value, null),
+                                            ),
+                                          ),
+                                        ]),
+                                        const SizedBox(
+                                            height: Dimensions
+                                                .paddingSizeExtraLarge),
+                                        !ResponsiveHelper.isDesktop(context)
+                                            ? CustomTextField(
+                                                labelText: 'email'.tr,
+                                                titleText: 'enter_email'.tr,
+                                                controller: _emailController,
+                                                focusNode: _emailFocus,
+                                                nextFocus: _passwordFocus,
+                                                inputType:
+                                                    TextInputType.emailAddress,
+                                                prefixIcon: Icons.mail,
+                                                required: true,
+                                                validator: (value) =>
+                                                    ValidateCheck
+                                                        .validateEmptyText(
+                                                            value, null),
+                                              )
+                                            : const SizedBox(),
+                                        SizedBox(
+                                            height: !ResponsiveHelper.isDesktop(
+                                                    context)
+                                                ? Dimensions.paddingSizeLarge
+                                                : 0),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Column(children: [
+                                                  CustomTextField(
+                                                    labelText: 'password'.tr,
+                                                    titleText: '8_character'.tr,
+                                                    controller:
+                                                        _passwordController,
+                                                    focusNode: _passwordFocus,
+                                                    nextFocus:
+                                                        _confirmPasswordFocus,
+                                                    inputType: TextInputType
+                                                        .visiblePassword,
+                                                    prefixIcon: Icons.lock,
+                                                    isPassword: true,
+                                                    required: true,
+                                                    validator: (value) =>
+                                                        ValidateCheck
+                                                            .validateEmptyText(
+                                                                value, null),
+                                                  ),
+                                                ]),
+                                              ),
+                                              SizedBox(
+                                                  width: ResponsiveHelper
+                                                          .isDesktop(context)
+                                                      ? Dimensions
+                                                          .paddingSizeSmall
+                                                      : 0),
+                                              ResponsiveHelper.isDesktop(
+                                                      context)
+                                                  ? Expanded(
+                                                      child: CustomTextField(
+                                                      labelText:
+                                                          'confirm_password'.tr,
+                                                      titleText:
+                                                          '8_character'.tr,
+                                                      controller:
+                                                          _confirmPasswordController,
+                                                      focusNode:
+                                                          _confirmPasswordFocus,
+                                                      nextFocus: Get.find<
+                                                                      SplashController>()
+                                                                  .configModel!
+                                                                  .refEarningStatus ==
+                                                              1
+                                                          ? _referCodeFocus
+                                                          : null,
+                                                      inputAction: Get.find<
+                                                                      SplashController>()
+                                                                  .configModel!
+                                                                  .refEarningStatus ==
+                                                              1
+                                                          ? TextInputAction.next
+                                                          : TextInputAction
+                                                              .done,
+                                                      inputType: TextInputType
+                                                          .visiblePassword,
+                                                      prefixIcon: Icons.lock,
+                                                      isPassword: true,
+                                                      onSubmit: (text) =>
+                                                          (GetPlatform.isWeb)
+                                                              ? _register(
+                                                                  authController,
+                                                                  _countryDialCode!)
+                                                              : null,
+                                                      required: true,
+                                                      validator: (value) =>
+                                                          ValidateCheck
+                                                              .validateEmptyText(
+                                                                  value, null),
+                                                    ))
+                                                  : const SizedBox()
+                                            ]),
+                                        const SizedBox(
+                                            height: Dimensions
+                                                .paddingSizeExtraLarge),
+                                        !ResponsiveHelper.isDesktop(context)
+                                            ? CustomTextField(
+                                                labelText:
+                                                    'confirm_password'.tr,
+                                                titleText: '8_character'.tr,
+                                                controller:
+                                                    _confirmPasswordController,
+                                                focusNode:
+                                                    _confirmPasswordFocus,
+                                                nextFocus: Get.find<
+                                                                SplashController>()
+                                                            .configModel!
+                                                            .refEarningStatus ==
+                                                        1
+                                                    ? _referCodeFocus
+                                                    : null,
+                                                inputAction: Get.find<
+                                                                SplashController>()
+                                                            .configModel!
+                                                            .refEarningStatus ==
+                                                        1
+                                                    ? TextInputAction.next
+                                                    : TextInputAction.done,
+                                                inputType: TextInputType
+                                                    .visiblePassword,
+                                                prefixIcon: Icons.lock,
+                                                isPassword: true,
+                                                onSubmit: (text) =>
+                                                    (GetPlatform.isWeb)
+                                                        ? _register(
+                                                            authController,
+                                                            _countryDialCode!)
+                                                        : null,
+                                                required: true,
+                                                validator: (value) =>
+                                                    ValidateCheck
+                                                        .validateEmptyText(
+                                                            value, null),
+                                              )
+                                            : const SizedBox(),
+                                        SizedBox(
+                                            height: !ResponsiveHelper.isDesktop(
+                                                    context)
+                                                ? Dimensions.paddingSizeLarge
+                                                : 0),
+                                        (Get.find<SplashController>()
+                                                    .configModel!
+                                                    .refEarningStatus ==
+                                                1)
+                                            ? CustomTextField(
+                                                labelText: 'refer_code'.tr,
+                                                titleText:
+                                                    'enter_refer_code'.tr,
+                                                controller:
+                                                    _referCodeController,
+                                                focusNode: _referCodeFocus,
+                                                inputAction:
+                                                    TextInputAction.done,
+                                                inputType: TextInputType.text,
+                                                capitalization:
+                                                    TextCapitalization.words,
+                                                prefixImage: Images.referCode,
+                                                prefixSize: 14,
+                                              )
+                                            : const SizedBox(),
+                                        const SizedBox(
+                                            height:
+                                                Dimensions.paddingSizeLarge),
+                                        const ConditionCheckBoxWidget(
+                                            forDeliveryMan: true),
+                                        const SizedBox(
+                                            height:
+                                                Dimensions.paddingSizeLarge),
+                                        CustomButton(
+                                          height: ResponsiveHelper.isDesktop(
+                                                  context)
+                                              ? 45
+                                              : null,
+                                          width: ResponsiveHelper.isDesktop(
+                                                  context)
+                                              ? 180
+                                              : MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.7,
+                                          radius: 100,
+                                          isBold: !ResponsiveHelper.isDesktop(
+                                              context),
+                                          fontSize: ResponsiveHelper.isDesktop(
+                                                  context)
+                                              ? Dimensions.fontSizeExtraSmall
+                                              : null,
+                                          buttonText:
+                                              'register'.tr.toUpperCase(),
+                                          isLoading: authController.isLoading,
+                                          onPressed: authController.acceptTerms
+                                              ? () => _register(authController,
+                                                  _countryDialCode!)
+                                              : null,
+                                        ),
+                                        const SizedBox(
+                                            height: Dimensions
+                                                .paddingSizeExtraLarge),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text('already_have_account'.tr,
+                                                  style: robotoRegular.copyWith(
+                                                      color: Theme.of(context)
+                                                          .hintColor)),
+                                              InkWell(
+                                                onTap: () {
+                                                  if (ResponsiveHelper
+                                                      .isDesktop(context)) {
+                                                    Get.back();
+                                                    Get.dialog(
+                                                        const SignInScreen(
+                                                            exitFromApp: false,
+                                                            backFromThis:
+                                                                false));
+                                                  } else {
+                                                    if (Get.currentRoute ==
+                                                        RouteHelper.signUp) {
+                                                      Get.back();
+                                                    } else {
+                                                      Get.toNamed(RouteHelper
+                                                          .getSignInRoute(
+                                                              RouteHelper
+                                                                  .signUp));
+                                                    }
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      Dimensions
+                                                          .paddingSizeExtraSmall),
+                                                  child: Text('sign_in'.tr,
+                                                      style:
+                                                          robotoMedium.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor)),
+                                                ),
+                                              ),
+                                            ]),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            /*Align(
                               alignment: Alignment.topLeft,
                               child: Text('sign_up'.tr,
                                   style: robotoBold.copyWith(
@@ -410,7 +832,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                                   .primaryColor)),
                                     ),
                                   ),
-                                ]),
+                                ]),*/
                           ]),
                     ),
                   ),

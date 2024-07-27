@@ -1259,5 +1259,7 @@
   "taxes": "الضرائب",
   "login_to_your_account": "تسجيل الدخول إلى حسابك",
   "or_use_your_email_account": "أو استخدم حساب البريد الإلكتروني الخاص بك",
-  "register_here": "سجل هنا"
+  "register_here": "سجل هنا",
+  "create_new_account": "انشاء حساب جديد",
+  "or_create_your_own_account": "أو إنشاء حسابك الخاص"
 }

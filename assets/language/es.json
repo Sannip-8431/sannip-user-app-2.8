@@ -1258,5 +1258,7 @@
   "taxes": "Impuestos",
   "login_to_your_account": "Ingrese a su cuenta",
   "or_use_your_email_account": "o utiliza tu cuenta de correo electrónico",
-  "register_here": "Registrar aquí"
+  "register_here": "Registrar aquí",
+  "create_new_account": "Crear una nueva cuenta",
+  "or_create_your_own_account": "o crea tu propia cuenta"
 }
