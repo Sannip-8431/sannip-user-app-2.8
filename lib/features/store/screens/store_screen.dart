@@ -1972,8 +1972,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                       Text(
                                         'Lic. No. 1234567890',
                                         style: robotoMedium.copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeDefault,
+                                            fontSize: Dimensions.fontSizeSmall,
                                             color:
                                                 Colors.grey.withOpacity(0.9)),
                                       ),
@@ -2209,7 +2208,6 @@ class CategoryProduct {
   List<Item> products;
   CategoryProduct(this.category, this.products);
 }
-
 
 /* Container(
                                         alignment: Alignment.centerLeft,

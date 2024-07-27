@@ -108,7 +108,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                           children: [
                             const SizedBox(
                                 height: Dimensions.paddingSizeDefault),
-                            Image.asset(Images.sannipFullLogo, width: 250),
+                            Image.asset(Images.sannipTextLogo, width: 250),
                             const SizedBox(
                                 height: Dimensions.paddingSizeDefault),
                             Container(

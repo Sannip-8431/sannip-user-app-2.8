@@ -345,7 +345,6 @@ class Images {
       'assets/image/menu_privacy_policy_icon.png';
   static const String menuTermsAndConditionsIcon =
       'assets/image/menu_terms_and_conditions_icon.png';
-  static const String sannipFullLogo = 'assets/image/sannip_full_logo.png';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';
@@ -365,6 +364,6 @@ class Images {
   static const String lottieNoDataFound = 'assets/lottie/no_data_found.json';
   static const String vegImageCircular = 'assets/image/veg_circular.png';
   static const String nonVegImageCircular = 'assets/image/non_veg_circular.png';
-  static const String sannipGreyLogo = 'assets/image/sannip_text_logo.png';
+  static const String sannipTextLogo = 'assets/image/sannip_text_logo.png';
   static const String fssaiLogo = 'assets/image/fssai_logo.png';
 }

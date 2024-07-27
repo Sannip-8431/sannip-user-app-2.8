@@ -639,7 +639,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding:
                                             const EdgeInsets.only(left: 10),
                                         child: Image.asset(
-                                          Images.sannipGreyLogo,
+                                          Images.sannipTextLogo,
                                           // height: 70,
                                           width: 100,
                                           fit: BoxFit.contain,
@@ -673,7 +673,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .paddingSizeDefault,
                                                 ),
                                                 Text(
-                                                  'Crafted with ❤️ in Karnataka, India',
+                                                  'Crafted with ❤️ in Bailhongal, Karnataka',
                                                   style: robotoRegular.copyWith(
                                                       fontSize: Dimensions
                                                           .fontSizeDefault,

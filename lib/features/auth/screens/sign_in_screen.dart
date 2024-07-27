@@ -194,7 +194,7 @@ class SignInScreenState extends State<SignInScreen> {
                         child: Column(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(Images.sannipFullLogo, width: 250),
+                              Image.asset(Images.sannipTextLogo, width: 250),
                               const SizedBox(
                                   height: Dimensions.paddingSizeExtraLarge),
                               const SizedBox(
