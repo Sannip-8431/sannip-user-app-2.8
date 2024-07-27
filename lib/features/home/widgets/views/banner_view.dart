@@ -36,7 +36,7 @@ class BannerView extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: GetPlatform.isDesktop
                   ? 500
-                  : MediaQuery.of(context).size.width * 0.45,
+                  : MediaQuery.of(context).size.width * 0.38,
               margin: const EdgeInsets.all(Dimensions.paddingSizeSmall),
               child: bannerList != null
                   ? Column(
@@ -48,7 +48,7 @@ class BannerView extends StatelessWidget {
                               autoPlay: true,
                               enlargeCenterPage: true,
                               disableCenter: true,
-                              viewportFraction: 1,
+                              viewportFraction: 0.8,
                               autoPlayInterval: const Duration(seconds: 7),
                               onPageChanged: (index, reason) {
                                 bannerController.setCurrentIndex(index, true);
@@ -109,7 +109,7 @@ class BannerView extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(
-                                        Dimensions.radiusSmall),
+                                        Dimensions.radiusLarge),
                                     boxShadow: const [
                                       BoxShadow(
                                           color: Colors.black12,
@@ -119,7 +119,7 @@ class BannerView extends StatelessWidget {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(
-                                        Dimensions.radiusSmall),
+                                        Dimensions.radiusLarge),
                                     child: GetBuilder<SplashController>(
                                         builder: (splashController) {
                                       return CustomImage(
@@ -133,7 +133,7 @@ class BannerView extends StatelessWidget {
                             },
                           ),
                         ),
-                        const SizedBox(
+                        /* const SizedBox(
                             height: Dimensions.paddingSizeExtraSmall),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +157,7 @@ class BannerView extends StatelessWidget {
                           }).toList(),
                         ),
                         const SizedBox(
-                            height: Dimensions.paddingSizeExtraSmall),
+                            height: Dimensions.paddingSizeExtraSmall),*/
                       ],
                     )
                   : Shimmer(
