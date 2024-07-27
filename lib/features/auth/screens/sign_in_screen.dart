@@ -153,9 +153,6 @@ class SignInScreenState extends State<SignInScreen> {
           child: Container(
             height: ResponsiveHelper.isDesktop(context) ? 690 : null,
             width: context.width > 700 ? 500 : context.width,
-            // padding: context.width > 700
-            //     ? const EdgeInsets.symmetric(horizontal: 0)
-            //     : const EdgeInsets.all(Dimensions.paddingSizeExtremeLarge),
             decoration: context.width > 700
                 ? BoxDecoration(
                     color: Theme.of(context).cardColor,
@@ -198,13 +195,10 @@ class SignInScreenState extends State<SignInScreen> {
                             // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(Images.sannipFullLogo, width: 250),
-                              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                              // Center(child: Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge))),
                               const SizedBox(
                                   height: Dimensions.paddingSizeExtraLarge),
                               const SizedBox(
                                   height: Dimensions.paddingSizeExtraLarge),
-
                               Container(
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
@@ -214,11 +208,6 @@ class SignInScreenState extends State<SignInScreen> {
                                       topLeft: Radius.circular(50),
                                       topRight: Radius.circular(50)),
                                 ),
-                                // padding: context.width > 700
-                                //     ? const EdgeInsets.symmetric(
-                                //         horizontal: 0)
-                                //     : const EdgeInsets.all(
-                                //         Dimensions.paddingSizeExtremeLarge),
                                 child: Column(
                                   children: [
                                     Padding(
@@ -308,36 +297,6 @@ class SignInScreenState extends State<SignInScreen> {
                                               height: Dimensions
                                                   .paddingSizeDefault),
                                           Row(children: [
-                                            // Expanded(
-                                            //   child: Row(
-                                            //     children: [
-                                            //       Transform.scale(
-                                            //         scale: 0.8,
-                                            //         child: CupertinoSwitch(
-                                            //             activeColor: Theme.of(
-                                            //                     context)
-                                            //                 .primaryColor
-                                            //                 .withOpacity(0.5),
-                                            //             thumbColor:
-                                            //                 Theme.of(context)
-                                            //                     .primaryColor,
-                                            //             trackColor:
-                                            //                 Theme.of(context)
-                                            //                     .disabledColor,
-                                            //             value: authController
-                                            //                 .isActiveRememberMe,
-                                            //             onChanged: (bool?
-                                            //                     isChecked) =>
-                                            //                 authController
-                                            //                     .toggleRememberMe()),
-                                            //       ),
-                                            //       const SizedBox(
-                                            //           width: Dimensions
-                                            //               .paddingSizeExtraSmall),
-                                            //       Text('remember_me'.tr),
-                                            //     ],
-                                            //   ),
-                                            // ),
                                             Expanded(
                                               child: ListTile(
                                                 onTap: () => authController
@@ -404,18 +363,10 @@ class SignInScreenState extends State<SignInScreen> {
                                                     0.7,
                                             buttonText:
                                                 'login'.tr.toUpperCase(),
-                                            // ResponsiveHelper.isDesktop(
-                                            //         context)
-                                            //     ? 'login'.tr
-                                            //     : 'sign_in'.tr,
                                             onPressed: () => _login(
                                                 authController,
                                                 _countryDialCode!),
                                             isLoading: authController.isLoading,
-                                            // radius: ResponsiveHelper
-                                            //         .isDesktop(context)
-                                            //     ? Dimensions.radiusSmall
-                                            //     : Dimensions.radiusDefault,
                                             radius: 100,
                                             isBold: !ResponsiveHelper.isDesktop(
                                                 context),
@@ -468,9 +419,6 @@ class SignInScreenState extends State<SignInScreen> {
                                                         ),
                                                       ),
                                                     ]),
-                                          /*ResponsiveHelper.isDesktop(context)
-                                              ? const SizedBox()
-                                              : const GuestButtonWidget(),*/
                                           ResponsiveHelper.isDesktop(context)
                                               ? Row(
                                                   mainAxisAlignment:
