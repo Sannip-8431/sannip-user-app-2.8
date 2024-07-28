@@ -183,10 +183,16 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                               checkoutController
                                                   .showTipsField();
                                             }
-                                            checkoutController
-                                                    .tipController.text =
-                                                checkoutController.tips
-                                                    .toString();
+                                            if (checkoutController.tips !=
+                                                0.0) {
+                                              checkoutController
+                                                      .tipController.text =
+                                                  checkoutController.tips
+                                                      .toString();
+                                            } else {
+                                              checkoutController
+                                                  .tipController.text = '';
+                                            }
 
                                             if (checkoutController
                                                     .isPartialPay ||
@@ -252,6 +258,7 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                             checkoutController.tipController,
                                         inputAction: TextInputAction.done,
                                         inputType: TextInputType.number,
+                                        prefixIcon: Icons.currency_rupee_sharp,
                                         onChanged: (String value) async {
                                           if (value.isNotEmpty) {
                                             try {
@@ -337,7 +344,7 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                               .changePartialPayment();
                                         }
                                       },
-                                      child: Container(
+                                      /*child: Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Theme.of(context)
@@ -347,7 +354,11 @@ class _DeliveryManTipsSectionState extends State<DeliveryManTipsSection> {
                                         padding: const EdgeInsets.all(
                                             Dimensions.paddingSizeSmall),
                                         child: const Icon(Icons.clear),
-                                      ),
+                                      ),*/
+                                      child: Text('close'.tr,
+                                          style: robotoMedium.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor)),
                                     ),
                                   ])
                                 : const SizedBox(),
