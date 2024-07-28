@@ -1264,5 +1264,7 @@
   "or_create_your_own_account": "অথবা আপনার নিজের অ্যাকাউন্ট তৈরি করুন",
   "account": "হিসাব",
   "item_is_currently_unavailable": "আইটেমটি বর্তমানে অনুপলব্ধ৷",
-  "will_be_available_between": "এর মধ্যে পাওয়া যাবে"
+  "will_be_available_between": "এর মধ্যে পাওয়া যাবে",
+  "replace_cart_item": "কার্ট আইটেম প্রতিস্থাপন করবেন?",
+  "replace": "প্রতিস্থাপন করুন"
 }

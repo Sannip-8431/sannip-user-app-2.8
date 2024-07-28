@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/common/widgets/expandable_text.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
@@ -13,10 +14,8 @@ import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/cart_snackbar.dart';
-import 'package:sannip/common/widgets/confirmation_dialog.dart';
 import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
@@ -975,47 +974,166 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                               : itemController.cartIndex != -1
                                                   ? 'update_in_cart'.tr
                                                   : 'add_to_cart'.tr,
-                                      onPressed: (!Get.find<SplashController>()
-                                                  .configModel!
-                                                  .moduleConfig!
-                                                  .module!
-                                                  .stock! ||
-                                              stock! > 0)
-                                          ? () async {
-                                              if (!Get.find<SplashController>()
+                                      onPressed:
+                                          (!Get.find<SplashController>()
                                                       .configModel!
                                                       .moduleConfig!
                                                       .module!
                                                       .stock! ||
-                                                  stock! > 0) {
-                                                if (itemController.item!
-                                                        .availableDateStarts !=
-                                                    null) {
-                                                  Get.toNamed(
-                                                      RouteHelper
-                                                          .getCheckoutRoute(
-                                                              'campaign'),
-                                                      arguments: CheckoutScreen(
-                                                        storeId: null,
-                                                        fromCart: false,
-                                                        cartList: [cartModel],
-                                                      ));
-                                                } else {
-                                                  if (cartController.existAnotherStoreItem(
-                                                      cartModel!.item!.storeId,
-                                                      Get.find<SplashController>()
-                                                                  .module ==
-                                                              null
-                                                          ? Get.find<
-                                                                  SplashController>()
-                                                              .cacheModule!
-                                                              .id
-                                                          : Get.find<
-                                                                  SplashController>()
-                                                              .module!
-                                                              .id)) {
-                                                    Get.dialog(
-                                                        ConfirmationDialog(
+                                                  stock! > 0)
+                                              ? () async {
+                                                  if (!Get.find<
+                                                              SplashController>()
+                                                          .configModel!
+                                                          .moduleConfig!
+                                                          .module!
+                                                          .stock! ||
+                                                      stock! > 0) {
+                                                    if (itemController.item!
+                                                            .availableDateStarts !=
+                                                        null) {
+                                                      Get.toNamed(
+                                                          RouteHelper
+                                                              .getCheckoutRoute(
+                                                                  'campaign'),
+                                                          arguments:
+                                                              CheckoutScreen(
+                                                            storeId: null,
+                                                            fromCart: false,
+                                                            cartList: [
+                                                              cartModel
+                                                            ],
+                                                          ));
+                                                    } else {
+                                                      if (cartController.existAnotherStoreItem(
+                                                          cartModel!
+                                                              .item!.storeId,
+                                                          Get.find<SplashController>()
+                                                                      .module ==
+                                                                  null
+                                                              ? Get.find<
+                                                                      SplashController>()
+                                                                  .cacheModule!
+                                                                  .id
+                                                              : Get.find<
+                                                                      SplashController>()
+                                                                  .module!
+                                                                  .id)) {
+                                                        Get.dialog(
+                                                            Dialog(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          Dimensions
+                                                                              .radiusDefault)),
+                                                              insetPadding:
+                                                                  const EdgeInsets
+                                                                      .all(60),
+                                                              clipBehavior: Clip
+                                                                  .antiAliasWithSaveLayer,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets
+                                                                    .all(
+                                                                    Dimensions
+                                                                        .paddingSizeSmall),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: [
+                                                                    const SizedBox(
+                                                                      height: Dimensions
+                                                                          .paddingSizeExtraSmall,
+                                                                    ),
+                                                                    Text(
+                                                                        'replace_cart_item'
+                                                                            .tr,
+                                                                        style:
+                                                                            robotoBold),
+                                                                    const SizedBox(
+                                                                      height: Dimensions
+                                                                          .paddingSizeSmall,
+                                                                    ),
+                                                                    Text(
+                                                                        Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText!
+                                                                            ? 'if_you_continue'
+                                                                                .tr
+                                                                            : 'if_you_continue_without_another_store'
+                                                                                .tr,
+                                                                        style:
+                                                                            robotoRegular),
+                                                                    const SizedBox(
+                                                                      height: Dimensions
+                                                                          .paddingSizeLarge,
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              CustomInkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              Get.back();
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                                                                color: Theme.of(context).primaryColor.withOpacity(0.2),
+                                                                              ),
+                                                                              padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                                              child: Text(
+                                                                                'no'.tr,
+                                                                                style: robotoRegular.copyWith(
+                                                                                  color: Theme.of(context).primaryColor,
+                                                                                ),
+                                                                                textAlign: TextAlign.center,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                          width:
+                                                                              Dimensions.paddingSizeLarge,
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              CustomInkWell(
+                                                                            onTap:
+                                                                                () {
+                                                                              Get.back();
+                                                                              cartController.clearCartOnline().then((success) async {
+                                                                                if (success) {
+                                                                                  await cartController.addToCartOnline(cart!);
+                                                                                  itemController.setExistInCart(widget.item);
+                                                                                  showCartSnackBar();
+                                                                                }
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                                                                color: Theme.of(context).primaryColor,
+                                                                              ),
+                                                                              padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                                              child: Text(
+                                                                                'replace'.tr,
+                                                                                style: robotoRegular.copyWith(
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                                textAlign: TextAlign.center,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            /* ConfirmationDialog(
                                                           icon: Images.warning,
                                                           title:
                                                               'are_you_sure_to_reset'
@@ -1048,43 +1166,44 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                               }
                                                             });
                                                           },
-                                                        ),
-                                                        barrierDismissible:
-                                                            false);
-                                                  } else {
-                                                    if (itemController
-                                                            .cartIndex ==
-                                                        -1) {
-                                                      await cartController
-                                                          .addToCartOnline(
-                                                              cart!)
-                                                          .then((success) {
-                                                        if (success) {
-                                                          itemController
-                                                              .setExistInCart(
-                                                                  widget.item);
-                                                          showCartSnackBar();
-                                                          _key.currentState!
-                                                              .shake();
+                                                        ),*/
+                                                            barrierDismissible:
+                                                                false);
+                                                      } else {
+                                                        if (itemController
+                                                                .cartIndex ==
+                                                            -1) {
+                                                          await cartController
+                                                              .addToCartOnline(
+                                                                  cart!)
+                                                              .then((success) {
+                                                            if (success) {
+                                                              itemController
+                                                                  .setExistInCart(
+                                                                      widget
+                                                                          .item);
+                                                              showCartSnackBar();
+                                                              _key.currentState!
+                                                                  .shake();
+                                                            }
+                                                          });
+                                                        } else {
+                                                          await cartController
+                                                              .updateCartOnline(
+                                                                  cart!)
+                                                              .then((success) {
+                                                            if (success) {
+                                                              showCartSnackBar();
+                                                              _key.currentState!
+                                                                  .shake();
+                                                            }
+                                                          });
                                                         }
-                                                      });
-                                                    } else {
-                                                      await cartController
-                                                          .updateCartOnline(
-                                                              cart!)
-                                                          .then((success) {
-                                                        if (success) {
-                                                          showCartSnackBar();
-                                                          _key.currentState!
-                                                              .shake();
-                                                        }
-                                                      });
+                                                      }
                                                     }
                                                   }
                                                 }
-                                              }
-                                            }
-                                          : null,
+                                              : null,
                                     ),
                                   ],
                                 ),

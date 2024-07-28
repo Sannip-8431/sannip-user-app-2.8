@@ -1,3 +1,4 @@
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/common/widgets/item_variations_bottom_sheet.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -14,13 +15,13 @@ import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/app_constants.dart';
-import 'package:sannip/util/images.dart';
+import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/common/widgets/cart_snackbar.dart';
-import 'package:sannip/common/widgets/confirmation_dialog.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/common/widgets/item_bottom_sheet.dart';
 import 'package:sannip/features/item/screens/item_details_screen.dart';
 import 'package:sannip/features/item/domain/services/item_service_interface.dart';
+import 'package:sannip/util/styles.dart';
 
 class ItemController extends GetxController implements GetxService {
   final ItemServiceInterface itemServiceInterface;
@@ -553,7 +554,105 @@ class ItemController extends GetxController implements GetxService {
               ? ModuleHelper.getModule()?.id
               : ModuleHelper.getCacheModule()?.id)) {
         Get.dialog(
-            ConfirmationDialog(
+            Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(Dimensions.radiusDefault)),
+              insetPadding: const EdgeInsets.all(60),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Padding(
+                padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: Dimensions.paddingSizeExtraSmall,
+                    ),
+                    Text('replace_cart_item'.tr, style: robotoBold),
+                    const SizedBox(
+                      height: Dimensions.paddingSizeSmall,
+                    ),
+                    Text(
+                        Get.find<SplashController>()
+                                .configModel!
+                                .moduleConfig!
+                                .module!
+                                .showRestaurantText!
+                            ? 'if_you_continue'.tr
+                            : 'if_you_continue_without_another_store'.tr,
+                        style: robotoRegular),
+                    const SizedBox(
+                      height: Dimensions.paddingSizeLarge,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomInkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.2),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: Dimensions.paddingSizeSmall),
+                              child: Text(
+                                'no'.tr,
+                                style: robotoRegular.copyWith(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: Dimensions.paddingSizeLarge,
+                        ),
+                        Expanded(
+                          child: CustomInkWell(
+                            onTap: () {
+                              Get.find<CartController>()
+                                  .clearCartOnline()
+                                  .then((success) async {
+                                if (success) {
+                                  await Get.find<CartController>()
+                                      .addToCartOnline(onlineCart);
+                                  Get.back();
+                                  showCartSnackBar();
+                                }
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall),
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: Dimensions.paddingSizeSmall),
+                              child: Text(
+                                'replace'.tr,
+                                style: robotoRegular.copyWith(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            /*ConfirmationDialog(
               icon: Images.warning,
               title: 'are_you_sure_to_reset'.tr,
               description: Get.find<SplashController>()
@@ -575,7 +674,7 @@ class ItemController extends GetxController implements GetxService {
                   }
                 });
               },
-            ),
+            ),*/
             barrierDismissible: false);
       } else {
         Get.find<CartController>().addToCartOnline(onlineCart);

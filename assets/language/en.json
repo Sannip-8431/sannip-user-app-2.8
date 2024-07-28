@@ -1276,5 +1276,7 @@
   "or_create_your_own_account": "or create your own account",
   "account": "Account",
   "item_is_currently_unavailable": "The Item is Currently Unavailable",
-  "will_be_available_between": "Will be available between"
+  "will_be_available_between": "Will be available between",
+  "replace_cart_item": "Replace cart item?",
+  "replace": "Replace"
 }
