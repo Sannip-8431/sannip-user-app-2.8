@@ -20,7 +20,7 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     ScrollController scrollController = ScrollController();
+    ScrollController scrollController = ScrollController();
 
     return GetBuilder<SplashController>(builder: (splashController) {
       bool isPharmacy = splashController.module != null &&
@@ -28,6 +28,9 @@ class CategoryView extends StatelessWidget {
               AppConstants.pharmacy;
       bool isFood = splashController.module != null &&
           splashController.module!.moduleType.toString() == AppConstants.food;
+      bool isGrocery = splashController.module != null &&
+          splashController.module!.moduleType.toString() ==
+              AppConstants.grocery;
 
       return GetBuilder<CategoryController>(builder: (categoryController) {
         return (categoryController.categoryList != null &&
@@ -52,7 +55,9 @@ class CategoryView extends StatelessWidget {
                                                 horizontal: Dimensions
                                                     .paddingSizeDefault),
                                             child: TitleWidget(
-                                              title: 'popular_cuisines'.tr,
+                                              title: isGrocery
+                                                  ? 'categories'.tr
+                                                  : 'shop_by_category'.tr,
                                               onTap: () => Get.toNamed(
                                                   RouteHelper
                                                       .getCategoryRoute()),
@@ -190,7 +195,8 @@ class CategoryView extends StatelessWidget {
                                         ],
                                       )
                                     : CategoryShimmer(
-                                        categoryController: categoryController),
+                                        categoryController: categoryController,
+                                        isGrocery: isGrocery),
                               ),
                               /* Expanded(
                                 child: SizedBox(
@@ -411,7 +417,8 @@ class CategoryView extends StatelessWidget {
                                         )
                                       : CategoryShimmer(
                                           categoryController:
-                                              categoryController),
+                                              categoryController,
+                                          isGrocery: isGrocery),
                             ],
                           ),
                         ],
@@ -583,7 +590,7 @@ class FoodCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final ScrollController scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
     int number = ((categoryController.categoryList?.length ?? 0) / 2).ceil();
     return Stack(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -884,21 +891,25 @@ class FoodCategoryView extends StatelessWidget {
 
 class CategoryShimmer extends StatelessWidget {
   final CategoryController categoryController;
-  const CategoryShimmer({super.key, required this.categoryController});
+  final bool isGrocery;
+  const CategoryShimmer(
+      {super.key, required this.categoryController, required this.isGrocery});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.paddingSizeSmall,
-              horizontal: Dimensions.paddingSizeDefault),
-          child: TitleWidget(
-            title: 'popular_cuisines'.tr,
-            onTap: () => Get.toNamed(RouteHelper.getCategoryRoute()),
-          ),
-        ),
+        ResponsiveHelper.isMobile(context)
+            ? Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: Dimensions.paddingSizeSmall,
+                    horizontal: Dimensions.paddingSizeDefault),
+                child: TitleWidget(
+                  title: isGrocery ? 'categories'.tr : 'shop_by_category'.tr,
+                  onTap: () => Get.toNamed(RouteHelper.getCategoryRoute()),
+                ),
+              )
+            : const SizedBox(),
         Padding(
           padding: const EdgeInsets.only(top: Dimensions.paddingSizeLarge),
           child: GridView.builder(

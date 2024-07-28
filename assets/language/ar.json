@@ -1266,5 +1266,6 @@
   "item_is_currently_unavailable": "العنصر غير متوفر حاليًا",
   "will_be_available_between": "سيكون متاحا بين",
   "replace_cart_item": "هل تريد استبدال عنصر سلة التسوق؟",
-  "replace": "يستبدل"
+  "replace": "يستبدل",
+  "shop_by_category": "تسوق حسب الاقسام"
 }

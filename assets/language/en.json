@@ -1278,5 +1278,6 @@
   "item_is_currently_unavailable": "The Item is Currently Unavailable",
   "will_be_available_between": "Will be available between",
   "replace_cart_item": "Replace cart item?",
-  "replace": "Replace"
+  "replace": "Replace",
+  "shop_by_category": "Shop by Category"
 }
