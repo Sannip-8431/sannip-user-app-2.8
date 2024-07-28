@@ -4,8 +4,11 @@ import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/features/store/domain/models/store_model.dart';
+import 'package:sannip/helper/date_converter.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 
@@ -262,6 +265,21 @@ class _CartCountViewState extends State<CartCountView> {
                 textAlign: TextAlign.center,
               ),
             ),
+            if (Get.find<SplashController>().module?.moduleType.toString() ==
+                AppConstants.food) ...[
+              const SizedBox(
+                height: Dimensions.paddingSizeSmall,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.paddingSizeExtraLarge),
+                child: Text(
+                  '${'will_be_available_between'.tr} ${DateConverter.convertTimeToTime(widget.item.availableTimeStarts!)} - ${DateConverter.convertTimeToTime(widget.item.availableTimeEnds!)}',
+                  style: robotoRegular,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
             const SizedBox(
               height: Dimensions.paddingSizeSmall,
             ),

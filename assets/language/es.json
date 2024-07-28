@@ -1262,5 +1262,6 @@
   "create_new_account": "Crear una nueva cuenta",
   "or_create_your_own_account": "o crea tu propia cuenta",
   "account": "Cuenta",
-  "item_is_currently_unavailable": "El artículo no está disponible actualmente"
+  "item_is_currently_unavailable": "El artículo no está disponible actualmente",
+  "will_be_available_between": "Estará disponible entre"
 }

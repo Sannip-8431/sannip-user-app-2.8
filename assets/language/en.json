@@ -1275,5 +1275,6 @@
   "create_new_account": "Create New Account",
   "or_create_your_own_account": "or create your own account",
   "account": "Account",
-  "item_is_currently_unavailable": "The Item is Currently Unavailable"
+  "item_is_currently_unavailable": "The Item is Currently Unavailable",
+  "will_be_available_between": "Will be available between"
 }

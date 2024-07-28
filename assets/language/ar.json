@@ -1263,5 +1263,6 @@
   "create_new_account": "انشاء حساب جديد",
   "or_create_your_own_account": "أو إنشاء حسابك الخاص",
   "account": "حساب",
-  "item_is_currently_unavailable": "العنصر غير متوفر حاليًا"
+  "item_is_currently_unavailable": "العنصر غير متوفر حاليًا",
+  "will_be_available_between": "سيكون متاحا بين"
 }
