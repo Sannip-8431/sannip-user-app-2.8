@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
@@ -17,7 +18,12 @@ class NoInternetScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Images.noInternet, width: 300, height: 300),
+            // Image.asset(Images.noInternet, width: 300, height: 300),
+            Lottie.asset(
+              Images.lottieNoInternet,
+              width: 300,
+              height: 300,
+            ),
             Text('oops'.tr,
                 style: robotoBold.copyWith(
                   fontSize: 30,
