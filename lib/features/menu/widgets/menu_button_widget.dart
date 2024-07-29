@@ -1,3 +1,4 @@
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
@@ -8,9 +9,7 @@ import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
-import 'package:sannip/common/widgets/confirmation_dialog.dart';
 import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +44,96 @@ class MenuButtonWidget extends StatelessWidget {
           Get.back();
           if (AuthHelper.isLoggedIn()) {
             Get.dialog(
-                ConfirmationDialog(
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radiusDefault)),
+                  insetPadding: const EdgeInsets.all(60),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Padding(
+                    padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: Dimensions.paddingSizeExtraSmall,
+                        ),
+                        Text('are_you_sure_to_logout'.tr, style: robotoBold),
+                        const SizedBox(
+                          height: Dimensions.paddingSizeLarge,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomInkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusExtraLarge),
+                                    color: Colors.green,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.paddingSizeExtraSmall),
+                                  child: Text(
+                                    'cancel'.tr.toUpperCase(),
+                                    style: robotoRegular.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: Dimensions.paddingSizeLarge,
+                            ),
+                            Expanded(
+                              child: CustomInkWell(
+                                onTap: () {
+                                  Get.find<ProfileController>().clearUserInfo();
+                                  Get.find<AuthController>().clearSharedData();
+                                  Get.find<AuthController>().socialLogout();
+                                  Get.find<CartController>().clearCartList();
+                                  Get.find<FavouriteController>()
+                                      .removeFavourite();
+                                  if (!ResponsiveHelper.isDesktop(context)) {
+                                    Get.offAllNamed(RouteHelper.getSignInRoute(
+                                        RouteHelper.splash));
+                                  } else {
+                                    Get.dialog(const SignInScreen(
+                                        exitFromApp: true, backFromThis: true));
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusExtraLarge),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.paddingSizeExtraSmall),
+                                  child: Text(
+                                    'logout'.tr.toUpperCase(),
+                                    style: robotoRegular.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                /*ConfirmationDialog(
                     icon: Images.support,
                     description: 'are_you_sure_to_logout'.tr,
                     isLogOut: true,
@@ -62,7 +150,7 @@ class MenuButtonWidget extends StatelessWidget {
                         Get.dialog(const SignInScreen(
                             exitFromApp: true, backFromThis: true));
                       }
-                    }),
+                    }),*/
                 useSafeArea: false);
           } else {
             if (!ResponsiveHelper.isDesktop(context)) {

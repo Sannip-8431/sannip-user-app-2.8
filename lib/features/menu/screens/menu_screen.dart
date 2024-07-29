@@ -17,7 +17,6 @@ import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
-import 'package:sannip/common/widgets/confirmation_dialog.dart';
 import 'package:sannip/features/menu/widgets/portion_widget.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -274,7 +273,105 @@ class _MenuScreenState extends State<MenuScreen> {
                 onTap: () async {
                   if (AuthHelper.isLoggedIn()) {
                     Get.dialog(
-                        ConfirmationDialog(
+                        Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusDefault)),
+                          insetPadding: const EdgeInsets.all(60),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: Padding(
+                            padding: const EdgeInsets.all(
+                                Dimensions.paddingSizeSmall),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(
+                                  height: Dimensions.paddingSizeExtraSmall,
+                                ),
+                                Text('are_you_sure_to_logout'.tr,
+                                    style: robotoBold),
+                                const SizedBox(
+                                  height: Dimensions.paddingSizeLarge,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomInkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusExtraLarge),
+                                            color: Colors.green,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: Dimensions
+                                                  .paddingSizeExtraSmall),
+                                          child: Text(
+                                            'cancel'.tr.toUpperCase(),
+                                            style: robotoRegular.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: Dimensions.paddingSizeLarge,
+                                    ),
+                                    Expanded(
+                                      child: CustomInkWell(
+                                        onTap: () {
+                                          Get.find<ProfileController>()
+                                              .clearUserInfo();
+                                          Get.find<AuthController>()
+                                              .clearSharedData();
+                                          Get.find<AuthController>()
+                                              .socialLogout();
+                                          Get.find<FavouriteController>()
+                                              .removeFavourite();
+                                          Get.find<HomeController>()
+                                              .forcefullyNullCashBackOffers();
+                                          if (ResponsiveHelper.isDesktop(
+                                              context)) {
+                                            Get.offAllNamed(
+                                                RouteHelper.getInitialRoute());
+                                          } else {
+                                            Get.offAllNamed(
+                                                RouteHelper.getSignInRoute(
+                                                    RouteHelper.splash));
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusExtraLarge),
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: Dimensions
+                                                  .paddingSizeExtraSmall),
+                                          child: Text(
+                                            'logout'.tr.toUpperCase(),
+                                            style: robotoRegular.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        /* ConfirmationDialog(
                             icon: Images.support,
                             description: 'are_you_sure_to_logout'.tr,
                             isLogOut: true,
@@ -291,7 +388,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                 Get.offAllNamed(RouteHelper.getSignInRoute(
                                     RouteHelper.splash));
                               }
-                            }),
+                            }),*/
                         useSafeArea: false);
                   } else {
                     Get.find<FavouriteController>().removeFavourite();
