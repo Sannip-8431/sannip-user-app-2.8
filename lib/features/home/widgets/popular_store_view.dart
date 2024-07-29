@@ -81,7 +81,7 @@ class PopularStoreView extends StatelessWidget {
                             filteredList.length > 10 ? 10 : filteredList.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            height: 220,
+                            height: 250,
                             padding: const EdgeInsets.only(
                                 right: Dimensions.paddingSizeDefault,
                                 bottom: 5),
@@ -277,67 +277,9 @@ class PopularStoreView extends StatelessWidget {
                                                   const SizedBox(
                                                       height: Dimensions
                                                           .paddingSizeExtraSmall),
-                                                  /*  Row(
-                                                    children: [
-                                                      Text(
-                                                        "OPEN : ",
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                            color:
-                                                                Colors.green),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                      Text(
-                                                        filteredList[index]
-                                                                .schedules
-                                                                ?.last
-                                                                .openingTime ??
-                                                            '',
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .disabledColor),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "CLOSE : ",
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                            color: Colors.red),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                      Text(
-                                                        filteredList[index]
-                                                                .schedules
-                                                                ?.last
-                                                                .closingTime ??
-                                                            '',
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .disabledColor),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ],
-                                                  ), */
+                                                  OpeningAndClosingTimeWidget(
+                                                      store:
+                                                          filteredList[index]),
                                                 ]),
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -369,6 +311,87 @@ class PopularStoreView extends StatelessWidget {
               ],
             );
     });
+  }
+}
+
+class OpeningAndClosingTimeWidget extends StatefulWidget {
+  final Store store;
+  const OpeningAndClosingTimeWidget({
+    super.key,
+    required this.store,
+  });
+
+  @override
+  State<OpeningAndClosingTimeWidget> createState() =>
+      _OpeningAndClosingTimeWidgetState();
+}
+
+class _OpeningAndClosingTimeWidgetState
+    extends State<OpeningAndClosingTimeWidget> {
+  Store? store;
+  getStoreData() async {
+    store = await Get.find<StoreController>()
+        .getStoreDetails(Store(id: widget.store.id), false);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getStoreData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return store != null &&
+            (store?.schedules != null || (store?.schedules?.isEmpty ?? false))
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "${"open".tr.toUpperCase()} : ",
+                    style: robotoMedium.copyWith(
+                        fontSize: Dimensions.fontSizeSmall - 1,
+                        color: Colors.green),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    Get.find<StoreController>().storeOpeningClosingTime(
+                            store?.schedules)["openingTime"] ??
+                        '',
+                    style: robotoMedium.copyWith(
+                        fontSize: Dimensions.fontSizeSmall - 1),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    "${"close".tr.toUpperCase()} : ",
+                    style: robotoMedium.copyWith(
+                        fontSize: Dimensions.fontSizeSmall - 1,
+                        color: Colors.red),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    Get.find<StoreController>().storeOpeningClosingTime(
+                            store?.schedules)["closingTime"] ??
+                        '',
+                    style: robotoMedium.copyWith(
+                        fontSize: Dimensions.fontSizeSmall - 1),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ],
+          )
+        : const SizedBox();
   }
 }
 

@@ -522,4 +522,19 @@ class StoreController extends GetxController implements GetxService {
 
   String? getDiscountType(Store store) =>
       store.discount != null ? store.discount!.discountType : 'percent';
+
+  Map<String, String> storeOpeningClosingTime(List<Schedules>? schedules) {
+    int weekday = DateTime.now().weekday;
+    for (int index = 0; index < schedules!.length; index++) {
+      if (weekday == schedules[index].day &&
+          DateConverter.isAvailable(
+              schedules[index].openingTime, schedules[index].closingTime)) {
+        return {
+          "openingTime": "${schedules[index].openingTime}",
+          "closingTime": "${schedules[index].closingTime}"
+        };
+      }
+    }
+    return {"openingTime": "-", "closingTime": "-"};
+  }
 }
