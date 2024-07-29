@@ -22,8 +22,12 @@ import 'package:get/get.dart';
 class PopularStoreView extends StatelessWidget {
   final bool isPopular;
   final bool isFeatured;
+  final String? searchedText;
   const PopularStoreView(
-      {super.key, required this.isPopular, required this.isFeatured});
+      {super.key,
+      required this.isPopular,
+      required this.isFeatured,
+      this.searchedText});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,13 @@ class PopularStoreView extends StatelessWidget {
           : isPopular
               ? storeController.popularStoreList
               : storeController.latestStoreList;
-
-      return (storeList != null && storeList.isEmpty)
+      List<Store>? filteredList = List.from(storeList ?? []);
+      if (searchedText?.trim() != '' || searchedText?.trim() != null) {
+        filteredList.retainWhere((element) =>
+            (element.name?.toLowerCase() ?? '')
+                .contains(searchedText!.trim().toLowerCase()));
+      }
+      return (filteredList.isEmpty)
           ? const SizedBox()
           : Column(
               children: [
@@ -60,7 +69,7 @@ class PopularStoreView extends StatelessWidget {
                                 : 'latest')),
                   ),
                 ),
-                storeList != null
+                filteredList.isNotEmpty
                     ? ListView.builder(
                         shrinkWrap: true,
                         controller: ScrollController(),
@@ -69,7 +78,7 @@ class PopularStoreView extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: Dimensions.paddingSizeSmall),
                         itemCount:
-                            storeList.length > 10 ? 10 : storeList.length,
+                            filteredList.length > 10 ? 10 : filteredList.length,
                         itemBuilder: (context, index) {
                           return Container(
                             height: 220,
@@ -100,7 +109,7 @@ class PopularStoreView extends StatelessWidget {
                                       in Get.find<SplashController>()
                                           .moduleList!) {
                                     if (module.id ==
-                                        storeList[index].moduleId) {
+                                        filteredList[index].moduleId) {
                                       Get.find<SplashController>()
                                           .setModule(module);
                                       break;
@@ -109,10 +118,10 @@ class PopularStoreView extends StatelessWidget {
                                 }
                                 Get.toNamed(
                                   RouteHelper.getStoreRoute(
-                                      id: storeList[index].id,
+                                      id: filteredList[index].id,
                                       page: isFeatured ? 'module' : 'store'),
                                   arguments: StoreScreen(
-                                      store: storeList[index],
+                                      store: filteredList[index],
                                       fromModule: isFeatured),
                                 );
                               },
@@ -129,15 +138,15 @@ class PopularStoreView extends StatelessWidget {
                                                     Dimensions.radiusSmall)),
                                         child: ColorFiltered(
                                           colorFilter: ColorFilter.mode(
-                                            storeController
-                                                    .isOpenNow(storeList[index])
+                                            storeController.isOpenNow(
+                                                    filteredList[index])
                                                 ? Colors.transparent
                                                 : Colors.grey,
                                             BlendMode.saturation,
                                           ),
                                           child: CustomImage(
                                             image:
-                                                '${storeList[index].coverPhotoFullUrl}',
+                                                '${filteredList[index].coverPhotoFullUrl}',
                                             height: 150,
                                             width: MediaQuery.of(context)
                                                 .size
@@ -148,14 +157,14 @@ class PopularStoreView extends StatelessWidget {
                                       ),
                                       /*  DiscountTag(
                                         discount: storeController
-                                            .getDiscount(storeList[index]),
+                                            .getDiscount(filteredList[index]),
                                         discountType: storeController
-                                            .getDiscountType(storeList[index]),
+                                            .getDiscountType(filteredList[index]),
                                         freeDelivery:
-                                            storeList[index].freeDelivery,
+                                            filteredList[index].freeDelivery,
                                       ), */
                                       /*  storeController
-                                              .isOpenNow(storeList[index])
+                                              .isOpenNow(filteredList[index])
                                           ? const SizedBox()
                                           : const NotAvailableWidget(
                                               isStore: true), */
@@ -166,19 +175,20 @@ class PopularStoreView extends StatelessWidget {
                                             builder: (favouriteController) {
                                           bool isWished = favouriteController
                                               .wishStoreIdList
-                                              .contains(storeList[index].id);
+                                              .contains(filteredList[index].id);
                                           return InkWell(
                                             onTap: () {
                                               if (AuthHelper.isLoggedIn()) {
                                                 isWished
                                                     ? favouriteController
                                                         .removeFromFavouriteList(
-                                                            storeList[index].id,
+                                                            filteredList[index]
+                                                                .id,
                                                             true)
                                                     : favouriteController
                                                         .addToFavouriteList(
                                                             null,
-                                                            storeList[index],
+                                                            filteredList[index],
                                                             true);
                                               } else {
                                                 showCustomSnackBar(
@@ -230,7 +240,8 @@ class PopularStoreView extends StatelessWidget {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    storeList[index].name ?? '',
+                                                    filteredList[index].name ??
+                                                        '',
                                                     style:
                                                         robotoMedium.copyWith(
                                                             fontSize: Dimensions
@@ -248,7 +259,7 @@ class PopularStoreView extends StatelessWidget {
                                                                   context)
                                                               .primaryColor),
                                                       Text(
-                                                        storeList[index]
+                                                        filteredList[index]
                                                                 .address ??
                                                             '',
                                                         style: robotoMedium.copyWith(
@@ -280,7 +291,7 @@ class PopularStoreView extends StatelessWidget {
                                                             .ellipsis,
                                                       ),
                                                       Text(
-                                                        storeList[index]
+                                                        filteredList[index]
                                                                 .schedules
                                                                 ?.last
                                                                 .openingTime ??
@@ -310,7 +321,7 @@ class PopularStoreView extends StatelessWidget {
                                                             .ellipsis,
                                                       ),
                                                       Text(
-                                                        storeList[index]
+                                                        filteredList[index]
                                                                 .schedules
                                                                 ?.last
                                                                 .closingTime ??
@@ -333,14 +344,14 @@ class PopularStoreView extends StatelessWidget {
                                                   top: Dimensions
                                                       .paddingSizeExtraSmall),
                                               child: /* RatingBar(
-                                                  rating: storeList[index]
+                                                  rating: filteredList[index]
                                                       .avgRating,
                                                   ratingCount:
-                                                      storeList[index]
+                                                      filteredList[index]
                                                           .ratingCount,
                                                   size: 12,) */
                                                   RatingCard(
-                                                rating: storeList[index]
+                                                rating: filteredList[index]
                                                         .avgRating ??
                                                     0,
                                               ),

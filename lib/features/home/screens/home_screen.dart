@@ -14,6 +14,7 @@ import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
 import 'package:sannip/features/notification/controllers/notification_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
+import 'package:sannip/features/search/widgets/search_field_widget.dart';
 import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
@@ -121,6 +122,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -525,7 +527,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ))),
                                     )
-                                  : const SliverToBoxAdapter(),
+                                  : SliverPersistentHeader(
+                                      pinned: true,
+                                      delegate: SliverDelegate(
+                                          child: Center(
+                                              child: Container(
+                                        height: 48,
+                                        width: Dimensions.webMaxWidth,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 8),
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusDefault)),
+                                        child: Row(children: [
+                                          Expanded(
+                                              child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusDefault),
+                                            child: SearchFieldWidget(
+                                              controller: _searchController,
+                                              hint:
+                                                  "${'search'.tr} ${'store'.tr}",
+                                              filledColor: Colors.grey[200],
+                                              iconColor: Theme.of(context)
+                                                  .primaryColor,
+                                              suffixIcon: CupertinoIcons.search,
+                                              iconPressed: () {},
+                                              onSubmit: (text) {},
+                                              onChanged: (text) {},
+                                            ),
+                                          )),
+                                        ]),
+                                      )))),
 
                               SliverToBoxAdapter(
                                 child: Center(
@@ -628,8 +662,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       ? 0
                                                       : 40),
                                             ])
-                                      : ModuleView(
-                                          splashController: splashController),
+                                      : ValueListenableBuilder(
+                                          valueListenable: _searchController,
+                                          builder: (context, val, widgett) {
+                                            return ModuleView(
+                                              splashController:
+                                                  splashController,
+                                              searchedText: val.text,
+                                            );
+                                          }),
                                 )),
                               ),
                               !showMobileModule

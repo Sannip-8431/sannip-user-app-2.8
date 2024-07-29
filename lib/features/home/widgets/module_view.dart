@@ -22,7 +22,9 @@ import 'package:sannip/features/home/widgets/popular_store_view.dart';
 
 class ModuleView extends StatelessWidget {
   final SplashController splashController;
-  const ModuleView({super.key, required this.splashController});
+  final String? searchedText;
+  const ModuleView(
+      {super.key, required this.splashController, this.searchedText});
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +201,8 @@ class ModuleView extends StatelessWidget {
                 isEnabled: AuthHelper.isLoggedIn() &&
                     locationController.addressList == null);
       }),
-      const PopularStoreView(isPopular: false, isFeatured: true),
+      PopularStoreView(
+          isPopular: false, isFeatured: true, searchedText: searchedText),
       const SizedBox(height: 40),
     ]);
   }
