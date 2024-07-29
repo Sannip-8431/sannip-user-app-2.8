@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/helper/price_converter.dart';
@@ -23,25 +24,31 @@ class ExtraPackagingWidget extends StatelessWidget {
                 color: Theme.of(context).disabledColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               ),
-              child: Row(children: [
-                Checkbox(
-                  activeColor: Theme.of(context).primaryColor,
-                  visualDensity:
-                      const VisualDensity(horizontal: -4, vertical: -4),
-                  value: cartController.needExtraPackage,
-                  onChanged: (bool? isChecked) {
-                    cartController.toggleExtraPackage();
-                    onChanged?.call(isChecked);
-                  },
-                ),
-                const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                Text('need_extra_packaging'.tr, style: robotoMedium),
-                const Spacer(),
-                Text(
-                    PriceConverter.convertPrice(
-                        storeController.store?.extraPackagingAmount),
-                    style: robotoMedium),
-              ]),
+              child: CustomInkWell(
+                onTap: () {
+                  cartController.toggleExtraPackage();
+                  onChanged?.call(cartController.needExtraPackage);
+                },
+                child: Row(children: [
+                  Checkbox(
+                    activeColor: Theme.of(context).primaryColor,
+                    visualDensity:
+                        const VisualDensity(horizontal: -4, vertical: -4),
+                    value: cartController.needExtraPackage,
+                    onChanged: (bool? isChecked) {
+                      cartController.toggleExtraPackage();
+                      onChanged?.call(isChecked);
+                    },
+                  ),
+                  const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                  Text('need_extra_packaging'.tr, style: robotoMedium),
+                  const Spacer(),
+                  Text(
+                      PriceConverter.convertPrice(
+                          storeController.store?.extraPackagingAmount),
+                      style: robotoMedium),
+                ]),
+              ),
             )
           : const SizedBox();
     });
