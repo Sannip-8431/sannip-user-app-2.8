@@ -1947,7 +1947,9 @@ class _StoreScreenState extends State<StoreScreen> {
                             : const SliverToBoxAdapter(
                                 child: SizedBox(height: 40),
                               ),
-                        ResponsiveHelper.isDesktop(context)
+
+                        ///uncomment to add fssai lic no
+                        /*ResponsiveHelper.isDesktop(context)
                             ? const SliverToBoxAdapter(child: SizedBox())
                             : SliverToBoxAdapter(
                                 child: Container(
@@ -1984,7 +1986,7 @@ class _StoreScreenState extends State<StoreScreen> {
                             ? const SliverToBoxAdapter(child: SizedBox())
                             : const SliverToBoxAdapter(
                                 child: SizedBox(height: 30),
-                              ),
+                              ),*/
                       ],
                     )
                   : const StoreDetailsScreenShimmerWidget();
