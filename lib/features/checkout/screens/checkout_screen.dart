@@ -1928,8 +1928,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                               width: 45.0,
                               child: AnimatedToggleSwitch<bool>.dual(
                                 current: cartController.addCutlery,
-                                first: true,
-                                second: false,
+                                first: false,
+                                second: true,
                                 // spacing: 90.0,
                                 style: const ToggleStyle(
                                   borderColor: Colors.transparent,
@@ -1939,7 +1939,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                 onChanged: (b) =>
                                     cartController.updateCutlery(),
                                 styleBuilder: (b) => ToggleStyle(
-                                  backgroundColor: b
+                                  backgroundColor: !b
                                       ? Theme.of(context).hintColor
                                       : Theme.of(context).primaryColor,
                                   indicatorColor: Colors.transparent,
@@ -1973,7 +1973,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                             )*/
                           ]),
                       Text(
-                          cartController.addCutlery
+                          !cartController.addCutlery
                               ? 'cutlery_selected_text'.tr
                               : 'cutlery_not_selected_text'.tr,
                           style: robotoRegular.copyWith(
