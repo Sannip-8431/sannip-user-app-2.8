@@ -231,11 +231,21 @@ class AppConstants {
     {"amount": "40", "emoji": "🍩"},
     {"amount": "custom", "emoji": ""},
   ];
-  static List<String> deliveryInstructionList = [
-    'deliver_to_front_door'.tr,
-    'deliver_the_reception_desk'.tr,
-    'avoid_calling_phone'.tr,
-    'come_with_no_sound'.tr,
+
+  // static List<String> deliveryInstructionList = [
+  //   'deliver_to_front_door'.tr,
+  //   'deliver_the_reception_desk'.tr,
+  //   'avoid_calling_phone'.tr,
+  //   'come_with_no_sound'.tr,
+  // ];
+  static List<Map<String, dynamic>> deliveryInstructionListWithEmoji = [
+    {"name": 'deliver_to_front_door'.tr, "icon": Images.deliveryDoorIcon},
+    {
+      "name": 'deliver_the_reception_desk'.tr,
+      "icon": Images.deliveryReceptionIcon
+    },
+    {"name": 'avoid_calling_phone'.tr, "icon": Images.deliveryPhoneIcon},
+    {"name": 'come_with_no_sound'.tr, "icon": Images.deliverySoundIcon},
   ];
 
   static List<ChooseUsModel> whyChooseUsList = [

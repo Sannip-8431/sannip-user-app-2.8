@@ -65,7 +65,8 @@ class _WebDeliveryInstructionViewState
                         ),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: AppConstants.deliveryInstructionList.length,
+                        itemCount: AppConstants
+                            .deliveryInstructionListWithEmoji.length,
                         itemBuilder: (context, index) {
                           bool isSelected =
                               checkoutController.selectedInstruction == index;
@@ -101,7 +102,10 @@ class _WebDeliveryInstructionViewState
                                   Expanded(
                                     child: Text(
                                       AppConstants
-                                          .deliveryInstructionList[index].tr,
+                                          .deliveryInstructionListWithEmoji[
+                                              index]['name']
+                                          .toString()
+                                          .tr,
                                       style: robotoMedium.copyWith(
                                           fontSize: Dimensions.fontSizeSmall,
                                           color: isSelected

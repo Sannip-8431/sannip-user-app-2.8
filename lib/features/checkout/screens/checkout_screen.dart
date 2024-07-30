@@ -1221,8 +1221,11 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                   : '',
                           deliveryInstruction:
                               checkoutController.selectedInstruction != -1
-                                  ? AppConstants.deliveryInstructionList[
-                                      checkoutController.selectedInstruction]
+                                  ? AppConstants
+                                      .deliveryInstructionListWithEmoji[
+                                          checkoutController
+                                              .selectedInstruction]['name']
+                                      .toString()
                                   : '',
                           partialPayment:
                               checkoutController.isPartialPay ? 1 : 0,
@@ -1273,8 +1276,10 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                 ? ''
                                 : checkoutController.tipController.text.trim(),
                             checkoutController.selectedInstruction != -1
-                                ? AppConstants.deliveryInstructionList[
-                                    checkoutController.selectedInstruction]
+                                ? AppConstants.deliveryInstructionListWithEmoji[
+                                        checkoutController.selectedInstruction]
+                                        ['name']
+                                    .toString()
                                 : '',
                             0,
                             0,

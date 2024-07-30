@@ -27,6 +27,7 @@ class _DeliveryInstructionViewState extends State<DeliveryInstructionView> {
               blurRadius: 10)
         ],
       ),
+      width: double.infinity,
       padding: const EdgeInsets.symmetric(
           horizontal: Dimensions.paddingSizeLarge,
           vertical: Dimensions.paddingSizeExtraSmall),
@@ -47,10 +48,13 @@ class _DeliveryInstructionViewState extends State<DeliveryInstructionView> {
               onExpansionChanged: (value) =>
                   orderController.expandedUpdate(value),
               children: [
-                ListView.builder(
+                SizedBox(
+                  height: 80,
+                  child: ListView.separated(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: AppConstants.deliveryInstructionList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemCount:
+                        AppConstants.deliveryInstructionListWithEmoji.length,
                     itemBuilder: (context, index) {
                       bool isSelected =
                           orderController.selectedInstruction == index;
@@ -63,40 +67,70 @@ class _DeliveryInstructionViewState extends State<DeliveryInstructionView> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: isSelected
-                                ? Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.5)
-                                : Colors.grey[200],
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusSmall),
-                            // boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
-                          ),
-                          padding:
-                              const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                          margin: const EdgeInsets.all(
-                              Dimensions.paddingSizeExtraSmall),
-                          child: Row(children: [
-                            Icon(Icons.ac_unit,
+                              color: isSelected
+                                  ? Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.2)
+                                  : Theme.of(context)
+                                      .disabledColor
+                                      .withOpacity(0.3),
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusDefault),
+                              border: Border.all(
                                 color: isSelected
                                     ? Theme.of(context).primaryColor
-                                    : Theme.of(context).disabledColor,
-                                size: 18),
-                            const SizedBox(width: Dimensions.paddingSizeSmall),
-                            Expanded(
-                              child: Text(
-                                AppConstants.deliveryInstructionList[index].tr,
-                                style: robotoMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall,
-                                    color: isSelected
-                                        ? Theme.of(context).primaryColor
-                                        : Theme.of(context).disabledColor),
+                                    : Theme.of(context)
+                                        .disabledColor
+                                        .withOpacity(0.3),
+                              )
+                              // boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)],
                               ),
-                            ),
-                          ]),
+                          width: 95,
+                          padding: const EdgeInsets.all(
+                              Dimensions.paddingSizeExtraSmall),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  AppConstants
+                                      .deliveryInstructionListWithEmoji[index]
+                                          ["icon"]
+                                      .toString(),
+                                  height: 25,
+                                  width: 30,
+                                  color: isSelected
+                                      ? Theme.of(context).primaryColor
+                                      : Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.color,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    AppConstants
+                                        .deliveryInstructionListWithEmoji[index]
+                                            ["name"]
+                                        .toString()
+                                        .tr,
+                                    style: robotoMedium.copyWith(
+                                        fontSize: Dimensions.fontSizeSmall,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.color),
+                                  ),
+                                ),
+                              ]),
                         ),
                       );
-                    }),
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(
+                        width: Dimensions.paddingSizeLarge,
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -108,9 +142,9 @@ class _DeliveryInstructionViewState extends State<DeliveryInstructionView> {
                           : 0),
                   child: Row(children: [
                     Text(
-                      AppConstants
-                          .deliveryInstructionList[
-                              orderController.selectedInstruction]
+                      AppConstants.deliveryInstructionListWithEmoji[
+                              orderController.selectedInstruction]["name"]
+                          .toString()
                           .tr,
                       style: robotoRegular.copyWith(
                           color: Theme.of(context).primaryColor),

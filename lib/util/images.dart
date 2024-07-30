@@ -315,6 +315,13 @@ class Images {
   static const String bottomOrderIcon = 'assets/image/bottom_order_icon.png';
   static const String notificationIcon = 'assets/image/notification_icon.png';
   static const String infoIcon = 'assets/image/info_icon.png';
+  static const String deliveryDoorIcon = 'assets/image/delivery_door_icon.png';
+  static const String deliveryReceptionIcon =
+      'assets/image/delivery_reception_icon.png';
+  static const String deliveryPhoneIcon =
+      'assets/image/delivery_phone_icon.png';
+  static const String deliverySoundIcon =
+      'assets/image/delivery_sound_icon.png';
   static const String checkoutDeliveryIcon =
       'assets/image/checkout_delivery_icon.png';
   static const String checkoutTakeAwayIcon =
