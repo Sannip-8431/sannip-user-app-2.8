@@ -366,7 +366,7 @@ class OrderCalculationWidget extends StatelessWidget {
                                       order.additionalCharge! > 0)
                                   ? const SizedBox(height: 10)
                                   : const SizedBox(),
-                              Row(
+                              /*Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -380,7 +380,7 @@ class OrderCalculationWidget extends StatelessWidget {
                                         style: robotoRegular.copyWith(
                                             fontSize: Dimensions.fontSizeSmall),
                                         textDirection: TextDirection.ltr),
-                                  ]),
+                                  ]),*/
                               const SizedBox(height: 10),
                               (dmTips > 0)
                                   ? Row(
