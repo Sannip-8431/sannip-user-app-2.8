@@ -1929,38 +1929,35 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                             fontSize: Dimensions.fontSizeSmall)),*/
                                   ]),
                             ),
-                            SizedBox(
-                              width: 45.0,
-                              child: AnimatedToggleSwitch<bool>.dual(
-                                current: cartController.addCutlery,
-                                first: false,
-                                second: true,
-                                // spacing: 90.0,
-                                style: const ToggleStyle(
-                                  borderColor: Colors.transparent,
-                                ),
-                                borderWidth: 0.0,
-                                height: 26,
-                                onChanged: (b) =>
-                                    cartController.updateCutlery(),
-                                styleBuilder: (b) => ToggleStyle(
-                                  backgroundColor: !b
-                                      ? Theme.of(context).hintColor
-                                      : Theme.of(context).primaryColor,
-                                  indicatorColor: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.radiusSmall),
-                                  indicatorBorderRadius: BorderRadius.circular(
-                                      Dimensions.radiusSmall),
-                                ),
-                                iconBuilder: (value) => Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radiusSmall),
-                                      color: Colors.white),
-                                ),
+                            AnimatedToggleSwitch<bool>.dual(
+                              current: cartController.addCutlery,
+                              first: false,
+                              second: true,
+                              spacing: 4.0,
+                              style: const ToggleStyle(
+                                borderColor: Colors.transparent,
+                              ),
+                              indicatorSize: const Size.fromWidth(25),
+                              borderWidth: 0.0,
+                              height: 26,
+                              onChanged: (b) => cartController.updateCutlery(),
+                              styleBuilder: (b) => ToggleStyle(
+                                backgroundColor: !b
+                                    ? Theme.of(context).hintColor
+                                    : Theme.of(context).primaryColor,
+                                indicatorColor: Colors.transparent,
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall),
+                                indicatorBorderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall),
+                              ),
+                              iconBuilder: (value) => Container(
+                                width: 20.0,
+                                height: 20.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusSmall),
+                                    color: Colors.white),
                               ),
                             ),
                             /*Transform.scale(

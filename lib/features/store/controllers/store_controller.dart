@@ -530,8 +530,10 @@ class StoreController extends GetxController implements GetxService {
           DateConverter.isAvailable(
               schedules[index].openingTime, schedules[index].closingTime)) {
         return {
-          "openingTime": "${schedules[index].openingTime}",
-          "closingTime": "${schedules[index].closingTime}"
+          "openingTime": DateConverter.convertTimeToTime(
+              schedules[index].openingTime ?? ''),
+          "closingTime": DateConverter.convertTimeToTime(
+              schedules[index].closingTime ?? '')
         };
       }
     }

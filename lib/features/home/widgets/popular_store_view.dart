@@ -343,7 +343,12 @@ class _OpeningAndClosingTimeWidgetState
   @override
   Widget build(BuildContext context) {
     return store != null &&
-            (store?.schedules != null || (store?.schedules?.isEmpty ?? false))
+            (Get.find<StoreController>().storeOpeningClosingTime(
+                        store?.schedules)["openingTime"] !=
+                    '-' ||
+                Get.find<StoreController>().storeOpeningClosingTime(
+                        store?.schedules)["closingTime"] !=
+                    '-')
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

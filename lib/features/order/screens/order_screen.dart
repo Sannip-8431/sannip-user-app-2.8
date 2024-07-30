@@ -1,3 +1,4 @@
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:sannip/features/order/controllers/order_controller.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
@@ -74,26 +75,37 @@ class OrderScreenState extends State<OrderScreen>
                             child: Container(
                               width: ResponsiveHelper.isDesktop(context)
                                   ? 300
-                                  : Dimensions.webMaxWidth,
+                                  : MediaQuery.of(context).size.width,
                               color: ResponsiveHelper.isDesktop(context)
                                   ? Colors.transparent
                                   : Theme.of(context).cardColor,
-                              child: TabBar(
+                              child: ButtonsTabBar(
+                                width: ResponsiveHelper.isDesktop(context)
+                                    ? (300 / 2)
+                                    : (MediaQuery.of(context).size.width / 2),
+                                height: 55,
+                                backgroundColor: Theme.of(context).primaryColor,
+                                borderColor: Theme.of(context).primaryColor,
+                                contentCenter: true,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                unselectedBorderColor:
+                                    Theme.of(context).primaryColor,
+                                borderWidth: 1,
+                                unselectedBackgroundColor:
+                                    Theme.of(context).cardColor,
+                                buttonMargin: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                unselectedLabelStyle: robotoBold.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: Dimensions.fontSizeDefault),
                                 controller: _tabController,
-                                indicatorColor: Theme.of(context).primaryColor,
-                                indicatorWeight: 3,
-                                labelColor: Theme.of(context).primaryColor,
-                                unselectedLabelColor:
-                                    Theme.of(context).disabledColor,
-                                unselectedLabelStyle: robotoRegular.copyWith(
-                                    color: Theme.of(context).disabledColor,
-                                    fontSize: Dimensions.fontSizeSmall),
                                 labelStyle: robotoBold.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall,
-                                    color: Theme.of(context).primaryColor),
+                                    fontSize: Dimensions.fontSizeDefault,
+                                    color: Colors.white),
                                 tabs: [
-                                  Tab(text: 'running'.tr),
-                                  Tab(text: 'history'.tr),
+                                  Tab(text: 'ongoing'.tr),
+                                  Tab(text: 'past'.tr),
                                 ],
                               ),
                             ),
