@@ -3,12 +3,13 @@ import 'package:sannip/features/order/controllers/order_controller.dart';
 import 'package:sannip/features/order/domain/models/order_model.dart';
 import 'package:sannip/features/order/widgets/order_shimmer_widget.dart';
 import 'package:sannip/helper/date_converter.dart';
+import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
-import 'package:sannip/common/widgets/custom_image.dart';
+// import 'package:sannip/common/widgets/custom_image.dart';
 import 'package:sannip/common/widgets/footer_view.dart';
 import 'package:sannip/common/widgets/no_data_screen.dart';
 import 'package:sannip/common/widgets/paginated_list_view.dart';
@@ -81,17 +82,17 @@ class OrderViewWidget extends StatelessWidget {
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisSpacing:
                                       ResponsiveHelper.isDesktop(context)
-                                          ? Dimensions.paddingSizeExtremeLarge
+                                          ? Dimensions.paddingSizeLarge
                                           : Dimensions.paddingSizeLarge,
                                   mainAxisSpacing:
                                       ResponsiveHelper.isDesktop(context)
-                                          ? Dimensions.paddingSizeExtremeLarge
+                                          ? Dimensions.paddingSizeLarge
                                           : 0,
                                   // childAspectRatio: ResponsiveHelper.isDesktop(context) ? 5 : 4.5,
                                   mainAxisExtent:
                                       ResponsiveHelper.isDesktop(context)
                                           ? 130
-                                          : 100,
+                                          : 108,
                                   crossAxisCount:
                                       ResponsiveHelper.isMobile(context)
                                           ? 1
@@ -109,34 +110,39 @@ class OrderViewWidget extends StatelessWidget {
                                   bool isParcel = paginatedOrderModel!
                                           .orders![index].orderType ==
                                       'parcel';
-                                  bool isPrescription = paginatedOrderModel
-                                      .orders![index].prescriptionOrder!;
+                                  // bool isPrescription = paginatedOrderModel
+                                  //     .orders![index].prescriptionOrder!;
 
                                   return Container(
                                     padding: ResponsiveHelper.isDesktop(context)
                                         ? const EdgeInsets.all(
-                                            Dimensions.paddingSizeSmall)
+                                            Dimensions.paddingSizeExtraSmall)
                                         : null,
                                     margin: ResponsiveHelper.isDesktop(context)
                                         ? const EdgeInsets.only(
-                                            bottom: Dimensions.paddingSizeSmall)
-                                        : null,
-                                    decoration: ResponsiveHelper.isDesktop(
+                                            bottom: Dimensions
+                                                .paddingSizeExtraSmall)
+                                        : const EdgeInsets.symmetric(
+                                            horizontal:
+                                                Dimensions.paddingSizeSmall,
+                                            vertical: Dimensions
+                                                .paddingSizeExtraSmall),
+                                    decoration: /* ResponsiveHelper.isDesktop(
                                             context)
-                                        ? BoxDecoration(
-                                            color: Theme.of(context).cardColor,
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.radiusSmall),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context)
-                                                      .primaryColor
-                                                      .withOpacity(0.05),
-                                                  blurRadius: 10,
-                                                  offset: const Offset(0, 5))
-                                            ],
-                                          )
-                                        : null,
+                                        ? */
+                                        BoxDecoration(
+                                      color: Theme.of(context).cardColor,
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusSmall),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Theme.of(context)
+                                                .disabledColor
+                                                .withOpacity(0.8),
+                                            blurRadius: 5,
+                                            offset: const Offset(2, 2))
+                                      ],
+                                    ),
                                     child: CustomInkWell(
                                       onTap: () {
                                         Get.toNamed(
@@ -151,15 +157,18 @@ class OrderViewWidget extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      padding: const EdgeInsets.symmetric(
+                                      /*  padding: const EdgeInsets.symmetric(
                                           horizontal:
-                                              Dimensions.paddingSizeSmall),
+                                              Dimensions.paddingSizeSmall), */
                                       child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Row(children: [
-                                              Stack(children: [
+                                            Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  /*  Stack(children: [
                                                 Container(
                                                   height: ResponsiveHelper
                                                           .isDesktop(context)
@@ -276,48 +285,115 @@ class OrderViewWidget extends StatelessWidget {
                                                               )),
                                                         ))
                                                     : const SizedBox(),
-                                              ]),
-                                              const SizedBox(
+                                              ]), */
+                                                  /* const SizedBox(
                                                   width: Dimensions
-                                                      .paddingSizeSmall),
-                                              Expanded(
-                                                child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(children: [
-                                                        Text(
-                                                          '${isParcel ? 'delivery_id'.tr : 'order_id'.tr}:',
-                                                          style: robotoRegular
-                                                              .copyWith(
+                                                      .paddingSizeSmall), */
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: Dimensions
+                                                              .paddingSizeSmall,
+                                                          vertical: Dimensions
+                                                                  .paddingSizeExtraSmall /
+                                                              3),
+                                                      child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(children: [
+                                                              Text(
+                                                                '${isParcel ? 'delivery_id'.tr : 'order_id'.tr}:',
+                                                                style: robotoBold
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            Dimensions.fontSizeLarge),
+                                                              ),
+                                                              const SizedBox(
+                                                                  width: Dimensions
+                                                                          .paddingSizeExtraSmall /
+                                                                      2),
+                                                              Text(
+                                                                  '#${paginatedOrderModel.orders![index].id}',
+                                                                  style: robotoBold
+                                                                      .copyWith(
+                                                                          fontSize:
+                                                                              Dimensions.fontSizeLarge)),
+                                                            ]),
+                                                            /* const SizedBox(
+                                                            height: Dimensions
+                                                                .paddingSizeSmall), */
+                                                            /* ResponsiveHelper
+                                                                    .isDesktop(
+                                                                        context)
+                                                                ? Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        bottom:
+                                                                            Dimensions.paddingSizeSmall),
+                                                                    child:
+                                                                        Container(
+                                                                      padding: const EdgeInsets
+                                                                          .symmetric(
+                                                                          horizontal: Dimensions
+                                                                              .paddingSizeSmall,
+                                                                          vertical:
+                                                                              Dimensions.paddingSizeExtraSmall),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(Dimensions.radiusSmall),
+                                                                        color: Theme.of(context)
+                                                                            .primaryColor
+                                                                            .withOpacity(0.1),
+                                                                      ),
+                                                                      child: Text(
+                                                                          paginatedOrderModel
+                                                                              .orders![
+                                                                                  index]
+                                                                              .orderStatus!
+                                                                              .tr,
+                                                                          style:
+                                                                              robotoMedium.copyWith(
+                                                                            fontSize:
+                                                                                Dimensions.fontSizeExtraSmall,
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                          )),
+                                                                    ),
+                                                                  )
+                                                                : const SizedBox(), */
+                                                            Text(
+                                                              DateConverter.dateTimeStringToDateTimeMonthFirstWithDay(
+                                                                  paginatedOrderModel
+                                                                      .orders![
+                                                                          index]
+                                                                      .createdAt!),
+                                                              style: robotoRegular.copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .hintColor,
                                                                   fontSize:
                                                                       Dimensions
                                                                           .fontSizeSmall),
-                                                        ),
-                                                        const SizedBox(
-                                                            width: Dimensions
-                                                                .paddingSizeExtraSmall),
-                                                        Text(
-                                                            '#${paginatedOrderModel.orders![index].id}',
-                                                            style: robotoMedium
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        Dimensions
-                                                                            .fontSizeSmall)),
-                                                      ]),
-                                                      const SizedBox(
-                                                          height: Dimensions
-                                                              .paddingSizeSmall),
-                                                      ResponsiveHelper
-                                                              .isDesktop(
-                                                                  context)
-                                                          ? Padding(
-                                                              padding: const EdgeInsets
-                                                                  .only(
-                                                                  bottom: Dimensions
-                                                                      .paddingSizeSmall),
-                                                              child: Container(
+                                                            ),
+                                                          ]),
+                                                    ),
+                                                  ),
+                                                  /*  const SizedBox(
+                                                      width: Dimensions
+                                                          .paddingSizeSmall), */
+                                                  /* Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        !ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context)
+                                                            ? Container(
                                                                 padding: const EdgeInsets
                                                                     .symmetric(
                                                                     horizontal:
@@ -353,35 +429,161 @@ class OrderViewWidget extends StatelessWidget {
                                                                               context)
                                                                           .primaryColor,
                                                                     )),
+                                                              )
+                                                            : const SizedBox(),
+                                                        const SizedBox(
+                                                            height: Dimensions
+                                                                .paddingSizeSmall),
+                                                        isRunning
+                                                            ? InkWell(
+                                                                onTap: () => Get.toNamed(
+                                                                    RouteHelper.getOrderTrackingRoute(
+                                                                        paginatedOrderModel!
+                                                                            .orders![index]
+                                                                            .id,
+                                                                        null)),
+                                                                child:
+                                                                    Container(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          Dimensions
+                                                                              .paddingSizeSmall,
+                                                                      vertical: ResponsiveHelper.isDesktop(
+                                                                              context)
+                                                                          ? Dimensions
+                                                                              .fontSizeSmall
+                                                                          : Dimensions
+                                                                              .paddingSizeExtraSmall),
+                                                                  decoration: ResponsiveHelper
+                                                                          .isDesktop(
+                                                                              context)
+                                                                      ? BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(Dimensions.radiusSmall),
+                                                                          color:
+                                                                              Theme.of(context).primaryColor,
+                                                                        )
+                                                                      : BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(Dimensions.radiusSmall),
+                                                                          border: Border.all(
+                                                                              width: 1,
+                                                                              color: Theme.of(context).primaryColor),
+                                                                        ),
+                                                                  child: Row(
+                                                                      children: [
+                                                                        Image.asset(
+                                                                            Images
+                                                                                .tracking,
+                                                                            height:
+                                                                                15,
+                                                                            width:
+                                                                                15,
+                                                                            color: ResponsiveHelper.isDesktop(context)
+                                                                                ? Colors.white
+                                                                                : Theme.of(context).primaryColor),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                Dimensions.paddingSizeExtraSmall),
+                                                                        Text(
+                                                                            isParcel
+                                                                                ? 'track_delivery'.tr
+                                                                                : 'track_order'.tr,
+                                                                            style: robotoMedium.copyWith(
+                                                                              fontSize: Dimensions.fontSizeExtraSmall,
+                                                                              color: ResponsiveHelper.isDesktop(context) ? Colors.white : Theme.of(context).primaryColor,
+                                                                            )),
+                                                                      ]),
+                                                                ),
+                                                              )
+                                                            : Text(
+                                                                '${paginatedOrderModel.orders![index].detailsCount} ${paginatedOrderModel.orders![index].detailsCount! > 1 ? 'items'.tr : 'item'.tr}',
+                                                                style: robotoRegular
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            Dimensions.fontSizeExtraSmall),
                                                               ),
-                                                            )
-                                                          : const SizedBox(),
-                                                      Text(
-                                                        DateConverter
-                                                            .dateTimeStringToDateTime(
-                                                                paginatedOrderModel
-                                                                    .orders![
-                                                                        index]
-                                                                    .createdAt!),
-                                                        style: robotoRegular.copyWith(
+                                                      ]), */
+                                                ]),
+                                            /* !ResponsiveHelper.isDesktop(context)
+                                                ? */
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeSmall,
+                                                        vertical: Dimensions
+                                                            .paddingSizeExtraSmall),
+                                                    decoration: BoxDecoration(
+                                                      /*  borderRadius:
+                                                                BorderRadius.circular(
+                                                                    Dimensions
+                                                                        .radiusSmall), */
+                                                      color: Theme.of(context)
+                                                          .primaryColor
+                                                          .withOpacity(0.09),
+                                                    ),
+                                                    child: Text(
+                                                        paginatedOrderModel
+                                                            .orders![index]
+                                                            .orderStatus!
+                                                            .tr,
+                                                        style: robotoMedium
+                                                            .copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeExtraSmall,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  horizontal: Dimensions
+                                                      .paddingSizeSmall,
+                                                  vertical: Dimensions
+                                                          .paddingSizeSmall /
+                                                      4),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  PriceConverter
+                                                      .convertAnimationPrice(
+                                                    paginatedOrderModel
+                                                        .orders![index]
+                                                        .orderAmount,
+                                                    textStyle:
+                                                        robotoRegular.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeLarge,
                                                             color: Theme.of(
                                                                     context)
-                                                                .disabledColor,
-                                                            fontSize: Dimensions
-                                                                .fontSizeSmall),
-                                                      ),
-                                                    ]),
-                                              ),
-                                              const SizedBox(
-                                                  width: Dimensions
-                                                      .paddingSizeSmall),
-                                              Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    !ResponsiveHelper.isDesktop(
-                                                            context)
-                                                        ? Container(
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .color),
+                                                  ),
+                                                  isRunning
+                                                      ? InkWell(
+                                                          onTap: () => Get.toNamed(
+                                                              RouteHelper.getOrderTrackingRoute(
+                                                                  paginatedOrderModel!
+                                                                      .orders![
+                                                                          index]
+                                                                      .id,
+                                                                  null)),
+                                                          child: Container(
                                                             padding: const EdgeInsets
                                                                 .symmetric(
                                                                 horizontal:
@@ -389,124 +591,71 @@ class OrderViewWidget extends StatelessWidget {
                                                                         .paddingSizeSmall,
                                                                 vertical: Dimensions
                                                                     .paddingSizeExtraSmall),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      Dimensions
-                                                                          .radiusSmall),
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor
-                                                                  .withOpacity(
-                                                                      0.1),
-                                                            ),
-                                                            child: Text(
-                                                                paginatedOrderModel
-                                                                    .orders![
-                                                                        index]
-                                                                    .orderStatus!
-                                                                    .tr,
-                                                                style:
-                                                                    robotoMedium
-                                                                        .copyWith(
-                                                                  fontSize:
-                                                                      Dimensions
-                                                                          .fontSizeExtraSmall,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                )),
-                                                          )
-                                                        : const SizedBox(),
-                                                    const SizedBox(
-                                                        height: Dimensions
-                                                            .paddingSizeSmall),
-                                                    isRunning
-                                                        ? InkWell(
-                                                            onTap: () => Get.toNamed(
-                                                                RouteHelper.getOrderTrackingRoute(
-                                                                    paginatedOrderModel!
-                                                                        .orders![
-                                                                            index]
-                                                                        .id,
-                                                                    null)),
-                                                            child: Container(
-                                                              padding: EdgeInsets.symmetric(
-                                                                  horizontal:
-                                                                      Dimensions
-                                                                          .paddingSizeSmall,
-                                                                  vertical: ResponsiveHelper
-                                                                          .isDesktop(
-                                                                              context)
-                                                                      ? Dimensions
-                                                                          .fontSizeSmall
-                                                                      : Dimensions
-                                                                          .paddingSizeExtraSmall),
-                                                              decoration: ResponsiveHelper
-                                                                      .isDesktop(
-                                                                          context)
-                                                                  ? BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              Dimensions.radiusSmall),
+                                                            /*   decoration: ResponsiveHelper
+                                                                    .isDesktop(
+                                                                        context)
+                                                                ? BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            Dimensions
+                                                                                .radiusSmall),
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  )
+                                                                : BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            Dimensions
+                                                                                .radiusSmall),
+                                                                    border: Border.all(
+                                                                        width: 1,
+                                                                        color: Theme.of(
+                                                                                context)
+                                                                            .primaryColor),
+                                                                  ), */
+                                                            child: Row(
+                                                                children: [
+                                                                  Image.asset(
+                                                                      Images
+                                                                          .tracking,
+                                                                      height:
+                                                                          15,
+                                                                      width: 15,
                                                                       color: Theme.of(
                                                                               context)
-                                                                          .primaryColor,
-                                                                    )
-                                                                  : BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              Dimensions.radiusSmall),
-                                                                      border: Border.all(
-                                                                          width:
-                                                                              1,
-                                                                          color:
-                                                                              Theme.of(context).primaryColor),
-                                                                    ),
-                                                              child: Row(
-                                                                  children: [
-                                                                    Image.asset(
-                                                                        Images
-                                                                            .tracking,
-                                                                        height:
-                                                                            15,
-                                                                        width:
-                                                                            15,
-                                                                        color: ResponsiveHelper.isDesktop(context)
-                                                                            ? Colors.white
-                                                                            : Theme.of(context).primaryColor),
-                                                                    const SizedBox(
-                                                                        width: Dimensions
-                                                                            .paddingSizeExtraSmall),
-                                                                    Text(
-                                                                        isParcel
-                                                                            ? 'track_delivery'
-                                                                                .tr
-                                                                            : 'track_order'
-                                                                                .tr,
-                                                                        style: robotoMedium
-                                                                            .copyWith(
-                                                                          fontSize:
-                                                                              Dimensions.fontSizeExtraSmall,
-                                                                          color: ResponsiveHelper.isDesktop(context)
-                                                                              ? Colors.white
-                                                                              : Theme.of(context).primaryColor,
-                                                                        )),
-                                                                  ]),
-                                                            ),
-                                                          )
-                                                        : Text(
-                                                            '${paginatedOrderModel.orders![index].detailsCount} ${paginatedOrderModel.orders![index].detailsCount! > 1 ? 'items'.tr : 'item'.tr}',
-                                                            style: robotoRegular
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        Dimensions
-                                                                            .fontSizeExtraSmall),
+                                                                          .primaryColor),
+                                                                  const SizedBox(
+                                                                      width: Dimensions
+                                                                          .paddingSizeExtraSmall),
+                                                                  Text(
+                                                                      isParcel
+                                                                          ? 'track_delivery'
+                                                                              .tr
+                                                                          : 'track_order'
+                                                                              .tr,
+                                                                      style: robotoMedium
+                                                                          .copyWith(
+                                                                        fontSize:
+                                                                            Dimensions.fontSizeExtraSmall,
+                                                                        color: Theme.of(context)
+                                                                            .primaryColor,
+                                                                      )),
+                                                                ]),
                                                           ),
-                                                  ]),
-                                            ]),
-                                            (index ==
+                                                        )
+                                                      : Text(
+                                                          '${paginatedOrderModel.orders![index].detailsCount} ${paginatedOrderModel.orders![index].detailsCount! > 1 ? 'items'.tr : 'item'.tr}',
+                                                          style: robotoRegular
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                          .fontSizeSmall),
+                                                        )
+                                                ],
+                                              ),
+                                            ),
+                                            /*  (index ==
                                                         paginatedOrderModel
                                                                 .orders!
                                                                 .length -
@@ -524,7 +673,7 @@ class OrderViewWidget extends StatelessWidget {
                                                       height: Dimensions
                                                           .paddingSizeLarge,
                                                     ),
-                                                  ),
+                                                  ), */
                                           ]),
                                     ),
                                   );
