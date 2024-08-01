@@ -32,6 +32,11 @@ class DateConverter {
         .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
   }
 
+  static String dateTimeStringToDateTimeMonthFirstWithDay(String dateTime) {
+    return DateFormat('EEE, MMM dd yyyy, ${_timeFormatter()}')
+        .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+  }
+
   static String dateTimeStringToDateOnly(String dateTime) {
     return DateFormat('dd MMM yyyy')
         .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
