@@ -1928,6 +1928,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                   itemView: ItemsView(
                                     isStore: false,
                                     stores: null,
+                                    singleStores: store,
                                     items: (storeController
                                                 .categoryList!.isNotEmpty &&
                                             storeController.storeItemModel !=

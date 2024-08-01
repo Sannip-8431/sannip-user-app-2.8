@@ -9,10 +9,14 @@ import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/checkout/domain/models/place_order_body_model.dart';
 import 'package:sannip/features/cart/domain/models/cart_model.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/helper/auth_helper.dart';
+import 'package:sannip/helper/date_converter.dart';
 import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/cart_snackbar.dart';
@@ -40,6 +44,12 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   final Size size = Get.size;
   final GlobalKey<ScaffoldMessengerState> _globalKey = GlobalKey();
   final GlobalKey<DetailsAppBarWidgetState> _key = GlobalKey();
+  Store? store;
+
+  getStoreData() async {
+    store = await Get.find<StoreController>()
+        .getStoreDetails(Store(id: widget.item!.storeId), false);
+  }
 
   @override
   void initState() {
@@ -47,6 +57,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
     Get.find<ItemController>().getProductDetails(widget.item!);
     Get.find<ItemController>().setSelect(0, false);
+    getStoreData();
   }
 
   @override
@@ -1005,135 +1016,137 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                             ],
                                                           ));
                                                     } else {
-                                                      if (cartController.existAnotherStoreItem(
-                                                          cartModel!
-                                                              .item!.storeId,
-                                                          Get.find<SplashController>()
-                                                                      .module ==
-                                                                  null
-                                                              ? Get.find<
-                                                                      SplashController>()
-                                                                  .cacheModule!
-                                                                  .id
-                                                              : Get.find<
-                                                                      SplashController>()
-                                                                  .module!
-                                                                  .id)) {
-                                                        Get.dialog(
-                                                            Dialog(
-                                                              shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          Dimensions
-                                                                              .radiusDefault)),
-                                                              insetPadding:
-                                                                  const EdgeInsets
-                                                                      .all(60),
-                                                              clipBehavior: Clip
-                                                                  .antiAliasWithSaveLayer,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets
-                                                                    .all(
-                                                                    Dimensions
-                                                                        .paddingSizeSmall),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    const SizedBox(
-                                                                      height: Dimensions
-                                                                          .paddingSizeExtraSmall,
-                                                                    ),
-                                                                    Text(
-                                                                        'replace_cart_item'
-                                                                            .tr,
-                                                                        style:
-                                                                            robotoBold),
-                                                                    const SizedBox(
-                                                                      height: Dimensions
-                                                                          .paddingSizeSmall,
-                                                                    ),
-                                                                    Text(
-                                                                        Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText!
-                                                                            ? 'if_you_continue'
-                                                                                .tr
-                                                                            : 'if_you_continue_without_another_store'
-                                                                                .tr,
-                                                                        style:
-                                                                            robotoRegular),
-                                                                    const SizedBox(
-                                                                      height: Dimensions
-                                                                          .paddingSizeLarge,
-                                                                    ),
-                                                                    Row(
-                                                                      children: [
-                                                                        Expanded(
-                                                                          child:
-                                                                              CustomInkWell(
-                                                                            onTap:
-                                                                                () {
-                                                                              Get.back();
-                                                                            },
+                                                      if (Get.find<
+                                                                  ItemController>()
+                                                              .isAvailable(
+                                                                  cartModel!
+                                                                      .item!) &&
+                                                          Get.find<
+                                                                  StoreController>()
+                                                              .isOpenNow(store ??
+                                                                  Store())) {
+                                                        if (cartController.existAnotherStoreItem(
+                                                            cartModel
+                                                                .item!.storeId,
+                                                            Get.find<SplashController>()
+                                                                        .module ==
+                                                                    null
+                                                                ? Get.find<
+                                                                        SplashController>()
+                                                                    .cacheModule!
+                                                                    .id
+                                                                : Get.find<
+                                                                        SplashController>()
+                                                                    .module!
+                                                                    .id)) {
+                                                          Get.dialog(
+                                                              Dialog(
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            Dimensions.radiusDefault)),
+                                                                insetPadding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        60),
+                                                                clipBehavior: Clip
+                                                                    .antiAliasWithSaveLayer,
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .all(
+                                                                      Dimensions
+                                                                          .paddingSizeSmall),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      const SizedBox(
+                                                                        height:
+                                                                            Dimensions.paddingSizeExtraSmall,
+                                                                      ),
+                                                                      Text(
+                                                                          'replace_cart_item'
+                                                                              .tr,
+                                                                          style:
+                                                                              robotoBold),
+                                                                      const SizedBox(
+                                                                        height:
+                                                                            Dimensions.paddingSizeSmall,
+                                                                      ),
+                                                                      Text(
+                                                                          Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText!
+                                                                              ? 'if_you_continue'.tr
+                                                                              : 'if_you_continue_without_another_store'.tr,
+                                                                          style: robotoRegular),
+                                                                      const SizedBox(
+                                                                        height:
+                                                                            Dimensions.paddingSizeLarge,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(
                                                                             child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                                                                color: Theme.of(context).primaryColor.withOpacity(0.2),
+                                                                                CustomInkWell(
+                                                                              onTap: () {
+                                                                                Get.back();
+                                                                              },
+                                                                              child: Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                                                                  color: Theme.of(context).primaryColor.withOpacity(0.2),
+                                                                                ),
+                                                                                padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                                                child: Text(
+                                                                                  'no'.tr,
+                                                                                  style: robotoRegular.copyWith(
+                                                                                    color: Theme.of(context).primaryColor,
+                                                                                  ),
+                                                                                  textAlign: TextAlign.center,
+                                                                                ),
                                                                               ),
-                                                                              padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                                                                              child: Text(
-                                                                                'no'.tr,
-                                                                                style: robotoRegular.copyWith(
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                Dimensions.paddingSizeLarge,
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                CustomInkWell(
+                                                                              onTap: () {
+                                                                                Get.back();
+                                                                                cartController.clearCartOnline().then((success) async {
+                                                                                  if (success) {
+                                                                                    await cartController.addToCartOnline(cart!);
+                                                                                    itemController.setExistInCart(widget.item);
+                                                                                    showCartSnackBar();
+                                                                                  }
+                                                                                });
+                                                                              },
+                                                                              child: Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                                                                                   color: Theme.of(context).primaryColor,
                                                                                 ),
-                                                                                textAlign: TextAlign.center,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              Dimensions.paddingSizeLarge,
-                                                                        ),
-                                                                        Expanded(
-                                                                          child:
-                                                                              CustomInkWell(
-                                                                            onTap:
-                                                                                () {
-                                                                              Get.back();
-                                                                              cartController.clearCartOnline().then((success) async {
-                                                                                if (success) {
-                                                                                  await cartController.addToCartOnline(cart!);
-                                                                                  itemController.setExistInCart(widget.item);
-                                                                                  showCartSnackBar();
-                                                                                }
-                                                                              });
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                                                                color: Theme.of(context).primaryColor,
-                                                                              ),
-                                                                              padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                                                                              child: Text(
-                                                                                'replace'.tr,
-                                                                                style: robotoRegular.copyWith(
-                                                                                  color: Colors.white,
+                                                                                padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                                                child: Text(
+                                                                                  'replace'.tr,
+                                                                                  style: robotoRegular.copyWith(
+                                                                                    color: Colors.white,
+                                                                                  ),
+                                                                                  textAlign: TextAlign.center,
                                                                                 ),
-                                                                                textAlign: TextAlign.center,
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                      ],
-                                                                    )
-                                                                  ],
+                                                                        ],
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            /* ConfirmationDialog(
+                                                              /* ConfirmationDialog(
                                                           icon: Images.warning,
                                                           title:
                                                               'are_you_sure_to_reset'
@@ -1167,38 +1180,44 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                                             });
                                                           },
                                                         ),*/
-                                                            barrierDismissible:
-                                                                false);
-                                                      } else {
-                                                        if (itemController
-                                                                .cartIndex ==
-                                                            -1) {
-                                                          await cartController
-                                                              .addToCartOnline(
-                                                                  cart!)
-                                                              .then((success) {
-                                                            if (success) {
-                                                              itemController
-                                                                  .setExistInCart(
-                                                                      widget
-                                                                          .item);
-                                                              showCartSnackBar();
-                                                              _key.currentState!
-                                                                  .shake();
-                                                            }
-                                                          });
+                                                              barrierDismissible:
+                                                                  false);
                                                         } else {
-                                                          await cartController
-                                                              .updateCartOnline(
-                                                                  cart!)
-                                                              .then((success) {
-                                                            if (success) {
-                                                              showCartSnackBar();
-                                                              _key.currentState!
-                                                                  .shake();
-                                                            }
-                                                          });
+                                                          if (itemController
+                                                                  .cartIndex ==
+                                                              -1) {
+                                                            await cartController
+                                                                .addToCartOnline(
+                                                                    cart!)
+                                                                .then(
+                                                                    (success) {
+                                                              if (success) {
+                                                                itemController
+                                                                    .setExistInCart(
+                                                                        widget
+                                                                            .item);
+                                                                showCartSnackBar();
+                                                                _key.currentState!
+                                                                    .shake();
+                                                              }
+                                                            });
+                                                          } else {
+                                                            await cartController
+                                                                .updateCartOnline(
+                                                                    cart!)
+                                                                .then(
+                                                                    (success) {
+                                                              if (success) {
+                                                                showCartSnackBar();
+                                                                _key.currentState!
+                                                                    .shake();
+                                                              }
+                                                            });
+                                                          }
                                                         }
+                                                      } else {
+                                                        _showNotAcceptingOrdersDialog(
+                                                            context);
                                                       }
                                                     }
                                                   }
@@ -1261,6 +1280,74 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     }
 
     return discountedPrice;
+  }
+
+  void _showNotAcceptingOrdersDialog(BuildContext context) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+        insetPadding: const EdgeInsets.all(80),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.paddingSizeExtraLarge),
+              child: Text(
+                'item_is_currently_unavailable'.tr,
+                style: robotoBold,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            if (Get.find<SplashController>().module?.moduleType.toString() ==
+                AppConstants.food) ...[
+              const SizedBox(
+                height: Dimensions.paddingSizeSmall,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.paddingSizeExtraLarge),
+                child: Text(
+                  '${'will_be_available_between'.tr} ${DateConverter.convertTimeToTime(widget.item!.availableTimeStarts!)} - ${DateConverter.convertTimeToTime(widget.item!.availableTimeEnds!)}',
+                  style: robotoRegular,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
+            ),
+            const Divider(
+              height: 0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CustomInkWell(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: Dimensions.paddingSizeExtraSmall),
+                      child: Text(
+                        'okay'.tr,
+                        style: robotoBold,
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        Get.back();
+                      }),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

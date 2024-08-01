@@ -15,26 +15,14 @@ import 'package:sannip/util/styles.dart';
 class CartCountView extends StatefulWidget {
   final Item item;
   final Widget? child;
-  const CartCountView({super.key, required this.item, this.child});
+  final Store? store;
+  const CartCountView({super.key, required this.item, this.child, this.store});
 
   @override
   State<CartCountView> createState() => _CartCountViewState();
 }
 
 class _CartCountViewState extends State<CartCountView> {
-  Store? store;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    getStoreData();
-  }
-
-  getStoreData() async {
-    store = await Get.find<StoreController>()
-        .getStoreDetails(Store(id: widget.item.storeId), false);
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(builder: (cartController) {
@@ -201,7 +189,8 @@ class _CartCountViewState extends State<CartCountView> {
           : InkWell(
               onTap: () {
                 if (Get.find<ItemController>().isAvailable(widget.item) &&
-                    Get.find<StoreController>().isOpenNow(store ?? Store())) {
+                    Get.find<StoreController>()
+                        .isOpenNow(widget.store ?? Store())) {
                   Get.find<ItemController>()
                       .itemDirectlyAddToCart(widget.item, context);
                 } else {

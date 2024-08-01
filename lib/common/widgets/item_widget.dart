@@ -421,6 +421,7 @@ class ItemWidget extends StatelessWidget {
                                   //         );
                                   //       }),
                                   CartCountView(
+                                    store: store,
                                     item: item!,
                                     child: Stack(
                                       clipBehavior: Clip.none,
@@ -929,6 +930,7 @@ class ListViewItemWidget extends StatelessWidget {
                       left: 35,
                       right: 35,
                       child: CartCountView(
+                        store: store,
                         item: item!,
                         child: Stack(
                           clipBehavior: Clip.none,

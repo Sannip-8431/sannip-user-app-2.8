@@ -6,11 +6,14 @@ import 'package:sannip/features/checkout/domain/models/place_order_body_model.da
 import 'package:sannip/features/cart/domain/models/cart_model.dart';
 import 'package:sannip/features/item/domain/models/item_model.dart';
 import 'package:sannip/common/models/module_model.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
+import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/date_converter.dart';
 import 'package:sannip/helper/price_converter.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/helper/route_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
@@ -45,6 +48,12 @@ class ItemBottomSheet extends StatefulWidget {
 
 class _ItemBottomSheetState extends State<ItemBottomSheet> {
   bool _newVariation = false;
+  Store? store;
+
+  getStoreData() async {
+    store = await Get.find<StoreController>()
+        .getStoreDetails(Store(id: widget.item!.storeId), false);
+  }
 
   @override
   void initState() {
@@ -61,6 +70,7 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
             .newVariation ??
         false;
     Get.find<ItemController>().initData(widget.item, widget.cart);
+    getStoreData();
   }
 
   @override
@@ -769,312 +779,324 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                           stock! <= 0)
                                       ? null
                                       : () async {
-                                          String? invalid;
-                                          if (_newVariation) {
-                                            for (int index = 0;
-                                                index <
-                                                    widget.item!.foodVariations!
-                                                        .length;
-                                                index++) {
-                                              if (!widget
-                                                      .item!
-                                                      .foodVariations![index]
-                                                      .multiSelect! &&
-                                                  widget
-                                                      .item!
-                                                      .foodVariations![index]
-                                                      .required! &&
-                                                  !itemController
-                                                      .selectedVariations[index]
-                                                      .contains(true)) {
-                                                invalid =
-                                                    '${'choose_a_variation_from'.tr} ${widget.item!.foodVariations![index].name}';
-                                                break;
-                                              } else if (widget
-                                                      .item!
-                                                      .foodVariations![index]
-                                                      .multiSelect! &&
-                                                  (widget
+                                          if (Get.find<ItemController>()
+                                                  .isAvailable(widget.item!) &&
+                                              Get.find<StoreController>()
+                                                  .isOpenNow(
+                                                      store ?? Store())) {
+                                            String? invalid;
+                                            if (_newVariation) {
+                                              for (int index = 0;
+                                                  index <
+                                                      widget
                                                           .item!
-                                                          .foodVariations![
-                                                              index]
-                                                          .required! ||
-                                                      itemController
-                                                          .selectedVariations[
-                                                              index]
-                                                          .contains(true)) &&
-                                                  widget
-                                                          .item!
-                                                          .foodVariations![
-                                                              index]
-                                                          .min! >
-                                                      itemController
-                                                          .selectedVariationLength(
-                                                              itemController
-                                                                  .selectedVariations,
-                                                              index)) {
-                                                invalid =
-                                                    '${'select_minimum'.tr} ${widget.item!.foodVariations![index].min} '
-                                                    '${'and_up_to'.tr} ${widget.item!.foodVariations![index].max} ${'options_from'.tr}'
-                                                    ' ${widget.item!.foodVariations![index].name} ${'variation'.tr}';
-                                                break;
+                                                          .foodVariations!
+                                                          .length;
+                                                  index++) {
+                                                if (!widget
+                                                        .item!
+                                                        .foodVariations![index]
+                                                        .multiSelect! &&
+                                                    widget
+                                                        .item!
+                                                        .foodVariations![index]
+                                                        .required! &&
+                                                    !itemController
+                                                        .selectedVariations[
+                                                            index]
+                                                        .contains(true)) {
+                                                  invalid =
+                                                      '${'choose_a_variation_from'.tr} ${widget.item!.foodVariations![index].name}';
+                                                  break;
+                                                } else if (widget
+                                                        .item!
+                                                        .foodVariations![index]
+                                                        .multiSelect! &&
+                                                    (widget
+                                                            .item!
+                                                            .foodVariations![
+                                                                index]
+                                                            .required! ||
+                                                        itemController
+                                                            .selectedVariations[
+                                                                index]
+                                                            .contains(true)) &&
+                                                    widget
+                                                            .item!
+                                                            .foodVariations![
+                                                                index]
+                                                            .min! >
+                                                        itemController
+                                                            .selectedVariationLength(
+                                                                itemController
+                                                                    .selectedVariations,
+                                                                index)) {
+                                                  invalid =
+                                                      '${'select_minimum'.tr} ${widget.item!.foodVariations![index].min} '
+                                                      '${'and_up_to'.tr} ${widget.item!.foodVariations![index].max} ${'options_from'.tr}'
+                                                      ' ${widget.item!.foodVariations![index].name} ${'variation'.tr}';
+                                                  break;
+                                                }
                                               }
                                             }
-                                          }
 
-                                          if (Get.find<SplashController>()
-                                                  .moduleList !=
-                                              null) {
-                                            for (ModuleModel module
-                                                in Get.find<SplashController>()
-                                                    .moduleList!) {
-                                              if (module.id ==
-                                                  widget.item!.moduleId) {
-                                                Get.find<SplashController>()
-                                                    .setModule(module);
-                                                break;
-                                              }
-                                            }
-                                          }
-
-                                          if (invalid != null) {
-                                            showCustomSnackBar(invalid,
-                                                getXSnackBar: true);
-                                          } else {
-                                            CartModel cartModel = CartModel(
-                                                null,
-                                                price,
-                                                priceWithDiscountAndAddons,
-                                                variation != null
-                                                    ? [variation]
-                                                    : [],
-                                                itemController
-                                                    .selectedVariations,
-                                                (price! -
-                                                    PriceConverter
-                                                        .convertWithDiscount(
-                                                            price,
-                                                            discount,
-                                                            discountType)!),
-                                                itemController.quantity,
-                                                addOnIdList,
-                                                addOnsList,
-                                                widget.isCampaign,
-                                                stock,
-                                                widget.item,
-                                                widget.item?.quantityLimit);
-
-                                            List<OrderVariation> variations =
-                                                _getSelectedVariations(
-                                              isFoodVariation:
+                                            if (Get.find<SplashController>()
+                                                    .moduleList !=
+                                                null) {
+                                              for (ModuleModel module in Get
+                                                      .find<SplashController>()
+                                                  .moduleList!) {
+                                                if (module.id ==
+                                                    widget.item!.moduleId) {
                                                   Get.find<SplashController>()
-                                                      .getModuleConfig(widget
-                                                          .item!.moduleType)
-                                                      .newVariation!,
-                                              foodVariations:
-                                                  widget.item!.foodVariations!,
-                                              selectedVariations: itemController
-                                                  .selectedVariations,
-                                            );
-                                            List<int?> listOfAddOnId =
-                                                _getSelectedAddonIds(
-                                                    addOnIdList: addOnIdList);
-                                            List<int?> listOfAddOnQty =
-                                                _getSelectedAddonQtnList(
-                                                    addOnIdList: addOnIdList);
+                                                      .setModule(module);
+                                                  break;
+                                                }
+                                              }
+                                            }
 
-                                            OnlineCart onlineCart = OnlineCart(
-                                                widget.cart?.id,
-                                                widget.isCampaign
-                                                    ? null
-                                                    : widget.item!.id,
-                                                widget.isCampaign
-                                                    ? widget.item!.id
-                                                    : null,
-                                                priceWithDiscountAndAddons
-                                                    .toString(),
-                                                '',
-                                                variation != null
-                                                    ? [variation]
-                                                    : null,
-                                                Get.find<SplashController>()
+                                            if (invalid != null) {
+                                              showCustomSnackBar(invalid,
+                                                  getXSnackBar: true);
+                                            } else {
+                                              CartModel cartModel = CartModel(
+                                                  null,
+                                                  price,
+                                                  priceWithDiscountAndAddons,
+                                                  variation != null
+                                                      ? [variation]
+                                                      : [],
+                                                  itemController
+                                                      .selectedVariations,
+                                                  (price! -
+                                                      PriceConverter
+                                                          .convertWithDiscount(
+                                                              price,
+                                                              discount,
+                                                              discountType)!),
+                                                  itemController.quantity,
+                                                  addOnIdList,
+                                                  addOnsList,
+                                                  widget.isCampaign,
+                                                  stock,
+                                                  widget.item,
+                                                  widget.item?.quantityLimit);
+
+                                              List<OrderVariation> variations =
+                                                  _getSelectedVariations(
+                                                isFoodVariation:
+                                                    Get.find<SplashController>()
                                                         .getModuleConfig(widget
                                                             .item!.moduleType)
-                                                        .newVariation!
-                                                    ? variations
-                                                    : null,
-                                                itemController.quantity,
-                                                listOfAddOnId,
-                                                addOnsList,
-                                                listOfAddOnQty,
-                                                'Item');
+                                                        .newVariation!,
+                                                foodVariations: widget
+                                                    .item!.foodVariations!,
+                                                selectedVariations:
+                                                    itemController
+                                                        .selectedVariations,
+                                              );
+                                              List<int?> listOfAddOnId =
+                                                  _getSelectedAddonIds(
+                                                      addOnIdList: addOnIdList);
+                                              List<int?> listOfAddOnQty =
+                                                  _getSelectedAddonQtnList(
+                                                      addOnIdList: addOnIdList);
 
-                                            if (widget.isCampaign) {
-                                              Get.toNamed(
-                                                  RouteHelper.getCheckoutRoute(
-                                                      'campaign'),
-                                                  arguments: CheckoutScreen(
-                                                    storeId: null,
-                                                    fromCart: false,
-                                                    cartList: [cartModel],
-                                                  ));
-                                            } else {
-                                              if (Get.find<CartController>()
-                                                  .existAnotherStoreItem(
-                                                cartModel.item!.storeId,
-                                                Get.find<SplashController>()
-                                                            .module !=
-                                                        null
-                                                    ? Get.find<
-                                                            SplashController>()
-                                                        .module!
-                                                        .id
-                                                    : Get.find<
-                                                            SplashController>()
-                                                        .cacheModule!
-                                                        .id,
-                                              )) {
-                                                Get.dialog(
-                                                    Dialog(
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius
-                                                              .circular(Dimensions
-                                                                  .radiusDefault)),
-                                                      insetPadding:
-                                                          const EdgeInsets.all(
-                                                              60),
-                                                      clipBehavior: Clip
-                                                          .antiAliasWithSaveLayer,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets
-                                                            .all(Dimensions
-                                                                .paddingSizeSmall),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeExtraSmall,
-                                                            ),
-                                                            Text(
-                                                                'replace_cart_item'
-                                                                    .tr,
-                                                                style:
-                                                                    robotoBold),
-                                                            const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeSmall,
-                                                            ),
-                                                            Text(
-                                                                Get.find<SplashController>()
-                                                                        .configModel!
-                                                                        .moduleConfig!
-                                                                        .module!
-                                                                        .showRestaurantText!
-                                                                    ? 'if_you_continue'
-                                                                        .tr
-                                                                    : 'if_you_continue_without_another_store'
-                                                                        .tr,
-                                                                style:
-                                                                    robotoRegular),
-                                                            const SizedBox(
-                                                              height: Dimensions
-                                                                  .paddingSizeLarge,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                      CustomInkWell(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                    },
+                                              OnlineCart onlineCart = OnlineCart(
+                                                  widget.cart?.id,
+                                                  widget.isCampaign
+                                                      ? null
+                                                      : widget.item!.id,
+                                                  widget.isCampaign
+                                                      ? widget.item!.id
+                                                      : null,
+                                                  priceWithDiscountAndAddons
+                                                      .toString(),
+                                                  '',
+                                                  variation != null
+                                                      ? [variation]
+                                                      : null,
+                                                  Get.find<SplashController>()
+                                                          .getModuleConfig(
+                                                              widget.item!
+                                                                  .moduleType)
+                                                          .newVariation!
+                                                      ? variations
+                                                      : null,
+                                                  itemController.quantity,
+                                                  listOfAddOnId,
+                                                  addOnsList,
+                                                  listOfAddOnQty,
+                                                  'Item');
+
+                                              if (widget.isCampaign) {
+                                                Get.toNamed(
+                                                    RouteHelper
+                                                        .getCheckoutRoute(
+                                                            'campaign'),
+                                                    arguments: CheckoutScreen(
+                                                      storeId: null,
+                                                      fromCart: false,
+                                                      cartList: [cartModel],
+                                                    ));
+                                              } else {
+                                                if (Get.find<CartController>()
+                                                    .existAnotherStoreItem(
+                                                  cartModel.item!.storeId,
+                                                  Get.find<SplashController>()
+                                                              .module !=
+                                                          null
+                                                      ? Get.find<
+                                                              SplashController>()
+                                                          .module!
+                                                          .id
+                                                      : Get.find<
+                                                              SplashController>()
+                                                          .cacheModule!
+                                                          .id,
+                                                )) {
+                                                  Get.dialog(
+                                                      Dialog(
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    Dimensions
+                                                                        .radiusDefault)),
+                                                        insetPadding:
+                                                            const EdgeInsets
+                                                                .all(60),
+                                                        clipBehavior: Clip
+                                                            .antiAliasWithSaveLayer,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets
+                                                              .all(Dimensions
+                                                                  .paddingSizeSmall),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              const SizedBox(
+                                                                height: Dimensions
+                                                                    .paddingSizeExtraSmall,
+                                                              ),
+                                                              Text(
+                                                                  'replace_cart_item'
+                                                                      .tr,
+                                                                  style:
+                                                                      robotoBold),
+                                                              const SizedBox(
+                                                                height: Dimensions
+                                                                    .paddingSizeSmall,
+                                                              ),
+                                                              Text(
+                                                                  Get.find<SplashController>()
+                                                                          .configModel!
+                                                                          .moduleConfig!
+                                                                          .module!
+                                                                          .showRestaurantText!
+                                                                      ? 'if_you_continue'
+                                                                          .tr
+                                                                      : 'if_you_continue_without_another_store'
+                                                                          .tr,
+                                                                  style:
+                                                                      robotoRegular),
+                                                              const SizedBox(
+                                                                height: Dimensions
+                                                                    .paddingSizeLarge,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Expanded(
                                                                     child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(Dimensions.radiusSmall),
-                                                                        color: Theme.of(context)
-                                                                            .primaryColor
-                                                                            .withOpacity(0.2),
-                                                                      ),
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              Dimensions.paddingSizeSmall),
+                                                                        CustomInkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        Get.back();
+                                                                      },
                                                                       child:
-                                                                          Text(
-                                                                        'no'.tr,
-                                                                        style: robotoRegular
-                                                                            .copyWith(
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(Dimensions.radiusSmall),
+                                                                          color: Theme.of(context)
+                                                                              .primaryColor
+                                                                              .withOpacity(0.2),
+                                                                        ),
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            vertical:
+                                                                                Dimensions.paddingSizeSmall),
+                                                                        child:
+                                                                            Text(
+                                                                          'no'.tr,
+                                                                          style:
+                                                                              robotoRegular.copyWith(
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: Dimensions
+                                                                        .paddingSizeLarge,
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        CustomInkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        Get.back();
+                                                                        Get.find<CartController>()
+                                                                            .clearCartOnline()
+                                                                            .then((success) async {
+                                                                          if (success) {
+                                                                            await Get.find<CartController>().addToCartOnline(onlineCart);
+                                                                            Get.back();
+                                                                            //showCartSnackBar();
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(Dimensions.radiusSmall),
                                                                           color:
                                                                               Theme.of(context).primaryColor,
                                                                         ),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: Dimensions
-                                                                      .paddingSizeLarge,
-                                                                ),
-                                                                Expanded(
-                                                                  child:
-                                                                      CustomInkWell(
-                                                                    onTap: () {
-                                                                      Get.back();
-                                                                      Get.find<
-                                                                              CartController>()
-                                                                          .clearCartOnline()
-                                                                          .then(
-                                                                              (success) async {
-                                                                        if (success) {
-                                                                          await Get.find<CartController>()
-                                                                              .addToCartOnline(onlineCart);
-                                                                          Get.back();
-                                                                          //showCartSnackBar();
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(Dimensions.radiusSmall),
-                                                                        color: Theme.of(context)
-                                                                            .primaryColor,
-                                                                      ),
-                                                                      padding: const EdgeInsets
-                                                                          .symmetric(
-                                                                          vertical:
-                                                                              Dimensions.paddingSizeSmall),
-                                                                      child:
-                                                                          Text(
-                                                                        'replace'
-                                                                            .tr,
-                                                                        style: robotoRegular
-                                                                            .copyWith(
-                                                                          color:
-                                                                              Colors.white,
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            vertical:
+                                                                                Dimensions.paddingSizeSmall),
+                                                                        child:
+                                                                            Text(
+                                                                          'replace'
+                                                                              .tr,
+                                                                          style:
+                                                                              robotoRegular.copyWith(
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
                                                                         ),
-                                                                        textAlign:
-                                                                            TextAlign.center,
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ],
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    /*ConfirmationDialog(
+                                                      /*ConfirmationDialog(
                                                       icon: Images.warning,
                                                       title:
                                                           'are_you_sure_to_reset'
@@ -1106,35 +1128,41 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
                                                         });
                                                       },
                                                     ),*/
-                                                    barrierDismissible: false);
-                                              } else {
-                                                if (widget.cart != null ||
-                                                    itemController.cartIndex !=
-                                                        -1) {
-                                                  await Get.find<
-                                                          CartController>()
-                                                      .updateCartOnline(
-                                                          onlineCart)
-                                                      .then((success) {
-                                                    if (success) {
-                                                      Get.back();
-                                                    }
-                                                  });
+                                                      barrierDismissible:
+                                                          false);
                                                 } else {
-                                                  await Get.find<
-                                                          CartController>()
-                                                      .addToCartOnline(
-                                                          onlineCart)
-                                                      .then((success) {
-                                                    if (success) {
-                                                      Get.back();
-                                                    }
-                                                  });
-                                                }
+                                                  if (widget.cart != null ||
+                                                      itemController
+                                                              .cartIndex !=
+                                                          -1) {
+                                                    await Get.find<
+                                                            CartController>()
+                                                        .updateCartOnline(
+                                                            onlineCart)
+                                                        .then((success) {
+                                                      if (success) {
+                                                        Get.back();
+                                                      }
+                                                    });
+                                                  } else {
+                                                    await Get.find<
+                                                            CartController>()
+                                                        .addToCartOnline(
+                                                            onlineCart)
+                                                        .then((success) {
+                                                      if (success) {
+                                                        Get.back();
+                                                      }
+                                                    });
+                                                  }
 
-                                                //showCartSnackBar();
+                                                  //showCartSnackBar();
+                                                }
                                               }
                                             }
+                                          } else {
+                                            _showNotAcceptingOrdersDialog(
+                                                context);
                                           }
                                         },
                                 );
@@ -1212,6 +1240,74 @@ class _ItemBottomSheetState extends State<ItemBottomSheet> {
       listOfAddOnQty.add(addOn.quantity);
     }
     return listOfAddOnQty;
+  }
+
+  void _showNotAcceptingOrdersDialog(BuildContext context) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+        insetPadding: const EdgeInsets.all(80),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.paddingSizeExtraLarge),
+              child: Text(
+                'item_is_currently_unavailable'.tr,
+                style: robotoBold,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            if (Get.find<SplashController>().module?.moduleType.toString() ==
+                AppConstants.food) ...[
+              const SizedBox(
+                height: Dimensions.paddingSizeSmall,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.paddingSizeExtraLarge),
+                child: Text(
+                  '${'will_be_available_between'.tr} ${DateConverter.convertTimeToTime(widget.item!.availableTimeStarts!)} - ${DateConverter.convertTimeToTime(widget.item!.availableTimeEnds!)}',
+                  style: robotoRegular,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+            const SizedBox(
+              height: Dimensions.paddingSizeSmall,
+            ),
+            const Divider(
+              height: 0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: CustomInkWell(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: Dimensions.paddingSizeExtraSmall),
+                      child: Text(
+                        'okay'.tr,
+                        style: robotoBold,
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        Get.back();
+                      }),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

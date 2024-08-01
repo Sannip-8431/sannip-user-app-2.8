@@ -23,6 +23,7 @@ class ItemsView extends StatefulWidget {
   final bool inStorePage;
   final bool isFeatured;
   final bool? isFoodOrGrocery;
+  final Store? singleStores;
   const ItemsView(
       {super.key,
       required this.stores,
@@ -35,7 +36,8 @@ class ItemsView extends StatefulWidget {
       this.isCampaign = false,
       this.inStorePage = false,
       this.isFeatured = false,
-      this.isFoodOrGrocery = true});
+      this.isFoodOrGrocery = true,
+      this.singleStores});
 
   @override
   State<ItemsView> createState() => _ItemsViewState();
@@ -125,7 +127,7 @@ class _ItemsViewState extends State<ItemsView> {
                                 isFeatured: widget.isFeatured,
                                 store: widget.isStore
                                     ? widget.stores![index]
-                                    : null,
+                                    : widget.singleStores,
                                 index: index,
                                 length: length,
                                 isCampaign: widget.isCampaign,
@@ -205,8 +207,9 @@ class _ItemsViewState extends State<ItemsView> {
                             isStore: widget.isStore,
                             item: widget.isStore ? null : widget.items![index],
                             isFeatured: widget.isFeatured,
-                            store:
-                                widget.isStore ? widget.stores![index] : null,
+                            store: widget.isStore
+                                ? widget.stores![index]
+                                : widget.singleStores,
                             index: index,
                             length: length,
                             isCampaign: widget.isCampaign,
