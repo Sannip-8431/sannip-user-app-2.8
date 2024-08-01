@@ -2172,7 +2172,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('discount'.tr, style: robotoRegular),
+                          Text('sannip_discounts'.tr, style: robotoRegular),
                           storeController.store != null
                               ? Row(children: [
                                   Text('(-)', style: robotoRegular),
