@@ -52,7 +52,7 @@ class OrderInfoWidget extends StatelessWidget {
     bool isDesktop = ResponsiveHelper.isDesktop(context);
     bool isGuestLoggedIn = AuthHelper.isGuestLoggedIn();
     return Stack(children: [
-      !isDesktop
+      /* !isDesktop
           ? OrderBannerViewWidget(
               order: order,
               orderController: orderController,
@@ -60,7 +60,7 @@ class OrderInfoWidget extends StatelessWidget {
               parcel: parcel,
               prescriptionOrder: prescriptionOrder,
             )
-          : const SizedBox(),
+          : const SizedBox(), */
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -70,7 +70,7 @@ class OrderInfoWidget extends StatelessWidget {
               ? const SizedBox(height: Dimensions.paddingSizeExtraLarge)
               : const SizedBox(),
 
-          !isDesktop
+          /* !isDesktop
               ? SizedBox(
                   height: DateConverter.isBeforeTime(order.scheduleAt) &&
                           Get.find<SplashController>()
@@ -100,312 +100,611 @@ class OrderInfoWidget extends StatelessWidget {
                                       'pharmacy')
                           ? 140
                           : 0)
+              : const SizedBox(), */
+          !isDesktop
+              ? const SizedBox(height: Dimensions.paddingSizeSmall)
+              : const SizedBox(),
+          !isDesktop
+              ? Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                    boxShadow: [
+                      BoxShadow(
+                          color:
+                              Theme.of(context).disabledColor.withOpacity(0.8),
+                          blurRadius: 5,
+                          offset: const Offset(2, 2))
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimensions.paddingSizeSmall),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: Dimensions.paddingSizeSmall,
+                              vertical: Dimensions.paddingSizeExtraSmall / 3),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  Text(
+                                    '${parcel ? 'delivery_id'.tr : 'order_id'.tr}:',
+                                    style: robotoBold.copyWith(
+                                        fontSize: Dimensions.fontSizeLarge),
+                                  ),
+                                  const SizedBox(
+                                      width:
+                                          Dimensions.paddingSizeExtraSmall / 2),
+                                  Text('#${order.id}',
+                                      style: robotoBold.copyWith(
+                                          fontSize: Dimensions.fontSizeLarge)),
+                                ]),
+                                Text(
+                                  DateConverter
+                                      .dateTimeStringToDateTimeMonthFirstWithDay(
+                                          order.createdAt!),
+                                  style: robotoRegular.copyWith(
+                                      color: Theme.of(context).hintColor,
+                                      fontSize: Dimensions.fontSizeSmall),
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
+          !isDesktop
+              ? const SizedBox(height: Dimensions.paddingSizeSmall)
               : const SizedBox(),
 
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: ResponsiveHelper.isMobile(context)
-                  ? const BorderRadius.vertical(
-                      top: Radius.circular(Dimensions.radiusExtraLarge))
-                  : BorderRadius.circular(
-                      isDesktop ? Dimensions.radiusDefault : 0),
-              boxShadow: [
-                isDesktop
-                    ? const BoxShadow(
-                        color: Colors.black12, blurRadius: 5, spreadRadius: 1)
-                    : const BoxShadow()
-              ],
-            ),
-            padding: const EdgeInsets.symmetric(
-                horizontal: Dimensions.paddingSizeLarge,
-                vertical: Dimensions.paddingSizeLarge),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  isDesktop
-                      ? OrderBannerViewWidget(
-                          order: order,
-                          orderController: orderController,
-                          ongoing: ongoing,
-                          parcel: parcel,
-                          prescriptionOrder: prescriptionOrder,
-                        )
-                      : const SizedBox(),
-                  isDesktop
-                      ? const SizedBox(height: Dimensions.paddingSizeSmall)
-                      : const SizedBox(),
-                  Text('general_info'.tr, style: robotoMedium),
-                  const SizedBox(height: Dimensions.paddingSizeLarge),
-                  Row(children: [
-                    Text(parcel ? 'delivery_id'.tr : 'order_id'.tr,
-                        style: robotoRegular),
-                    const Expanded(child: SizedBox()),
-                    Text('#${order.id}', style: robotoBold),
-                  ]),
-                  Divider(
-                      height: Dimensions.paddingSizeLarge,
-                      color: Theme.of(context).disabledColor.withOpacity(0.30)),
-                  Row(children: [
-                    Text('order_date'.tr, style: robotoRegular),
-                    const Expanded(child: SizedBox()),
-                    Text(
-                      DateConverter.dateTimeStringToDateTime(order.createdAt!),
-                      style: robotoRegular,
-                    ),
-                  ]),
-                  order.scheduled == 1
-                      ? Divider(
-                          height: Dimensions.paddingSizeLarge,
+          !isDesktop
+              ? Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                    boxShadow: [
+                      BoxShadow(
                           color:
-                              Theme.of(context).disabledColor.withOpacity(0.30))
-                      : const SizedBox(),
-                  order.scheduled == 1
-                      ? Row(children: [
-                          Text('${'scheduled_at'.tr}:', style: robotoRegular),
-                          const Expanded(child: SizedBox()),
-                          Text(
-                              DateConverter.dateTimeStringToDateTime(
-                                  order.scheduleAt!),
-                              style: robotoMedium),
-                        ])
-                      : const SizedBox(),
-                  Get.find<SplashController>()
-                          .configModel!
-                          .orderDeliveryVerification!
-                      ? const Divider(height: Dimensions.paddingSizeLarge)
-                      : const SizedBox(),
-                  Get.find<SplashController>()
-                          .configModel!
-                          .orderDeliveryVerification!
-                      ? Row(children: [
-                          Text('${'delivery_verification_code'.tr}:',
+                              Theme.of(context).disabledColor.withOpacity(0.8),
+                          blurRadius: 5,
+                          offset: const Offset(2, 2))
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimensions.paddingSizeSmall),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: Dimensions.paddingSizeSmall),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: orderController.orderDetails!.length,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeSmall),
+                            itemBuilder: (context, index) {
+                              return OrderItemWidget(
+                                  order: order,
+                                  orderDetails:
+                                      orderController.orderDetails![index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
+
+          !isDesktop
+              ? const SizedBox(height: Dimensions.paddingSizeSmall)
+              : const SizedBox(),
+
+          !isDesktop
+              ? Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                    boxShadow: [
+                      BoxShadow(
+                          color:
+                              Theme.of(context).disabledColor.withOpacity(0.8),
+                          blurRadius: 5,
+                          offset: const Offset(2, 2))
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: Dimensions.paddingSizeSmall),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeSmall,
+                                vertical: Dimensions.paddingSizeExtraSmall / 3),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  order.orderStatus == 'canceled'
+                                      ? Icons.cancel
+                                      : Icons.done,
+                                  color: (order.orderStatus == 'failed' ||
+                                          order.orderStatus == 'canceled' ||
+                                          order.orderStatus ==
+                                              'refund_request_canceled')
+                                      ? Colors.red
+                                      : order.orderStatus == 'refund_requested'
+                                          ? Colors.yellow
+                                          : Colors.green,
+                                ),
+                                const SizedBox(
+                                  width: Dimensions.paddingSizeSmall,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      order.orderStatus!.tr,
+                                      style: robotoBold.copyWith(
+                                          fontSize: Dimensions.fontSizeLarge),
+                                    ),
+                                    order.orderStatus == 'delivered'
+                                        ? Text(
+                                            DateConverter
+                                                .dateTimeStringToDateTimeMonthFirstWithDay(
+                                                    order.delivered!),
+                                            style: robotoRegular.copyWith(
+                                                color:
+                                                    Theme.of(context).hintColor,
+                                                fontSize:
+                                                    Dimensions.fontSizeSmall),
+                                          )
+                                        : const SizedBox.shrink()
+                                  ],
+                                )
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox(),
+
+          !isDesktop
+              ? const SizedBox(height: Dimensions.paddingSizeExtraLarge)
+              : const SizedBox(),
+
+          isDesktop
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: ResponsiveHelper.isMobile(context)
+                        ? const BorderRadius.vertical(
+                            top: Radius.circular(Dimensions.radiusExtraLarge))
+                        : BorderRadius.circular(
+                            isDesktop ? Dimensions.radiusDefault : 0),
+                    boxShadow: [
+                      isDesktop
+                          ? const BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 1)
+                          : const BoxShadow()
+                    ],
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeLarge,
+                      vertical: Dimensions.paddingSizeLarge),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        isDesktop
+                            ? OrderBannerViewWidget(
+                                order: order,
+                                orderController: orderController,
+                                ongoing: ongoing,
+                                parcel: parcel,
+                                prescriptionOrder: prescriptionOrder,
+                              )
+                            : const SizedBox(),
+                        isDesktop
+                            ? const SizedBox(
+                                height: Dimensions.paddingSizeSmall)
+                            : const SizedBox(),
+                        Text('general_info'.tr, style: robotoMedium),
+                        const SizedBox(height: Dimensions.paddingSizeLarge),
+                        Row(children: [
+                          Text(parcel ? 'delivery_id'.tr : 'order_id'.tr,
                               style: robotoRegular),
                           const Expanded(child: SizedBox()),
-                          Text(order.otp!, style: robotoMedium),
-                        ])
-                      : const SizedBox(),
-                  Divider(
-                      height: Dimensions.paddingSizeLarge,
-                      color: Theme.of(context).disabledColor.withOpacity(0.30)),
-                  Row(children: [
-                    Text(order.orderType!.tr, style: robotoMedium),
-                    const Expanded(child: SizedBox()),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: Dimensions.paddingSizeSmall,
-                          vertical: Dimensions.paddingSizeExtraSmall),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor.withOpacity(0.1),
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radiusSmall),
-                      ),
-                      child: Text(
-                        order.paymentMethod == 'cash_on_delivery'
-                            ? 'cash_on_delivery'.tr
-                            : order.paymentMethod == 'wallet'
-                                ? 'wallet_payment'.tr
-                                : order.paymentMethod == 'partial_payment'
-                                    ? 'partial_payment'.tr
-                                    : order.paymentMethod == 'offline_payment'
-                                        ? 'offline_payment'.tr
-                                        : 'digital_payment'.tr,
-                        style: robotoMedium.copyWith(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: Dimensions.fontSizeExtraSmall),
-                      ),
-                    ),
-                  ]),
-                  Divider(
-                      height: Dimensions.paddingSizeLarge,
-                      color: Theme.of(context).disabledColor.withOpacity(0.30)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: Dimensions.paddingSizeExtraSmall),
-                    child: Row(children: [
-                      Text('${parcel ? 'charge_pay_by'.tr : 'item'.tr}:',
-                          style: robotoRegular),
-                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                      Text(
-                        parcel
-                            ? order.chargePayer!.tr
-                            : orderController.orderDetails!.length.toString(),
-                        style: robotoMedium.copyWith(
-                            color: Theme.of(context).primaryColor),
-                      ),
-                      const Expanded(child: SizedBox()),
-                      Container(
-                          height: 7,
-                          width: 7,
-                          decoration: BoxDecoration(
-                            color: (order.orderStatus == 'failed' ||
-                                    order.orderStatus == 'canceled' ||
-                                    order.orderStatus ==
-                                        'refund_request_canceled')
-                                ? Colors.red
-                                : order.orderStatus == 'refund_requested'
-                                    ? Colors.yellow
-                                    : Colors.green,
-                            shape: BoxShape.circle,
-                          )),
-                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                      Text(
-                        order.orderStatus == 'delivered'
-                            ? '${'delivered_at'.tr} \n${DateConverter.dateTimeStringToDateTime(order.delivered!)}'
-                            : order.orderStatus!.tr,
-                        style: robotoRegular.copyWith(
-                            fontSize: Dimensions.fontSizeSmall),
-                      ),
-                    ]),
-                  ),
-                  Get.find<SplashController>()
-                          .getModuleConfig(order.moduleType)
-                          .newVariation!
-                      ? Column(children: [
-                          Divider(
-                              height: Dimensions.paddingSizeLarge,
-                              color: Theme.of(context)
-                                  .disabledColor
-                                  .withOpacity(0.30)),
-                          Row(children: [
-                            Text('${'cutlery'.tr}: ', style: robotoRegular),
-                            const Expanded(child: SizedBox()),
-                            Text(
-                              order.cutlery! ? 'yes'.tr : 'no'.tr,
-                              style: robotoRegular,
-                            ),
-                          ]),
-                        ])
-                      : const SizedBox(),
-                  order.unavailableItemNote != null
-                      ? Column(
-                          children: [
-                            Divider(
+                          Text('#${order.id}', style: robotoBold),
+                        ]),
+                        Divider(
+                            height: Dimensions.paddingSizeLarge,
+                            color: Theme.of(context)
+                                .disabledColor
+                                .withOpacity(0.30)),
+                        Row(children: [
+                          Text('order_date'.tr, style: robotoRegular),
+                          const Expanded(child: SizedBox()),
+                          Text(
+                            DateConverter.dateTimeStringToDateTime(
+                                order.createdAt!),
+                            style: robotoRegular,
+                          ),
+                        ]),
+                        order.scheduled == 1
+                            ? Divider(
                                 height: Dimensions.paddingSizeLarge,
                                 color: Theme.of(context)
                                     .disabledColor
-                                    .withOpacity(0.30)),
-                            Row(children: [
-                              Text('${'unavailable_item_note'.tr}: ',
-                                  style: robotoMedium),
-                              Text(
-                                order.unavailableItemNote!,
-                                style: robotoRegular,
-                              ),
-                            ]),
-                          ],
-                        )
-                      : const SizedBox(),
-                  order.deliveryInstruction != null
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                              Divider(
-                                  height: Dimensions.paddingSizeLarge,
-                                  color: Theme.of(context)
-                                      .disabledColor
-                                      .withOpacity(0.30)),
-                              RichText(
-                                text: TextSpan(
-                                    text: '${'delivery_instruction'.tr}: ',
-                                    style: robotoMedium.copyWith(
+                                    .withOpacity(0.30))
+                            : const SizedBox(),
+                        order.scheduled == 1
+                            ? Row(children: [
+                                Text('${'scheduled_at'.tr}:',
+                                    style: robotoRegular),
+                                const Expanded(child: SizedBox()),
+                                Text(
+                                    DateConverter.dateTimeStringToDateTime(
+                                        order.scheduleAt!),
+                                    style: robotoMedium),
+                              ])
+                            : const SizedBox(),
+                        Get.find<SplashController>()
+                                .configModel!
+                                .orderDeliveryVerification!
+                            ? const Divider(height: Dimensions.paddingSizeLarge)
+                            : const SizedBox(),
+                        Get.find<SplashController>()
+                                .configModel!
+                                .orderDeliveryVerification!
+                            ? Row(children: [
+                                Text('${'delivery_verification_code'.tr}:',
+                                    style: robotoRegular),
+                                const Expanded(child: SizedBox()),
+                                Text(order.otp!, style: robotoMedium),
+                              ])
+                            : const SizedBox(),
+                        Divider(
+                            height: Dimensions.paddingSizeLarge,
+                            color: Theme.of(context)
+                                .disabledColor
+                                .withOpacity(0.30)),
+                        Row(children: [
+                          Text(order.orderType!.tr, style: robotoMedium),
+                          const Expanded(child: SizedBox()),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeSmall,
+                                vertical: Dimensions.paddingSizeExtraSmall),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.1),
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radiusSmall),
+                            ),
+                            child: Text(
+                              order.paymentMethod == 'cash_on_delivery'
+                                  ? 'cash_on_delivery'.tr
+                                  : order.paymentMethod == 'wallet'
+                                      ? 'wallet_payment'.tr
+                                      : order.paymentMethod == 'partial_payment'
+                                          ? 'partial_payment'.tr
+                                          : order.paymentMethod ==
+                                                  'offline_payment'
+                                              ? 'offline_payment'.tr
+                                              : 'digital_payment'.tr,
+                              style: robotoMedium.copyWith(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: Dimensions.fontSizeExtraSmall),
+                            ),
+                          ),
+                        ]),
+                        Divider(
+                            height: Dimensions.paddingSizeLarge,
+                            color: Theme.of(context)
+                                .disabledColor
+                                .withOpacity(0.30)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: Dimensions.paddingSizeExtraSmall),
+                          child: Row(children: [
+                            Text('${parcel ? 'charge_pay_by'.tr : 'item'.tr}:',
+                                style: robotoRegular),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraSmall),
+                            Text(
+                              parcel
+                                  ? order.chargePayer!.tr
+                                  : orderController.orderDetails!.length
+                                      .toString(),
+                              style: robotoMedium.copyWith(
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            const Expanded(child: SizedBox()),
+                            Container(
+                                height: 7,
+                                width: 7,
+                                decoration: BoxDecoration(
+                                  color: (order.orderStatus == 'failed' ||
+                                          order.orderStatus == 'canceled' ||
+                                          order.orderStatus ==
+                                              'refund_request_canceled')
+                                      ? Colors.red
+                                      : order.orderStatus == 'refund_requested'
+                                          ? Colors.yellow
+                                          : Colors.green,
+                                  shape: BoxShape.circle,
+                                )),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraSmall),
+                            Text(
+                              order.orderStatus == 'delivered'
+                                  ? '${'delivered_at'.tr} \n${DateConverter.dateTimeStringToDateTime(order.delivered!)}'
+                                  : order.orderStatus!.tr,
+                              style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeSmall),
+                            ),
+                          ]),
+                        ),
+                        Get.find<SplashController>()
+                                .getModuleConfig(order.moduleType)
+                                .newVariation!
+                            ? Column(children: [
+                                Divider(
+                                    height: Dimensions.paddingSizeLarge,
+                                    color: Theme.of(context)
+                                        .disabledColor
+                                        .withOpacity(0.30)),
+                                Row(children: [
+                                  Text('${'cutlery'.tr}: ',
+                                      style: robotoRegular),
+                                  const Expanded(child: SizedBox()),
+                                  Text(
+                                    order.cutlery! ? 'yes'.tr : 'no'.tr,
+                                    style: robotoRegular,
+                                  ),
+                                ]),
+                              ])
+                            : const SizedBox(),
+                        order.unavailableItemNote != null
+                            ? Column(
+                                children: [
+                                  Divider(
+                                      height: Dimensions.paddingSizeLarge,
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.30)),
+                                  Row(children: [
+                                    Text('${'unavailable_item_note'.tr}: ',
+                                        style: robotoMedium),
+                                    Text(
+                                      order.unavailableItemNote!,
+                                      style: robotoRegular,
+                                    ),
+                                  ]),
+                                ],
+                              )
+                            : const SizedBox(),
+                        order.deliveryInstruction != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Divider(
+                                        height: Dimensions.paddingSizeLarge,
                                         color: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .color),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: order.deliveryInstruction!,
-                                          style: robotoRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall))
-                                    ]),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  SizedBox(
-                      height: order.deliveryInstruction != null
-                          ? Dimensions.paddingSizeSmall
-                          : 0),
-                  order.orderStatus == 'canceled'
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                              Divider(
-                                  height: Dimensions.paddingSizeLarge,
-                                  color: Theme.of(context)
-                                      .disabledColor
-                                      .withOpacity(0.30)),
-                              Text('${'cancellation_note'.tr}:',
-                                  style: robotoMedium),
-                              const SizedBox(
-                                  height: Dimensions.paddingSizeSmall),
-                              InkWell(
-                                onTap: () => Get.dialog(ReviewDialogWidget(
-                                    review: ReviewModel(
-                                        comment: order.cancellationReason),
-                                    fromOrderDetails: true)),
-                                child: Text(
-                                  order.cancellationReason ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: robotoRegular.copyWith(
-                                      color: Theme.of(context).disabledColor),
-                                ),
-                              ),
-                            ])
-                      : const SizedBox(),
-                  (order.orderStatus == 'refund_requested' ||
-                          order.orderStatus == 'refund_request_canceled')
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                              Divider(
-                                  height: Dimensions.paddingSizeLarge,
-                                  color: Theme.of(context)
-                                      .disabledColor
-                                      .withOpacity(0.30)),
-                              order.orderStatus == 'refund_requested'
-                                  ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                          RichText(
-                                              text: TextSpan(children: [
-                                            TextSpan(
-                                                text: '${'refund_note'.tr}:',
-                                                style: robotoMedium.copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge!
-                                                        .color)),
+                                            .disabledColor
+                                            .withOpacity(0.30)),
+                                    RichText(
+                                      text: TextSpan(
+                                          text:
+                                              '${'delivery_instruction'.tr}: ',
+                                          style: robotoMedium.copyWith(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .color),
+                                          children: <TextSpan>[
                                             TextSpan(
                                                 text:
-                                                    '(${(order.refund != null) ? order.refund!.customerReason : ''})',
+                                                    order.deliveryInstruction!,
                                                 style: robotoRegular.copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge!
-                                                        .color)),
-                                          ])),
-                                          const SizedBox(
-                                              height:
-                                                  Dimensions.paddingSizeSmall),
-                                          (order.refund != null &&
-                                                  order.refund!.customerNote !=
-                                                      null)
-                                              ? InkWell(
+                                                    fontSize: Dimensions
+                                                        .fontSizeSmall))
+                                          ]),
+                                    ),
+                                  ])
+                            : const SizedBox(),
+                        SizedBox(
+                            height: order.deliveryInstruction != null
+                                ? Dimensions.paddingSizeSmall
+                                : 0),
+                        order.orderStatus == 'canceled'
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Divider(
+                                        height: Dimensions.paddingSizeLarge,
+                                        color: Theme.of(context)
+                                            .disabledColor
+                                            .withOpacity(0.30)),
+                                    Text('${'cancellation_note'.tr}:',
+                                        style: robotoMedium),
+                                    const SizedBox(
+                                        height: Dimensions.paddingSizeSmall),
+                                    InkWell(
+                                      onTap: () => Get.dialog(
+                                          ReviewDialogWidget(
+                                              review: ReviewModel(
+                                                  comment:
+                                                      order.cancellationReason),
+                                              fromOrderDetails: true)),
+                                      child: Text(
+                                        order.cancellationReason ?? '',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: robotoRegular.copyWith(
+                                            color: Theme.of(context)
+                                                .disabledColor),
+                                      ),
+                                    ),
+                                  ])
+                            : const SizedBox(),
+                        (order.orderStatus == 'refund_requested' ||
+                                order.orderStatus == 'refund_request_canceled')
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Divider(
+                                        height: Dimensions.paddingSizeLarge,
+                                        color: Theme.of(context)
+                                            .disabledColor
+                                            .withOpacity(0.30)),
+                                    order.orderStatus == 'refund_requested'
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                                RichText(
+                                                    text: TextSpan(children: [
+                                                  TextSpan(
+                                                      text:
+                                                          '${'refund_note'.tr}:',
+                                                      style:
+                                                          robotoMedium.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .color)),
+                                                  TextSpan(
+                                                      text:
+                                                          '(${(order.refund != null) ? order.refund!.customerReason : ''})',
+                                                      style: robotoRegular
+                                                          .copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .color)),
+                                                ])),
+                                                const SizedBox(
+                                                    height: Dimensions
+                                                        .paddingSizeSmall),
+                                                (order.refund != null &&
+                                                        order.refund!
+                                                                .customerNote !=
+                                                            null)
+                                                    ? InkWell(
+                                                        onTap: () => Get.dialog(
+                                                            ReviewDialogWidget(
+                                                                review: ReviewModel(
+                                                                    comment: order
+                                                                        .refund!
+                                                                        .customerNote),
+                                                                fromOrderDetails:
+                                                                    true)),
+                                                        child: Text(
+                                                          '${order.refund!.customerNote}',
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: robotoRegular.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .disabledColor),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                                SizedBox(
+                                                    height: (order.refund !=
+                                                                null &&
+                                                            order.refund!
+                                                                    .imageFullUrl !=
+                                                                null)
+                                                        ? Dimensions
+                                                            .paddingSizeSmall
+                                                        : 0),
+                                                (order.refund != null &&
+                                                        order.refund!
+                                                                .imageFullUrl !=
+                                                            null &&
+                                                        order
+                                                            .refund!
+                                                            .imageFullUrl!
+                                                            .isNotEmpty)
+                                                    ? InkWell(
+                                                        onTap: () => showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return ImageDialogWidget(
+                                                                  imageUrl: order
+                                                                          .refund!
+                                                                          .imageFullUrl!
+                                                                          .isNotEmpty
+                                                                      ? order
+                                                                          .refund!
+                                                                          .imageFullUrl![0]
+                                                                      : '');
+                                                            }),
+                                                        child: CustomImage(
+                                                          height: 40,
+                                                          width: 40,
+                                                          fit: BoxFit.cover,
+                                                          image: order.refund !=
+                                                                  null
+                                                              ? order
+                                                                      .refund!
+                                                                      .imageFullUrl!
+                                                                      .isNotEmpty
+                                                                  ? order
+                                                                      .refund!
+                                                                      .imageFullUrl![0]
+                                                                  : ''
+                                                              : '',
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                              ])
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                                Text(
+                                                    '${'refund_cancellation_note'.tr}:',
+                                                    style: robotoMedium),
+                                                const SizedBox(
+                                                    height: Dimensions
+                                                        .paddingSizeSmall),
+                                                InkWell(
                                                   onTap: () => Get.dialog(
                                                       ReviewDialogWidget(
                                                           review: ReviewModel(
                                                               comment: order
                                                                   .refund!
-                                                                  .customerNote),
+                                                                  .adminNote),
                                                           fromOrderDetails:
                                                               true)),
                                                   child: Text(
-                                                    '${order.refund!.customerNote}',
+                                                    '${order.refund != null ? order.refund!.adminNote : ''}',
                                                     maxLines: 2,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -415,88 +714,20 @@ class OrderInfoWidget extends StatelessWidget {
                                                                     context)
                                                                 .disabledColor),
                                                   ),
-                                                )
-                                              : const SizedBox(),
-                                          SizedBox(
-                                              height: (order.refund != null &&
-                                                      order.refund!
-                                                              .imageFullUrl !=
-                                                          null)
-                                                  ? Dimensions.paddingSizeSmall
-                                                  : 0),
-                                          (order.refund != null &&
-                                                  order.refund!.imageFullUrl !=
-                                                      null &&
-                                                  order.refund!.imageFullUrl!
-                                                      .isNotEmpty)
-                                              ? InkWell(
-                                                  onTap: () => showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return ImageDialogWidget(
-                                                            imageUrl: order
-                                                                    .refund!
-                                                                    .imageFullUrl!
-                                                                    .isNotEmpty
-                                                                ? order.refund!
-                                                                    .imageFullUrl![0]
-                                                                : '');
-                                                      }),
-                                                  child: CustomImage(
-                                                    height: 40,
-                                                    width: 40,
-                                                    fit: BoxFit.cover,
-                                                    image: order.refund != null
-                                                        ? order
-                                                                .refund!
-                                                                .imageFullUrl!
-                                                                .isNotEmpty
-                                                            ? order.refund!
-                                                                .imageFullUrl![0]
-                                                            : ''
-                                                        : '',
-                                                  ),
-                                                )
-                                              : const SizedBox(),
-                                        ])
-                                  : Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                          Text(
-                                              '${'refund_cancellation_note'.tr}:',
-                                              style: robotoMedium),
-                                          const SizedBox(
-                                              height:
-                                                  Dimensions.paddingSizeSmall),
-                                          InkWell(
-                                            onTap: () => Get.dialog(
-                                                ReviewDialogWidget(
-                                                    review: ReviewModel(
-                                                        comment: order
-                                                            .refund!.adminNote),
-                                                    fromOrderDetails: true)),
-                                            child: Text(
-                                              '${order.refund != null ? order.refund!.adminNote : ''}',
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: robotoRegular.copyWith(
-                                                  color: Theme.of(context)
-                                                      .disabledColor),
-                                            ),
-                                          ),
-                                        ]),
-                            ])
-                      : const SizedBox(),
-                ]),
-          ),
+                                                ),
+                                              ]),
+                                  ])
+                            : const SizedBox(),
+                      ]),
+                )
+              : const SizedBox(),
 
-          isDesktop
-              ? const SizedBox()
-              : const SizedBox(height: Dimensions.paddingSizeSmall),
+          // isDesktop
+          //     ? const SizedBox()
+          //     : const SizedBox(height: Dimensions.paddingSizeSmall),
           !isDesktop
               ? (parcel || orderController.orderDetails!.isNotEmpty)
-                  ? Container(
+                  ? /* Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         boxShadow: [
@@ -545,7 +776,8 @@ class OrderInfoWidget extends StatelessWidget {
                                     },
                                   ),
                                 ]),
-                    )
+                    ) */
+                  const SizedBox()
                   : const SizedBox()
               : const SizedBox(),
 
@@ -565,7 +797,7 @@ class OrderInfoWidget extends StatelessWidget {
                   order.orderAttachmentFullUrl != null &&
                   order.orderAttachmentFullUrl!.isNotEmpty)
               ? Text('prescription'.tr, style: robotoMedium)
-              : const SizedBox(),
+              : const SizedBox.shrink(),
 
           (isDesktop &&
                   Get.find<SplashController>()
@@ -574,7 +806,7 @@ class OrderInfoWidget extends StatelessWidget {
                   order.orderAttachmentFullUrl != null &&
                   order.orderAttachmentFullUrl!.isNotEmpty)
               ? const SizedBox(height: Dimensions.paddingSizeLarge)
-              : const SizedBox(),
+              : const SizedBox.shrink(),
 
           (Get.find<SplashController>()
                       .getModuleConfig(order.moduleType)
@@ -582,17 +814,18 @@ class OrderInfoWidget extends StatelessWidget {
                   order.orderAttachmentFullUrl != null &&
                   order.orderAttachmentFullUrl!.isNotEmpty)
               ? Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(
-                        isDesktop ? Dimensions.radiusDefault : 0),
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
                     boxShadow: [
-                      isDesktop
-                          ? const BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 5,
-                              spreadRadius: 1)
-                          : const BoxShadow()
+                      BoxShadow(
+                          color:
+                              Theme.of(context).disabledColor.withOpacity(0.8),
+                          blurRadius: 5,
+                          offset: const Offset(2, 2))
                     ],
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -917,18 +1150,19 @@ class OrderInfoWidget extends StatelessWidget {
 
           (!parcel && order.store != null)
               ? Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.paddingSizeSmall),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(
-                        isDesktop ? Dimensions.radiusDefault : 0),
-                    boxShadow: isDesktop
-                        ? const [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 5,
-                                spreadRadius: 1)
-                          ]
-                        : [],
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                    boxShadow: [
+                      BoxShadow(
+                          color:
+                              Theme.of(context).disabledColor.withOpacity(0.8),
+                          blurRadius: 5,
+                          offset: const Offset(2, 2))
+                    ],
                   ),
                   padding: const EdgeInsets.symmetric(
                       horizontal: Dimensions.paddingSizeLarge,
@@ -936,14 +1170,14 @@ class OrderInfoWidget extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        !isDesktop
+                        /* !isDesktop
                             ? Text('delivery_details'.tr, style: robotoMedium)
                             : const SizedBox(),
                         !isDesktop
                             ? const SizedBox(
                                 height: Dimensions.paddingSizeSmall)
-                            : const SizedBox(),
-                        const SizedBox(height: Dimensions.paddingSizeSmall),
+                            : const SizedBox(), */
+                        // const SizedBox(height: Dimensions.paddingSizeSmall),
                         DeliveryDetailsWidget(
                             from: true, address: order.store!.address),
                         const SizedBox(height: Dimensions.paddingSizeSmall),
@@ -973,16 +1207,17 @@ class OrderInfoWidget extends StatelessWidget {
               ? const SizedBox(height: Dimensions.paddingSizeDefault)
               : const SizedBox(),
           Container(
+            margin: const EdgeInsets.symmetric(
+                horizontal: Dimensions.paddingSizeSmall),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(
-                  isDesktop ? Dimensions.radiusDefault : 0),
-              boxShadow: isDesktop
-                  ? const [
-                      BoxShadow(
-                          color: Colors.black12, blurRadius: 5, spreadRadius: 1)
-                    ]
-                  : [],
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).disabledColor.withOpacity(0.8),
+                    blurRadius: 5,
+                    offset: const Offset(2, 2))
+              ],
             ),
             padding: const EdgeInsets.symmetric(
                 horizontal: Dimensions.paddingSizeLarge,
@@ -1168,16 +1403,17 @@ class OrderInfoWidget extends StatelessWidget {
               ? const SizedBox(height: Dimensions.paddingSizeLarge)
               : const SizedBox(),
           Container(
+            margin: const EdgeInsets.symmetric(
+                horizontal: Dimensions.paddingSizeSmall),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(
-                  isDesktop ? Dimensions.radiusDefault : 0),
-              boxShadow: isDesktop
-                  ? const [
-                      BoxShadow(
-                          color: Colors.black12, blurRadius: 5, spreadRadius: 1)
-                    ]
-                  : [],
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).disabledColor.withOpacity(0.8),
+                    blurRadius: 5,
+                    offset: const Offset(2, 2))
+              ],
             ),
             padding: const EdgeInsets.symmetric(
                 horizontal: Dimensions.paddingSizeLarge,

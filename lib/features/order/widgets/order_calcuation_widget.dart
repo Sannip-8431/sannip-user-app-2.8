@@ -141,21 +141,36 @@ class OrderCalculationWidget extends StatelessWidget {
                     ? Dimensions.paddingSizeLarge
                     : 0),
 
-            Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Dimensions.paddingSizeDefault,
-                        vertical: Dimensions.paddingSizeSmall),
-                    child: Text('order_summary'.tr,
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeDefault)))),
-            const SizedBox(height: Dimensions.paddingSizeSmall),
+            ResponsiveHelper.isDesktop(context)
+                ? Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimensions.paddingSizeDefault,
+                            vertical: Dimensions.paddingSizeSmall),
+                        child: Text('billing_information'.tr,
+                            style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeDefault))))
+                : const SizedBox.shrink(),
+            const SizedBox(height: Dimensions.paddingSizeSmall / 3),
 
             // Total
-            Padding(
+            Container(
+              margin: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.paddingSizeSmall),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                boxShadow: [
+                  BoxShadow(
+                      color: Theme.of(context).disabledColor.withOpacity(0.8),
+                      blurRadius: 5,
+                      offset: const Offset(2, 2))
+                ],
+              ),
               padding: const EdgeInsets.symmetric(
-                  horizontal: Dimensions.paddingSizeLarge),
+                  horizontal: Dimensions.paddingSizeLarge,
+                  vertical: Dimensions.paddingSizeSmall),
               child: Column(
                 children: [
                   parcel
@@ -444,20 +459,163 @@ class OrderCalculationWidget extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .primaryColor)),
                                   ]),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: Dimensions.paddingSizeSmall),
+                                child: Divider(
+                                    thickness: 1,
+                                    color: Theme.of(context)
+                                        .hintColor
+                                        .withOpacity(0.5)),
+                              ),
+                              order.paymentMethod == 'partial_payment'
+                                  ? Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal:
+                                              Dimensions.paddingSizeLarge),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.05),
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.radiusDefault),
+                                        ),
+                                        child: DottedBorder(
+                                          color: Theme.of(context).primaryColor,
+                                          strokeWidth: 1,
+                                          strokeCap: StrokeCap.butt,
+                                          dashPattern: const [8, 5],
+                                          padding: const EdgeInsets.all(8),
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(
+                                              Dimensions.radiusDefault),
+                                          child: Column(children: [
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text('total_amount'.tr,
+                                                      style:
+                                                          robotoMedium.copyWith(
+                                                        fontSize: ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context)
+                                                            ? Dimensions
+                                                                .fontSizeSmall
+                                                            : Dimensions
+                                                                .fontSizeDefault,
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                      )),
+                                                  Text(
+                                                    PriceConverter.convertPrice(
+                                                        total),
+                                                    textDirection:
+                                                        TextDirection.ltr,
+                                                    style: robotoMedium.copyWith(
+                                                        fontSize: ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context)
+                                                            ? Dimensions
+                                                                .fontSizeSmall
+                                                            : Dimensions
+                                                                .fontSizeDefault,
+                                                        color: Theme.of(context)
+                                                            .primaryColor),
+                                                  ),
+                                                ]),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text('paid_by_wallet'.tr,
+                                                      style: robotoMedium.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeSmall)),
+                                                  Text(
+                                                    PriceConverter.convertPrice(
+                                                        order.payments?[0]
+                                                                .amount ??
+                                                            0),
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeSmall),
+                                                  ),
+                                                ]),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    '${order.payments?[1].paymentStatus == 'paid' ? 'paid_by'.tr : 'due_amount'.tr} (${order.payments?[1].paymentMethod?.tr})',
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeSmall),
+                                                  ),
+                                                  Text(
+                                                    PriceConverter.convertPrice(
+                                                        order.payments?[1]
+                                                                .amount ??
+                                                            0),
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeSmall),
+                                                  ),
+                                                ]),
+                                          ]),
+                                        ),
+                                      ),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                          Text('total_amount'.tr,
+                                              style: robotoMedium.copyWith(
+                                                fontSize: ResponsiveHelper
+                                                        .isDesktop(context)
+                                                    ? Dimensions.fontSizeSmall
+                                                    : Dimensions
+                                                        .fontSizeDefault,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              )),
+                                          Text(
+                                            PriceConverter.convertPrice(total),
+                                            textDirection: TextDirection.ltr,
+                                            style: robotoMedium.copyWith(
+                                                fontSize: ResponsiveHelper
+                                                        .isDesktop(context)
+                                                    ? Dimensions.fontSizeSmall
+                                                    : Dimensions
+                                                        .fontSizeDefault,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                        ]),
                             ]),
                 ],
               ),
             ),
 
-            Padding(
+            /*  Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: Dimensions.paddingSizeSmall),
               child: Divider(
                   thickness: 1,
                   color: Theme.of(context).hintColor.withOpacity(0.5)),
-            ),
+            ), */
 
-            order.paymentMethod == 'partial_payment'
+            /*  order.paymentMethod == 'partial_payment'
                 ? Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: Dimensions.paddingSizeLarge),
@@ -555,7 +713,7 @@ class OrderCalculationWidget extends StatelessWidget {
                                 color: Theme.of(context).primaryColor),
                           ),
                         ]),
-                  ),
+                  ), */
 
             SizedBox(
                 height: ResponsiveHelper.isDesktop(context)

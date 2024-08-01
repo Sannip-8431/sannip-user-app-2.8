@@ -21,7 +21,7 @@ class DeliveryDetailsWidget extends StatelessWidget {
         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
         Text(
           address ?? '',
-          maxLines: 1,
+          maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
         )
