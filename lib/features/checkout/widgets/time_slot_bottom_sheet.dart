@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sannip/common/widgets/dotted_horizontal_divider.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/common/models/config_model.dart';
@@ -312,7 +313,7 @@ class TimeSlotBottomSheet extends StatelessWidget {
                                   ),
                                   const SizedBox(
                                       height: Dimensions.paddingSizeLarge),
-                                  MySeparator(
+                                  DottedHorizontalDivider(
                                     color: Theme.of(context).disabledColor,
                                   ),
                                   const SizedBox(
@@ -506,37 +507,6 @@ class TimeSlotBottomSheet extends StatelessWidget {
               thickness: isSelected ? 2 : 1),
         ],
       ),
-    );
-  }
-}
-
-class MySeparator extends StatelessWidget {
-  const MySeparator({super.key, this.height = 1, this.color = Colors.black});
-  final double height;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final boxWidth = constraints.constrainWidth();
-        const dashWidth = 10.0;
-        final dashHeight = height;
-        final dashCount = (boxWidth / (2 * dashWidth)).floor();
-        return Flex(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          direction: Axis.horizontal,
-          children: List.generate(dashCount, (_) {
-            return SizedBox(
-              width: dashWidth,
-              height: dashHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
-              ),
-            );
-          }),
-        );
-      },
     );
   }
 }
