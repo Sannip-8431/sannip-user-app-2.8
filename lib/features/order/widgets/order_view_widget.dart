@@ -530,10 +530,7 @@ class OrderViewWidget extends StatelessWidget {
                                                           .withOpacity(0.09),
                                                     ),
                                                     child: Text(
-                                                        paginatedOrderModel
-                                                            .orders![index]
-                                                            .orderStatus!
-                                                            .tr,
+                                                        "${'your_order_is'.tr} ${paginatedOrderModel.orders![index].orderStatus!.tr}",
                                                         style: robotoMedium
                                                             .copyWith(
                                                           fontSize: Dimensions
