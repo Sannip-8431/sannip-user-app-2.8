@@ -188,13 +188,22 @@ class _CartCountViewState extends State<CartCountView> {
             )
           : InkWell(
               onTap: () {
-                if (Get.find<ItemController>().isAvailable(widget.item) &&
-                    Get.find<StoreController>()
-                        .isOpenNow(widget.store ?? Store())) {
-                  Get.find<ItemController>()
-                      .itemDirectlyAddToCart(widget.item, context);
+                if (widget.store != null) {
+                  if (Get.find<ItemController>().isAvailable(widget.item) &&
+                      Get.find<StoreController>()
+                          .isOpenNow(widget.store ?? Store())) {
+                    Get.find<ItemController>()
+                        .itemDirectlyAddToCart(widget.item, context);
+                  } else {
+                    _showNotAcceptingOrdersDialog(context);
+                  }
                 } else {
-                  _showNotAcceptingOrdersDialog(context);
+                  if (Get.find<ItemController>().isAvailable(widget.item)) {
+                    Get.find<ItemController>()
+                        .itemDirectlyAddToCart(widget.item, context);
+                  } else {
+                    _showNotAcceptingOrdersDialog(context);
+                  }
                 }
               },
               child: widget.child ??
