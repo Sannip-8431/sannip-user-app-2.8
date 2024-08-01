@@ -2,6 +2,7 @@ import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:sannip/common/widgets/address_widget.dart';
+import 'package:sannip/common/widgets/dotted_horizontal_divider.dart';
 import 'package:sannip/common/widgets/item_widget.dart';
 import 'package:sannip/common/widgets/no_data_screen.dart';
 import 'package:sannip/common/widgets/web_constrained_box.dart';
@@ -620,7 +621,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                 minHeight: 0.6,
                                                                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                                                                   Padding(
-                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
+                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault),
                                                                                     child: Text('your_orders'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
                                                                                   ),
                                                                                   ListView.builder(
@@ -635,7 +636,43 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                   // const Divider(
                                                                                   //     thickness: 0.5,
                                                                                   //     height: 5),
-                                                                                  Padding(
+                                                                                  Container(
+                                                                                    margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+                                                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusDefault), border: Border.all(color: Theme.of(context).disabledColor)),
+                                                                                    child: Column(
+                                                                                      children: [
+                                                                                        ListTile(
+                                                                                          visualDensity: const VisualDensity(vertical: -2),
+                                                                                          onTap: () {
+                                                                                            cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
+                                                                                            Get.toNamed(
+                                                                                              RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
+                                                                                              arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
+                                                                                            );
+                                                                                          },
+                                                                                          leading: Icon(
+                                                                                            Icons.add_circle_outline,
+                                                                                            color: Theme.of(context).disabledColor,
+                                                                                            size: 25,
+                                                                                          ),
+                                                                                          title: Text(
+                                                                                            'add_more_items'.tr,
+                                                                                            style: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontWeight: FontWeight.w500),
+                                                                                          ),
+                                                                                          trailing: Icon(
+                                                                                            Icons.chevron_right,
+                                                                                            color: Theme.of(context).disabledColor,
+                                                                                            size: 30,
+                                                                                          ),
+                                                                                        ),
+                                                                                        DottedHorizontalDivider(
+                                                                                          color: Theme.of(context).disabledColor,
+                                                                                        ),
+                                                                                        NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  /*Padding(
                                                                                     padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
                                                                                     child: InkWell(
                                                                                       onTap: () {
@@ -655,8 +692,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                         ],
                                                                                       ),
                                                                                     ),
-                                                                                  ),
-                                                                                  NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
+                                                                                  ),*/
                                                                                   if (checkoutController.orderType != 'take_away')
                                                                                     ExtraPackagingWidget(
                                                                                       cartController: cartController,
