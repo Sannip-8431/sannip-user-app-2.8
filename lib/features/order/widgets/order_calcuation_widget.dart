@@ -306,7 +306,7 @@ class OrderCalculationWidget extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('discount'.tr,
+                                    Text('sannip_discounts'.tr,
                                         style: robotoRegular.copyWith(
                                             fontSize:
                                                 Dimensions.fontSizeSmall)),

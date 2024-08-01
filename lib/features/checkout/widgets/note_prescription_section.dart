@@ -64,50 +64,36 @@ class NoteAndPrescriptionSection extends StatelessWidget {
   }
 
   Widget mobileNoteWidget(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5,
-            spreadRadius: 1,
-          )
-        ],
+    return ListTile(
+      visualDensity: const VisualDensity(vertical: -2),
+      onTap: () {
+        textFocusNode.requestFocus();
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (con) => Padding(
+              padding: MediaQuery.of(con).viewInsets,
+              child: bottomSheetWidget(con)),
+        );
+      },
+      leading: Icon(
+        Icons.menu,
+        color: Theme.of(context).disabledColor,
+        size: 25,
       ),
-      margin: const EdgeInsets.symmetric(
-        horizontal: Dimensions.paddingSizeDefault,
-        vertical: Dimensions.paddingSizeExtraSmall,
+      title: Text(
+        checkoutController.noteController.text.isNotEmpty
+            ? checkoutController.noteController.text
+            : 'do_you_have_any_instructions?'.tr,
+        style: robotoRegular.copyWith(
+            color: Theme.of(context).disabledColor,
+            fontWeight: FontWeight.w500),
       ),
-      padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
-      child: InkWell(
-        onTap: () {
-          textFocusNode.requestFocus();
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            builder: (con) => Padding(
-                padding: MediaQuery.of(con).viewInsets,
-                child: bottomSheetWidget(con)),
-          );
-        },
-        child: Row(children: [
-          Icon(Icons.menu, size: 18, color: Theme.of(context).hintColor),
-          const SizedBox(
-            width: Dimensions.paddingSizeDefault,
-          ),
-          Expanded(
-              child: Text(
-                  checkoutController.noteController.text.isNotEmpty
-                      ? checkoutController.noteController.text
-                      : 'do_you_have_any_instructions?'.tr,
-                  style:
-                      robotoMedium.copyWith(color: Theme.of(context).hintColor),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis)),
-        ]),
+      trailing: Icon(
+        Icons.chevron_right,
+        color: Theme.of(context).disabledColor,
+        size: 30,
       ),
     );
   }

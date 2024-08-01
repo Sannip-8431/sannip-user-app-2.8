@@ -271,20 +271,23 @@ class BottomSection extends StatelessWidget {
                                   textDirection: TextDirection.ltr),
                             ])
                       : const SizedBox(),
-                  SizedBox(
-                      height:
-                          storeId == null ? Dimensions.paddingSizeSmall : 0),
-                  storeId == null
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                              Text('discount'.tr, style: robotoRegular),
-                              Text(
-                                  '(-) ${PriceConverter.convertPrice(discount)}',
-                                  style: robotoRegular,
-                                  textDirection: TextDirection.ltr),
-                            ])
-                      : const SizedBox(),
+                  if (discount != 0) ...[
+                    SizedBox(
+                        height:
+                            storeId == null ? Dimensions.paddingSizeSmall : 0),
+                    storeId == null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Text('sannip_discounts'.tr,
+                                    style: robotoRegular),
+                                Text(
+                                    '(-) ${PriceConverter.convertPrice(discount)}',
+                                    style: robotoRegular,
+                                    textDirection: TextDirection.ltr),
+                              ])
+                        : const SizedBox(),
+                  ],
                   const SizedBox(height: Dimensions.paddingSizeSmall),
                   (couponController.discount! > 0 ||
                           couponController.freeDelivery)
