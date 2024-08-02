@@ -364,6 +364,7 @@ class Images {
 
   static const String checkGif = 'assets/image/check.gif';
   static const String cancelGif = 'assets/image/cancel.gif';
+  static const String rainGif = 'assets/image/rain.gif';
 
   static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieCart = 'assets/lottie/cart.json';

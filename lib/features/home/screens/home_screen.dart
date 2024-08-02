@@ -12,6 +12,7 @@ import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
 import 'package:sannip/features/flash_sale/controllers/flash_sale_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/features/location/domain/models/zone_response_model.dart';
 import 'package:sannip/features/notification/controllers/notification_controller.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
 import 'package:sannip/features/search/widgets/search_field_widget.dart';
@@ -123,6 +124,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
+  bool _showAlert = true;
+  String? _message;
 
   @override
   void initState() {
@@ -161,6 +164,22 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     });
+    ZoneData? zoneData;
+    for (var data in AddressHelper.getUserAddressFromSharedPref()!.zoneData!) {
+      if (data.id == AddressHelper.getUserAddressFromSharedPref()!.zoneId) {
+        if (data.increaseDeliveryFeeStatus == 1 &&
+            data.increaseDeliveryFeeMessage != null) {
+          zoneData = data;
+        }
+      }
+    }
+
+    if (zoneData != null) {
+      _showAlert = zoneData.increaseDeliveryFeeStatus == 1;
+      _message = zoneData.increaseDeliveryFeeMessage;
+    } else {
+      _showAlert = false;
+    }
   }
 
   @override
@@ -296,438 +315,495 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? WebNewHomeScreen(
                             scrollController: _scrollController,
                           )
-                        : CustomScrollView(
-                            controller: _scrollController,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            slivers: [
-                              /// App Bar
-                              SliverAppBar(
-                                floating: true,
-                                elevation: 0,
-                                automaticallyImplyLeading: false,
-                                surfaceTintColor:
-                                    Theme.of(context).colorScheme.surface,
-                                backgroundColor:
-                                    ResponsiveHelper.isDesktop(context)
-                                        ? Colors.transparent
-                                        : Theme.of(context).colorScheme.surface,
-                                title: Center(
-                                    child: Container(
-                                  width: Dimensions.webMaxWidth,
-                                  height:
-                                      Get.find<LocalizationController>().isLtr
+                        : Stack(
+                            children: [
+                              Positioned.fill(
+                                child:
+                                    Background(controller: _scrollController),
+                              ),
+                              // Container(
+                              //   decoration: _showAlert &&
+                              //           _message != null &&
+                              //           _message!.isNotEmpty &&
+                              //           !showMobileModule
+                              //       ? BoxDecoration(
+                              //           image: DecorationImage(
+                              //               alignment: Alignment.topCenter,
+                              //               image: Image.asset(
+                              //                 Images.rainGif,
+                              //               ).image,
+                              //               opacity: 0.7),
+                              //         )
+                              //       : null,
+                              // ),
+                              CustomScrollView(
+                                controller: _scrollController,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                slivers: [
+                                  /// App Bar
+                                  SliverAppBar(
+                                    floating: true,
+                                    elevation: 0,
+                                    automaticallyImplyLeading: false,
+                                    surfaceTintColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    backgroundColor:
+                                        ResponsiveHelper.isDesktop(context)
+                                            ? Colors.transparent
+                                            // : Theme.of(context)
+                                            //     .colorScheme.surface,
+                                            : Colors.transparent,
+                                    title: Center(
+                                        child: Container(
+                                      width: Dimensions.webMaxWidth,
+                                      height: Get.find<LocalizationController>()
+                                              .isLtr
                                           ? 60
                                           : 70,
-                                  color: Theme.of(context).colorScheme.surface,
-                                  child: Row(children: [
-                                    (splashController.module != null &&
-                                            splashController
-                                                    .configModel!.module ==
-                                                null)
-                                        ? InkWell(
-                                            onTap: () =>
-                                                splashController.removeModule(),
-                                            child: Image.asset(
-                                                Images.moduleIcon,
-                                                height: 25,
-                                                width: 25,
-                                                color: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge!
-                                                    .color),
-                                          )
-                                        : const SizedBox(),
-                                    SizedBox(
-                                        width:
-                                            (splashController.module != null &&
+                                      color: Colors.transparent,
+                                      // Theme.of(context).colorScheme.surface,
+                                      child: Row(children: [
+                                        (splashController.module != null &&
+                                                splashController
+                                                        .configModel!.module ==
+                                                    null)
+                                            ? InkWell(
+                                                onTap: () => splashController
+                                                    .removeModule(),
+                                                child: Image.asset(
+                                                    Images.moduleIcon,
+                                                    height: 25,
+                                                    width: 25,
+                                                    color: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge!
+                                                        .color),
+                                              )
+                                            : const SizedBox(),
+                                        SizedBox(
+                                            width: (splashController.module !=
+                                                        null &&
                                                     splashController
                                                             .configModel!
                                                             .module ==
                                                         null)
                                                 ? Dimensions.paddingSizeSmall
                                                 : 0),
-                                    Expanded(
-                                        child: InkWell(
-                                      onTap: () =>
-                                          Get.find<LocationController>()
-                                              .navigateToLocationScreen('home'),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: Dimensions.paddingSizeSmall,
-                                          horizontal:
-                                              ResponsiveHelper.isDesktop(
-                                                      context)
+                                        Expanded(
+                                            child: InkWell(
+                                          onTap: () =>
+                                              Get.find<LocationController>()
+                                                  .navigateToLocationScreen(
+                                                      'home'),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  Dimensions.paddingSizeSmall,
+                                              horizontal: ResponsiveHelper
+                                                      .isDesktop(context)
                                                   ? Dimensions.paddingSizeSmall
                                                   : 0,
-                                        ),
-                                        child: GetBuilder<LocationController>(
-                                            builder: (locationController) {
-                                          return Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  AddressHelper
-                                                          .getUserAddressFromSharedPref()!
-                                                      .addressType!
-                                                      .tr,
-                                                  style: robotoMedium.copyWith(
-                                                      color: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge!
-                                                          .color,
-                                                      fontSize: Dimensions
-                                                          .fontSizeDefault),
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                Row(children: [
-                                                  Flexible(
-                                                    child: Text(
+                                            ),
+                                            child:
+                                                GetBuilder<LocationController>(
+                                                    builder:
+                                                        (locationController) {
+                                              return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
                                                       AddressHelper
                                                               .getUserAddressFromSharedPref()!
-                                                          .address!,
-                                                      style: robotoRegular.copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .disabledColor,
+                                                          .addressType!
+                                                          .tr,
+                                                      style: robotoMedium.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .color,
                                                           fontSize: Dimensions
-                                                              .fontSizeSmall),
+                                                              .fontSizeDefault),
                                                       maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
-                                                  ),
-                                                  Icon(Icons.expand_more,
-                                                      color: Theme.of(context)
-                                                          .disabledColor,
-                                                      size: 18),
-                                                ]),
-                                              ]);
-                                        }),
-                                      ),
-                                    )),
-                                    InkWell(
-                                      child: GetBuilder<NotificationController>(
-                                          builder: (notificationController) {
-                                        return Stack(children: [
-                                          Image.asset(
-                                            Images.notificationIcon,
-                                            height: 22,
-                                            width: 22,
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .color,
+                                                    Row(children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          AddressHelper
+                                                                  .getUserAddressFromSharedPref()!
+                                                              .address!,
+                                                          style: robotoRegular.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .disabledColor,
+                                                              fontSize: Dimensions
+                                                                  .fontSizeSmall),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                      Icon(Icons.expand_more,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .disabledColor,
+                                                          size: 18),
+                                                    ]),
+                                                  ]);
+                                            }),
                                           ),
-                                          // Icon(CupertinoIcons.bell,
-                                          //     size: 25,
-                                          //     color: Theme.of(context)
-                                          //         .textTheme
-                                          //         .bodyLarge!
-                                          //         .color),
-                                          notificationController.hasNotification
-                                              ? Positioned(
-                                                  top: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    height: 10,
-                                                    width: 10,
-                                                    decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                          width: 1,
+                                        )),
+                                        InkWell(
+                                          child: GetBuilder<
+                                                  NotificationController>(
+                                              builder:
+                                                  (notificationController) {
+                                            return Stack(children: [
+                                              Image.asset(
+                                                Images.notificationIcon,
+                                                height: 22,
+                                                width: 22,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .color,
+                                              ),
+                                              // Icon(CupertinoIcons.bell,
+                                              //     size: 25,
+                                              //     color: Theme.of(context)
+                                              //         .textTheme
+                                              //         .bodyLarge!
+                                              //         .color),
+                                              notificationController
+                                                      .hasNotification
+                                                  ? Positioned(
+                                                      top: 0,
+                                                      right: 0,
+                                                      child: Container(
+                                                        height: 10,
+                                                        width: 10,
+                                                        decoration:
+                                                            BoxDecoration(
                                                           color:
                                                               Theme.of(context)
+                                                                  .primaryColor,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: Border.all(
+                                                              width: 1,
+                                                              color: Theme.of(
+                                                                      context)
                                                                   .cardColor),
-                                                    ),
-                                                  ))
-                                              : const SizedBox(),
-                                        ]);
-                                      }),
-                                      onTap: () => Get.toNamed(
-                                          RouteHelper.getNotificationRoute()),
-                                    ),
-                                  ]),
-                                )),
-                                actions: const [SizedBox()],
-                              ),
+                                                        ),
+                                                      ))
+                                                  : const SizedBox(),
+                                            ]);
+                                          }),
+                                          onTap: () => Get.toNamed(RouteHelper
+                                              .getNotificationRoute()),
+                                        ),
+                                      ]),
+                                    )),
+                                  ),
 
-                              /// Search Button
-                              !showMobileModule
-                                  ? SliverPersistentHeader(
-                                      pinned: true,
-                                      delegate: SliverDelegate(
-                                          child: Center(
-                                              child: Container(
-                                        height: 50,
-                                        width: Dimensions.webMaxWidth,
-                                        // color: Theme.of(context).colorScheme.background,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal:
-                                                Dimensions.paddingSizeSmall),
-                                        child: InkWell(
-                                          onTap: () => Get.toNamed(
-                                              RouteHelper.getSearchRoute()),
-                                          child: Container(
+                                  /// Search Button
+                                  !showMobileModule
+                                      ? SliverPersistentHeader(
+                                          pinned: true,
+                                          delegate: SliverDelegate(
+                                              child: Center(
+                                                  child: Container(
+                                            height: 50,
+                                            width: Dimensions.webMaxWidth,
+                                            // color: Theme.of(context).colorScheme.background,
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: Dimensions
                                                     .paddingSizeSmall),
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 3),
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              /* border: Border.all(
+                                            child: InkWell(
+                                              onTap: () => Get.toNamed(
+                                                  RouteHelper.getSearchRoute()),
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeSmall),
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 3),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  /* border: Border.all(
                                                   color: Theme.of(context)
                                                       .primaryColor
                                                       .withOpacity(0.2),
                                                   width: 1), */
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions.radiusDefault),
-                                              /*  boxShadow: const [
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          Dimensions
+                                                              .radiusDefault),
+                                                  /*  boxShadow: const [
                                                 BoxShadow(
                                                     color: Colors.black12,
                                                     blurRadius: 5,
                                                     spreadRadius: 1)
                                               ], */
+                                                ),
+                                                child: Row(children: [
+                                                  Expanded(
+                                                      child: Text(
+                                                    Get.find<SplashController>()
+                                                            .configModel!
+                                                            .moduleConfig!
+                                                            .module!
+                                                            .showRestaurantText!
+                                                        ? 'search_food_or_restaurant'
+                                                            .tr
+                                                        : 'search_item_or_store'
+                                                            .tr,
+                                                    style:
+                                                        robotoRegular.copyWith(
+                                                      fontSize: Dimensions
+                                                          .fontSizeSmall,
+                                                      color: Theme.of(context)
+                                                          .hintColor,
+                                                    ),
+                                                  )),
+                                                  const SizedBox(
+                                                      width: Dimensions
+                                                          .paddingSizeExtraSmall),
+                                                  Icon(
+                                                    CupertinoIcons.search,
+                                                    size: 25,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                                ]),
+                                              ),
                                             ),
+                                          ))),
+                                        )
+                                      : SliverPersistentHeader(
+                                          pinned: true,
+                                          delegate: SliverDelegate(
+                                              child: Center(
+                                                  child: Container(
+                                            height: 48,
+                                            width: Dimensions.webMaxWidth,
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 0, horizontal: 8),
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
                                             child: Row(children: [
                                               Expanded(
-                                                  child: Text(
-                                                Get.find<SplashController>()
-                                                        .configModel!
-                                                        .moduleConfig!
-                                                        .module!
-                                                        .showRestaurantText!
-                                                    ? 'search_food_or_restaurant'
-                                                        .tr
-                                                    : 'search_item_or_store'.tr,
-                                                style: robotoRegular.copyWith(
-                                                  fontSize:
-                                                      Dimensions.fontSizeSmall,
-                                                  color: Theme.of(context)
-                                                      .hintColor,
+                                                  child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault),
+                                                child: SearchFieldWidget(
+                                                  controller: _searchController,
+                                                  hint:
+                                                      "${'search'.tr} ${'store'.tr}",
+                                                  filledColor: Colors.grey[200],
+                                                  iconColor: Theme.of(context)
+                                                      .primaryColor,
+                                                  suffixIcon:
+                                                      CupertinoIcons.search,
+                                                  iconPressed: () {},
+                                                  onSubmit: (text) {},
+                                                  onChanged: (text) {},
                                                 ),
                                               )),
-                                              const SizedBox(
-                                                  width: Dimensions
-                                                      .paddingSizeExtraSmall),
-                                              Icon(
-                                                CupertinoIcons.search,
-                                                size: 25,
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                              ),
                                             ]),
-                                          ),
-                                        ),
-                                      ))),
-                                    )
-                                  : SliverPersistentHeader(
-                                      pinned: true,
-                                      delegate: SliverDelegate(
-                                          child: Center(
-                                              child: Container(
-                                        height: 48,
-                                        width: Dimensions.webMaxWidth,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 0, horizontal: 8),
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.radiusDefault)),
-                                        child: Row(children: [
-                                          Expanded(
-                                              child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.radiusDefault),
-                                            child: SearchFieldWidget(
-                                              controller: _searchController,
-                                              hint:
-                                                  "${'search'.tr} ${'store'.tr}",
-                                              filledColor: Colors.grey[200],
-                                              iconColor: Theme.of(context)
-                                                  .primaryColor,
-                                              suffixIcon: CupertinoIcons.search,
-                                              iconPressed: () {},
-                                              onSubmit: (text) {},
-                                              onChanged: (text) {},
-                                            ),
-                                          )),
-                                        ]),
-                                      )))),
+                                          )))),
 
-                              SliverToBoxAdapter(
-                                child: Center(
-                                    child: SizedBox(
-                                  width: Dimensions.webMaxWidth,
-                                  child: !showMobileModule
-                                      ? Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                              isGrocery
-                                                  ? const GroceryHomeScreen()
-                                                  : isPharmacy
-                                                      ? const PharmacyHomeScreen()
-                                                      : isFood
-                                                          ? const FoodHomeScreen()
-                                                          : isShop
-                                                              ? const ShopHomeScreen()
-                                                              : const SizedBox(),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    Get.find<LocalizationController>()
-                                                            .isLtr
-                                                        ? 10
-                                                        : 0,
-                                                    15,
-                                                    0,
-                                                    5),
-                                                child:
-                                                    GetBuilder<StoreController>(
+                                  SliverToBoxAdapter(
+                                    child: Center(
+                                        child: SizedBox(
+                                      width: Dimensions.webMaxWidth,
+                                      child: !showMobileModule
+                                          ? Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                  isGrocery
+                                                      ? const GroceryHomeScreen()
+                                                      : isPharmacy
+                                                          ? const PharmacyHomeScreen()
+                                                          : isFood
+                                                              ? const FoodHomeScreen()
+                                                              : isShop
+                                                                  ? const ShopHomeScreen()
+                                                                  : const SizedBox(),
+                                                  Padding(
+                                                    padding: EdgeInsets.fromLTRB(
+                                                        Get.find<LocalizationController>()
+                                                                .isLtr
+                                                            ? 10
+                                                            : 0,
+                                                        15,
+                                                        0,
+                                                        5),
+                                                    child: GetBuilder<
+                                                            StoreController>(
                                                         builder:
                                                             (storeController) {
-                                                  return Row(children: [
-                                                    Expanded(
-                                                        child: Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: Get.find<
-                                                                      LocalizationController>()
-                                                                  .isLtr
-                                                              ? 0
-                                                              : 10),
-                                                      child: Text(
-                                                        '${storeController.storeModel?.totalSize ?? 0} ${Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText! ? 'restaurants'.tr : 'stores'.tr}',
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeLarge),
-                                                      ),
-                                                    )),
-                                                    FilterView(
-                                                        storeController:
-                                                            storeController),
-                                                  ]);
-                                                }),
-                                              ),
-                                              GetBuilder<StoreController>(
-                                                  builder: (storeController) {
-                                                return PaginatedListView(
-                                                  scrollController:
-                                                      _scrollController,
-                                                  totalSize: storeController
-                                                      .storeModel?.totalSize,
-                                                  offset: storeController
-                                                      .storeModel?.offset,
-                                                  onPaginate:
-                                                      (int? offset) async =>
+                                                      return Row(children: [
+                                                        Expanded(
+                                                            child: Padding(
+                                                          padding: EdgeInsets.only(
+                                                              right: Get.find<
+                                                                          LocalizationController>()
+                                                                      .isLtr
+                                                                  ? 0
+                                                                  : 10),
+                                                          child: Text(
+                                                            '${storeController.storeModel?.totalSize ?? 0} ${Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText! ? 'restaurants'.tr : 'stores'.tr}',
+                                                            style: robotoMedium
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        Dimensions
+                                                                            .fontSizeLarge),
+                                                          ),
+                                                        )),
+                                                        FilterView(
+                                                            storeController:
+                                                                storeController),
+                                                      ]);
+                                                    }),
+                                                  ),
+                                                  GetBuilder<StoreController>(
+                                                      builder:
+                                                          (storeController) {
+                                                    return PaginatedListView(
+                                                      scrollController:
+                                                          _scrollController,
+                                                      totalSize: storeController
+                                                          .storeModel
+                                                          ?.totalSize,
+                                                      offset: storeController
+                                                          .storeModel?.offset,
+                                                      onPaginate: (int?
+                                                              offset) async =>
                                                           await storeController
                                                               .getStoreList(
                                                                   offset!,
                                                                   false),
-                                                  itemView: ItemsView(
-                                                    isStore: true,
-                                                    items: null,
-                                                    isFoodOrGrocery:
-                                                        (isFood || isGrocery),
-                                                    stores: storeController
-                                                        .storeModel?.stores,
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                      horizontal: ResponsiveHelper
+                                                      itemView: ItemsView(
+                                                        isStore: true,
+                                                        items: null,
+                                                        isFoodOrGrocery:
+                                                            (isFood ||
+                                                                isGrocery),
+                                                        stores: storeController
+                                                            .storeModel?.stores,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal: ResponsiveHelper
+                                                                  .isDesktop(
+                                                                      context)
+                                                              ? Dimensions
+                                                                  .paddingSizeExtraSmall
+                                                              : Dimensions
+                                                                  .paddingSizeSmall,
+                                                          vertical: ResponsiveHelper
+                                                                  .isDesktop(
+                                                                      context)
+                                                              ? Dimensions
+                                                                  .paddingSizeExtraSmall
+                                                              : Dimensions
+                                                                  .paddingSizeDefault,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }),
+                                                  SizedBox(
+                                                      height: ResponsiveHelper
                                                               .isDesktop(
                                                                   context)
-                                                          ? Dimensions
-                                                              .paddingSizeExtraSmall
-                                                          : Dimensions
-                                                              .paddingSizeSmall,
-                                                      vertical: ResponsiveHelper
-                                                              .isDesktop(
-                                                                  context)
-                                                          ? Dimensions
-                                                              .paddingSizeExtraSmall
-                                                          : Dimensions
-                                                              .paddingSizeDefault,
-                                                    ),
-                                                  ),
+                                                          ? 0
+                                                          : 40),
+                                                ])
+                                          : ValueListenableBuilder(
+                                              valueListenable:
+                                                  _searchController,
+                                              builder: (context, val, widgett) {
+                                                return ModuleView(
+                                                  splashController:
+                                                      splashController,
+                                                  searchedText: val.text,
                                                 );
                                               }),
-                                              SizedBox(
-                                                  height: ResponsiveHelper
-                                                          .isDesktop(context)
-                                                      ? 0
-                                                      : 40),
-                                            ])
-                                      : ValueListenableBuilder(
-                                          valueListenable: _searchController,
-                                          builder: (context, val, widgett) {
-                                            return ModuleView(
-                                              splashController:
-                                                  splashController,
-                                              searchedText: val.text,
-                                            );
-                                          }),
-                                )),
-                              ),
-                              !showMobileModule
-                                  ? SliverToBoxAdapter(
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Image.asset(
-                                          Images.sannipTextLogo,
-                                          // height: 70,
-                                          width: 100,
-                                          fit: BoxFit.contain,
-                                          color: Colors.grey.withOpacity(0.9),
-                                        ),
-                                      ),
-                                    )
-                                  : ResponsiveHelper.isDesktop(context)
-                                      ? const SliverToBoxAdapter(
-                                          child: SizedBox())
-                                      : SliverToBoxAdapter(
+                                    )),
+                                  ),
+                                  !showMobileModule
+                                      ? SliverToBoxAdapter(
                                           child: Container(
                                             alignment: Alignment.centerLeft,
-                                            padding: const EdgeInsets.only(
-                                                left: Dimensions
-                                                    .paddingSizeSmall),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Live\nit up!',
-                                                  style: robotoBlack.copyWith(
-                                                      height: 0.8,
-                                                      fontSize: 100,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.9)),
-                                                ),
-                                                const SizedBox(
-                                                  height: Dimensions
-                                                      .paddingSizeDefault,
-                                                ),
-                                                Text(
-                                                  'Crafted with ❤️ in Bailhongal, Karnataka',
-                                                  style: robotoRegular.copyWith(
-                                                      fontSize: Dimensions
-                                                          .fontSizeDefault,
-                                                      color: Colors.grey
-                                                          .withOpacity(0.9)),
-                                                ),
-                                                const SizedBox(height: 30)
-                                              ],
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Image.asset(
+                                              Images.sannipTextLogo,
+                                              // height: 70,
+                                              width: 100,
+                                              fit: BoxFit.contain,
+                                              color:
+                                                  Colors.grey.withOpacity(0.9),
                                             ),
                                           ),
-                                        ),
-                              const SliverToBoxAdapter(
-                                child: SizedBox(height: 80),
+                                        )
+                                      : ResponsiveHelper.isDesktop(context)
+                                          ? const SliverToBoxAdapter(
+                                              child: SizedBox())
+                                          : SliverToBoxAdapter(
+                                              child: Container(
+                                                alignment: Alignment.centerLeft,
+                                                padding: const EdgeInsets.only(
+                                                    left: Dimensions
+                                                        .paddingSizeSmall),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Live\nit up!',
+                                                      style:
+                                                          robotoBlack.copyWith(
+                                                              height: 0.8,
+                                                              fontSize: 100,
+                                                              color: Colors.grey
+                                                                  .withOpacity(
+                                                                      0.9)),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: Dimensions
+                                                          .paddingSizeDefault,
+                                                    ),
+                                                    Text(
+                                                      'Crafted with ❤️ in Bailhongal, Karnataka',
+                                                      style: robotoRegular.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeDefault,
+                                                          color: Colors.grey
+                                                              .withOpacity(
+                                                                  0.9)),
+                                                    ),
+                                                    const SizedBox(height: 30)
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                  const SliverToBoxAdapter(
+                                    child: SizedBox(height: 80),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -776,5 +852,59 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
     return oldDelegate.maxExtent != 50 ||
         oldDelegate.minExtent != 50 ||
         child != oldDelegate.child;
+  }
+}
+
+class Background extends StatefulWidget {
+  const Background({
+    super.key,
+    required this.controller,
+  });
+
+  final ScrollController controller;
+  @override
+  State<Background> createState() => _BackgroundState();
+}
+
+class _BackgroundState extends State<Background> {
+  bool isReady = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        isReady = true;
+      });
+    });
+    widget.controller.addListener(_listener);
+    super.initState();
+  }
+
+  void _listener() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_listener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Image(
+      image: Image.asset(
+        Images.rainGif,
+      ).image,
+      repeat: ImageRepeat.noRepeat,
+      alignment: Alignment(
+        0,
+        !isReady
+            ? 0
+            : -(widget.controller.offset + 295) /
+                MediaQuery.of(context).size.height *
+                3,
+      ),
+    );
   }
 }
