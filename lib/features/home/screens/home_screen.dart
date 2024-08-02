@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:sannip/features/banner/controllers/banner_controller.dart';
 import 'package:sannip/features/brands/controllers/brands_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
@@ -892,7 +893,7 @@ class _BackgroundState extends State<Background> {
 
   @override
   Widget build(BuildContext context) {
-    return Image(
+    return /* Image(
       image: Image.asset(
         Images.rainGif,
       ).image,
@@ -905,6 +906,20 @@ class _BackgroundState extends State<Background> {
                 MediaQuery.of(context).size.height *
                 3,
       ),
+    ) */
+        rive.RiveAnimation.asset(
+      Images.rainIllustration,
+      fit: BoxFit.contain,
+      alignment: widget.controller.offset == 0.0
+          ? Alignment.topCenter
+          : Alignment(
+              0,
+              !isReady
+                  ? 0
+                  : -(widget.controller.offset + 300) /
+                      MediaQuery.of(context).size.height *
+                      3,
+            ),
     );
   }
 }

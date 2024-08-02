@@ -368,6 +368,7 @@ class Images {
 
   static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieCart = 'assets/lottie/cart.json';
+  static const String rainIllustration = 'assets/lottie/sky_rain.riv';
   static const String lottieOrderOngoing = 'assets/lottie/order_ongoing.json';
   static const String lottieNoDataFound = 'assets/lottie/no_data_found.json';
   static const String lottieNoInternet = 'assets/lottie/no_internet.json';
