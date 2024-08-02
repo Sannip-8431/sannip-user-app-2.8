@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:rive/rive.dart' as rive;
 import 'package:sannip/features/banner/controllers/banner_controller.dart';
 import 'package:sannip/features/brands/controllers/brands_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
@@ -318,25 +317,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : Stack(
                             children: [
-                              Positioned.fill(
-                                child:
-                                    Background(controller: _scrollController),
-                              ),
-                              // Container(
-                              //   decoration: _showAlert &&
-                              //           _message != null &&
-                              //           _message!.isNotEmpty &&
-                              //           !showMobileModule
-                              //       ? BoxDecoration(
-                              //           image: DecorationImage(
-                              //               alignment: Alignment.topCenter,
-                              //               image: Image.asset(
-                              //                 Images.rainGif,
-                              //               ).image,
-                              //               opacity: 0.7),
-                              //         )
-                              //       : null,
-                              // ),
+                              if (_showAlert &&
+                                  _message != null &&
+                                  _message!.isNotEmpty &&
+                                  !showMobileModule)
+                                Positioned.fill(
+                                  child:
+                                      Background(controller: _scrollController),
+                                ),
                               CustomScrollView(
                                 controller: _scrollController,
                                 physics: const AlwaysScrollableScrollPhysics(),
@@ -893,23 +881,11 @@ class _BackgroundState extends State<Background> {
 
   @override
   Widget build(BuildContext context) {
-    return /* Image(
+    return Image(
       image: Image.asset(
         Images.rainGif,
       ).image,
       repeat: ImageRepeat.noRepeat,
-      alignment: Alignment(
-        0,
-        !isReady
-            ? 0
-            : -(widget.controller.offset + 295) /
-                MediaQuery.of(context).size.height *
-                3,
-      ),
-    ) */
-        rive.RiveAnimation.asset(
-      Images.rainIllustration,
-      fit: BoxFit.contain,
       alignment: widget.controller.offset == 0.0
           ? Alignment.topCenter
           : Alignment(

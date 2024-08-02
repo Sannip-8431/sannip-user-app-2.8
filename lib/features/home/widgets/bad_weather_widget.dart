@@ -42,52 +42,38 @@ class _BadWeatherWidgetState extends State<BadWeatherWidget> {
   @override
   Widget build(BuildContext context) {
     return _showAlert && _message != null && _message!.isNotEmpty
-        ? ResponsiveHelper.isDesktop(context)
-            ? Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                  color: Theme.of(context).primaryColor.withOpacity(0.7),
-                ),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Dimensions.paddingSizeDefault,
-                    vertical: Dimensions.paddingSizeSmall),
-                margin: EdgeInsets.symmetric(
-                    horizontal: ResponsiveHelper.isDesktop(context)
+        ? Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+                ]),
+            padding: const EdgeInsets.symmetric(
+                horizontal: Dimensions.paddingSizeDefault,
+                vertical: Dimensions.paddingSizeSmall),
+            margin: EdgeInsets.symmetric(
+                horizontal: ResponsiveHelper.isDesktop(context)
+                    ? 0
+                    : widget.inParcel
                         ? 0
-                        : widget.inParcel
-                            ? 0
-                            : Dimensions.paddingSizeDefault,
-                    vertical: Dimensions.paddingSizeLarge),
-                child: Row(
-                  children: [
-                    Image.asset(Images.weather, height: 50, width: 50),
-                    const SizedBox(width: Dimensions.paddingSizeSmall),
-                    Expanded(
-                        child: Text(
-                      _message!,
-                      style: robotoMedium.copyWith(
-                          fontSize: Dimensions.fontSizeDefault,
-                          color: Colors.white),
-                    )),
-                  ],
-                ),
-              )
-            : Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Dimensions.paddingSizeDefault,
-                    vertical: Dimensions.paddingSizeSmall),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      _message!,
-                      style: robotoMedium.copyWith(
-                          fontSize: Dimensions.fontSizeDefault,
-                          color: Colors.black),
-                    )),
-                  ],
-                ),
-              )
+                        : Dimensions.paddingSizeLarge,
+                vertical: Dimensions.paddingSizeLarge),
+            child: Row(
+              children: [
+                Image.asset(Images.weather, height: 50, width: 50),
+                const SizedBox(width: Dimensions.paddingSizeSmall),
+                Expanded(
+                    child: Text(
+                  _message!,
+                  style: robotoMedium.copyWith(
+                      fontSize: Dimensions.fontSizeDefault,
+                      color: Colors.black),
+                )),
+              ],
+            ),
+          )
         : const SizedBox();
   }
 }
