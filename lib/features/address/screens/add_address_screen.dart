@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -710,45 +711,171 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       ),
                     ),
                   )
-                : Column(children: [
-                    Expanded(
-                        child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: Dimensions.paddingSizeSmall,
-                          horizontal: Dimensions.paddingSizeLarge),
-                      child: Center(
-                          child: SizedBox(
-                              width: Dimensions.webMaxWidth,
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 140,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radiusSmall),
-                                        border: Border.all(
-                                            width: 2,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radiusSmall),
-                                        child: Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              GoogleMap(
-                                                initialCameraPosition:
-                                                    CameraPosition(
-                                                        target:
-                                                            _initialPosition,
-                                                        zoom: 16),
-                                                minMaxZoomPreference:
-                                                    const MinMaxZoomPreference(
-                                                        0, 16),
-                                                onTap: (latLng) {
+                : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: Dimensions.paddingSizeSmall,
+                        horizontal: Dimensions.paddingSizeLarge),
+                    child: Center(
+                        child: SizedBox(
+                            width: Dimensions.webMaxWidth,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 140,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusSmall),
+                                      border: Border.all(
+                                          width: 2,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusSmall),
+                                      child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            GoogleMap(
+                                              initialCameraPosition:
+                                                  CameraPosition(
+                                                      target: _initialPosition,
+                                                      zoom: 16),
+                                              minMaxZoomPreference:
+                                                  const MinMaxZoomPreference(
+                                                      0, 16),
+                                              onTap: (latLng) {
+                                                if (ResponsiveHelper.isDesktop(
+                                                    Get.context)) {
+                                                  showGeneralDialog(
+                                                      context: context,
+                                                      pageBuilder:
+                                                          (_, __, ___) {
+                                                        return SizedBox(
+                                                            height: 300,
+                                                            width: 300,
+                                                            child: PickMapScreen(
+                                                                fromSignUp:
+                                                                    false,
+                                                                canRoute: false,
+                                                                fromAddAddress:
+                                                                    true,
+                                                                route: null,
+                                                                googleMapController:
+                                                                    locationController
+                                                                        .mapController));
+                                                      });
+                                                  // Get.dialog(PickMapScreen(fromSignUp: false, canRoute: false, fromAddAddress: true, route: null, googleMapController: locationController.mapController));
+                                                } else {
+                                                  Get.toNamed(
+                                                    RouteHelper.getPickMapRoute(
+                                                        'add-address', false),
+                                                    arguments: PickMapScreen(
+                                                      fromAddAddress: true,
+                                                      fromSignUp: false,
+                                                      googleMapController:
+                                                          locationController
+                                                              .mapController,
+                                                      route: null,
+                                                      canRoute: false,
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                              zoomControlsEnabled: false,
+                                              compassEnabled: false,
+                                              indoorViewEnabled: true,
+                                              mapToolbarEnabled: false,
+                                              onCameraIdle: () {
+                                                locationController
+                                                    .updatePosition(
+                                                        _cameraPosition, true);
+                                              },
+                                              onCameraMove: ((position) {
+                                                _cameraPosition = position;
+                                              }),
+                                              onMapCreated: (GoogleMapController
+                                                  controller) {
+                                                locationController
+                                                    .setMapController(
+                                                        controller);
+                                                if (widget.address == null) {
+                                                  locationController
+                                                      .getCurrentLocation(true,
+                                                          mapController:
+                                                              controller);
+                                                }
+                                              },
+                                              gestureRecognizers: <Factory<
+                                                  OneSequenceGestureRecognizer>>{
+                                                Factory<OneSequenceGestureRecognizer>(
+                                                    () =>
+                                                        EagerGestureRecognizer()),
+                                                Factory<PanGestureRecognizer>(
+                                                    () =>
+                                                        PanGestureRecognizer()),
+                                                Factory<ScaleGestureRecognizer>(
+                                                    () =>
+                                                        ScaleGestureRecognizer()),
+                                                Factory<TapGestureRecognizer>(
+                                                    () =>
+                                                        TapGestureRecognizer()),
+                                                Factory<VerticalDragGestureRecognizer>(
+                                                    () =>
+                                                        VerticalDragGestureRecognizer()),
+                                              },
+                                            ),
+                                            locationController.loading
+                                                ? const Center(
+                                                    child:
+                                                        CircularProgressIndicator())
+                                                : const SizedBox(),
+                                            Center(
+                                                child: !locationController
+                                                        .loading
+                                                    ? Image.asset(
+                                                        Images.pickMarker,
+                                                        height: 50,
+                                                        width: 50)
+                                                    : const CircularProgressIndicator()),
+                                            Positioned(
+                                              bottom: 10,
+                                              right: 0,
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    _checkPermission(() {
+                                                  locationController
+                                                      .getCurrentLocation(true,
+                                                          mapController:
+                                                              locationController
+                                                                  .mapController);
+                                                }),
+                                                child: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  margin: const EdgeInsets.only(
+                                                      right: Dimensions
+                                                          .paddingSizeLarge),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              Dimensions
+                                                                  .radiusSmall),
+                                                      color: Colors.white),
+                                                  child: Icon(Icons.my_location,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      size: 20),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 10,
+                                              right: 0,
+                                              child: InkWell(
+                                                onTap: () {
                                                   if (ResponsiveHelper
                                                       .isDesktop(Get.context)) {
                                                     showGeneralDialog(
@@ -770,7 +897,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                                                       locationController
                                                                           .mapController));
                                                         });
-                                                    // Get.dialog(PickMapScreen(fromSignUp: false, canRoute: false, fromAddAddress: true, route: null, googleMapController: locationController.mapController));
                                                   } else {
                                                     Get.toNamed(
                                                       RouteHelper
@@ -789,394 +915,267 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                                     );
                                                   }
                                                 },
-                                                zoomControlsEnabled: false,
-                                                compassEnabled: false,
-                                                indoorViewEnabled: true,
-                                                mapToolbarEnabled: false,
-                                                onCameraIdle: () {
-                                                  locationController
-                                                      .updatePosition(
-                                                          _cameraPosition,
-                                                          true);
-                                                },
-                                                onCameraMove: ((position) {
-                                                  _cameraPosition = position;
-                                                }),
-                                                onMapCreated:
-                                                    (GoogleMapController
-                                                        controller) {
-                                                  locationController
-                                                      .setMapController(
-                                                          controller);
-                                                  if (widget.address == null) {
-                                                    locationController
-                                                        .getCurrentLocation(
-                                                            true,
-                                                            mapController:
-                                                                controller);
-                                                  }
-                                                },
-                                                gestureRecognizers: <Factory<
-                                                    OneSequenceGestureRecognizer>>{
-                                                  Factory<OneSequenceGestureRecognizer>(
-                                                      () =>
-                                                          EagerGestureRecognizer()),
-                                                  Factory<PanGestureRecognizer>(
-                                                      () =>
-                                                          PanGestureRecognizer()),
-                                                  Factory<ScaleGestureRecognizer>(
-                                                      () =>
-                                                          ScaleGestureRecognizer()),
-                                                  Factory<TapGestureRecognizer>(
-                                                      () =>
-                                                          TapGestureRecognizer()),
-                                                  Factory<VerticalDragGestureRecognizer>(
-                                                      () =>
-                                                          VerticalDragGestureRecognizer()),
-                                                },
-                                              ),
-                                              locationController.loading
-                                                  ? const Center(
-                                                      child:
-                                                          CircularProgressIndicator())
-                                                  : const SizedBox(),
-                                              Center(
-                                                  child: !locationController
-                                                          .loading
-                                                      ? Image.asset(
-                                                          Images.pickMarker,
-                                                          height: 50,
-                                                          width: 50)
-                                                      : const CircularProgressIndicator()),
-                                              Positioned(
-                                                bottom: 10,
-                                                right: 0,
-                                                child: InkWell(
-                                                  onTap: () =>
-                                                      _checkPermission(() {
-                                                    locationController
-                                                        .getCurrentLocation(
-                                                            true,
-                                                            mapController:
-                                                                locationController
-                                                                    .mapController);
-                                                  }),
-                                                  child: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    margin: const EdgeInsets
-                                                        .only(
-                                                        right: Dimensions
-                                                            .paddingSizeLarge),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(Dimensions
-                                                                .radiusSmall),
-                                                        color: Colors.white),
-                                                    child: Icon(
-                                                        Icons.my_location,
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        size: 20),
-                                                  ),
+                                                child: Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  margin: const EdgeInsets.only(
+                                                      right: Dimensions
+                                                          .paddingSizeLarge),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              Dimensions
+                                                                  .radiusSmall),
+                                                      color: Colors.white),
+                                                  child: Icon(Icons.fullscreen,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      size: 20),
                                                 ),
                                               ),
-                                              Positioned(
-                                                top: 10,
-                                                right: 0,
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    if (ResponsiveHelper
-                                                        .isDesktop(
-                                                            Get.context)) {
-                                                      showGeneralDialog(
-                                                          context: context,
-                                                          pageBuilder:
-                                                              (_, __, ___) {
-                                                            return SizedBox(
-                                                                height: 300,
-                                                                width: 300,
-                                                                child: PickMapScreen(
-                                                                    fromSignUp:
-                                                                        false,
-                                                                    canRoute:
-                                                                        false,
-                                                                    fromAddAddress:
-                                                                        true,
-                                                                    route: null,
-                                                                    googleMapController:
-                                                                        locationController
-                                                                            .mapController));
-                                                          });
-                                                    } else {
-                                                      Get.toNamed(
-                                                        RouteHelper
-                                                            .getPickMapRoute(
-                                                                'add-address',
-                                                                false),
-                                                        arguments:
-                                                            PickMapScreen(
-                                                          fromAddAddress: true,
-                                                          fromSignUp: false,
-                                                          googleMapController:
-                                                              locationController
-                                                                  .mapController,
-                                                          route: null,
-                                                          canRoute: false,
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    margin: const EdgeInsets
-                                                        .only(
-                                                        right: Dimensions
-                                                            .paddingSizeLarge),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(Dimensions
-                                                                .radiusSmall),
-                                                        color: Colors.white),
-                                                    child: Icon(
-                                                        Icons.fullscreen,
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        size: 20),
-                                                  ),
-                                                ),
-                                              ),
-                                            ]),
-                                      ),
+                                            ),
+                                          ]),
                                     ),
-                                    const SizedBox(
-                                        height: Dimensions.paddingSizeSmall),
-                                    Center(
-                                        child: Text(
-                                      'add_the_location_correctly'.tr,
-                                      style: robotoRegular.copyWith(
-                                          color:
-                                              Theme.of(context).disabledColor,
-                                          fontSize:
-                                              Dimensions.fontSizeExtraSmall),
-                                    )),
-                                    const SizedBox(
-                                        height: Dimensions.paddingSizeLarge),
-                                    Text(
-                                      'label_as'.tr,
-                                      style: robotoRegular.copyWith(
-                                          fontSize: Dimensions.fontSizeSmall,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .color),
-                                    ),
-                                    const SizedBox(
-                                        height: Dimensions.paddingSizeSmall),
-                                    SizedBox(
-                                        height: 50,
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: locationController
-                                              .addressTypeList.length,
-                                          itemBuilder: (context, index) =>
-                                              Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: Dimensions
-                                                    .paddingSizeSmall),
-                                            child: InkWell(
-                                              onTap: () {
-                                                _otherSelect = index == 2;
-                                                locationController
-                                                    .setAddressTypeIndex(index);
-                                              },
-                                              child: Container(
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: Dimensions
-                                                        .paddingSizeLarge,
-                                                    vertical: Dimensions
-                                                        .paddingSizeSmall),
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(
-                                                        Dimensions
-                                                            .radiusDefault),
-                                                    color: locationController.addressTypeIndex == index
-                                                        ? Theme.of(context)
-                                                            .primaryColor
-                                                            .withOpacity(0.1)
-                                                        : Theme.of(context)
-                                                            .cardColor,
-                                                    boxShadow: locationController
-                                                                .addressTypeIndex ==
-                                                            index
-                                                        ? null
-                                                        : const [
-                                                            BoxShadow(
-                                                                color: Colors
-                                                                    .black12,
-                                                                spreadRadius: 1,
-                                                                blurRadius: 5)
-                                                          ],
-                                                    border: Border.all(
-                                                        color: locationController.addressTypeIndex == index
-                                                            ? Theme.of(context)
-                                                                .primaryColor
-                                                            : Theme.of(context)
-                                                                .disabledColor)),
-                                                child: SizedBox(
-                                                  height: 24,
-                                                  width: 24,
-                                                  child: Image.asset(
-                                                    index == 0
-                                                        ? Images.homeIcon
-                                                        : index == 1
-                                                            ? Images.workIcon
-                                                            : Images.otherIcon,
+                                  ),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeSmall),
+                                  Center(
+                                      child: Text(
+                                    'user_current_location'.tr,
+                                    style: robotoRegular.copyWith(
+                                        color: Theme.of(context).disabledColor,
+                                        fontSize: Dimensions.fontSizeSmall),
+                                  )),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeLarge),
+                                  SizedBox(
+                                      height: 40,
+                                      child: ListView.separated(
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return const SizedBox(
+                                            width: Dimensions.paddingSizeLarge,
+                                          );
+                                        },
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: locationController
+                                            .addressTypeList.length,
+                                        itemBuilder: (context, index) {
+                                          return CustomInkWell(
+                                            onTap: () {
+                                              _otherSelect = index == 2;
+                                              locationController
+                                                  .setAddressTypeIndex(index);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: locationController
+                                                              .addressTypeIndex ==
+                                                          index
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                          .withOpacity(0.2)
+                                                      : Theme.of(context)
+                                                          .disabledColor
+                                                          .withOpacity(0.3),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          Dimensions
+                                                              .radiusDefault),
+                                                  border: Border.all(
                                                     color: locationController
                                                                 .addressTypeIndex ==
                                                             index
                                                         ? Theme.of(context)
                                                             .primaryColor
                                                         : Theme.of(context)
-                                                            .disabledColor,
+                                                            .disabledColor
+                                                            .withOpacity(0.3),
+                                                  )),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: Dimensions
+                                                          .paddingSizeSmall),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    index == 0
+                                                        ? Images.homeIcon
+                                                        : index == 1
+                                                            ? Images.workIcon
+                                                            : Images.otherIcon,
+                                                    height: 20,
+                                                    width: 26,
+                                                    color: locationController
+                                                                .addressTypeIndex ==
+                                                            index
+                                                        ? Theme.of(context)
+                                                            .primaryColor
+                                                        : Theme.of(context)
+                                                            .textTheme
+                                                            .bodyMedium
+                                                            ?.color,
                                                   ),
-                                                ),
+                                                  const SizedBox(
+                                                    width: Dimensions
+                                                        .paddingSizeSmall,
+                                                  ),
+                                                  Text(
+                                                    locationController
+                                                        .addressTypeList[index]!
+                                                        .tr,
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                      fontSize: Dimensions
+                                                          .fontSizeDefault,
+                                                      color: locationController
+                                                                  .addressTypeIndex ==
+                                                              index
+                                                          ? Theme.of(context)
+                                                              .primaryColor
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .bodyMedium
+                                                              ?.color,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ),
-                                        )),
-                                    SizedBox(
-                                        height: _otherSelect
-                                            ? Dimensions.paddingSizeLarge
-                                            : 0),
-                                    _otherSelect
-                                        ? CustomTextField(
-                                            labelText:
-                                                '${'level_name'.tr}(${'optional'.tr})',
-                                            titleText: 'write_level_name'.tr,
-                                            inputType: TextInputType.text,
-                                            controller: _levelController,
-                                            focusNode: _levelNode,
-                                            nextFocus: _addressNode,
-                                            capitalization:
-                                                TextCapitalization.words,
-                                          )
-                                        : const SizedBox(),
-                                    const SizedBox(
-                                        height:
-                                            Dimensions.paddingSizeExtremeLarge),
-                                    CustomTextField(
-                                      labelText: 'delivery_address'.tr,
-                                      titleText: 'write_delivery_address'.tr,
-                                      inputType: TextInputType.streetAddress,
-                                      controller: _addressController,
-                                      focusNode: _addressNode,
-                                      nextFocus: _nameNode,
-                                      onChanged: (text) =>
-                                          locationController.setPlaceMark(text),
-                                    ),
-                                    const SizedBox(
-                                        height:
-                                            Dimensions.paddingSizeExtremeLarge),
-                                    CustomTextField(
-                                      labelText: 'contact_person_name'.tr,
-                                      titleText: 'write_name'.tr,
-                                      inputType: TextInputType.name,
-                                      controller: _contactPersonNameController,
-                                      focusNode: _nameNode,
-                                      nextFocus: _numberNode,
-                                      capitalization: TextCapitalization.words,
-                                    ),
-                                    const SizedBox(
-                                        height:
-                                            Dimensions.paddingSizeExtremeLarge),
-                                    CustomTextField(
-                                      labelText: 'contact_person_number'.tr,
-                                      titleText: 'write_number'.tr,
-                                      controller:
-                                          _contactPersonNumberController,
-                                      focusNode: _numberNode,
-                                      nextFocus: widget.forGuest
-                                          ? _emailFocus
-                                          : _streetNode,
-                                      inputType: TextInputType.phone,
-                                      isPhone: true,
-                                      onCountryChanged:
-                                          (CountryCode countryCode) {
-                                        _countryDialCode = countryCode.dialCode;
-                                      },
-                                      countryDialCode: _countryDialCode ??
-                                          Get.find<LocalizationController>()
-                                              .locale
-                                              .countryCode,
-                                    ),
-                                    const SizedBox(
-                                        height:
-                                            Dimensions.paddingSizeExtremeLarge),
-                                    widget.forGuest
-                                        ? CustomTextField(
-                                            labelText: 'email'.tr,
-                                            titleText: 'enter_email'.tr,
-                                            controller: _emailController,
-                                            focusNode: _emailFocus,
-                                            nextFocus: _streetNode,
-                                            inputType:
-                                                TextInputType.emailAddress,
-                                            prefixIcon: Icons.mail,
-                                          )
-                                        : const SizedBox(),
-                                    SizedBox(
-                                        height: widget.forGuest
-                                            ? Dimensions.paddingSizeExtremeLarge
-                                            : 0),
-                                    CustomTextField(
-                                      labelText:
-                                          '${'street_number'.tr} (${'optional'.tr})',
-                                      titleText: 'write_street_number'.tr,
-                                      inputType: TextInputType.streetAddress,
-                                      focusNode: _streetNode,
-                                      nextFocus: _houseNode,
-                                      controller: _streetNumberController,
-                                    ),
-                                    const SizedBox(
-                                        height:
-                                            Dimensions.paddingSizeExtremeLarge),
-                                    Row(children: [
-                                      Expanded(
-                                        child: CustomTextField(
+                                          );
+                                        },
+                                      )),
+                                  SizedBox(
+                                      height: _otherSelect
+                                          ? Dimensions.paddingSizeLarge
+                                          : 0),
+                                  _otherSelect
+                                      ? CustomTextField(
                                           labelText:
-                                              '${'house'.tr} (${'optional'.tr})',
-                                          titleText: 'write_house_number'.tr,
+                                              '${'level_name'.tr}(${'optional'.tr})',
+                                          titleText: 'write_level_name'.tr,
                                           inputType: TextInputType.text,
-                                          focusNode: _houseNode,
-                                          nextFocus: _floorNode,
-                                          controller: _houseController,
-                                        ),
+                                          controller: _levelController,
+                                          focusNode: _levelNode,
+                                          nextFocus: _addressNode,
+                                          capitalization:
+                                              TextCapitalization.words,
+                                        )
+                                      : const SizedBox(),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  CustomTextField(
+                                    labelText: 'delivery_address'.tr,
+                                    titleText: 'write_delivery_address'.tr,
+                                    inputType: TextInputType.streetAddress,
+                                    controller: _addressController,
+                                    focusNode: _addressNode,
+                                    nextFocus: _nameNode,
+                                    onChanged: (text) =>
+                                        locationController.setPlaceMark(text),
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  CustomTextField(
+                                    labelText: 'contact_person_name'.tr,
+                                    titleText: 'write_name'.tr,
+                                    inputType: TextInputType.name,
+                                    controller: _contactPersonNameController,
+                                    focusNode: _nameNode,
+                                    nextFocus: _numberNode,
+                                    capitalization: TextCapitalization.words,
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  CustomTextField(
+                                    labelText: 'contact_person_number'.tr,
+                                    titleText: 'write_number'.tr,
+                                    controller: _contactPersonNumberController,
+                                    focusNode: _numberNode,
+                                    nextFocus: widget.forGuest
+                                        ? _emailFocus
+                                        : _streetNode,
+                                    inputType: TextInputType.phone,
+                                    isPhone: true,
+                                    onCountryChanged:
+                                        (CountryCode countryCode) {
+                                      _countryDialCode = countryCode.dialCode;
+                                    },
+                                    countryDialCode: _countryDialCode ??
+                                        Get.find<LocalizationController>()
+                                            .locale
+                                            .countryCode,
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  widget.forGuest
+                                      ? CustomTextField(
+                                          labelText: 'email'.tr,
+                                          titleText: 'enter_email'.tr,
+                                          controller: _emailController,
+                                          focusNode: _emailFocus,
+                                          nextFocus: _streetNode,
+                                          inputType: TextInputType.emailAddress,
+                                          prefixIcon: Icons.mail,
+                                        )
+                                      : const SizedBox(),
+                                  SizedBox(
+                                      height: widget.forGuest
+                                          ? Dimensions.paddingSizeExtremeLarge
+                                          : 0),
+                                  CustomTextField(
+                                    labelText:
+                                        '${'street_number'.tr} (${'optional'.tr})',
+                                    titleText: 'write_street_number'.tr,
+                                    inputType: TextInputType.streetAddress,
+                                    focusNode: _streetNode,
+                                    nextFocus: _houseNode,
+                                    controller: _streetNumberController,
+                                  ),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  Row(children: [
+                                    Expanded(
+                                      child: CustomTextField(
+                                        labelText:
+                                            '${'house'.tr} (${'optional'.tr})',
+                                        titleText: 'write_house_number'.tr,
+                                        inputType: TextInputType.text,
+                                        focusNode: _houseNode,
+                                        nextFocus: _floorNode,
+                                        controller: _houseController,
                                       ),
-                                      const SizedBox(
-                                          width: Dimensions
-                                              .paddingSizeExtremeLarge),
-                                      Expanded(
-                                        child: CustomTextField(
-                                          labelText:
-                                              "${'floor'.tr} (${'optional'.tr})",
-                                          titleText: 'write_floor_number'.tr,
-                                          inputType: TextInputType.text,
-                                          focusNode: _floorNode,
-                                          inputAction: TextInputAction.done,
-                                          controller: _floorController,
-                                        ),
-                                      ),
-                                    ]),
+                                    ),
                                     const SizedBox(
-                                        height: Dimensions.paddingSizeLarge),
-                                  ]))),
-                    )),
-                    button(locationController),
-                  ]);
+                                        width:
+                                            Dimensions.paddingSizeExtremeLarge),
+                                    Expanded(
+                                      child: CustomTextField(
+                                        labelText:
+                                            "${'floor'.tr} (${'optional'.tr})",
+                                        titleText: 'write_floor_number'.tr,
+                                        inputType: TextInputType.text,
+                                        focusNode: _floorNode,
+                                        inputAction: TextInputAction.done,
+                                        controller: _floorController,
+                                      ),
+                                    ),
+                                  ]),
+                                  const SizedBox(
+                                      height:
+                                          Dimensions.paddingSizeExtremeLarge),
+                                  button(locationController,
+                                      changeDesign: true),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeLarge),
+                                ]))),
+                  );
           });
         }),
       ),
@@ -1197,18 +1196,20 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     }
   }
 
-  Widget button(LocationController locationController) {
+  Widget button(LocationController locationController,
+      {bool changeDesign = false}) {
     return Container(
       width: Dimensions.webMaxWidth,
       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
       child: CustomButton(
-        radius: Dimensions.radiusSmall,
+        width: changeDesign ? MediaQuery.of(context).size.width * 0.7 : null,
+        radius: changeDesign ? 100 : Dimensions.radiusSmall,
         isBold: false,
         isLoading: locationController.isLoading,
         buttonText: widget.forGuest
             ? 'done'.tr
             : widget.address == null
-                ? 'save_location'.tr
+                ? "${'save'.tr} ${'address'.tr}"
                 : 'update_address'.tr,
         onPressed: () async => _onSaveOrUpdateButtonPressed(locationController),
       ),
