@@ -63,12 +63,21 @@ class SearchScreenState extends State<SearchScreen>
         }
       },
       child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar:
               ResponsiveHelper.isDesktop(context) ? const WebMenuBar() : null,
           endDrawer: const MenuDrawer(),
           endDrawerEnableOpenDragGesture: false,
           body: SafeArea(
-              child: Padding(
+              child: Container(
+            decoration: !ResponsiveHelper.isDesktop(context)
+                ? BoxDecoration(
+                    image: DecorationImage(
+                    image: Image.asset(Images.multiTaskIllustration,
+                            fit: BoxFit.contain)
+                        .image,
+                  ))
+                : null,
             padding: ResponsiveHelper.isDesktop(context)
                 ? EdgeInsets.zero
                 : const EdgeInsets.symmetric(
@@ -580,6 +589,14 @@ class SearchScreenState extends State<SearchScreen>
                                                         'no_suggestions_available'
                                                             .tr))
                                             : const SizedBox(),
+                                        /* !ResponsiveHelper.isDesktop(context)
+                                            ? Center(
+                                                child: Image.asset(
+                                                    Images
+                                                        .multiTaskIllustration,
+                                                    fit: BoxFit.contain),
+                                              )
+                                            : const SizedBox() */
                                       ])),
                             ),
                           )
