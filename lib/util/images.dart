@@ -352,6 +352,9 @@ class Images {
       'assets/image/menu_privacy_policy_icon.png';
   static const String menuTermsAndConditionsIcon =
       'assets/image/menu_terms_and_conditions_icon.png';
+  static const String addressBackgroundImage =
+      'assets/image/address_background_image.png';
+  static const String deleteIcon = 'assets/image/delete_icon.png';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';

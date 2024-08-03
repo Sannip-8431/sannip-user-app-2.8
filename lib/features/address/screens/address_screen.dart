@@ -1,3 +1,4 @@
+import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/features/address/controllers/address_controller.dart';
 import 'package:sannip/features/address/widgets/address_confirmation_dialogue.dart';
 import 'package:sannip/common/widgets/address_widget.dart';
@@ -51,7 +52,7 @@ class _AddressScreenState extends State<AddressScreen> {
             backButton: widget.fromDashboard ? false : true),
         endDrawer: const MenuDrawer(),
         endDrawerEnableOpenDragGesture: false,
-        floatingActionButton: ResponsiveHelper.isDesktop(context) || !isLoggedIn
+        /*floatingActionButton: ResponsiveHelper.isDesktop(context) || !isLoggedIn
             ? null
             : (addressController.addressList != null &&
                     addressController.addressList!.isEmpty)
@@ -65,14 +66,15 @@ class _AddressScreenState extends State<AddressScreen> {
                   ),
         floatingActionButtonLocation: ResponsiveHelper.isDesktop(context)
             ? FloatingActionButtonLocation.centerFloat
-            : null,
+            : null,*/
         body: Container(
           height: context.height,
           decoration: BoxDecoration(
             image: DecorationImage(
+              opacity: ResponsiveHelper.isDesktop(context) ? 1.0 : 0.5,
               image: AssetImage(ResponsiveHelper.isDesktop(context)
                   ? Images.addressCity
-                  : Images.city),
+                  : Images.addressBackgroundImage),
               alignment: ResponsiveHelper.isDesktop(context)
                   ? Alignment.center
                   : Alignment.bottomCenter,
@@ -102,174 +104,287 @@ class _AddressScreenState extends State<AddressScreen> {
                                     : const SizedBox(),
                                 addressController.addressList != null
                                     ? addressController.addressList!.isNotEmpty
-                                        ? Padding(
-                                            padding: ResponsiveHelper.isMobile(
-                                                    context)
-                                                ? const EdgeInsets.all(
-                                                    Dimensions.paddingSizeSmall)
-                                                : EdgeInsets.zero,
-                                            child: GridView.builder(
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisSpacing:
-                                                    Dimensions.paddingSizeLarge,
-                                                mainAxisSpacing:
-                                                    ResponsiveHelper.isDesktop(
-                                                            context)
-                                                        ? Dimensions
-                                                            .paddingSizeLarge
-                                                        : 0.01,
-                                                childAspectRatio:
-                                                    ResponsiveHelper.isDesktop(
-                                                            context)
-                                                        ? 4
-                                                        : 4.8,
-                                                crossAxisCount:
-                                                    ResponsiveHelper.isMobile(
-                                                            context)
-                                                        ? 1
-                                                        : 3,
-                                              ),
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              itemCount:
-                                                  ResponsiveHelper.isDesktop(
-                                                          context)
+                                        ? ResponsiveHelper.isMobile(context)
+                                            ? SingleChildScrollView(
+                                                child: Column(
+                                                  children: [
+                                                    ListView.separated(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(
+                                                            vertical: Dimensions
+                                                                .paddingSizeSmall),
+                                                        shrinkWrap: true,
+                                                        physics:
+                                                            const NeverScrollableScrollPhysics(),
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return AddressWidget(
+                                                            address:
+                                                                addressController
+                                                                        .addressList![
+                                                                    index],
+                                                            isChangeDesign:
+                                                                true,
+                                                            fromAddress: true,
+                                                            onTap: () {
+                                                              Get.toNamed(RouteHelper
+                                                                  .getMapRoute(
+                                                                      addressController
+                                                                              .addressList![
+                                                                          index],
+                                                                      'address',
+                                                                      false));
+                                                            },
+                                                            onEditPressed: () {
+                                                              Get.toNamed(RouteHelper
+                                                                  .getEditAddressRoute(
+                                                                      addressController
+                                                                              .addressList![
+                                                                          index]));
+                                                            },
+                                                            onRemovePressed:
+                                                                () {
+                                                              if (Get
+                                                                  .isSnackbarOpen) {
+                                                                Get.back();
+                                                              }
+                                                              Get.dialog(
+                                                                AddressConfirmDialogue(
+                                                                    icon: Images
+                                                                        .locationConfirm,
+                                                                    title:
+                                                                        'are_you_sure'
+                                                                            .tr,
+                                                                    description:
+                                                                        'you_want_to_delete_this_location'
+                                                                            .tr,
+                                                                    onYesPressed:
+                                                                        () {
+                                                                      addressController
+                                                                          .deleteUserAddressByID(
+                                                                              addressController.addressList![index].id,
+                                                                              index)
+                                                                          .then((response) {
+                                                                        Get.back();
+                                                                        showCustomSnackBar(
+                                                                            response
+                                                                                .message,
+                                                                            isError:
+                                                                                !response.isSuccess);
+                                                                      });
+                                                                    }),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        separatorBuilder:
+                                                            (context, index) {
+                                                          return const SizedBox(
+                                                            height: Dimensions
+                                                                .paddingSizeSmall,
+                                                          );
+                                                        },
+                                                        itemCount:
+                                                            addressController
+                                                                .addressList!
+                                                                .length),
+                                                    const SizedBox(
+                                                      height: Dimensions
+                                                          .paddingSizeDefault,
+                                                    ),
+                                                    CustomButton(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.7,
+                                                      radius: 100,
+                                                      isBold: false,
+                                                      buttonText:
+                                                          'add_new_address'.tr,
+                                                      onPressed: () => Get
+                                                          .toNamed(RouteHelper
+                                                              .getAddAddressRoute(
+                                                                  false,
+                                                                  false,
+                                                                  0,
+                                                                  isNavbar:
+                                                                      true)),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding: ResponsiveHelper
+                                                        .isMobile(context)
+                                                    ? const EdgeInsets.all(
+                                                        Dimensions
+                                                            .paddingSizeSmall)
+                                                    : EdgeInsets.zero,
+                                                child: GridView.builder(
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisSpacing: Dimensions
+                                                        .paddingSizeLarge,
+                                                    mainAxisSpacing:
+                                                        ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context)
+                                                            ? Dimensions
+                                                                .paddingSizeLarge
+                                                            : 0.01,
+                                                    childAspectRatio:
+                                                        ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context)
+                                                            ? 4
+                                                            : 2.8,
+                                                    crossAxisCount:
+                                                        ResponsiveHelper
+                                                                .isMobile(
+                                                                    context)
+                                                            ? 1
+                                                            : 3,
+                                                  ),
+                                                  physics:
+                                                      const NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: ResponsiveHelper
+                                                          .isDesktop(context)
                                                       ? (addressController
                                                               .addressList!
                                                               .length +
                                                           1)
                                                       : addressController
                                                           .addressList!.length,
-                                              itemBuilder: (context, index) {
-                                                return (ResponsiveHelper
-                                                            .isDesktop(
-                                                                context) &&
-                                                        (index ==
-                                                            addressController
-                                                                .addressList!
-                                                                .length))
-                                                    ? InkWell(
-                                                        onTap: () => Get
-                                                            .toNamed(RouteHelper
-                                                                .getAddAddressRoute(
-                                                                    false,
-                                                                    false,
-                                                                    0)),
-                                                        child: Container(
-                                                            margin: const EdgeInsets
-                                                                .only(
-                                                                bottom: Dimensions
-                                                                    .paddingSizeSmall),
-                                                            padding:
-                                                                const EdgeInsets
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return (ResponsiveHelper
+                                                                .isDesktop(
+                                                                    context) &&
+                                                            (index ==
+                                                                addressController
+                                                                    .addressList!
+                                                                    .length))
+                                                        ? InkWell(
+                                                            onTap: () => Get
+                                                                .toNamed(RouteHelper
+                                                                    .getAddAddressRoute(
+                                                                        false,
+                                                                        false,
+                                                                        0)),
+                                                            child: Container(
+                                                                margin: const EdgeInsets
+                                                                    .only(
+                                                                    bottom: Dimensions
+                                                                        .paddingSizeSmall),
+                                                                padding: const EdgeInsets
                                                                     .all(
                                                                     Dimensions
                                                                         .paddingSizeSmall),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .cardColor,
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      Dimensions
-                                                                          .radiusDefault),
-                                                              boxShadow: const [
-                                                                BoxShadow(
-                                                                    color: Colors
-                                                                        .black12,
-                                                                    blurRadius:
-                                                                        5,
-                                                                    spreadRadius:
-                                                                        1)
-                                                              ],
-                                                            ),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Icon(
-                                                                    Icons
-                                                                        .add_circle_outline,
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor),
-                                                                const SizedBox(
-                                                                    height: Dimensions
-                                                                        .paddingSizeSmall),
-                                                                Text(
-                                                                    'add_new_address'
-                                                                        .tr,
-                                                                    style: robotoRegular.copyWith(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .cardColor,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          Dimensions
+                                                                              .radiusDefault),
+                                                                  boxShadow: const [
+                                                                    BoxShadow(
+                                                                        color: Colors
+                                                                            .black12,
+                                                                        blurRadius:
+                                                                            5,
+                                                                        spreadRadius:
+                                                                            1)
+                                                                  ],
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Icon(
+                                                                        Icons
+                                                                            .add_circle_outline,
                                                                         color: Theme.of(context)
-                                                                            .primaryColor,
-                                                                        fontSize:
-                                                                            Dimensions.fontSizeSmall)),
-                                                              ],
-                                                            )),
-                                                      )
-                                                    : AddressWidget(
-                                                        address: addressController
-                                                                .addressList![
-                                                            index],
-                                                        fromAddress: true,
-                                                        onTap: () {
-                                                          Get.toNamed(RouteHelper
-                                                              .getMapRoute(
-                                                                  addressController
-                                                                          .addressList![
-                                                                      index],
-                                                                  'address',
-                                                                  false));
-                                                        },
-                                                        onEditPressed: () {
-                                                          Get.toNamed(RouteHelper
-                                                              .getEditAddressRoute(
-                                                                  addressController
-                                                                          .addressList![
-                                                                      index]));
-                                                        },
-                                                        onRemovePressed: () {
-                                                          if (Get
-                                                              .isSnackbarOpen) {
-                                                            Get.back();
-                                                          }
-                                                          Get.dialog(
-                                                            AddressConfirmDialogue(
-                                                                icon: Images
-                                                                    .locationConfirm,
-                                                                title:
-                                                                    'are_you_sure'
-                                                                        .tr,
-                                                                description:
-                                                                    'you_want_to_delete_this_location'
-                                                                        .tr,
-                                                                onYesPressed:
-                                                                    () {
-                                                                  addressController
-                                                                      .deleteUserAddressByID(
-                                                                          addressController
-                                                                              .addressList![index]
-                                                                              .id,
-                                                                          index)
-                                                                      .then((response) {
-                                                                    Get.back();
-                                                                    showCustomSnackBar(
-                                                                        response
-                                                                            .message,
-                                                                        isError:
-                                                                            !response.isSuccess);
-                                                                  });
-                                                                }),
+                                                                            .primaryColor),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            Dimensions.paddingSizeSmall),
+                                                                    Text(
+                                                                        'add_new_address'
+                                                                            .tr,
+                                                                        style: robotoRegular.copyWith(
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                            fontSize: Dimensions.fontSizeSmall)),
+                                                                  ],
+                                                                )),
+                                                          )
+                                                        : AddressWidget(
+                                                            address:
+                                                                addressController
+                                                                        .addressList![
+                                                                    index],
+                                                            isChangeDesign:
+                                                                true,
+                                                            fromAddress: true,
+                                                            onTap: () {
+                                                              Get.toNamed(RouteHelper
+                                                                  .getMapRoute(
+                                                                      addressController
+                                                                              .addressList![
+                                                                          index],
+                                                                      'address',
+                                                                      false));
+                                                            },
+                                                            onEditPressed: () {
+                                                              Get.toNamed(RouteHelper
+                                                                  .getEditAddressRoute(
+                                                                      addressController
+                                                                              .addressList![
+                                                                          index]));
+                                                            },
+                                                            onRemovePressed:
+                                                                () {
+                                                              if (Get
+                                                                  .isSnackbarOpen) {
+                                                                Get.back();
+                                                              }
+                                                              Get.dialog(
+                                                                AddressConfirmDialogue(
+                                                                    icon: Images
+                                                                        .locationConfirm,
+                                                                    title:
+                                                                        'are_you_sure'
+                                                                            .tr,
+                                                                    description:
+                                                                        'you_want_to_delete_this_location'
+                                                                            .tr,
+                                                                    onYesPressed:
+                                                                        () {
+                                                                      addressController
+                                                                          .deleteUserAddressByID(
+                                                                              addressController.addressList![index].id,
+                                                                              index)
+                                                                          .then((response) {
+                                                                        Get.back();
+                                                                        showCustomSnackBar(
+                                                                            response
+                                                                                .message,
+                                                                            isError:
+                                                                                !response.isSuccess);
+                                                                      });
+                                                                    }),
+                                                              );
+                                                            },
                                                           );
-                                                        },
-                                                      );
-                                              },
-                                            ),
-                                          )
+                                                  },
+                                                ),
+                                              )
                                         : NoDataScreen(
                                             text: 'no_saved_address_found'.tr,
                                             fromAddress: true)
