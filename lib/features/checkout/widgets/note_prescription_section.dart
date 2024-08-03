@@ -79,7 +79,7 @@ class NoteAndPrescriptionSection extends StatelessWidget {
       },
       leading: Icon(
         Icons.menu,
-        color: Theme.of(context).disabledColor,
+        color: Theme.of(context).primaryColor,
         size: 25,
       ),
       title: Text(
@@ -87,12 +87,11 @@ class NoteAndPrescriptionSection extends StatelessWidget {
             ? checkoutController.noteController.text
             : 'do_you_have_any_instructions?'.tr,
         style: robotoRegular.copyWith(
-            color: Theme.of(context).disabledColor,
-            fontWeight: FontWeight.w500),
+            color: Theme.of(context).primaryColor, fontWeight: FontWeight.w500),
       ),
       trailing: Icon(
         Icons.chevron_right,
-        color: Theme.of(context).disabledColor,
+        color: Theme.of(context).primaryColor,
         size: 30,
       ),
     );

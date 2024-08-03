@@ -652,16 +652,16 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                           },
                                                                                           leading: Icon(
                                                                                             Icons.add_circle_outline,
-                                                                                            color: Theme.of(context).disabledColor,
+                                                                                            color: Theme.of(context).primaryColor,
                                                                                             size: 25,
                                                                                           ),
                                                                                           title: Text(
                                                                                             'add_more_items'.tr,
-                                                                                            style: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontWeight: FontWeight.w500),
+                                                                                            style: robotoRegular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w500),
                                                                                           ),
                                                                                           trailing: Icon(
                                                                                             Icons.chevron_right,
-                                                                                            color: Theme.of(context).disabledColor,
+                                                                                            color: Theme.of(context).primaryColor,
                                                                                             size: 30,
                                                                                           ),
                                                                                         ),
