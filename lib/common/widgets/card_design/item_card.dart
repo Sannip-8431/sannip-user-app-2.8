@@ -546,7 +546,9 @@ class SpecialOfferItemCard extends StatelessWidget {
               flex: 3,
               child: Stack(children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(Dimensions.radiusSmall),
+                      topLeft: Radius.circular(Dimensions.radiusSmall)),
                   child: CustomImage(
                     placeholder: Images.placeholder,
                     image: '${item.imageFullUrl}',
@@ -628,9 +630,7 @@ class SpecialOfferItemCard extends StatelessWidget {
                     bottom: isShop ? 0 : Dimensions.paddingSizeSmall),
                 child: Stack(clipBehavior: Clip.none, children: [
                   Column(
-                      crossAxisAlignment: isPopularItem
-                          ? CrossAxisAlignment.center
-                          : CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         /* (isFood || isShop)
@@ -644,6 +644,7 @@ class SpecialOfferItemCard extends StatelessWidget {
                         Text(
                           item.name ?? '',
                           style: robotoMedium,
+                          textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
