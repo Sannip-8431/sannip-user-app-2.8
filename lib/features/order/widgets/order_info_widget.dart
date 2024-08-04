@@ -286,7 +286,7 @@ class OrderInfoWidget extends StatelessWidget {
               : const SizedBox(),
 
           !isDesktop
-              ? const SizedBox(height: Dimensions.paddingSizeExtraLarge)
+              ? const SizedBox(height: Dimensions.paddingSizeSmall)
               : const SizedBox(),
 
           isDesktop
@@ -1178,12 +1178,34 @@ class OrderInfoWidget extends StatelessWidget {
                                 height: Dimensions.paddingSizeSmall)
                             : const SizedBox(), */
                         // const SizedBox(height: Dimensions.paddingSizeSmall),
-                        DeliveryDetailsWidget(
-                            from: true, address: order.store!.address),
-                        const SizedBox(height: Dimensions.paddingSizeSmall),
-                        DeliveryDetailsWidget(
-                            from: false,
-                            address: order.deliveryAddress!.address),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              Images.pathImage,
+                              height: 72,
+                            ),
+                            const SizedBox(width: Dimensions.paddingSizeSmall),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  DeliveryDetailsWidget(
+                                      from: true,
+                                      stroeName: order.store?.name,
+                                      address: order.store!.address),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeSmall),
+                                  DeliveryDetailsWidget(
+                                    from: false,
+                                    address: order.deliveryAddress!.address,
+                                    addressType:
+                                        order.deliveryAddress?.addressType,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ]),
                 )
               : const SizedBox(),
