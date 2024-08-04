@@ -134,13 +134,16 @@ class OrderViewWidget extends StatelessWidget {
                                       color: Theme.of(context).cardColor,
                                       borderRadius: BorderRadius.circular(
                                           Dimensions.radiusSmall),
+                                      border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 0.15),
                                       boxShadow: [
                                         BoxShadow(
                                             color: Theme.of(context)
-                                                .disabledColor
-                                                .withOpacity(0.8),
-                                            blurRadius: 5,
-                                            offset: const Offset(2, 2))
+                                                .primaryColor
+                                                .withOpacity(0.1),
+                                            spreadRadius: 1,
+                                            blurRadius: 3),
                                       ],
                                     ),
                                     child: CustomInkWell(
