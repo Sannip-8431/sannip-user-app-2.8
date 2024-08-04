@@ -26,6 +26,12 @@ class SpecialOfferView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: Dimensions.paddingSizeDefault),
                   child: Container(
+                    // decoration: const BoxDecoration(
+                    //   image: DecorationImage(
+                    //     image: AssetImage(Images.specialBGImage),
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                     color: Theme.of(context).disabledColor.withOpacity(0.1),
                     child: Column(children: [
                       Padding(
@@ -41,7 +47,7 @@ class SpecialOfferView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 285,
+                        height: !isFood && !isShop ? 248 : 228,
                         width: Get.width,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -57,7 +63,7 @@ class SpecialOfferView extends StatelessWidget {
                                         bottom: Dimensions.paddingSizeDefault,
                                         right: Dimensions.paddingSizeDefault,
                                         top: Dimensions.paddingSizeDefault),
-                                    child: ItemCard(
+                                    child: SpecialOfferItemCard(
                                         item: discountedItemList[index],
                                         isPopularItem: false,
                                         isFood: isFood,
@@ -71,14 +77,19 @@ class SpecialOfferView extends StatelessWidget {
                   ),
                 )
               : const SizedBox()
-          : const ItemShimmerView(isPopularItem: false);
+          : const ItemShimmerView(
+              isPopularItem: false,
+              isDesignChange: true,
+            );
     });
   }
 }
 
 class ItemShimmerView extends StatelessWidget {
   final bool isPopularItem;
-  const ItemShimmerView({super.key, required this.isPopularItem});
+  final bool isDesignChange;
+  const ItemShimmerView(
+      {super.key, required this.isPopularItem, this.isDesignChange = false});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +113,7 @@ class ItemShimmerView extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 285,
+            height: isDesignChange ? 225 : 285,
             width: Get.width,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -120,8 +131,8 @@ class ItemShimmerView extends StatelessWidget {
                     duration: const Duration(seconds: 2),
                     enabled: true,
                     child: Container(
-                      height: 285,
-                      width: 200,
+                      height: isDesignChange ? 225 : 285,
+                      width: isDesignChange ? 90 : 200,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius:
@@ -129,7 +140,7 @@ class ItemShimmerView extends StatelessWidget {
                       ),
                       child: Column(children: [
                         Container(
-                          height: 150,
+                          height: isDesignChange ? 70 : 150,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
@@ -143,19 +154,19 @@ class ItemShimmerView extends StatelessWidget {
                           child: Column(children: [
                             Container(
                               height: 20,
-                              width: 100,
+                              width: isDesignChange ? 50 : 100,
                               color: Colors.grey[300],
                             ),
                             const SizedBox(height: Dimensions.paddingSizeSmall),
                             Container(
                               height: 20,
-                              width: 200,
+                              width: isDesignChange ? 100 : 200,
                               color: Colors.grey[300],
                             ),
                             const SizedBox(height: Dimensions.paddingSizeSmall),
                             Container(
                               height: 20,
-                              width: 100,
+                              width: isDesignChange ? 50 : 100,
                               color: Colors.grey[300],
                             ),
                           ]),
