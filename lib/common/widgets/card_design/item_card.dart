@@ -507,6 +507,310 @@ class ItemCard extends StatelessWidget {
   }
 }
 
+class SpecialOfferItemCard extends StatelessWidget {
+  final Item item;
+  final bool isPopularItem;
+  final bool isFood;
+  final bool isShop;
+  final bool isPopularItemCart;
+  const SpecialOfferItemCard(
+      {super.key,
+      required this.item,
+      this.isPopularItem = false,
+      required this.isFood,
+      required this.isShop,
+      this.isPopularItemCart = false});
+
+  @override
+  Widget build(BuildContext context) {
+    double? discount =
+        item.storeDiscount == 0 ? item.discount : item.storeDiscount;
+    String? discountType =
+        item.storeDiscount == 0 ? item.discountType : 'percent';
+
+    return OnHover(
+      isItem: true,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+          color: Theme.of(context).cardColor,
+        ),
+        width: 90,
+        child: CustomInkWell(
+          onTap: () =>
+              Get.find<ItemController>().navigateToItemPage(item, context),
+          radius: Dimensions.radiusSmall,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(
+              flex: 3,
+              child: Stack(children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(Dimensions.radiusSmall),
+                      topLeft: Radius.circular(Dimensions.radiusSmall)),
+                  child: CustomImage(
+                    placeholder: Images.placeholder,
+                    image: '${item.imageFullUrl}',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                ),
+                AddFavouriteView(
+                  item: item,
+                  top: 3,
+                  right: 3,
+                ),
+                const SizedBox(),
+                if (discount! > 0)
+                  Positioned(
+                      left: 0,
+                      child: ClipPath(
+                        clipper: TagClipper(radius: Dimensions.radiusSmall),
+                        child: Container(
+                          color: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4.0, horizontal: 3.0),
+                          child: Text(
+                            '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}',
+                            style: robotoMedium.copyWith(
+                              color: Colors.white,
+                              fontSize: (ResponsiveHelper.isMobile(Get.context)
+                                  ? 7
+                                  : 10),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )),
+                OrganicTag(
+                  item: item,
+                  placeInImage: false,
+                  placeBottom: true,
+                ),
+                (item.stock != null && item.stock! < 0)
+                    ? Positioned(
+                        bottom: 45,
+                        left: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: Dimensions.paddingSizeSmall,
+                              vertical: Dimensions.paddingSizeExtraSmall),
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(0.5),
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.radiusSmall),
+                              bottomRight:
+                                  Radius.circular(Dimensions.radiusSmall),
+                            ),
+                          ),
+                          child: Text('out_of_stock'.tr,
+                              style: robotoRegular.copyWith(
+                                  color: Theme.of(context).cardColor,
+                                  fontSize: Dimensions.fontSizeSmall)),
+                        ),
+                      )
+                    : const SizedBox(),
+                Get.find<ItemController>().isAvailable(item)
+                    ? const SizedBox()
+                    : NotAvailableWidget(
+                        radius: Dimensions.radiusSmall,
+                        isAllSideRound: isPopularItem),
+              ]),
+            ),
+            Expanded(
+              flex: (isFood || isShop) ? 5 : 4,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: Dimensions.paddingSizeExtraSmall,
+                    right: isShop ? 0 : Dimensions.paddingSizeExtraSmall,
+                    top: Dimensions.paddingSizeExtraSmall,
+                    bottom: isShop ? 0 : Dimensions.paddingSizeSmall),
+                child: Stack(clipBehavior: Clip.none, children: [
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        /* (isFood || isShop)
+                            ? Text(item.storeName ?? '',
+                                style: robotoRegular.copyWith(
+                                    color: Theme.of(context).disabledColor))
+                            : Text(item.name ?? '',
+                                style: robotoBold,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),*/
+                        Text(
+                          item.name ?? '',
+                          style: robotoMedium,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        /*(isFood || isShop)
+                            ? const SizedBox()
+                            : (Get.find<SplashController>()
+                                        .configModel!
+                                        .moduleConfig!
+                                        .module!
+                                        .unit! &&
+                                    item.unitType != null)
+                                ? Text(
+                                    '(${item.unitType ?? ''})',
+                                    style: robotoRegular.copyWith(
+                                        fontSize: Dimensions.fontSizeExtraSmall,
+                                        color: Theme.of(context).hintColor),
+                                  )
+                                : const SizedBox(),*/
+                        Text(
+                          PriceConverter.convertPrice(item.price,
+                              discount: discount, discountType: discountType),
+                          style: robotoRegular.copyWith(
+                              fontSize: Dimensions.fontSizeSmall),
+                          textDirection: TextDirection.ltr,
+                        ),
+                        discount > 0
+                            ? Text(
+                                PriceConverter.convertPrice(item.price),
+                                style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeExtraSmall,
+                                  color: Theme.of(context).disabledColor,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                                textDirection: TextDirection.ltr,
+                              )
+                            : const SizedBox(),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeExtraSmall),
+                        isShop
+                            ? const SizedBox()
+                            : CartCountView(
+                                item: item,
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.radiusSmall),
+                                        color: Theme.of(context).cardColor,
+                                        border: Border.all(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.black12,
+                                              blurRadius: 5,
+                                              spreadRadius: 1)
+                                        ],
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical:
+                                            Dimensions.paddingSizeExtraSmall,
+                                      ),
+                                      child: Text(
+                                        'add'.tr,
+                                        style: robotoMedium.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                    item.choiceOptions?.isNotEmpty ?? false
+                                        ? Positioned(
+                                            left: 15,
+                                            right: 15,
+                                            bottom: -6,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 02,
+                                                      horizontal: 1),
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              child: Text(
+                                                '${item.choiceOptions?.length} ${((item.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                textAlign: TextAlign.center,
+                                                style: robotoMedium.copyWith(
+                                                  fontSize: 8,
+                                                  height: 1.2,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : item.foodVariations?.isNotEmpty ??
+                                                false
+                                            ? Positioned(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: -6,
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 02,
+                                                      horizontal: 1),
+                                                  color: Theme.of(context)
+                                                      .cardColor,
+                                                  child: Text(
+                                                    'customisable'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                      fontSize: 8,
+                                                      height: 1.2,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
+                                  ],
+                                ),
+                              )
+                      ]),
+                  isShop
+                      ? Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: CartCountView(
+                            item: item,
+                            child: Container(
+                              height: 35,
+                              width: 38,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft:
+                                      Radius.circular(Dimensions.radiusSmall),
+                                  bottomRight:
+                                      Radius.circular(Dimensions.radiusSmall),
+                                ),
+                              ),
+                              child: Icon(
+                                  isPopularItemCart
+                                      ? Icons.add_shopping_cart
+                                      : Icons.add,
+                                  color: Theme.of(context).cardColor,
+                                  size: 20),
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
+                ]),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
 class MostPopularItemCard extends StatelessWidget {
   final Item item;
   final bool isPopularItem;

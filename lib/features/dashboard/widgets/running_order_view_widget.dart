@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/order/controllers/order_controller.dart';
 import 'package:sannip/features/order/domain/models/order_model.dart';
@@ -57,8 +58,11 @@ class _RunningOrderViewWidgetState extends State<RunningOrderViewWidget> {
                 children: [
                   Expanded(
                     child: CustomInkWell(
-                        child: Icon(
-                            isExpanded ? Icons.expand_more : Icons.expand_less),
+                        child: CustomAssetImageWidget(
+                          isExpanded ? Images.downArrow : Images.upArrow,
+                          fit: BoxFit.scaleDown,
+                          height: 18,
+                        ),
                         onTap: () {
                           setState(() {
                             isExpanded = !isExpanded;

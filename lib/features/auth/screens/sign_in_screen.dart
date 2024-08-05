@@ -98,54 +98,54 @@ class SignInScreenState extends State<SignInScreen> {
             : Theme.of(context).cardColor,
         appBar: (ResponsiveHelper.isDesktop(context)
             ? null
-            : !widget.exitFromApp
-                ? AppBar(
-                    leading: IconButton(
-                      onPressed: () => Get.back(),
-                      icon: Icon(Icons.arrow_back_ios_rounded,
-                          color: Theme.of(context).textTheme.bodyLarge!.color),
-                    ),
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    actions: [
-                      GetBuilder<AuthController>(builder: (authController) {
-                        return !authController.guestLoading
-                            ? InkWell(
-                                onTap: () {
-                                  authController.guestLogin().then((response) {
-                                    if (response.isSuccess) {
-                                      Get.find<ProfileController>()
-                                          .setForceFullyUserEmpty();
-                                      Navigator.pushReplacementNamed(context,
-                                          RouteHelper.getInitialRoute());
-                                    }
-                                  });
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: Dimensions.paddingSizeExtraSmall,
-                                      right: Dimensions.paddingSizeExtraSmall),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: Dimensions.paddingSizeLarge,
-                                      vertical:
-                                          Dimensions.paddingSizeExtraSmall),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radiusExtraLarge),
-                                  ),
-                                  child: Text(
-                                    'skip'.tr,
-                                    style: robotoRegular.copyWith(
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              )
-                            : const CircularProgressIndicator();
-                      })
-                    ],
-                  )
-                : null),
+            : AppBar(
+                leading: !widget.exitFromApp
+                    ? IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(Icons.arrow_back_ios_rounded,
+                            color:
+                                Theme.of(context).textTheme.bodyLarge!.color),
+                      )
+                    : null,
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                actions: [
+                  GetBuilder<AuthController>(builder: (authController) {
+                    return !authController.guestLoading
+                        ? InkWell(
+                            onTap: () {
+                              authController.guestLogin().then((response) {
+                                if (response.isSuccess) {
+                                  Get.find<ProfileController>()
+                                      .setForceFullyUserEmpty();
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteHelper.getInitialRoute());
+                                }
+                              });
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  top: Dimensions.paddingSizeExtraSmall,
+                                  right: Dimensions.paddingSizeExtraSmall),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.paddingSizeLarge,
+                                  vertical: Dimensions.paddingSizeExtraSmall),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusExtraLarge),
+                              ),
+                              child: Text(
+                                'skip'.tr,
+                                style:
+                                    robotoRegular.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          )
+                        : const CircularProgressIndicator();
+                  })
+                ],
+              )),
         endDrawer: const MenuDrawer(),
         endDrawerEnableOpenDragGesture: false,
         body: SafeArea(

@@ -647,6 +647,8 @@ class ItemWidget extends StatelessWidget {
 }
 
 class TagClipper extends CustomClipper<Path> {
+  final double radius;
+  TagClipper({this.radius = 10});
   @override
   Path getClip(Size size) {
     final Path path = Path();
@@ -664,10 +666,10 @@ class TagClipper extends CustomClipper<Path> {
     path.lineTo(size.width, size.height - 6);
 
     path.lineTo(size.width, 0);
-    path.lineTo(10, 0);
+    path.lineTo(radius, 0);
     path.arcToPoint(
-      const Offset(0, 10),
-      radius: const Radius.circular(10),
+      Offset(0, radius),
+      radius: Radius.circular(radius),
       clockwise: false,
     );
     path.close();
@@ -990,7 +992,7 @@ class ListViewItemWidget extends StatelessWidget {
                   const SizedBox(height: Dimensions.paddingSizeLarge),
                   (item?.foodVariations?.isNotEmpty ?? false)
                       ? Text(
-                          'Customisable',
+                          'customisable'.tr,
                           style: robotoRegular.copyWith(
                               fontSize: Dimensions.fontSizeSmall,
                               color: Theme.of(context).disabledColor),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/item/controllers/item_controller.dart';
@@ -18,53 +20,60 @@ class BestReviewItemView extends StatefulWidget {
 
 class _BestReviewItemViewState extends State<BestReviewItemView> {
   ScrollController scrollController = ScrollController();
+  bool isFood = Get.find<SplashController>().module != null &&
+      Get.find<SplashController>().module!.moduleType.toString() ==
+          AppConstants.food;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ItemController>(builder: (itemController) {
       List<Item>? reviewItemList = itemController.reviewedItemList;
 
-      return Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: Dimensions.paddingSizeSmall,
-              horizontal: Dimensions.paddingSizeDefault),
-          child: TitleWidget(
-            title: 'best_reviewed_item'.tr,
-            onTap: () =>
-                Get.toNamed(RouteHelper.getPopularItemRoute(false, false)),
+      return Container(
+        color: Colors.green.withOpacity(0.1),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: Dimensions.paddingSizeSmall,
+                horizontal: Dimensions.paddingSizeDefault),
+            child: TitleWidget(
+              title: 'best_reviewed_item'.tr,
+              onTap: () =>
+                  Get.toNamed(RouteHelper.getPopularItemRoute(false, false)),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 285,
-          width: Get.width,
-          child: reviewItemList != null
-              ? ListView.builder(
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                      left: Dimensions.paddingSizeDefault),
-                  itemCount: reviewItemList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
+          SizedBox(
+            height: !isFood ? 248 : 233,
+            width: Get.width,
+            child: reviewItemList != null
+                ? ListView.builder(
+                    controller: scrollController,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(
+                        left: Dimensions.paddingSizeDefault),
+                    itemCount: reviewItemList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
                           bottom: Dimensions.paddingSizeDefault,
                           right: Dimensions.paddingSizeDefault,
-                          top: Dimensions.paddingSizeDefault),
-                      child: CustomInkWell(
-                        onTap: () => Get.find<ItemController>()
-                            .navigateToItemPage(reviewItemList[index], context),
-                        child: ReviewItemCard(
-                          item: itemController.reviewedItemList![index],
                         ),
-                      ),
-                    );
-                  },
-                )
-              : const BestReviewItemShimmer(),
-        ),
-      ]);
+                        child: CustomInkWell(
+                          onTap: () => Get.find<ItemController>()
+                              .navigateToItemPage(
+                                  reviewItemList[index], context),
+                          child: BestReviewItemCard(
+                            item: itemController.reviewedItemList![index],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : const BestReviewItemShimmer(),
+          ),
+        ]),
+      );
     });
   }
 }
@@ -89,8 +98,8 @@ class BestReviewItemShimmer extends StatelessWidget {
             duration: const Duration(seconds: 2),
             enabled: true,
             child: Container(
-              width: 210,
-              height: 285,
+              width: 135,
+              height: 220,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                 color: Colors.grey[300],
@@ -99,6 +108,7 @@ class BestReviewItemShimmer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      flex: 3,
                       child: Stack(children: [
                         Padding(
                           padding: const EdgeInsets.all(
@@ -119,55 +129,48 @@ class BestReviewItemShimmer extends StatelessWidget {
                           child: Icon(Icons.favorite,
                               size: 20, color: Theme.of(context).cardColor),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: Dimensions.paddingSizeDefault),
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  height: 100,
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(
-                                      Dimensions.paddingSizeSmall),
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(
-                                              Dimensions.radiusDefault),
-                                          topRight: Radius.circular(
-                                              Dimensions.radiusDefault)),
-                                      color: Theme.of(context).cardColor),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: 100,
-                                          height: 10,
-                                          color: Colors.grey[300],
-                                        ),
-                                        const SizedBox(
-                                            height:
-                                                Dimensions.paddingSizeSmall),
-                                        Container(
-                                          width: 100,
-                                          height: 10,
-                                          color: Colors.grey[300],
-                                        ),
-                                      ]),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ]),
                     ),
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        height: 100,
+                        width: double.infinity,
+                        padding:
+                            const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft:
+                                    Radius.circular(Dimensions.radiusDefault),
+                                topRight:
+                                    Radius.circular(Dimensions.radiusDefault)),
+                            color: Theme.of(context).cardColor),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 100,
+                                height: 10,
+                                color: Colors.grey[300],
+                              ),
+                              const SizedBox(
+                                  height: Dimensions.paddingSizeSmall),
+                              Container(
+                                width: 100,
+                                height: 10,
+                                color: Colors.grey[300],
+                              ),
+                              const SizedBox(
+                                  height: Dimensions.paddingSizeSmall),
+                              Container(
+                                width: 100,
+                                height: 10,
+                                color: Colors.grey[300],
+                              ),
+                            ]),
+                      ),
+                    )
                   ]),
             ),
           ),

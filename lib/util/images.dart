@@ -1,5 +1,6 @@
 class Images {
   static const String logo = 'assets/image/logo.png';
+  static const String splashLogo = 'assets/image/splash_logo.gif';
   static const String placeholder = 'assets/image/placeholder.jpg';
   static const String notificationPlaceholder =
       'assets/image/notification_placeholder.jpg';
@@ -355,6 +356,7 @@ class Images {
   static const String addressBackgroundImage =
       'assets/image/address_background_image.png';
   static const String deleteIcon = 'assets/image/delete_icon.png';
+  static const String specialBGImage = 'assets/image/special_bg_image.jpg';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';
@@ -362,6 +364,8 @@ class Images {
   static const String shopIcon = 'assets/image/shop_icon.svg';
   static const String pickStoreMarker = 'assets/image/pick_store_marker.svg';
   static const String vatTaxIcon = 'assets/image/vat_tax_icon.svg';
+  static const String downArrow = 'assets/image/down_arrow.png';
+  static const String upArrow = 'assets/image/up_arrow.png';
   static const String storeRegistrationSuccess =
       'assets/image/store_registration_success.svg';
 
