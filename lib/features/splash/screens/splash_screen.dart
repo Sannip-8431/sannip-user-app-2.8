@@ -76,7 +76,7 @@ class SplashScreenState extends State<SplashScreen> {
   void _route() {
     Get.find<SplashController>().getConfigData().then((isSuccess) {
       if (isSuccess) {
-        Timer(const Duration(seconds: 1), () async {
+        Timer(const Duration(seconds: 4), () async {
           double? minimumVersion = 0;
           if (GetPlatform.isAndroid) {
             minimumVersion = Get.find<SplashController>()
@@ -163,7 +163,7 @@ class SplashScreenState extends State<SplashScreen> {
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(Images.logo, width: 200),
+                    Image.asset(Images.splashLogo, width: 200),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
                     // Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),
                   ],
