@@ -506,3 +506,377 @@ class ItemCard extends StatelessWidget {
     );
   }
 }
+
+class MostPopularItemCard extends StatelessWidget {
+  final Item item;
+  final bool isPopularItem;
+  final bool isFood;
+  final bool isShop;
+  final bool isPopularItemCart;
+  const MostPopularItemCard(
+      {super.key,
+      required this.item,
+      this.isPopularItem = false,
+      required this.isFood,
+      required this.isShop,
+      this.isPopularItemCart = false});
+
+  @override
+  Widget build(BuildContext context) {
+    double? discount =
+        item.storeDiscount == 0 ? item.discount : item.storeDiscount;
+    String? discountType =
+        item.storeDiscount == 0 ? item.discountType : 'percent';
+
+    return OnHover(
+      isItem: true,
+      child: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(Dimensions.radiusDefault))),
+          width: 126,
+          child: CustomInkWell(
+            onTap: () =>
+                Get.find<ItemController>().navigateToItemPage(item, context),
+            radius: Dimensions.radiusLarge,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                flex: 5,
+                child: Stack(children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Theme.of(context).hintColor.withOpacity(0.3)),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(Dimensions.radiusDefault),
+                          topRight: Radius.circular(Dimensions.radiusDefault)),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(Dimensions.radiusDefault),
+                          topRight: Radius.circular(Dimensions.radiusDefault)),
+                      child: CustomImage(
+                        placeholder: Images.placeholder,
+                        image: '${item.imageFullUrl}',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    ),
+                  ),
+                  AddFavouriteView(
+                    item: item,
+                    top: 3,
+                    right: 3,
+                  ),
+                  const SizedBox(),
+                  if (discount! > 0)
+                    Positioned(
+                        left: 0,
+                        child: ClipPath(
+                          clipper: TagClipper(),
+                          child: Container(
+                            color: Theme.of(context).primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 5.0),
+                            child: Text(
+                              '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol}\n${'off'.tr}',
+                              style: robotoMedium.copyWith(
+                                color: Colors.white,
+                                fontSize:
+                                    (ResponsiveHelper.isMobile(Get.context)
+                                        ? 9
+                                        : 12),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )),
+                  OrganicTag(
+                    item: item,
+                    placeInImage: false,
+                    placeBottom: true,
+                  ),
+                  (item.stock != null && item.stock! < 0)
+                      ? Positioned(
+                          bottom: 45,
+                          left: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeSmall,
+                                vertical: Dimensions.paddingSizeExtraSmall),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.5),
+                              borderRadius: const BorderRadius.only(
+                                topRight:
+                                    Radius.circular(Dimensions.radiusLarge),
+                                bottomRight:
+                                    Radius.circular(Dimensions.radiusLarge),
+                              ),
+                            ),
+                            child: Text('out_of_stock'.tr,
+                                style: robotoRegular.copyWith(
+                                    color: Theme.of(context).cardColor,
+                                    fontSize: Dimensions.fontSizeSmall)),
+                          ),
+                        )
+                      : const SizedBox(),
+                  Get.find<ItemController>().isAvailable(item)
+                      ? const SizedBox()
+                      : const NotAvailableWidget(
+                          radius: Dimensions.radiusLarge,
+                          isAllSideRound: false),
+                ]),
+              ),
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: Dimensions.paddingSizeSmall,
+                      right: isShop ? 0 : Dimensions.paddingSizeSmall,
+                      top: Dimensions.paddingSizeSmall,
+                      bottom: isShop ? 0 : Dimensions.paddingSizeSmall),
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    Column(
+                        crossAxisAlignment: isPopularItem
+                            ? CrossAxisAlignment.center
+                            : CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          (isFood || isShop)
+                              ? Text(item.storeName ?? '',
+                                  style: robotoRegular.copyWith(
+                                      fontSize: Dimensions.fontSizeExtraSmall))
+                              : Text(item.name ?? '',
+                                  style: robotoBold.copyWith(
+                                      fontSize: Dimensions.fontSizeSmall),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                          (isFood || isShop)
+                              ? Flexible(
+                                  child: Text(
+                                    item.name ?? '',
+                                    style: robotoBold.copyWith(
+                                        fontSize: Dimensions.fontSizeSmall),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
+                              : Row(
+                                  mainAxisAlignment: isPopularItem
+                                      ? MainAxisAlignment.center
+                                      : MainAxisAlignment.start,
+                                  children: [
+                                      Icon(Icons.star,
+                                          size: 12,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      Text(item.avgRating!.toStringAsFixed(1),
+                                          style: robotoRegular.copyWith(
+                                              fontSize: Dimensions
+                                                  .fontSizeExtraSmall)),
+                                      const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      Text("(${item.ratingCount})",
+                                          style: robotoRegular.copyWith(
+                                              fontSize:
+                                                  Dimensions.fontSizeExtraSmall,
+                                              color: Theme.of(context)
+                                                  .disabledColor)),
+                                    ]),
+                          (isFood || isShop)
+                              ? Row(
+                                  mainAxisAlignment: isPopularItem
+                                      ? MainAxisAlignment.center
+                                      : MainAxisAlignment.start,
+                                  children: [
+                                      Icon(Icons.star,
+                                          size: 12,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      Text(item.avgRating!.toStringAsFixed(1),
+                                          style: robotoRegular.copyWith(
+                                              fontSize: Dimensions
+                                                  .fontSizeExtraSmall)),
+                                      const SizedBox(
+                                          width:
+                                              Dimensions.paddingSizeExtraSmall),
+                                      Text("(${item.ratingCount})",
+                                          style: robotoRegular.copyWith(
+                                              fontSize:
+                                                  Dimensions.fontSizeExtraSmall,
+                                              color: Theme.of(context)
+                                                  .disabledColor)),
+                                    ])
+                              : (Get.find<SplashController>()
+                                          .configModel!
+                                          .moduleConfig!
+                                          .module!
+                                          .unit! &&
+                                      item.unitType != null)
+                                  ? Text(
+                                      '(${item.unitType ?? ''})',
+                                      style: robotoRegular.copyWith(
+                                          fontSize:
+                                              Dimensions.fontSizeExtraSmall,
+                                          color: Theme.of(context).hintColor),
+                                    )
+                                  : const SizedBox(),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  PriceConverter.convertPrice(item.price,
+                                      discount: discount,
+                                      discountType: discountType),
+                                  style: robotoMedium.copyWith(
+                                      fontSize: Dimensions.fontSizeDefault),
+                                  textDirection: TextDirection.ltr,
+                                ),
+                                SizedBox(width: discount > 0 ? 2 : 0),
+                                discount > 0
+                                    ? Text(
+                                        PriceConverter.convertPrice(item.price),
+                                        style: robotoMedium.copyWith(
+                                          fontSize: Dimensions.fontSizeSmall,
+                                          color:
+                                              Theme.of(context).disabledColor,
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                        ),
+                                        textDirection: TextDirection.ltr,
+                                      )
+                                    : const SizedBox(),
+                              ]),
+                          isShop
+                              ? const SizedBox()
+                              : Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                      const SizedBox(),
+                                      CartCountView(
+                                        item: item,
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Container(
+                                              width: 80,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions.radiusSmall),
+                                                color:
+                                                    Theme.of(context).cardColor,
+                                                border: Border.all(
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                      color: Colors.black12,
+                                                      blurRadius: 5,
+                                                      spreadRadius: 1)
+                                                ],
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: Dimensions
+                                                    .paddingSizeExtraSmall,
+                                              ),
+                                              child: Text(
+                                                'add'.tr,
+                                                style: robotoMedium.copyWith(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                            item.choiceOptions?.isNotEmpty ??
+                                                    false
+                                                ? Positioned(
+                                                    left: 15,
+                                                    right: 15,
+                                                    bottom: -6,
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 02,
+                                                          horizontal: 1),
+                                                      color: Theme.of(context)
+                                                          .cardColor,
+                                                      child: Text(
+                                                        '${item.choiceOptions?.length} ${((item.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: robotoMedium
+                                                            .copyWith(
+                                                          fontSize: 8,
+                                                          height: 1.2,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                          ],
+                                        ),
+                                      )
+                                    ]),
+                          // const SizedBox(
+                          //     height: Dimensions.paddingSizeExtraSmall),
+                        ]),
+                    isShop
+                        ? Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: CartCountView(
+                              item: item,
+                              child: Container(
+                                height: 35,
+                                width: 38,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft:
+                                        Radius.circular(Dimensions.radiusLarge),
+                                    bottomRight:
+                                        Radius.circular(Dimensions.radiusLarge),
+                                  ),
+                                ),
+                                child: Icon(
+                                    isPopularItemCart
+                                        ? Icons.add_shopping_cart
+                                        : Icons.add,
+                                    color: Theme.of(context).cardColor,
+                                    size: 20),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ]),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ]),
+    );
+  }
+}

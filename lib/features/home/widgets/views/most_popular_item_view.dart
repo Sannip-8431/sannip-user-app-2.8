@@ -49,11 +49,19 @@ class MostPopularItemView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 285,
+                        height: 560,
                         width: Get.width,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
+                        child: GridView.builder(
+                          key: UniqueKey(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                            childAspectRatio: 2,
+                            crossAxisCount: 2,
+                          ),
                           physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.only(
                               left: Dimensions.paddingSizeDefault),
                           itemCount: itemList.length,
@@ -63,7 +71,7 @@ class MostPopularItemView extends StatelessWidget {
                                   bottom: Dimensions.paddingSizeDefault,
                                   right: Dimensions.paddingSizeDefault,
                                   top: Dimensions.paddingSizeDefault),
-                              child: ItemCard(
+                              child: MostPopularItemCard(
                                 isPopularItem: isShop ? false : true,
                                 isPopularItemCart: true,
                                 item: itemList[index],
