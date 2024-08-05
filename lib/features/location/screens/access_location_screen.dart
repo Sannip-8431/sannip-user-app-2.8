@@ -113,45 +113,43 @@ class _AccessLocationScreenState extends State<AccessLocationScreen> {
                                   children: [
                                 locationController.addressList != null
                                     ? locationController.addressList!.isNotEmpty
-                                        ? ListView.builder(
+                                        ? ListView.separated(
+                                            separatorBuilder: (context, index) {
+                                              return const SizedBox(
+                                                height:
+                                                    Dimensions.paddingSizeSmall,
+                                              );
+                                            },
                                             physics:
                                                 const NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemCount: locationController
                                                 .addressList!.length,
                                             itemBuilder: (context, index) {
-                                              return Center(
-                                                  child: SizedBox(
-                                                      width: 700,
-                                                      child: AddressWidget(
-                                                        address:
-                                                            locationController
-                                                                    .addressList![
-                                                                index],
-                                                        fromAddress: false,
-                                                        onTap: () {
-                                                          Get.dialog(
-                                                              const CustomLoader(),
-                                                              barrierDismissible:
-                                                                  false);
-                                                          AddressModel address =
-                                                              locationController
-                                                                      .addressList![
-                                                                  index];
-                                                          Get.find<
-                                                                  LocationController>()
-                                                              .saveAddressAndNavigate(
-                                                            address,
-                                                            widget.fromSignUp,
-                                                            widget.route,
-                                                            widget.route !=
-                                                                null,
-                                                            ResponsiveHelper
-                                                                .isDesktop(
-                                                                    context),
-                                                          );
-                                                        },
-                                                      )));
+                                              return AddressWidget(
+                                                isChangeDesign: true,
+                                                address: locationController
+                                                    .addressList![index],
+                                                fromAddress: false,
+                                                onTap: () {
+                                                  Get.dialog(
+                                                      const CustomLoader(),
+                                                      barrierDismissible:
+                                                          false);
+                                                  AddressModel address =
+                                                      locationController
+                                                          .addressList![index];
+                                                  Get.find<LocationController>()
+                                                      .saveAddressAndNavigate(
+                                                    address,
+                                                    widget.fromSignUp,
+                                                    widget.route,
+                                                    widget.route != null,
+                                                    ResponsiveHelper.isDesktop(
+                                                        context),
+                                                  );
+                                                },
+                                              );
                                             },
                                           )
                                         : NoDataScreen(
