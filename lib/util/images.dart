@@ -364,6 +364,8 @@ class Images {
   static const String shopIcon = 'assets/image/shop_icon.svg';
   static const String pickStoreMarker = 'assets/image/pick_store_marker.svg';
   static const String vatTaxIcon = 'assets/image/vat_tax_icon.svg';
+  static const String downArrow = 'assets/image/down_arrow.png';
+  static const String upArrow = 'assets/image/up_arrow.png';
   static const String storeRegistrationSuccess =
       'assets/image/store_registration_success.svg';
 
