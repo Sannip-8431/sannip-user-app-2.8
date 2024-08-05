@@ -992,7 +992,7 @@ class ListViewItemWidget extends StatelessWidget {
                   const SizedBox(height: Dimensions.paddingSizeLarge),
                   (item?.foodVariations?.isNotEmpty ?? false)
                       ? Text(
-                          'Customisable',
+                          'customisable'.tr,
                           style: robotoRegular.copyWith(
                               fontSize: Dimensions.fontSizeSmall,
                               color: Theme.of(context).disabledColor),
