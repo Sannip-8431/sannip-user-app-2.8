@@ -960,7 +960,31 @@ class BestReviewItemCard extends StatelessWidget {
                                             ),
                                           ),
                                         )
-                                      : const SizedBox(),
+                                      : item?.choiceOptions?.isNotEmpty ?? false
+                                          ? Positioned(
+                                              left: 15,
+                                              right: 15,
+                                              bottom: -6,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 02,
+                                                        horizontal: 1),
+                                                color:
+                                                    Theme.of(context).cardColor,
+                                                child: Text(
+                                                  '${item?.choiceOptions?.length} ${(((item?.choiceOptions!.length ?? 0) > 1) ? "options" : "option")}',
+                                                  textAlign: TextAlign.center,
+                                                  style: robotoMedium.copyWith(
+                                                    fontSize: 8,
+                                                    height: 1.2,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox(),
                                 ],
                               ),
                             ),

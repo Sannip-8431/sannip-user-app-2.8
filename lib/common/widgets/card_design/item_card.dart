@@ -742,7 +742,33 @@ class SpecialOfferItemCard extends StatelessWidget {
                                               ),
                                             ),
                                           )
-                                        : const SizedBox(),
+                                        : item.foodVariations?.isNotEmpty ??
+                                                false
+                                            ? Positioned(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: -6,
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 02,
+                                                      horizontal: 1),
+                                                  color: Theme.of(context)
+                                                      .cardColor,
+                                                  child: Text(
+                                                    'customisable'.tr,
+                                                    textAlign: TextAlign.center,
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                      fontSize: 8,
+                                                      height: 1.2,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox(),
                                   ],
                                 ),
                               )
