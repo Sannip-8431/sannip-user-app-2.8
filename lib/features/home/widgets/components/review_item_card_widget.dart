@@ -817,6 +817,31 @@ class BestReviewItemCard extends StatelessWidget {
                             ],
                           ),
                         ),
+                        if (isFood &&
+                            Get.find<SplashController>()
+                                .configModel!
+                                .moduleConfig!
+                                .module!
+                                .vegNonVeg! &&
+                            Get.find<SplashController>()
+                                .configModel!
+                                .toggleVegNonVeg!)
+                          Positioned(
+                              left: 2,
+                              bottom: 0,
+                              child: Container(
+                                padding: const EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).cardColor,
+                                    borderRadius: BorderRadius.circular(2)),
+                                child: Image.asset(
+                                    item?.veg == 0
+                                        ? Images.nonVegImage
+                                        : Images.vegImage,
+                                    height: 12,
+                                    width: 12,
+                                    fit: BoxFit.contain),
+                              ))
                       ]),
                     ),
                     Expanded(

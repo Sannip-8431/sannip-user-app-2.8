@@ -90,64 +90,66 @@ class AddressWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(
-                    height: 0,
-                    color: Theme.of(context).disabledColor,
-                    thickness: 2,
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.all(Dimensions.paddingSizeDefault),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomInkWell(
-                          onTap: onEditPressed as void Function()?,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Images.editDelivery,
-                                color: Theme.of(context).hintColor,
-                                height: 15,
-                                width: 15,
-                              ),
-                              const SizedBox(
-                                  width: Dimensions.paddingSizeSmall),
-                              Text(
-                                'change_address'.tr,
-                                style: robotoRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeDefault,
-                                  color: Theme.of(context).hintColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        CustomInkWell(
-                          onTap: onRemovePressed as void Function()?,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Images.deleteIcon,
-                                color: Colors.red,
-                                height: 18,
-                                width: 15,
-                              ),
-                              const SizedBox(
-                                  width: Dimensions.paddingSizeSmall),
-                              Text(
-                                "${'delete'.tr} ${'address'.tr}",
-                                style: robotoRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeDefault,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                  if (fromAddress) ...[
+                    Divider(
+                      height: 0,
+                      color: Theme.of(context).disabledColor,
+                      thickness: 2,
                     ),
-                  ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomInkWell(
+                            onTap: onEditPressed as void Function()?,
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  Images.editDelivery,
+                                  color: Theme.of(context).hintColor,
+                                  height: 15,
+                                  width: 15,
+                                ),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeSmall),
+                                Text(
+                                  'change_address'.tr,
+                                  style: robotoRegular.copyWith(
+                                    fontSize: Dimensions.fontSizeDefault,
+                                    color: Theme.of(context).hintColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomInkWell(
+                            onTap: onRemovePressed as void Function()?,
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  Images.deleteIcon,
+                                  color: Colors.red,
+                                  height: 18,
+                                  width: 15,
+                                ),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeSmall),
+                                Text(
+                                  "${'delete'.tr} ${'address'.tr}",
+                                  style: robotoRegular.copyWith(
+                                    fontSize: Dimensions.fontSizeDefault,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]
                 ],
               ),
             ),
