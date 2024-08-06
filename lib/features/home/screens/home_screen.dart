@@ -320,7 +320,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               if (_showAlert &&
                                   _message != null &&
                                   _message!.isNotEmpty &&
-                                  !showMobileModule)
+                                  !showMobileModule &&
+                                  _scrollController.hasClients)
                                 Positioned.fill(
                                   child:
                                       Background(controller: _scrollController),
