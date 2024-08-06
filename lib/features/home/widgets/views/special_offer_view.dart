@@ -135,8 +135,13 @@ class ItemShimmerView extends StatelessWidget {
                       width: isDesignChange ? 90 : 200,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radiusLarge),
+                        borderRadius: isDesignChange
+                            ? const BorderRadius.only(
+                                topRight:
+                                    Radius.circular(Dimensions.radiusSmall),
+                                topLeft:
+                                    Radius.circular(Dimensions.radiusSmall))
+                            : BorderRadius.circular(Dimensions.radiusLarge),
                       ),
                       child: Column(children: [
                         Container(
