@@ -85,142 +85,141 @@ class _AccessLocationScreenState extends State<AccessLocationScreen> {
         endDrawerEnableOpenDragGesture: false,
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
-            child: Padding(
-          padding: ResponsiveHelper.isDesktop(context)
-              ? EdgeInsets.zero
-              : const EdgeInsets.all(Dimensions.paddingSizeSmall),
-          child: GetBuilder<AddressController>(builder: (locationController) {
-            bool isLoggedIn = AuthHelper.isLoggedIn();
-            return (ResponsiveHelper.isDesktop(context) &&
-                    AddressHelper.getUserAddressFromSharedPref() == null)
-                ? WebLandingPage(
-                    fromSignUp: widget.fromSignUp,
-                    fromHome: widget.fromHome,
-                    route: widget.route,
-                  )
-                : isLoggedIn
-                    ? Column(children: [
-                        Expanded(
-                            child: SingleChildScrollView(
-                          child: FooterView(
-                              child: Column(
-                                  mainAxisAlignment:
-                                      (locationController.addressList != null &&
-                                              locationController
-                                                  .addressList!.isNotEmpty)
-                                          ? MainAxisAlignment.start
-                                          : MainAxisAlignment.center,
-                                  children: [
-                                locationController.addressList != null
-                                    ? locationController.addressList!.isNotEmpty
-                                        ? ListView.separated(
-                                            separatorBuilder: (context, index) {
-                                              return const SizedBox(
-                                                height:
-                                                    Dimensions.paddingSizeSmall,
-                                              );
-                                            },
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: locationController
-                                                .addressList!.length,
-                                            itemBuilder: (context, index) {
-                                              return AddressWidget(
-                                                isChangeDesign: true,
-                                                address: locationController
-                                                    .addressList![index],
-                                                fromAddress: false,
-                                                onTap: () {
-                                                  Get.dialog(
-                                                      const CustomLoader(),
-                                                      barrierDismissible:
-                                                          false);
-                                                  AddressModel address =
-                                                      locationController
-                                                          .addressList![index];
-                                                  Get.find<LocationController>()
-                                                      .saveAddressAndNavigate(
-                                                    address,
-                                                    widget.fromSignUp,
-                                                    widget.route,
-                                                    widget.route != null,
-                                                    ResponsiveHelper.isDesktop(
-                                                        context),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          )
-                                        : NoDataScreen(
-                                            text: 'no_saved_address_found'.tr)
-                                    : const Center(
-                                        child: CircularProgressIndicator()),
-                                const SizedBox(
-                                    height: Dimensions.paddingSizeLarge),
-                                ResponsiveHelper.isDesktop(context)
-                                    ? BottomButton(
-                                        fromSignUp: widget.fromSignUp,
-                                        route: widget.route)
-                                    : const SizedBox(),
-                              ])),
-                        )),
-                        ResponsiveHelper.isDesktop(context)
-                            ? const SizedBox()
-                            : BottomButton(
-                                fromSignUp: widget.fromSignUp,
-                                route: widget.route),
-                      ])
-                    : Center(
-                        child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
+            child: GetBuilder<AddressController>(builder: (locationController) {
+          bool isLoggedIn = AuthHelper.isLoggedIn();
+          return (ResponsiveHelper.isDesktop(context) &&
+                  AddressHelper.getUserAddressFromSharedPref() == null)
+              ? WebLandingPage(
+                  fromSignUp: widget.fromSignUp,
+                  fromHome: widget.fromHome,
+                  route: widget.route,
+                )
+              : isLoggedIn
+                  ? Column(children: [
+                      Expanded(
+                          child: SingleChildScrollView(
                         child: FooterView(
-                            child: SizedBox(
-                                width: 700,
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(Images.deliveryLocation,
-                                          height: 220),
-                                      const SizedBox(
-                                          height: Dimensions.paddingSizeLarge),
-                                      Text(
-                                          'find_stores_and_items'
-                                              .tr
-                                              .toUpperCase(),
-                                          textAlign: TextAlign.center,
-                                          style: robotoMedium.copyWith(
-                                              fontSize: Dimensions
-                                                  .fontSizeExtraLarge)),
-                                      Padding(
-                                        padding: const EdgeInsets.all(
-                                            Dimensions.paddingSizeLarge),
-                                        child: Text(
-                                          'by_allowing_location_access'.tr,
-                                          textAlign: TextAlign.center,
-                                          style: robotoRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall,
-                                              color: Theme.of(context)
-                                                  .disabledColor),
-                                        ),
+                            child: Column(
+                                mainAxisAlignment:
+                                    (locationController.addressList != null &&
+                                            locationController
+                                                .addressList!.isNotEmpty)
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.center,
+                                children: [
+                              locationController.addressList != null
+                                  ? locationController.addressList!.isNotEmpty
+                                      ? ListView.separated(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical:
+                                                  Dimensions.paddingSizeSmall),
+                                          separatorBuilder: (context, index) {
+                                            return const SizedBox(
+                                              height:
+                                                  Dimensions.paddingSizeSmall,
+                                            );
+                                          },
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: locationController
+                                              .addressList!.length,
+                                          itemBuilder: (context, index) {
+                                            return AddressWidget(
+                                              isChangeDesign: true,
+                                              address: locationController
+                                                  .addressList![index],
+                                              fromAddress: false,
+                                              onTap: () {
+                                                Get.dialog(const CustomLoader(),
+                                                    barrierDismissible: false);
+                                                AddressModel address =
+                                                    locationController
+                                                        .addressList![index];
+                                                Get.find<LocationController>()
+                                                    .saveAddressAndNavigate(
+                                                  address,
+                                                  widget.fromSignUp,
+                                                  widget.route,
+                                                  widget.route != null,
+                                                  ResponsiveHelper.isDesktop(
+                                                      context),
+                                                );
+                                              },
+                                            );
+                                          },
+                                        )
+                                      : NoDataScreen(
+                                          text: 'no_saved_address_found'.tr)
+                                  : const Center(
+                                      child: CircularProgressIndicator()),
+                              const SizedBox(
+                                  height: Dimensions.paddingSizeLarge),
+                              ResponsiveHelper.isDesktop(context)
+                                  ? BottomButton(
+                                      fromSignUp: widget.fromSignUp,
+                                      route: widget.route)
+                                  : const SizedBox(),
+                            ])),
+                      )),
+                      ResponsiveHelper.isDesktop(context)
+                          ? const SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.all(
+                                  Dimensions.paddingSizeSmall),
+                              child: BottomButton(
+                                  fromSignUp: widget.fromSignUp,
+                                  route: widget.route),
+                            ),
+                    ])
+                  : Center(
+                      child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: FooterView(
+                          child: SizedBox(
+                              width: 700,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(Images.deliveryLocation,
+                                        height: 220),
+                                    const SizedBox(
+                                        height: Dimensions.paddingSizeLarge),
+                                    Text(
+                                        'find_stores_and_items'
+                                            .tr
+                                            .toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        style: robotoMedium.copyWith(
+                                            fontSize:
+                                                Dimensions.fontSizeExtraLarge)),
+                                    Padding(
+                                      padding: const EdgeInsets.all(
+                                          Dimensions.paddingSizeLarge),
+                                      child: Text(
+                                        'by_allowing_location_access'.tr,
+                                        textAlign: TextAlign.center,
+                                        style: robotoRegular.copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                       ),
-                                      const SizedBox(
-                                          height: Dimensions.paddingSizeLarge),
-                                      Padding(
-                                        padding: ResponsiveHelper.isWeb()
-                                            ? EdgeInsets.zero
-                                            : const EdgeInsets.symmetric(
-                                                horizontal: Dimensions
-                                                    .paddingSizeLarge),
-                                        child: BottomButton(
-                                            fromSignUp: widget.fromSignUp,
-                                            route: widget.route),
-                                      ),
-                                    ]))),
-                      ));
-          }),
-        )),
+                                    ),
+                                    const SizedBox(
+                                        height: Dimensions.paddingSizeLarge),
+                                    Padding(
+                                      padding: ResponsiveHelper.isWeb()
+                                          ? EdgeInsets.zero
+                                          : const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Dimensions.paddingSizeLarge),
+                                      child: BottomButton(
+                                          fromSignUp: widget.fromSignUp,
+                                          route: widget.route),
+                                    ),
+                                  ]))),
+                    ));
+        })),
       ),
     );
   }
