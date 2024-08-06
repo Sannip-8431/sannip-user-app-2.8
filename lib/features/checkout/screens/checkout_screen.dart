@@ -371,8 +371,553 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     ? GetBuilder<StoreController>(builder: (storeController) {
                         return GetBuilder<CartController>(
                             builder: (cartController) {
-                          return cartController.cartList.isNotEmpty
-                              ? Column(
+                          return widget.fromCart
+                              ? cartController.cartList.isNotEmpty
+                                  ? Column(
+                                      children: [
+                                        ResponsiveHelper.isDesktop(context)
+                                            ? Container(
+                                                height: 64,
+                                                color: Theme.of(context)
+                                                    .primaryColor
+                                                    .withOpacity(0.10),
+                                                child: Center(
+                                                    child: Text('checkout'.tr,
+                                                        style: robotoMedium)),
+                                              )
+                                            : const SizedBox(),
+                                        Expanded(
+                                            child: SingleChildScrollView(
+                                          controller: _scrollController,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          child: FooterView(
+                                              child: SizedBox(
+                                            width: Dimensions.webMaxWidth,
+                                            child:
+                                                ResponsiveHelper.isDesktop(
+                                                        context)
+                                                    ? Padding(
+                                                        padding: const EdgeInsets
+                                                            .only(
+                                                            top: Dimensions
+                                                                .paddingSizeLarge),
+                                                        child: Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Expanded(
+                                                                  flex: 6,
+                                                                  child:
+                                                                      TopSection(
+                                                                    checkoutController:
+                                                                        checkoutController,
+                                                                    charge:
+                                                                        originalCharge,
+                                                                    deliveryCharge:
+                                                                        deliveryCharge,
+                                                                    addressList:
+                                                                        addressList,
+                                                                    tomorrowClosed:
+                                                                        tomorrowClosed,
+                                                                    todayClosed:
+                                                                        todayClosed,
+                                                                    module:
+                                                                        module,
+                                                                    price:
+                                                                        price,
+                                                                    discount:
+                                                                        discount,
+                                                                    addOns:
+                                                                        addOns,
+                                                                    address:
+                                                                        address,
+                                                                    cartList:
+                                                                        _cartList,
+                                                                    isCashOnDeliveryActive:
+                                                                        _isCashOnDeliveryActive!,
+                                                                    isDigitalPaymentActive:
+                                                                        _isDigitalPaymentActive!,
+                                                                    isWalletActive:
+                                                                        _isWalletActive,
+                                                                    storeId: widget
+                                                                        .storeId,
+                                                                    total:
+                                                                        total,
+                                                                    isOfflinePaymentActive:
+                                                                        _isOfflinePaymentActive,
+                                                                    guestNameTextEditingController:
+                                                                        guestContactPersonNameController,
+                                                                    guestNumberTextEditingController:
+                                                                        guestContactPersonNumberController,
+                                                                    guestNumberNode:
+                                                                        guestNumberNode,
+                                                                    guestEmailController:
+                                                                        guestEmailController,
+                                                                    guestEmailNode:
+                                                                        guestEmailNode,
+                                                                    tooltipController1:
+                                                                        tooltipController1,
+                                                                    tooltipController2:
+                                                                        tooltipController2,
+                                                                    dmTipsTooltipController:
+                                                                        tooltipController3,
+                                                                  )),
+                                                              const SizedBox(
+                                                                  width: Dimensions
+                                                                      .paddingSizeLarge),
+                                                              Expanded(
+                                                                  flex: 4,
+                                                                  child:
+                                                                      BottomSection(
+                                                                    checkoutController:
+                                                                        checkoutController,
+                                                                    total:
+                                                                        total,
+                                                                    module:
+                                                                        module!,
+                                                                    subTotal:
+                                                                        subTotal,
+                                                                    discount:
+                                                                        discount,
+                                                                    couponController:
+                                                                        couponController,
+                                                                    taxIncluded:
+                                                                        taxIncluded,
+                                                                    tax: tax,
+                                                                    deliveryCharge:
+                                                                        deliveryCharge,
+                                                                    todayClosed:
+                                                                        todayClosed,
+                                                                    tomorrowClosed:
+                                                                        tomorrowClosed,
+                                                                    orderAmount:
+                                                                        orderAmount,
+                                                                    maxCodOrderAmount:
+                                                                        maxCodOrderAmount,
+                                                                    storeId: widget
+                                                                        .storeId,
+                                                                    taxPercent:
+                                                                        _taxPercent,
+                                                                    price:
+                                                                        price,
+                                                                    addOns:
+                                                                        addOns,
+                                                                    isPrescriptionRequired:
+                                                                        isPrescriptionRequired,
+                                                                    checkoutButton:
+                                                                        _orderPlaceButton(
+                                                                      checkoutController,
+                                                                      todayClosed,
+                                                                      tomorrowClosed,
+                                                                      orderAmount,
+                                                                      deliveryCharge,
+                                                                      tax,
+                                                                      discount,
+                                                                      total,
+                                                                      maxCodOrderAmount,
+                                                                      isPrescriptionRequired,
+                                                                    ),
+                                                                    referralDiscount:
+                                                                        referralDiscount,
+                                                                  )),
+                                                            ]),
+                                                      )
+                                                    : Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                            WebScreenTitleWidget(
+                                                                title:
+                                                                    'cart_list'
+                                                                        .tr),
+                                                            SizedBox(
+                                                              width: Dimensions
+                                                                  .webMaxWidth,
+                                                              child: Column(
+                                                                  children: [
+                                                                    Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        ResponsiveHelper.isDesktop(context)
+                                                                            ? WebCardItemsWidget(cartList: cartController.cartList)
+                                                                            : Expanded(
+                                                                                flex: 7,
+                                                                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                                  // delivery option
+                                                                                  Container(
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Theme.of(context).cardColor,
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.05), blurRadius: 10)
+                                                                                      ],
+                                                                                    ),
+                                                                                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
+                                                                                    width: double.infinity,
+                                                                                    child: Column(
+                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Text('delivery_type'.tr, style: robotoMedium),
+                                                                                        const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                                        widget.storeId != null
+                                                                                            ? DeliveryOptionButtonWidget(
+                                                                                                value: 'delivery',
+                                                                                                title: 'home_delivery'.tr,
+                                                                                                charge: originalCharge,
+                                                                                                isFree: checkoutController.store!.freeDelivery,
+                                                                                                fromWeb: true,
+                                                                                                total: total,
+                                                                                                isDesignChange: true,
+                                                                                                icon: Images.checkoutDeliveryIcon,
+                                                                                                cartList: _cartList,
+                                                                                                storeId: widget.storeId,
+                                                                                                tomorrowClosed: tomorrowClosed,
+                                                                                                todayClosed: tomorrowClosed,
+                                                                                                module: module,
+                                                                                              )
+                                                                                            : SingleChildScrollView(
+                                                                                                scrollDirection: Axis.horizontal,
+                                                                                                child: Row(children: [
+                                                                                                  Get.find<SplashController>().configModel!.homeDeliveryStatus == 1 && checkoutController.store!.delivery!
+                                                                                                      ? DeliveryOptionButtonWidget(
+                                                                                                          value: 'delivery',
+                                                                                                          title: 'home_delivery'.tr,
+                                                                                                          charge: originalCharge,
+                                                                                                          isFree: checkoutController.store!.freeDelivery,
+                                                                                                          fromWeb: true,
+                                                                                                          total: total,
+                                                                                                          isDesignChange: true,
+                                                                                                          icon: Images.checkoutDeliveryIcon,
+                                                                                                          cartList: _cartList,
+                                                                                                          storeId: widget.storeId,
+                                                                                                          tomorrowClosed: tomorrowClosed,
+                                                                                                          todayClosed: tomorrowClosed,
+                                                                                                          module: module,
+                                                                                                        )
+                                                                                                      : const SizedBox(),
+                                                                                                  const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                                                                                  Get.find<SplashController>().configModel!.takeawayStatus == 1 && checkoutController.store!.takeAway!
+                                                                                                      ? DeliveryOptionButtonWidget(
+                                                                                                          value: 'take_away',
+                                                                                                          title: 'take_away'.tr,
+                                                                                                          charge: deliveryCharge,
+                                                                                                          isFree: true,
+                                                                                                          fromWeb: true,
+                                                                                                          total: total,
+                                                                                                          isDesignChange: true,
+                                                                                                          icon: Images.checkoutTakeAwayIcon,
+                                                                                                          cartList: _cartList,
+                                                                                                          storeId: widget.storeId,
+                                                                                                          tomorrowClosed: tomorrowClosed,
+                                                                                                          todayClosed: tomorrowClosed,
+                                                                                                          module: module,
+                                                                                                        )
+                                                                                                      : const SizedBox(),
+                                                                                                ]),
+                                                                                              ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                                  WebConstrainedBox(
+                                                                                    dataLength: cartController.cartList.length,
+                                                                                    minLength: 5,
+                                                                                    minHeight: 0.6,
+                                                                                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                                                      Padding(
+                                                                                        padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault),
+                                                                                        child: Text('your_orders'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
+                                                                                      ),
+                                                                                      ListView.builder(
+                                                                                        physics: const NeverScrollableScrollPhysics(),
+                                                                                        shrinkWrap: true,
+                                                                                        itemCount: cartController.cartList.length,
+                                                                                        padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault, top: Dimensions.paddingSizeDefault, right: Dimensions.paddingSizeDefault),
+                                                                                        itemBuilder: (context, index) {
+                                                                                          return CartItemWidget(cart: cartController.cartList[index], cartIndex: index, addOns: cartController.addOnsList[index], isAvailable: cartController.availableList[index]);
+                                                                                        },
+                                                                                      ),
+                                                                                      // const Divider(
+                                                                                      //     thickness: 0.5,
+                                                                                      //     height: 5),
+                                                                                      Container(
+                                                                                        margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+                                                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusDefault), border: Border.all(color: Theme.of(context).disabledColor)),
+                                                                                        child: Column(
+                                                                                          children: [
+                                                                                            ListTile(
+                                                                                              visualDensity: const VisualDensity(vertical: -2),
+                                                                                              onTap: () {
+                                                                                                cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
+                                                                                                Get.toNamed(
+                                                                                                  RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
+                                                                                                  arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
+                                                                                                );
+                                                                                              },
+                                                                                              leading: Icon(
+                                                                                                Icons.add_circle_outline,
+                                                                                                color: Theme.of(context).primaryColor,
+                                                                                                size: 25,
+                                                                                              ),
+                                                                                              title: Text(
+                                                                                                'add_more_items'.tr,
+                                                                                                style: robotoRegular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w500),
+                                                                                              ),
+                                                                                              trailing: Icon(
+                                                                                                Icons.chevron_right,
+                                                                                                color: Theme.of(context).primaryColor,
+                                                                                                size: 30,
+                                                                                              ),
+                                                                                            ),
+                                                                                            DottedHorizontalDivider(
+                                                                                              color: Theme.of(context).disabledColor,
+                                                                                            ),
+                                                                                            NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      /*Padding(
+                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
+                                                                                    child: InkWell(
+                                                                                      onTap: () {
+                                                                                        cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
+                                                                                        Get.toNamed(
+                                                                                          RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
+                                                                                          arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
+                                                                                        );
+                                                                                      },
+                                                                                      child: Row(
+                                                                                        children: [
+                                                                                          Icon(Icons.add, color: Theme.of(context).primaryColor, size: 18),
+                                                                                          const SizedBox(
+                                                                                            width: Dimensions.paddingSizeExtraSmall,
+                                                                                          ),
+                                                                                          Text('add_more_items'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall)),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),*/
+                                                                                      if (checkoutController.orderType != 'take_away')
+                                                                                        ExtraPackagingWidget(
+                                                                                          cartController: cartController,
+                                                                                          onChanged: (val) {
+                                                                                            setState(() {});
+                                                                                          },
+                                                                                        ),
+                                                                                      !ResponsiveHelper.isDesktop(context) ? suggestedItemView(cartController.cartList) : const SizedBox(),
+                                                                                    ]),
+                                                                                  ),
+                                                                                  const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                                  !ResponsiveHelper.isDesktop(context) ? pricingView(cartController, cartController.cartList[0].item!) : const SizedBox(),
+                                                                                ]),
+                                                                              ),
+                                                                        ResponsiveHelper.isDesktop(context)
+                                                                            ? const SizedBox(width: Dimensions.paddingSizeSmall)
+                                                                            : const SizedBox(),
+                                                                        ResponsiveHelper.isDesktop(context)
+                                                                            ? Expanded(
+                                                                                flex: 4,
+                                                                                child: pricingView(cartController, cartController.cartList[0].item!))
+                                                                            : const SizedBox(),
+                                                                      ],
+                                                                    ),
+                                                                    ResponsiveHelper.isDesktop(
+                                                                            context)
+                                                                        ? WebSuggestedItemViewWidget(
+                                                                            cartList:
+                                                                                cartController.cartList)
+                                                                        : const SizedBox(),
+                                                                  ]),
+                                                            ),
+                                                            TopSection(
+                                                              checkoutController:
+                                                                  checkoutController,
+                                                              charge:
+                                                                  originalCharge,
+                                                              deliveryCharge:
+                                                                  deliveryCharge,
+                                                              addressList:
+                                                                  addressList,
+                                                              tomorrowClosed:
+                                                                  tomorrowClosed,
+                                                              todayClosed:
+                                                                  todayClosed,
+                                                              module: module,
+                                                              price: price,
+                                                              discount:
+                                                                  discount,
+                                                              addOns: addOns,
+                                                              address: address,
+                                                              cartList:
+                                                                  _cartList,
+                                                              isCashOnDeliveryActive:
+                                                                  _isCashOnDeliveryActive!,
+                                                              isDigitalPaymentActive:
+                                                                  _isDigitalPaymentActive!,
+                                                              isWalletActive:
+                                                                  _isWalletActive,
+                                                              storeId: widget
+                                                                  .storeId,
+                                                              total: total,
+                                                              isOfflinePaymentActive:
+                                                                  _isOfflinePaymentActive,
+                                                              guestNameTextEditingController:
+                                                                  guestContactPersonNameController,
+                                                              guestNumberTextEditingController:
+                                                                  guestContactPersonNumberController,
+                                                              guestNumberNode:
+                                                                  guestNumberNode,
+                                                              guestEmailController:
+                                                                  guestEmailController,
+                                                              guestEmailNode:
+                                                                  guestEmailNode,
+                                                              tooltipController1:
+                                                                  tooltipController1,
+                                                              tooltipController2:
+                                                                  tooltipController2,
+                                                              dmTipsTooltipController:
+                                                                  tooltipController3,
+                                                            ),
+                                                            BottomSection(
+                                                              checkoutController:
+                                                                  checkoutController,
+                                                              total: total,
+                                                              module: module!,
+                                                              subTotal:
+                                                                  subTotal,
+                                                              discount:
+                                                                  discount,
+                                                              couponController:
+                                                                  couponController,
+                                                              taxIncluded:
+                                                                  taxIncluded,
+                                                              tax: tax,
+                                                              deliveryCharge:
+                                                                  deliveryCharge,
+                                                              todayClosed:
+                                                                  todayClosed,
+                                                              tomorrowClosed:
+                                                                  tomorrowClosed,
+                                                              orderAmount:
+                                                                  orderAmount,
+                                                              maxCodOrderAmount:
+                                                                  maxCodOrderAmount,
+                                                              storeId: widget
+                                                                  .storeId,
+                                                              taxPercent:
+                                                                  _taxPercent,
+                                                              price: price,
+                                                              addOns: addOns,
+                                                              isPrescriptionRequired:
+                                                                  isPrescriptionRequired,
+                                                              checkoutButton:
+                                                                  _orderPlaceButton(
+                                                                checkoutController,
+                                                                todayClosed,
+                                                                tomorrowClosed,
+                                                                orderAmount,
+                                                                deliveryCharge,
+                                                                tax,
+                                                                discount,
+                                                                total,
+                                                                maxCodOrderAmount,
+                                                                isPrescriptionRequired,
+                                                              ),
+                                                              referralDiscount:
+                                                                  referralDiscount,
+                                                            )
+                                                          ]),
+                                          )),
+                                        )),
+                                        ResponsiveHelper.isDesktop(context)
+                                            ? const SizedBox()
+                                            : Container(
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .cardColor,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Theme.of(context)
+                                                            .primaryColor
+                                                            .withOpacity(0.1),
+                                                        blurRadius: 10)
+                                                  ],
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    DeliverySection(
+                                                      checkoutController:
+                                                          checkoutController,
+                                                      address: address,
+                                                      addressList: addressList,
+                                                      guestNameTextEditingController:
+                                                          guestContactPersonNameController,
+                                                      guestNumberTextEditingController:
+                                                          guestContactPersonNumberController,
+                                                      guestNumberNode:
+                                                          guestNumberNode,
+                                                      guestEmailController:
+                                                          guestEmailController,
+                                                      guestEmailNode:
+                                                          guestEmailNode,
+                                                    ),
+                                                    // Padding(
+                                                    //   padding: const EdgeInsets.symmetric(
+                                                    //       horizontal:
+                                                    //           Dimensions.paddingSizeLarge,
+                                                    //       vertical: Dimensions
+                                                    //           .paddingSizeExtraSmall),
+                                                    //   child: Row(
+                                                    //       mainAxisAlignment:
+                                                    //           MainAxisAlignment.spaceBetween,
+                                                    //       children: [
+                                                    //         Text(
+                                                    //           checkoutController.isPartialPay
+                                                    //               ? 'due_payment'.tr
+                                                    //               : 'total_amount'.tr,
+                                                    //           style: robotoMedium.copyWith(
+                                                    //               fontSize: Dimensions
+                                                    //                   .fontSizeLarge,
+                                                    //               color: Theme.of(context)
+                                                    //                   .primaryColor),
+                                                    //         ),
+                                                    //         PriceConverter
+                                                    //             .convertAnimationPrice(
+                                                    //           checkoutController
+                                                    //               .viewTotalPrice,
+                                                    //           textStyle:
+                                                    //               robotoMedium.copyWith(
+                                                    //                   fontSize: Dimensions
+                                                    //                       .fontSizeLarge,
+                                                    //                   color: Theme.of(context)
+                                                    //                       .primaryColor),
+                                                    //         ),
+                                                    //       ]),
+                                                    // ),
+                                                    _orderPlaceButton(
+                                                      checkoutController,
+                                                      todayClosed,
+                                                      tomorrowClosed,
+                                                      orderAmount,
+                                                      deliveryCharge,
+                                                      tax,
+                                                      discount,
+                                                      total,
+                                                      maxCodOrderAmount,
+                                                      isPrescriptionRequired,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                      ],
+                                    )
+                                  : const NoDataScreen(
+                                      isCart: true, text: '', showFooter: true)
+                              : Column(
                                   children: [
                                     ResponsiveHelper.isDesktop(context)
                                         ? Container(
@@ -517,9 +1062,6 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                        WebScreenTitleWidget(
-                                                            title:
-                                                                'cart_list'.tr),
                                                         SizedBox(
                                                           width: Dimensions
                                                               .webMaxWidth,
@@ -530,206 +1072,102 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                       CrossAxisAlignment
                                                                           .start,
                                                                   children: [
-                                                                    ResponsiveHelper.isDesktop(
-                                                                            context)
-                                                                        ? WebCardItemsWidget(
-                                                                            cartList:
-                                                                                cartController.cartList)
-                                                                        : Expanded(
-                                                                            flex:
-                                                                                7,
-                                                                            child:
-                                                                                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                                                              // delivery option
-                                                                              Container(
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Theme.of(context).cardColor,
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.05), blurRadius: 10)
-                                                                                  ],
-                                                                                ),
-                                                                                padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
-                                                                                width: double.infinity,
-                                                                                child: Column(
-                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Text('delivery_type'.tr, style: robotoMedium),
-                                                                                    const SizedBox(height: Dimensions.paddingSizeSmall),
-                                                                                    widget.storeId != null
-                                                                                        ? DeliveryOptionButtonWidget(
-                                                                                            value: 'delivery',
-                                                                                            title: 'home_delivery'.tr,
-                                                                                            charge: originalCharge,
-                                                                                            isFree: checkoutController.store!.freeDelivery,
-                                                                                            fromWeb: true,
-                                                                                            total: total,
-                                                                                            isDesignChange: true,
-                                                                                            icon: Images.checkoutDeliveryIcon,
-                                                                                            cartList: _cartList,
-                                                                                            storeId: widget.storeId,
-                                                                                            tomorrowClosed: tomorrowClosed,
-                                                                                            todayClosed: tomorrowClosed,
-                                                                                            module: module,
-                                                                                          )
-                                                                                        : SingleChildScrollView(
-                                                                                            scrollDirection: Axis.horizontal,
-                                                                                            child: Row(children: [
-                                                                                              Get.find<SplashController>().configModel!.homeDeliveryStatus == 1 && checkoutController.store!.delivery!
-                                                                                                  ? DeliveryOptionButtonWidget(
-                                                                                                      value: 'delivery',
-                                                                                                      title: 'home_delivery'.tr,
-                                                                                                      charge: originalCharge,
-                                                                                                      isFree: checkoutController.store!.freeDelivery,
-                                                                                                      fromWeb: true,
-                                                                                                      total: total,
-                                                                                                      isDesignChange: true,
-                                                                                                      icon: Images.checkoutDeliveryIcon,
-                                                                                                      cartList: _cartList,
-                                                                                                      storeId: widget.storeId,
-                                                                                                      tomorrowClosed: tomorrowClosed,
-                                                                                                      todayClosed: tomorrowClosed,
-                                                                                                      module: module,
-                                                                                                    )
-                                                                                                  : const SizedBox(),
-                                                                                              const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                                                                                              Get.find<SplashController>().configModel!.takeawayStatus == 1 && checkoutController.store!.takeAway!
-                                                                                                  ? DeliveryOptionButtonWidget(
-                                                                                                      value: 'take_away',
-                                                                                                      title: 'take_away'.tr,
-                                                                                                      charge: deliveryCharge,
-                                                                                                      isFree: true,
-                                                                                                      fromWeb: true,
-                                                                                                      total: total,
-                                                                                                      isDesignChange: true,
-                                                                                                      icon: Images.checkoutTakeAwayIcon,
-                                                                                                      cartList: _cartList,
-                                                                                                      storeId: widget.storeId,
-                                                                                                      tomorrowClosed: tomorrowClosed,
-                                                                                                      todayClosed: tomorrowClosed,
-                                                                                                      module: module,
-                                                                                                    )
-                                                                                                  : const SizedBox(),
-                                                                                            ]),
-                                                                                          ),
-                                                                                  ],
-                                                                                ),
+                                                                    Expanded(
+                                                                      flex: 7,
+                                                                      child: Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            // delivery option
+                                                                            Container(
+                                                                              decoration: BoxDecoration(
+                                                                                color: Theme.of(context).cardColor,
+                                                                                boxShadow: [
+                                                                                  BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.05), blurRadius: 10)
+                                                                                ],
                                                                               ),
-                                                                              const SizedBox(height: Dimensions.paddingSizeSmall),
-                                                                              WebConstrainedBox(
-                                                                                dataLength: cartController.cartList.length,
-                                                                                minLength: 5,
-                                                                                minHeight: 0.6,
-                                                                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                                                                  Padding(
-                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault),
-                                                                                    child: Text('your_orders'.tr, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
-                                                                                  ),
-                                                                                  ListView.builder(
-                                                                                    physics: const NeverScrollableScrollPhysics(),
-                                                                                    shrinkWrap: true,
-                                                                                    itemCount: cartController.cartList.length,
-                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault, top: Dimensions.paddingSizeDefault, right: Dimensions.paddingSizeDefault),
-                                                                                    itemBuilder: (context, index) {
-                                                                                      return CartItemWidget(cart: cartController.cartList[index], cartIndex: index, addOns: cartController.addOnsList[index], isAvailable: cartController.availableList[index]);
-                                                                                    },
-                                                                                  ),
-                                                                                  // const Divider(
-                                                                                  //     thickness: 0.5,
-                                                                                  //     height: 5),
-                                                                                  Container(
-                                                                                    margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                                                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusDefault), border: Border.all(color: Theme.of(context).disabledColor)),
-                                                                                    child: Column(
-                                                                                      children: [
-                                                                                        ListTile(
-                                                                                          visualDensity: const VisualDensity(vertical: -2),
-                                                                                          onTap: () {
-                                                                                            cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
-                                                                                            Get.toNamed(
-                                                                                              RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
-                                                                                              arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
-                                                                                            );
-                                                                                          },
-                                                                                          leading: Icon(
-                                                                                            Icons.add_circle_outline,
-                                                                                            color: Theme.of(context).primaryColor,
-                                                                                            size: 25,
-                                                                                          ),
-                                                                                          title: Text(
-                                                                                            'add_more_items'.tr,
-                                                                                            style: robotoRegular.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w500),
-                                                                                          ),
-                                                                                          trailing: Icon(
-                                                                                            Icons.chevron_right,
-                                                                                            color: Theme.of(context).primaryColor,
-                                                                                            size: 30,
-                                                                                          ),
+                                                                              padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge, vertical: Dimensions.paddingSizeSmall),
+                                                                              width: double.infinity,
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Text('delivery_type'.tr, style: robotoMedium),
+                                                                                  const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                                  widget.storeId != null
+                                                                                      ? DeliveryOptionButtonWidget(
+                                                                                          value: 'delivery',
+                                                                                          title: 'home_delivery'.tr,
+                                                                                          charge: originalCharge,
+                                                                                          isFree: checkoutController.store!.freeDelivery,
+                                                                                          fromWeb: true,
+                                                                                          total: total,
+                                                                                          isDesignChange: true,
+                                                                                          icon: Images.checkoutDeliveryIcon,
+                                                                                          cartList: _cartList,
+                                                                                          storeId: widget.storeId,
+                                                                                          tomorrowClosed: tomorrowClosed,
+                                                                                          todayClosed: tomorrowClosed,
+                                                                                          module: module,
+                                                                                        )
+                                                                                      : SingleChildScrollView(
+                                                                                          scrollDirection: Axis.horizontal,
+                                                                                          child: Row(children: [
+                                                                                            Get.find<SplashController>().configModel!.homeDeliveryStatus == 1 && checkoutController.store!.delivery!
+                                                                                                ? DeliveryOptionButtonWidget(
+                                                                                                    value: 'delivery',
+                                                                                                    title: 'home_delivery'.tr,
+                                                                                                    charge: originalCharge,
+                                                                                                    isFree: checkoutController.store!.freeDelivery,
+                                                                                                    fromWeb: true,
+                                                                                                    total: total,
+                                                                                                    isDesignChange: true,
+                                                                                                    icon: Images.checkoutDeliveryIcon,
+                                                                                                    cartList: _cartList,
+                                                                                                    storeId: widget.storeId,
+                                                                                                    tomorrowClosed: tomorrowClosed,
+                                                                                                    todayClosed: tomorrowClosed,
+                                                                                                    module: module,
+                                                                                                  )
+                                                                                                : const SizedBox(),
+                                                                                            const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                                                                                            Get.find<SplashController>().configModel!.takeawayStatus == 1 && checkoutController.store!.takeAway!
+                                                                                                ? DeliveryOptionButtonWidget(
+                                                                                                    value: 'take_away',
+                                                                                                    title: 'take_away'.tr,
+                                                                                                    charge: deliveryCharge,
+                                                                                                    isFree: true,
+                                                                                                    fromWeb: true,
+                                                                                                    total: total,
+                                                                                                    isDesignChange: true,
+                                                                                                    icon: Images.checkoutTakeAwayIcon,
+                                                                                                    cartList: _cartList,
+                                                                                                    storeId: widget.storeId,
+                                                                                                    tomorrowClosed: tomorrowClosed,
+                                                                                                    todayClosed: tomorrowClosed,
+                                                                                                    module: module,
+                                                                                                  )
+                                                                                                : const SizedBox(),
+                                                                                          ]),
                                                                                         ),
-                                                                                        DottedHorizontalDivider(
-                                                                                          color: Theme.of(context).disabledColor,
-                                                                                        ),
-                                                                                        NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                  /*Padding(
-                                                                                    padding: const EdgeInsets.only(left: Dimensions.paddingSizeSmall),
-                                                                                    child: InkWell(
-                                                                                      onTap: () {
-                                                                                        cartController.forcefullySetModule(cartController.cartList[0].item!.moduleId!);
-                                                                                        Get.toNamed(
-                                                                                          RouteHelper.getStoreRoute(id: cartController.cartList[0].item!.storeId, page: 'item'),
-                                                                                          arguments: StoreScreen(store: Store(id: cartController.cartList[0].item!.storeId), fromModule: false),
-                                                                                        );
-                                                                                      },
-                                                                                      child: Row(
-                                                                                        children: [
-                                                                                          Icon(Icons.add, color: Theme.of(context).primaryColor, size: 18),
-                                                                                          const SizedBox(
-                                                                                            width: Dimensions.paddingSizeExtraSmall,
-                                                                                          ),
-                                                                                          Text('add_more_items'.tr, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall)),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),*/
-                                                                                  if (checkoutController.orderType != 'take_away')
-                                                                                    ExtraPackagingWidget(
-                                                                                      cartController: cartController,
-                                                                                      onChanged: (val) {
-                                                                                        setState(() {});
-                                                                                      },
-                                                                                    ),
-                                                                                  !ResponsiveHelper.isDesktop(context) ? suggestedItemView(cartController.cartList) : const SizedBox(),
-                                                                                ]),
+                                                                                ],
                                                                               ),
-                                                                              const SizedBox(height: Dimensions.paddingSizeSmall),
-                                                                              !ResponsiveHelper.isDesktop(context) ? pricingView(cartController, cartController.cartList[0].item!) : const SizedBox(),
-                                                                            ]),
-                                                                          ),
+                                                                            ),
+                                                                            const SizedBox(height: Dimensions.paddingSizeSmall),
+                                                                            Container(
+                                                                              margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
+                                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusDefault), border: Border.all(color: Theme.of(context).disabledColor)),
+                                                                              child: NoteAndPrescriptionSection(checkoutController: checkoutController, storeId: widget.storeId),
+                                                                            ),
+                                                                          ]),
+                                                                    ),
                                                                     ResponsiveHelper.isDesktop(
                                                                             context)
                                                                         ? const SizedBox(
                                                                             width:
                                                                                 Dimensions.paddingSizeSmall)
                                                                         : const SizedBox(),
-                                                                    ResponsiveHelper.isDesktop(
-                                                                            context)
-                                                                        ? Expanded(
-                                                                            flex:
-                                                                                4,
-                                                                            child:
-                                                                                pricingView(cartController, cartController.cartList[0].item!))
-                                                                        : const SizedBox(),
                                                                   ],
                                                                 ),
-                                                                ResponsiveHelper
-                                                                        .isDesktop(
-                                                                            context)
-                                                                    ? WebSuggestedItemViewWidget(
-                                                                        cartList:
-                                                                            cartController.cartList)
-                                                                    : const SizedBox(),
                                                               ]),
                                                         ),
                                                         TopSection(
@@ -860,39 +1298,6 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                   guestEmailNode:
                                                       guestEmailNode,
                                                 ),
-                                                // Padding(
-                                                //   padding: const EdgeInsets.symmetric(
-                                                //       horizontal:
-                                                //           Dimensions.paddingSizeLarge,
-                                                //       vertical: Dimensions
-                                                //           .paddingSizeExtraSmall),
-                                                //   child: Row(
-                                                //       mainAxisAlignment:
-                                                //           MainAxisAlignment.spaceBetween,
-                                                //       children: [
-                                                //         Text(
-                                                //           checkoutController.isPartialPay
-                                                //               ? 'due_payment'.tr
-                                                //               : 'total_amount'.tr,
-                                                //           style: robotoMedium.copyWith(
-                                                //               fontSize: Dimensions
-                                                //                   .fontSizeLarge,
-                                                //               color: Theme.of(context)
-                                                //                   .primaryColor),
-                                                //         ),
-                                                //         PriceConverter
-                                                //             .convertAnimationPrice(
-                                                //           checkoutController
-                                                //               .viewTotalPrice,
-                                                //           textStyle:
-                                                //               robotoMedium.copyWith(
-                                                //                   fontSize: Dimensions
-                                                //                       .fontSizeLarge,
-                                                //                   color: Theme.of(context)
-                                                //                       .primaryColor),
-                                                //         ),
-                                                //       ]),
-                                                // ),
                                                 _orderPlaceButton(
                                                   checkoutController,
                                                   todayClosed,
@@ -909,9 +1314,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                           ),
                                   ],
-                                )
-                              : const NoDataScreen(
-                                  isCart: true, text: '', showFooter: true);
+                                );
                         });
                       })
                     : const CheckoutScreenShimmerView();
