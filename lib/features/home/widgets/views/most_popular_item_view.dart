@@ -49,7 +49,7 @@ class MostPopularItemView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 560,
+                        height: 530,
                         width: Get.width,
                         child: GridView.builder(
                           key: UniqueKey(),
@@ -57,7 +57,7 @@ class MostPopularItemView extends StatelessWidget {
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisSpacing: 0,
                             mainAxisSpacing: 0,
-                            childAspectRatio: 2,
+                            childAspectRatio: 1.5,
                             crossAxisCount: 2,
                           ),
                           physics: const BouncingScrollPhysics(),
