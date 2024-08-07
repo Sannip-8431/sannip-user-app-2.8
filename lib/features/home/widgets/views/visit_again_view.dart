@@ -26,6 +26,45 @@ class _VisitAgainViewState extends State<VisitAgainView> {
       return stores != null
           ? stores.isNotEmpty
               ? Padding(
+                  padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            widget.fromFood!
+                                ? "wanna_try_again".tr
+                                : "visit_again".tr,
+                            style: robotoBold.copyWith()),
+                        // const SizedBox(height: Dimensions.paddingSizeSmall),
+                        // Text(
+                        //   'get_your_recent_purchase_from_the_shop_you_recently_visited'
+                        //       .tr,
+                        //   style: robotoRegular.copyWith(
+                        //       fontSize: Dimensions.fontSizeSmall),
+                        // ),
+                        // const SizedBox(height: Dimensions.paddingSizeSmall),
+                        SizedBox(
+                          height: 280,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: stores.length,
+                            itemBuilder: (context, index) {
+                              return VisitAgainCard(
+                                  store: stores[index],
+                                  fromFood: widget.fromFood!);
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(
+                                width: Dimensions.paddingSizeDefault,
+                              );
+                            },
+                          ),
+                        ),
+                      ]),
+                )
+              /*Padding(
                   padding: const EdgeInsets.only(
                       bottom: Dimensions.paddingSizeDefault),
                   child: Stack(clipBehavior: Clip.none, children: [
@@ -80,7 +119,7 @@ class _VisitAgainViewState extends State<VisitAgainView> {
                       child: TriangleWidget(),
                     ),
                   ]),
-                )
+                )*/
               : const SizedBox()
           : const VisitAgainShimmerView();
     });
