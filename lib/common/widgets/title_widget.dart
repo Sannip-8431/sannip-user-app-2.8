@@ -1,8 +1,10 @@
+import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/helper/responsive_helper.dart';
+import 'package:sannip/util/app_constants.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:get/utils.dart';
+import 'package:get/get.dart';
 
 class TitleWidget extends StatelessWidget {
   final String title;
@@ -12,6 +14,10 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFood = Get.find<SplashController>().module != null &&
+        Get.find<SplashController>().module!.moduleType.toString() ==
+            AppConstants.food;
+
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Row(
         children: [
@@ -32,11 +38,11 @@ class TitleWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
                 child: Text(
-                  'see_all'.tr,
+                  !isFood ? 'view_more'.tr : 'see_all'.tr,
                   style: robotoMedium.copyWith(
-                      fontSize: Dimensions.fontSizeSmall,
-                      color: Theme.of(context).primaryColor,
-                      decoration: TextDecoration.underline),
+                    fontSize: Dimensions.fontSizeSmall,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
             )
