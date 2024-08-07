@@ -357,6 +357,7 @@ class Images {
       'assets/image/address_background_image.png';
   static const String deleteIcon = 'assets/image/delete_icon.png';
   static const String specialBGImage = 'assets/image/special_bg_image.jpg';
+  static const String noFavouriteImage = 'assets/image/no_favourite_image.png';
 
   static const String referBg = 'assets/image/refer_bg.svg';
   static const String halalTag = 'assets/image/halal_tag.svg';
