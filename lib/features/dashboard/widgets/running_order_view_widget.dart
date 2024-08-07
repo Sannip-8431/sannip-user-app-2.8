@@ -38,8 +38,8 @@ class _RunningOrderViewWidgetState extends State<RunningOrderViewWidget> {
         height: (reversOrder.length - 1) * 75,
         width: Get.width,
         child: DraggableScrollableSheet(
-          initialChildSize: 0.25,
-          minChildSize: 0.25,
+          initialChildSize: 0.30,
+          minChildSize: 0.30,
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
               decoration: const BoxDecoration(
