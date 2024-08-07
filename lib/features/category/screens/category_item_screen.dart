@@ -385,7 +385,6 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                       fontSize: Dimensions.fontSizeSmall,
                       color: Theme.of(context).primaryColor),
                   tabs: [
-                    Tab(text: 'item'.tr),
                     Tab(
                         text: Get.find<SplashController>()
                                 .configModel!
@@ -394,6 +393,14 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                                 .showRestaurantText!
                             ? 'restaurants'.tr
                             : 'stores'.tr),
+                    Tab(
+                        text: Get.find<SplashController>()
+                                .configModel!
+                                .moduleConfig!
+                                .module!
+                                .showRestaurantText!
+                            ? 'dishes'.tr
+                            : 'item'.tr),
                   ],
                 ),
               )),
@@ -454,15 +461,6 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                   controller: _tabController,
                   children: [
                     SingleChildScrollView(
-                      controller: scrollController,
-                      child: ItemsView(
-                        isStore: false,
-                        items: item,
-                        stores: null,
-                        noDataText: 'no_category_item_found'.tr,
-                      ),
-                    ),
-                    SingleChildScrollView(
                       controller: storeScrollController,
                       child: ItemsView(
                         isStore: true,
@@ -475,6 +473,15 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
                                 .showRestaurantText!
                             ? 'no_category_restaurant_found'.tr
                             : 'no_category_store_found'.tr,
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      controller: scrollController,
+                      child: ItemsView(
+                        isStore: false,
+                        items: item,
+                        stores: null,
+                        noDataText: 'no_category_item_found'.tr,
                       ),
                     ),
                   ],
