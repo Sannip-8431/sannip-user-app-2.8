@@ -1257,5 +1257,7 @@
   "sannip_discounts": "Descuentos Sannip",
   "change_address": "Cambiar dirección",
   "customisable": "Personalizable",
-  "dishes": "Platos"
+  "dishes": "Platos",
+  "oops_you_have_not_signed_in": "¡Ups! No te has registrado",
+  "kindly_sign_in": "Por favor inicia sesión"
 }

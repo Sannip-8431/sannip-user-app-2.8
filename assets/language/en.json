@@ -1269,5 +1269,7 @@
   "sannip_discounts": "Sannip Discounts",
   "change_address": "Change Address",
   "customisable": "Customisable",
-  "dishes": "Dishes"
+  "dishes": "Dishes",
+  "oops_you_have_not_signed_in": "Oops! you have not signed in",
+  "kindly_sign_in": "Kindly sign in"
 }

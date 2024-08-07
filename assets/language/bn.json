@@ -1257,5 +1257,7 @@
   "sannip_discounts": "সানিপ ডিসকাউন্ট",
   "change_address": "পরিবর্তন ঠিকানা",
   "customisable": "কাস্টমাইজযোগ্য",
-  "dishes": "খাবারের"
+  "dishes": "খাবারের",
+  "oops_you_have_not_signed_in": "উফ! আপনি সাইন ইন করেননি",
+  "kindly_sign_in": "অনুগ্রহ করে সাইন ইন করুন"
 }

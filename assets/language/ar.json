@@ -1256,5 +1256,7 @@
   "sannip_discounts": "خصومات سانيب",
   "change_address": "تغيير العنوان",
   "customisable": "قابلة للتخصيص",
-  "dishes": "أطباق"
+  "dishes": "أطباق",
+  "oops_you_have_not_signed_in": "أُووبس! لم تقم بتسجيل الدخول",
+  "kindly_sign_in": "يرجى تسجيل الدخول"
 }
