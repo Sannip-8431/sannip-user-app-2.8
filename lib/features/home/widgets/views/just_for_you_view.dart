@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/features/home/widgets/components/just_for_you_grid_view.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sannip/features/item/controllers/campaign_controller.dart';
 import 'package:sannip/features/home/widgets/components/circle_list_view_widget.dart';
@@ -76,7 +77,7 @@ class _JustForYouViewState extends State<JustForYouView> {
 
                           Directionality(
                               textDirection: TextDirection.ltr,
-                              child: CircleListView()),
+                              child: JustForYouGridView()),
 
                           /*const SizedBox(height: Dimensions.paddingSizeDefault),
                   Center(
