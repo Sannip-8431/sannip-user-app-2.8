@@ -1258,5 +1258,8 @@
   "customisable": "قابلة للتخصيص",
   "dishes": "أطباق",
   "oops_you_have_not_signed_in": "أُووبس! لم تقم بتسجيل الدخول",
-  "kindly_sign_in": "يرجى تسجيل الدخول"
+  "kindly_sign_in": "يرجى تسجيل الدخول",
+  "whats_your_location": "ما موقعك؟",
+  "we_need_your_location": "نحن بحاجة إلى موقعك لإظهار المتجر المتاح والعناصر القريبة منك",
+  "enter_location_manually": "أدخل الموقع يدويا"
 }

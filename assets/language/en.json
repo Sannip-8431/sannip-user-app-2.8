@@ -1271,5 +1271,8 @@
   "customisable": "Customisable",
   "dishes": "Dishes",
   "oops_you_have_not_signed_in": "Oops! you have not signed in",
-  "kindly_sign_in": "Kindly sign in"
+  "kindly_sign_in": "Kindly sign in",
+  "whats_your_location": "What's your location?",
+  "we_need_your_location": "We need your location to show available store and items near you",
+  "enter_location_manually": "Enter Location Manually"
 }

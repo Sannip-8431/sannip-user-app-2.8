@@ -1259,5 +1259,8 @@
   "customisable": "Personalizable",
   "dishes": "Platos",
   "oops_you_have_not_signed_in": "¡Ups! No te has registrado",
-  "kindly_sign_in": "Por favor inicia sesión"
+  "kindly_sign_in": "Por favor inicia sesión",
+  "whats_your_location": "¿Cuál es tu ubicación?",
+  "we_need_your_location": "Necesitamos su ubicación para mostrar la tienda disponible y los artículos cerca de usted",
+  "enter_location_manually": "Ingrese la ubicación manualmente"
 }

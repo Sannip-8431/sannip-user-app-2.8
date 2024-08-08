@@ -172,53 +172,53 @@ class _AccessLocationScreenState extends State<AccessLocationScreen> {
                                   route: widget.route),
                             ),
                     ])
-                  : Center(
-                      child: SingleChildScrollView(
+                  : SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: FooterView(
-                          child: SizedBox(
-                              width: 700,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(Images.deliveryLocation,
-                                        height: 220),
-                                    const SizedBox(
-                                        height: Dimensions.paddingSizeLarge),
-                                    Text(
-                                        'find_stores_and_items'
-                                            .tr
-                                            .toUpperCase(),
-                                        textAlign: TextAlign.center,
-                                        style: robotoMedium.copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeExtraLarge)),
-                                    Padding(
-                                      padding: const EdgeInsets.all(
-                                          Dimensions.paddingSizeLarge),
-                                      child: Text(
-                                        'by_allowing_location_access'.tr,
-                                        textAlign: TextAlign.center,
-                                        style: robotoRegular.copyWith(
-                                            fontSize: Dimensions.fontSizeSmall,
-                                            color: Theme.of(context)
-                                                .disabledColor),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                        height: Dimensions.paddingSizeLarge),
-                                    Padding(
-                                      padding: ResponsiveHelper.isWeb()
-                                          ? EdgeInsets.zero
-                                          : const EdgeInsets.symmetric(
-                                              horizontal:
-                                                  Dimensions.paddingSizeLarge),
-                                      child: BottomButton(
-                                          fromSignUp: widget.fromSignUp,
-                                          route: widget.route),
-                                    ),
-                                  ]))),
-                    ));
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: Dimensions.paddingSizeExtraOverLarge,
+                                left: Dimensions.paddingSizeDefault,
+                              ),
+                              child: Text(
+                                  'whats_your_location'.tr.toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                  style: robotoMedium.copyWith(
+                                      fontSize: Dimensions.fontSizeOverLarge)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: Dimensions.paddingSizeSmall,
+                                left: Dimensions.paddingSizeDefault,
+                              ),
+                              child: Text(
+                                'we_need_your_location'.tr,
+                                style: robotoRegular.copyWith(
+                                    fontSize: Dimensions.fontSizeLarge,
+                                    color: Theme.of(context).disabledColor),
+                              ),
+                            ),
+                            const SizedBox(height: Dimensions.paddingSizeLarge),
+                            Image.asset(
+                              Images.locationImage,
+                              height: 450,
+                              width: Get.width,
+                            ),
+                            const SizedBox(height: Dimensions.paddingSizeLarge),
+                            Padding(
+                              padding: ResponsiveHelper.isWeb()
+                                  ? EdgeInsets.zero
+                                  : const EdgeInsets.symmetric(
+                                      horizontal: Dimensions.paddingSizeLarge),
+                              child: BottomButton(
+                                  fromSignUp: widget.fromSignUp,
+                                  route: widget.route),
+                            ),
+                          ])),
+                    );
         })),
       ),
     );
@@ -324,10 +324,10 @@ class BottomButton extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         right: Dimensions.paddingSizeExtraSmall),
-                    child:
-                        Icon(Icons.map, color: Theme.of(context).primaryColor),
+                    child: Icon(Icons.map_outlined,
+                        color: Theme.of(context).primaryColor),
                   ),
-                  Text('set_from_map'.tr,
+                  Text('enter_location_manually'.tr,
                       textAlign: TextAlign.center,
                       style: robotoBold.copyWith(
                         color: Theme.of(context).primaryColor,

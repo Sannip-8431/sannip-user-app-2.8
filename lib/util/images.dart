@@ -387,4 +387,5 @@ class Images {
   static const String pathImage = 'assets/image/path_image.png';
   static const String multiTaskIllustration =
       'assets/image/search_illustration.png';
+  static const String locationImage = 'assets/image/location_image.png';
 }
