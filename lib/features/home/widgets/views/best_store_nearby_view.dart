@@ -134,7 +134,7 @@ class BestStoreNearbyView extends StatelessWidget {
                             )
                           : isFood
                               ? SizedBox(
-                                  height: 215,
+                                  height: 240,
                                   child: ListView.builder(
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
@@ -176,7 +176,9 @@ class BestStoreNearbyView extends StatelessWidget {
                                               );
                                             },
                                             child: StoreCardWithDistance(
-                                                store: storeList[index]),
+                                              store: storeList[index],
+                                              isChangeDesign: true,
+                                            ),
                                           ),
                                         );
                                       }),
