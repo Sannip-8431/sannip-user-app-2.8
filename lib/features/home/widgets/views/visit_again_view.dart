@@ -44,7 +44,7 @@ class _VisitAgainViewState extends State<VisitAgainView> {
                         // ),
                         // const SizedBox(height: Dimensions.paddingSizeSmall),
                         SizedBox(
-                          height: 280,
+                          height: 255,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
