@@ -1138,7 +1138,7 @@ class MostPopularItemCard extends StatelessWidget {
                                                             Dimensions
                                                                 .radiusSmall),
                                                     color: Theme.of(context)
-                                                        .cardColor,
+                                                        .primaryColor,
                                                     border: Border.all(
                                                         color: Theme.of(context)
                                                             .primaryColor),
@@ -1158,8 +1158,7 @@ class MostPopularItemCard extends StatelessWidget {
                                                     'add'.tr,
                                                     style:
                                                         robotoMedium.copyWith(
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
+                                                      color: Colors.white,
                                                     ),
                                                   ),
                                                 ),
