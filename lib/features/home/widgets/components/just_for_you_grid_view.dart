@@ -35,6 +35,7 @@ class _JustForYouGridViewState extends State<JustForYouGridView> {
           itemCampaignList.addAll(campaignController.itemCampaignList!);
         }
       }
+      var aspectRatio = ((Get.width / 2) / (Get.height / 2)) * 2.07;
 
       return campaignController.itemCampaignList != null
           ? itemCampaignList.isNotEmpty
@@ -48,19 +49,20 @@ class _JustForYouGridViewState extends State<JustForYouGridView> {
                         return GridView.builder(
                             key: UniqueKey(),
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
-                              childAspectRatio: 0.98,
+                              childAspectRatio: aspectRatio,
                               crossAxisCount: 2,
                             ),
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.only(
-                                left: Dimensions.paddingSizeExtraSmall),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeExtraSmall),
                             itemCount: itemCampaignList.length,
                             itemBuilder: (context, index) {
                               return Container(
+                                  width: Get.width * 0.5,
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 3),
                                   decoration: BoxDecoration(
