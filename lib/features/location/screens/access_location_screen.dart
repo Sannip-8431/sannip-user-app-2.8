@@ -172,53 +172,49 @@ class _AccessLocationScreenState extends State<AccessLocationScreen> {
                                   route: widget.route),
                             ),
                     ])
-                  : SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: FooterView(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: Dimensions.paddingSizeExtraOverLarge,
-                                left: Dimensions.paddingSizeDefault,
-                              ),
-                              child: Text(
-                                  'whats_your_location'.tr.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: robotoMedium.copyWith(
-                                      fontSize: Dimensions.fontSizeOverLarge)),
+                  : FooterView(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: Dimensions.paddingSizeExtraOverLarge,
+                              left: Dimensions.paddingSizeDefault,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: Dimensions.paddingSizeSmall,
-                                left: Dimensions.paddingSizeDefault,
-                              ),
-                              child: Text(
-                                'we_need_your_location'.tr,
-                                style: robotoRegular.copyWith(
-                                    fontSize: Dimensions.fontSizeLarge,
-                                    color: Theme.of(context).disabledColor),
-                              ),
+                            child: Text('whats_your_location'.tr.toUpperCase(),
+                                textAlign: TextAlign.center,
+                                style: robotoMedium.copyWith(
+                                    fontSize: Dimensions.fontSizeOverLarge)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: Dimensions.paddingSizeSmall,
+                              left: Dimensions.paddingSizeDefault,
                             ),
-                            const SizedBox(height: Dimensions.paddingSizeLarge),
-                            Image.asset(
-                              Images.locationImage,
-                              height: 450,
-                              width: Get.width,
+                            child: Text(
+                              'we_need_your_location'.tr,
+                              style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeLarge,
+                                  color: Theme.of(context).disabledColor),
                             ),
-                            const SizedBox(height: Dimensions.paddingSizeLarge),
-                            Padding(
-                              padding: ResponsiveHelper.isWeb()
-                                  ? EdgeInsets.zero
-                                  : const EdgeInsets.symmetric(
-                                      horizontal: Dimensions.paddingSizeLarge),
-                              child: BottomButton(
-                                  fromSignUp: widget.fromSignUp,
-                                  route: widget.route),
-                            ),
-                          ])),
-                    );
+                          ),
+                          const SizedBox(height: Dimensions.paddingSizeLarge),
+                          Image.asset(
+                            Images.locationImage,
+                            height: Get.height * 0.53,
+                            width: Get.width,
+                          ),
+                          const SizedBox(height: Dimensions.paddingSizeLarge),
+                          Padding(
+                            padding: ResponsiveHelper.isWeb()
+                                ? EdgeInsets.zero
+                                : const EdgeInsets.symmetric(
+                                    horizontal: Dimensions.paddingSizeLarge),
+                            child: BottomButton(
+                                fromSignUp: widget.fromSignUp,
+                                route: widget.route),
+                          ),
+                        ]));
         })),
       ),
     );
