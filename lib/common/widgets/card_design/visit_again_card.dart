@@ -230,7 +230,7 @@ class VisitAgainCard extends StatelessWidget {
             ),
           ])
         : Container(
-            width: 280,
+            width: 290,
             margin: const EdgeInsets.only(
                 top: Dimensions.paddingSizeLarge,
                 bottom: Dimensions.paddingSizeSmall),
