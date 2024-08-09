@@ -1274,5 +1274,6 @@
   "kindly_sign_in": "Kindly sign in",
   "whats_your_location": "What's your location?",
   "we_need_your_location": "We need your location to show available store and items near you",
-  "enter_location_manually": "Enter Location Manually"
+  "enter_location_manually": "Enter Location Manually",
+  "locate_me": "LOCATE ME"
 }

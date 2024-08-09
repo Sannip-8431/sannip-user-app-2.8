@@ -367,7 +367,7 @@ class _PickMapScreenState extends State<PickMapScreen> {
                     child: FloatingActionButton.extended(
                       extendedPadding:
                           const EdgeInsets.symmetric(horizontal: 10),
-                      label: Text("LOCATE ME",
+                      label: Text('locate_me'.tr,
                           style: robotoBold.copyWith(
                               color: Theme.of(context).primaryColor)),
                       backgroundColor: Theme.of(context).cardColor,
