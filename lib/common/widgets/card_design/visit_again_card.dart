@@ -310,7 +310,7 @@ class VisitAgainCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: Dimensions.paddingSizeExtraSmall),
