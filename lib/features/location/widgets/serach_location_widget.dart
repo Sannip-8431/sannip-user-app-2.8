@@ -38,7 +38,13 @@ class SearchLocationWidget extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 1,
+                spreadRadius: 1,
+                color: Theme.of(context).hintColor.withOpacity(0.5))
+          ],
           border: isEnabled != null
               ? Border.all(
                   color: fromDialog!
@@ -48,7 +54,10 @@ class SearchLocationWidget extends StatelessWidget {
                           : Theme.of(context).disabledColor,
                   width: isEnabled! ? 2 : 1,
                 )
-              : null,
+              : Border.all(
+                  color: Theme.of(context).disabledColor,
+                  width: 1,
+                ),
         ),
         child: Row(children: [
           (/*!fromDialog! &&*/ pickedAddress != null &&

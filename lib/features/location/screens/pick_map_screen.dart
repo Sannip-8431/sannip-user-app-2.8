@@ -1,3 +1,4 @@
+import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
@@ -69,6 +70,9 @@ class _PickMapScreenState extends State<PickMapScreen> {
           ? Colors.transparent
           : Theme.of(context).cardColor,
       endDrawer: const MenuDrawer(),
+      appBar: ResponsiveHelper.isDesktop(context)
+          ? null
+          : CustomAppBar(title: "${'select'.tr} ${'delivery_location'.tr}"),
       endDrawerEnableOpenDragGesture: false,
       body: SafeArea(
           child: Center(
@@ -349,17 +353,22 @@ class _PickMapScreenState extends State<PickMapScreen> {
                         isEnabled: null),
                   ),
                   Positioned(
-                    bottom: 80,
-                    right: Dimensions.paddingSizeLarge,
-                    child: FloatingActionButton(
-                      mini: true,
+                    bottom: 100,
+                    left: Get.width / 3,
+                    right: Get.width / 3,
+                    child: FloatingActionButton.extended(
+                      extendedPadding:
+                          const EdgeInsets.symmetric(horizontal: 10),
+                      label: Text("LOCATE ME",
+                          style: robotoBold.copyWith(
+                              color: Theme.of(context).primaryColor)),
                       backgroundColor: Theme.of(context).cardColor,
                       onPressed: () =>
                           Get.find<LocationController>().checkPermission(() {
                         Get.find<LocationController>().getCurrentLocation(false,
                             mapController: _mapController);
                       }),
-                      child: Icon(Icons.my_location,
+                      icon: Icon(Icons.my_location,
                           color: Theme.of(context).primaryColor),
                     ),
                   ),
