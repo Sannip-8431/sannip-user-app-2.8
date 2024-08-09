@@ -1,5 +1,3 @@
-
-
 import 'package:sannip/features/address/domain/models/address_model.dart';
 import 'package:sannip/helper/marker_helper.dart';
 import 'package:sannip/util/dimensions.dart';
@@ -9,7 +7,6 @@ import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
-
 
 import 'package:sannip/common/widgets/menu_drawer.dart';
 import 'package:sannip/features/order/widgets/address_details_widget.dart';
@@ -53,8 +50,9 @@ class MapScreenState extends State<MapScreen> {
           width: Dimensions.webMaxWidth,
           child: Stack(children: [
             GoogleMap(
+              cloudMapId: "2daff71eef425386",
               initialCameraPosition: CameraPosition(target: _latLng, zoom: 16),
-              minMaxZoomPreference: const MinMaxZoomPreference(0, 16),
+              minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
               zoomGesturesEnabled: true,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,

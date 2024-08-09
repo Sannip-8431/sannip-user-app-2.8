@@ -256,6 +256,7 @@ class _SelectLocationViewWidgetState extends State<SelectLocationViewWidget> {
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                 child: Stack(clipBehavior: Clip.none, children: [
                   GoogleMap(
+                    cloudMapId: "2daff71eef425386",
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
                         double.parse(Get.find<SplashController>()
@@ -271,7 +272,7 @@ class _SelectLocationViewWidgetState extends State<SelectLocationViewWidget> {
                       ),
                       zoom: 16,
                     ),
-                    minMaxZoomPreference: const MinMaxZoomPreference(0, 16),
+                    minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
                     zoomControlsEnabled: false,
                     compassEnabled: false,
                     indoorViewEnabled: true,

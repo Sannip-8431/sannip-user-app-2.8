@@ -69,6 +69,7 @@ class _SelectMapLocationState extends State<SelectMapLocation> {
                   mapId: mapCompleter.future.then<int>((value) => value.mapId),
                   markers: riderController.markers.values.toSet(),
                   child: GoogleMap(
+                    cloudMapId: "2daff71eef425386",
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                         target: riderController.initialPosition, zoom: 15),

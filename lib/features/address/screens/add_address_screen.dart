@@ -217,6 +217,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                                 clipBehavior: Clip.none,
                                                 children: [
                                                   GoogleMap(
+                                                    cloudMapId:
+                                                        "2daff71eef425386",
                                                     initialCameraPosition:
                                                         CameraPosition(
                                                             target:
@@ -224,7 +226,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                                             zoom: 16),
                                                     minMaxZoomPreference:
                                                         const MinMaxZoomPreference(
-                                                            0, 16),
+                                                            0, 30),
                                                     onTap: (latLng) {
                                                       if (ResponsiveHelper
                                                           .isDesktop(
@@ -739,6 +741,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                           clipBehavior: Clip.none,
                                           children: [
                                             GoogleMap(
+                                              cloudMapId: "2daff71eef425386",
                                               initialCameraPosition:
                                                   CameraPosition(
                                                       target: _initialPosition,

@@ -63,6 +63,7 @@ class _TrackingMapWidgetState extends State<TrackingMapWidget> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
                   child: GoogleMap(
+                    cloudMapId: "2daff71eef425386",
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                         target: LatLng(
@@ -72,7 +73,7 @@ class _TrackingMapWidgetState extends State<TrackingMapWidget> {
                               widget.track!.deliveryAddress!.longitude!),
                         ),
                         zoom: 16),
-                    minMaxZoomPreference: const MinMaxZoomPreference(0, 16),
+                    minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
                     zoomControlsEnabled: true,
                     markers: _markers,
                     onMapCreated: (GoogleMapController controller) {

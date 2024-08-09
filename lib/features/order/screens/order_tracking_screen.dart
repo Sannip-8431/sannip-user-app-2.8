@@ -101,13 +101,14 @@ class OrderTrackingScreenState extends State<OrderTrackingScreen> {
                     width: Dimensions.webMaxWidth,
                     child: Stack(children: [
                       GoogleMap(
+                        cloudMapId: "2daff71eef425386",
                         initialCameraPosition: CameraPosition(
                             target: LatLng(
                               double.parse(track.deliveryAddress!.latitude!),
                               double.parse(track.deliveryAddress!.longitude!),
                             ),
                             zoom: 16),
-                        minMaxZoomPreference: const MinMaxZoomPreference(0, 16),
+                        minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
                         zoomControlsEnabled: true,
                         markers: _markers,
                         onMapCreated: (GoogleMapController controller) {

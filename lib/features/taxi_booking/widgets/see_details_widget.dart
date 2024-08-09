@@ -81,6 +81,7 @@ class _SeeDetailsWidgetState extends State<SeeDetailsWidget> {
               mapId: mapCompleter.future.then<int>((value) => value.mapId),
               markers: riderController.markers.values.toSet(),
               child: GoogleMap(
+                cloudMapId: "2daff71eef425386",
                 mapType: MapType.normal,
                 zoomControlsEnabled: false,
                 initialCameraPosition: CameraPosition(
