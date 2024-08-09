@@ -169,26 +169,6 @@ class StoreCardWithDistance extends StatelessWidget {
                                     fontSize: Dimensions.fontSizeLarge)),
                             const SizedBox(
                                 height: Dimensions.paddingSizeExtraSmall),
-                            Row(children: [
-                              Icon(Icons.location_on_outlined,
-                                  color: isPharmacy
-                                      ? Colors.blue
-                                      : Theme.of(context).primaryColor,
-                                  size: 15),
-                              const SizedBox(
-                                  width: Dimensions.paddingSizeExtraSmall),
-                              Expanded(
-                                  child: Text(
-                                store.address ?? '',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: robotoRegular.copyWith(
-                                  color: Theme.of(context).disabledColor,
-                                ),
-                              )),
-                            ]),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeExtraSmall),
                             Row(
                               children: [
                                 Container(
@@ -223,6 +203,26 @@ class StoreCardWithDistance extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                                height: Dimensions.paddingSizeExtraSmall),
+                            Row(children: [
+                              Icon(Icons.location_on_outlined,
+                                  color: isPharmacy
+                                      ? Colors.blue
+                                      : Theme.of(context).primaryColor,
+                                  size: 15),
+                              const SizedBox(
+                                  width: Dimensions.paddingSizeExtraSmall),
+                              Expanded(
+                                  child: Text(
+                                store.address ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: robotoRegular.copyWith(
+                                  color: Theme.of(context).disabledColor,
+                                ),
+                              )),
+                            ]),
                           ],
                         ),
                       ),
