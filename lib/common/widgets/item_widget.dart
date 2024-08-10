@@ -874,7 +874,7 @@ class ListViewItemWidget extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: Dimensions.paddingSizeExtraSmall),
                         child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 PriceConverter.convertPrice(item!.price,
@@ -884,21 +884,26 @@ class ListViewItemWidget extends StatelessWidget {
                                     fontSize: Dimensions.fontSizeLarge),
                                 textDirection: TextDirection.ltr,
                               ),
-                              SizedBox(
-                                  width: discount! > 0
-                                      ? Dimensions.paddingSizeExtraSmall
-                                      : 0),
-                              discount > 0
-                                  ? Text(
-                                      PriceConverter.convertPrice(item!.price),
-                                      style: robotoMedium.copyWith(
-                                        fontSize: Dimensions.fontSizeDefault,
-                                        color: Theme.of(context).disabledColor,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                      textDirection: TextDirection.ltr,
-                                    )
-                                  : const SizedBox(),
+                              if (discount! > 0) ...[
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Text(
+                                  PriceConverter.convertPrice(item!.price),
+                                  style: robotoMedium.copyWith(
+                                    color: Theme.of(context).disabledColor,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  textDirection: TextDirection.ltr,
+                                ),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Text(
+                                  '${discount.toStringAsFixed(0)}${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel!.currencySymbol} ${'off'.tr}',
+                                  style: robotoMedium.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ],
                             ]),
                       ),
                     ],
