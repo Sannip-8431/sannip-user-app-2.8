@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
-import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
 import 'package:sannip/common/models/module_model.dart';
@@ -32,7 +31,203 @@ class StoreCardWidget extends StatelessWidget {
     bool isAvailable = store!.open == 1 && store!.active!;
     return OnHover(
       isItem: true,
-      child: Stack(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+          border: ResponsiveHelper.isDesktop(context)
+              ? Border.all(
+                  color: Theme.of(context).disabledColor.withOpacity(0.1))
+              : Border.all(color: Theme.of(context).primaryColor, width: 0.15),
+        ),
+        child: CustomInkWell(
+          onTap: () {
+            if (store != null) {
+              if (Get.find<SplashController>().moduleList != null) {
+                for (ModuleModel module
+                    in Get.find<SplashController>().moduleList!) {
+                  if (module.id == store!.moduleId) {
+                    Get.find<SplashController>().setModule(module);
+                    break;
+                  }
+                }
+              }
+              Get.toNamed(
+                RouteHelper.getStoreRoute(id: store!.id, page: 'item'),
+                arguments: StoreScreen(store: store, fromModule: false),
+              );
+            }
+          },
+          radius: Dimensions.radiusDefault,
+          padding: const EdgeInsets.all(1),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Stack(clipBehavior: Clip.none, children: [
+                  ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        isAvailable ? Colors.transparent : Colors.grey,
+                        BlendMode.saturation,
+                      ),
+                      child: CustomImage(
+                        image: '${store!.coverPhotoFullUrl}',
+                        height: double.infinity,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  /* DiscountTag(
+                        discount: discount,
+                        discountType: discountType,
+                      ), */
+                  isAvailable
+                      ? const SizedBox()
+                      : NotAvailableWidget(
+                          isStore: true,
+                          fontSize: Dimensions.fontSizeExtraSmall,
+                          radius: Dimensions.radiusDefault,
+                        ),
+                ]),
+              ),
+              Expanded(
+                  flex: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: Dimensions.paddingSizeSmall,
+                        horizontal: Dimensions.paddingSizeDefault),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  store!.name ?? '',
+                                  style: robotoMedium.copyWith(
+                                      fontSize: Dimensions.fontSizeExtraLarge),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(
+                                  width: Dimensions.paddingSizeExtraSmall),
+                              GetBuilder<FavouriteController>(
+                                  builder: (favouriteController) {
+                                bool isWished = favouriteController
+                                    .wishStoreIdList
+                                    .contains(store!.id);
+                                return InkWell(
+                                  onTap: () {
+                                    if (AuthHelper.isLoggedIn()) {
+                                      isWished
+                                          ? favouriteController
+                                              .removeFromFavouriteList(
+                                                  store!.id, true)
+                                          : favouriteController
+                                              .addToFavouriteList(
+                                                  null, store!, true);
+                                    } else {
+                                      showCustomSnackBar(
+                                          'you_are_not_logged_in'.tr);
+                                    }
+                                  },
+                                  child: Icon(
+                                    isWished
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    size: 24,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                          const SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(children: [
+                                Icon(Icons.star_border_outlined,
+                                    size: 17,
+                                    color: Theme.of(context).primaryColor),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Text(
+                                  store!.avgRating!.toStringAsFixed(1),
+                                  style: robotoMedium,
+                                ),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Text(
+                                  '(${store!.ratingCount})',
+                                  style: robotoRegular.copyWith(
+                                      fontSize: Dimensions.fontSizeSmall,
+                                      color: Theme.of(context).disabledColor),
+                                ),
+                              ]),
+                              Row(children: [
+                                Icon(Icons.timer_outlined,
+                                    size: 17,
+                                    color: Theme.of(context).primaryColor),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Text(
+                                  '${store!.deliveryTime}',
+                                  style: robotoMedium,
+                                ),
+                              ]),
+                            ],
+                          ),
+                          const SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall),
+                          Row(children: [
+                            Icon(Icons.location_on_outlined,
+                                size: 17,
+                                color: Theme.of(context).primaryColor),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraSmall),
+                            Text(
+                              store!.address ?? '',
+                              style: robotoMedium.copyWith(
+                                  color: Theme.of(context).disabledColor),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ]),
+                          SizedBox(
+                              height: store!.freeDelivery!
+                                  ? Dimensions.paddingSizeExtraSmall
+                                  : 0),
+                          store!.freeDelivery!
+                              ? Row(children: [
+                                  Image.asset(Images.deliveryIcon,
+                                      height: 17,
+                                      width: 17,
+                                      color: Theme.of(context).primaryColor),
+                                  const SizedBox(
+                                      width: Dimensions.paddingSizeExtraSmall),
+                                  Text(
+                                    'free_delivery'.tr,
+                                    style: robotoMedium.copyWith(
+                                        color: Theme.of(context).disabledColor),
+                                  ),
+                                ])
+                              : const SizedBox(),
+                        ]),
+                  )),
+            ],
+          ),
+        ),
+      ),
+      /* child: Stack(
         children: [
           Container(
             width: double.infinity,
@@ -89,10 +284,10 @@ class StoreCardWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      /* DiscountTag(
+                      */ /* DiscountTag(
                         discount: discount,
                         discountType: discountType,
-                      ), */
+                      ), */ /*
                       isAvailable
                           ? const SizedBox()
                           : NotAvailableWidget(
@@ -259,52 +454,119 @@ class StoreCardWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
 
 class StoreCardShimmer extends StatelessWidget {
-  const StoreCardShimmer({super.key});
+  final bool isChangeDesign;
+  const StoreCardShimmer({super.key, this.isChangeDesign = false});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 500,
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-          boxShadow: const [
-            BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 1)
-          ]),
-      child: Shimmer(
-        duration: const Duration(seconds: 2),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            height: 120,
+    return isChangeDesign
+        ? Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              border: ResponsiveHelper.isDesktop(context)
+                  ? Border.all(
+                      color: Theme.of(context).disabledColor.withOpacity(0.1))
+                  : Border.all(
+                      color: Theme.of(context).primaryColor, width: 0.15),
+            ),
+            width: double.infinity,
+            child: Shimmer(
+              duration: const Duration(seconds: 2),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(Dimensions.radiusSmall)),
+                          color: Colors.grey[300]),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 6,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                height: 15,
+                                width: 120,
+                                color: Colors.grey[300]),
+                            const SizedBox(height: 5),
+                            Container(
+                                height: 13,
+                                width: 150,
+                                color: Colors.grey[300]),
+                            const SizedBox(height: 5),
+                            Container(
+                                height: 15,
+                                width: 120,
+                                color: Colors.grey[300]),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+            ),
+          )
+        : Container(
             width: 500,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(Dimensions.radiusSmall)),
-                color: Colors.grey[300]),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black12, blurRadius: 10, spreadRadius: 1)
+                ]),
+            child: Shimmer(
+              duration: const Duration(seconds: 2),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(height: 15, width: 100, color: Colors.grey[300]),
-                    const SizedBox(height: 5),
-                    Container(height: 10, width: 130, color: Colors.grey[300]),
-                    const SizedBox(height: 5),
-                    const RatingBar(rating: 0.0, size: 12, ratingCount: 0),
+                    Container(
+                      height: 120,
+                      width: 500,
+                      decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(Dimensions.radiusSmall)),
+                          color: Colors.grey[300]),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                            Dimensions.paddingSizeExtraSmall),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 15,
+                                  width: 100,
+                                  color: Colors.grey[300]),
+                              const SizedBox(height: 5),
+                              Container(
+                                  height: 10,
+                                  width: 130,
+                                  color: Colors.grey[300]),
+                              const SizedBox(height: 5),
+                              const RatingBar(
+                                  rating: 0.0, size: 12, ratingCount: 0),
+                            ]),
+                      ),
+                    ),
                   ]),
             ),
-          ),
-        ]),
-      ),
-    );
+          );
   }
 }

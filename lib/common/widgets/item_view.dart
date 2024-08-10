@@ -96,11 +96,15 @@ class _ItemsViewState extends State<ItemsView> {
                             ? 220
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
-                                    ? 200
+                                    ? widget.isFoodOrGrocery!
+                                        ? 120
+                                        : 200
                                     : 325
                                 : 260,
                         crossAxisCount: ResponsiveHelper.isMobile(context)
-                            ? 2
+                            ? widget.isFoodOrGrocery! && widget.isStore
+                                ? 1
+                                : 2
                             : ResponsiveHelper.isDesktop(context) &&
                                     widget.stores != null
                                 ? 3
@@ -173,11 +177,15 @@ class _ItemsViewState extends State<ItemsView> {
                             ? 220
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.isStore
-                                    ? 200
+                                    ? widget.isFoodOrGrocery!
+                                        ? 120
+                                        : 200
                                     : 325
                                 : 250,
                     crossAxisCount: ResponsiveHelper.isMobile(context)
-                        ? 2
+                        ? widget.isFoodOrGrocery! && widget.isStore
+                            ? 1
+                            : 2
                         : ResponsiveHelper.isDesktop(context)
                             ? 3
                             : 3,
@@ -191,7 +199,9 @@ class _ItemsViewState extends State<ItemsView> {
                   itemBuilder: (context, index) {
                     return widget.isStore
                         ? widget.isFoodOrGrocery!
-                            ? const StoreCardShimmer()
+                            ? const StoreCardShimmer(
+                                isChangeDesign: true,
+                              )
                             : const NewOnShimmerView()
                         : const StoreCardShimmer();
                   },

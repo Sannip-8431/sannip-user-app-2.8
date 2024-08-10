@@ -255,8 +255,8 @@ class VisitAgainCard extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(Dimensions.radiusSmall),
-                            topLeft: Radius.circular(Dimensions.radiusSmall)),
+                            topRight: Radius.circular(Dimensions.radiusLarge),
+                            topLeft: Radius.circular(Dimensions.radiusLarge)),
                         child: CustomImage(
                           image: '${store.coverPhotoFullUrl}',
                           fit: BoxFit.cover,
