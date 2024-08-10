@@ -385,6 +385,7 @@ class Images {
   static const String sannipTextLogo = 'assets/image/sannip_text_logo.png';
   static const String fssaiLogo = 'assets/image/fssai_logo.png';
   static const String pathImage = 'assets/image/path_image.png';
+  static const String locationPin = 'assets/image/location_pin.png';
   static const String multiTaskIllustration =
       'assets/image/search_illustration.png';
   static const String locationImage = 'assets/image/location_image.png';

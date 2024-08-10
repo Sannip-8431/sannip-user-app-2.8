@@ -1,6 +1,5 @@
 import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
-import 'package:sannip/features/location/screens/bubble_widget.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
 import 'package:sannip/features/address/domain/models/address_model.dart';
@@ -9,6 +8,7 @@ import 'package:sannip/helper/address_helper.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
@@ -158,9 +158,9 @@ class _PickMapScreenState extends State<PickMapScreen> {
                           ),
                           Center(
                               child: !locationController.loading
-                                  ? /* Image.asset(Images.pickMarker,
-                                      height: 50, width: 50) */
-                                  const MapLocationBubbleWidget()
+                                  ? Image.asset(Images.locationPin,
+                                      height: 50, width: 50)
+                                  // const MapLocationBubbleWidget()
                                   : const CircularProgressIndicator()),
                           Positioned(
                             bottom: 30,
@@ -310,46 +310,42 @@ class _PickMapScreenState extends State<PickMapScreen> {
                   ),
                 )
               : Stack(children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 150),
-                    child: GoogleMap(
-                      cloudMapId: "2daff71eef425386",
-                      initialCameraPosition: CameraPosition(
-                        target: widget.fromAddAddress
-                            ? LatLng(locationController.position.latitude,
-                                locationController.position.longitude)
-                            : _initialPosition,
-                        zoom: 16,
-                      ),
-                      minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
-                      myLocationButtonEnabled: false,
-                      onMapCreated: (GoogleMapController mapController) {
-                        _mapController = mapController;
-                        if (!widget.fromAddAddress) {
-                          Get.find<LocationController>().getCurrentLocation(
-                              false,
-                              mapController: mapController);
-                        }
-                      },
-                      scrollGesturesEnabled: /* !Get.isDialogOpen! */ true,
-                      zoomControlsEnabled: false,
-                      onCameraMove: (CameraPosition cameraPosition) {
-                        _cameraPosition = cameraPosition;
-                      },
-                      onCameraMoveStarted: () {
-                        locationController.disableButton();
-                      },
-                      onCameraIdle: () {
-                        Get.find<LocationController>()
-                            .updatePosition(_cameraPosition, false);
-                      },
+                  GoogleMap(
+                    cloudMapId: "2daff71eef425386",
+                    initialCameraPosition: CameraPosition(
+                      target: widget.fromAddAddress
+                          ? LatLng(locationController.position.latitude,
+                              locationController.position.longitude)
+                          : _initialPosition,
+                      zoom: 16,
                     ),
+                    minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
+                    myLocationButtonEnabled: false,
+                    onMapCreated: (GoogleMapController mapController) {
+                      _mapController = mapController;
+                      if (!widget.fromAddAddress) {
+                        Get.find<LocationController>().getCurrentLocation(false,
+                            mapController: mapController);
+                      }
+                    },
+                    scrollGesturesEnabled: /* !Get.isDialogOpen! */ true,
+                    zoomControlsEnabled: false,
+                    onCameraMove: (CameraPosition cameraPosition) {
+                      _cameraPosition = cameraPosition;
+                    },
+                    onCameraMoveStarted: () {
+                      locationController.disableButton();
+                    },
+                    onCameraIdle: () {
+                      Get.find<LocationController>()
+                          .updatePosition(_cameraPosition, false);
+                    },
                   ),
                   Center(
                       child: !locationController.loading
-                          ? /*  Image.asset(Images.pickMarker,
-                              height: 50, width: 50) */
-                          const MapLocationBubbleWidget()
+                          ? Image.asset(Images.locationPin,
+                              height: 50, width: 50)
+                          // const MapLocationBubbleWidget()
                           : const CircularProgressIndicator()),
                   Positioned(
                     top: Dimensions.paddingSizeLarge,
@@ -362,15 +358,19 @@ class _PickMapScreenState extends State<PickMapScreen> {
                   ),
                   Positioned(
                     bottom: 160,
-                    left: Get.width / 3,
-                    right: Get.width / 3,
+                    left: Get.width / 3.8,
+                    right: Get.width / 3.8,
                     child: FloatingActionButton.extended(
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              width: 1, color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(10)),
                       extendedPadding:
-                          const EdgeInsets.symmetric(horizontal: 10),
-                      label: Text('locate_me'.tr,
+                          const EdgeInsets.symmetric(horizontal: 5),
+                      label: Text('user_current_location'.tr,
                           style: robotoBold.copyWith(
                               color: Theme.of(context).primaryColor)),
-                      backgroundColor: Theme.of(context).cardColor,
+                      backgroundColor: Colors.white,
                       onPressed: () =>
                           Get.find<LocationController>().checkPermission(() {
                         Get.find<LocationController>().getCurrentLocation(false,
