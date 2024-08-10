@@ -818,8 +818,9 @@ class ListViewItemWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-                      // Restaurant name
-                      (isStore
+
+                      /// Restaurant name
+                      /*(isStore
                               ? store!.address != null
                               : item!.storeName != null)
                           ? Container(
@@ -842,7 +843,7 @@ class ListViewItemWidget extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             )
-                          : const SizedBox(),
+                          : const SizedBox(),*/
                       const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                       // Rating and reviews
                       !isStore
