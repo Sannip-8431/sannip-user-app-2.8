@@ -324,6 +324,7 @@ class VisitAgainCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: Dimensions.paddingSizeExtraSmall),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -400,7 +401,7 @@ class VisitAgainCard extends StatelessWidget {
                         store.items != null
                             ? SizedBox(
                                 height: 25,
-                                width: 250,
+                                // width: 250,
                                 child: ListView.builder(
                                   itemCount: store.items!.length,
                                   scrollDirection: Axis.horizontal,

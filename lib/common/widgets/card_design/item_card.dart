@@ -656,14 +656,11 @@ class SpecialOfferItemCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        /* (isFood || isShop)
-                            ? Text(item.storeName ?? '',
-                                style: robotoRegular.copyWith(
-                                    color: Theme.of(context).disabledColor))
-                            : Text(item.name ?? '',
-                                style: robotoBold,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis),*/
+                        if (isFood || isShop)
+                          Text(item.storeName ?? '',
+                              style: robotoRegular.copyWith(
+                                  color: Theme.of(context).disabledColor,
+                                  fontSize: Dimensions.fontSizeSmall)),
                         Text(
                           item.name ?? '',
                           style: robotoMedium,
@@ -686,24 +683,40 @@ class SpecialOfferItemCard extends StatelessWidget {
                                         color: Theme.of(context).hintColor),
                                   )
                                 : const SizedBox(),*/
-                        Text(
-                          PriceConverter.convertPrice(item.price,
-                              discount: discount, discountType: discountType),
-                          style: robotoRegular.copyWith(
-                              fontSize: Dimensions.fontSizeSmall),
-                          textDirection: TextDirection.ltr,
-                        ),
-                        discount > 0
-                            ? Text(
-                                PriceConverter.convertPrice(item.price),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                PriceConverter.convertPrice(item.price,
+                                    discount: discount,
+                                    discountType: discountType),
                                 style: robotoRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeExtraSmall,
-                                  color: Theme.of(context).disabledColor,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                                    fontSize: Dimensions.fontSizeSmall),
                                 textDirection: TextDirection.ltr,
+                                maxLines: 1,
+                              ),
+                            ),
+                            if (discount > 0) ...[
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  PriceConverter.convertPrice(item.price),
+                                  style: robotoRegular.copyWith(
+                                    fontSize: Dimensions.fontSizeExtraSmall,
+                                    color: Theme.of(context).disabledColor,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textDirection: TextDirection.ltr,
+                                ),
                               )
-                            : const SizedBox(),
+                            ],
+                          ],
+                        ),
                         const SizedBox(
                             height: Dimensions.paddingSizeExtraSmall),
                         isShop

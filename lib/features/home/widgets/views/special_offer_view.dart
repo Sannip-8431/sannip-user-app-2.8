@@ -47,7 +47,7 @@ class SpecialOfferView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: !isFood && !isShop ? 248 : 228,
+                        height: !isFood && !isShop ? 248 : 235,
                         width: Get.width,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
