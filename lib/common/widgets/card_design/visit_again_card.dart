@@ -5,6 +5,7 @@ import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
 import 'package:sannip/features/language/controllers/language_controller.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:sannip/features/store/domain/models/store_model.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
@@ -257,11 +258,19 @@ class VisitAgainCard extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(Dimensions.radiusLarge),
                             topLeft: Radius.circular(Dimensions.radiusLarge)),
-                        child: CustomImage(
-                          image: '${store.coverPhotoFullUrl}',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
+                        child: ColorFiltered(
+                          colorFilter: ColorFilter.mode(
+                            Get.find<StoreController>().isOpenNow(store)
+                                ? Colors.transparent
+                                : Colors.grey,
+                            BlendMode.saturation,
+                          ),
+                          child: CustomImage(
+                            image: '${store.coverPhotoFullUrl}',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
                         ),
                       ),
                       Positioned(
