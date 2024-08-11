@@ -1013,7 +1013,7 @@ class ListViewItemWidget extends StatelessWidget {
                               clipBehavior: Clip.none,
                               children: [
                                 Container(
-                                  width: 90,
+                                  width: 80,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
