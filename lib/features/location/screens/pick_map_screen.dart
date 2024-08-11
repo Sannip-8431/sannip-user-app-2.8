@@ -1,5 +1,6 @@
 import 'package:sannip/common/widgets/custom_app_bar.dart';
 import 'package:sannip/features/location/controllers/location_controller.dart';
+import 'package:sannip/features/location/screens/bubble_widget.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
 import 'package:sannip/features/profile/controllers/profile_controller.dart';
 import 'package:sannip/features/address/domain/models/address_model.dart';
@@ -341,12 +342,15 @@ class _PickMapScreenState extends State<PickMapScreen> {
                           .updatePosition(_cameraPosition, false);
                     },
                   ),
-                  Center(
-                      child: !locationController.loading
-                          ? Image.asset(Images.locationPin,
-                              height: 50, width: 50)
-                          // const MapLocationBubbleWidget()
-                          : const CircularProgressIndicator()),
+                  Positioned.fill(
+                      child: Align(
+                    alignment: Alignment.center,
+                    child: !locationController.loading
+                        ? /* Image.asset(Images.locationPin,
+                                height: 50, width: 50) */
+                        const MapLocationBubbleWidget()
+                        : const CircularProgressIndicator(),
+                  )),
                   Positioned(
                     top: Dimensions.paddingSizeLarge,
                     left: Dimensions.paddingSizeSmall,

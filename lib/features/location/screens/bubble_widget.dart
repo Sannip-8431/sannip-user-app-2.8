@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sannip/util/dimensions.dart';
+import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 
 class MapLocationBubbleWidget extends StatelessWidget {
@@ -7,33 +8,41 @@ class MapLocationBubbleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: SpeechBubbleClipper(),
-      child: Container(
-        color: Colors.black,
-        padding: const EdgeInsets.only(
-            bottom: Dimensions.paddingSizeDefault,
-            left: Dimensions.paddingSizeSmall,
-            top: Dimensions.paddingSizeSmall / 2,
-            right: Dimensions.paddingSizeSmall),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Order will be delivered here",
-              style: robotoMedium.copyWith(
-                color: Colors.white,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ClipPath(
+          clipper: SpeechBubbleClipper(),
+          child: Container(
+            color: Colors.black,
+            padding: const EdgeInsets.only(
+                bottom: Dimensions.paddingSizeDefault,
+                left: Dimensions.paddingSizeSmall,
+                top: Dimensions.paddingSizeSmall / 2,
+                right: Dimensions.paddingSizeSmall),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Order will be delivered here",
+                  style: robotoMedium.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  "Place the pin accurately on the map",
+                  style: robotoRegular.copyWith(
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Place the pin accurately on the map",
-              style: robotoRegular.copyWith(
-                color: Colors.white70,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        Image.asset(Images.locationPin, height: 50, width: 50),
+        const SizedBox(height: 110),
+      ],
     );
   }
 }
