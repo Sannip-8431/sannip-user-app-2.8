@@ -9,7 +9,6 @@ import 'package:sannip/helper/address_helper.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
 import 'package:sannip/util/dimensions.dart';
-import 'package:sannip/util/images.dart';
 import 'package:sannip/util/styles.dart';
 import 'package:sannip/common/widgets/custom_button.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
@@ -132,7 +131,7 @@ class _PickMapScreenState extends State<PickMapScreen> {
                                 zoom: 16,
                               ),
                               minMaxZoomPreference:
-                                  const MinMaxZoomPreference(0, 16),
+                                  const MinMaxZoomPreference(0, 25),
                               myLocationButtonEnabled: false,
                               onMapCreated:
                                   (GoogleMapController mapController) {
@@ -159,9 +158,9 @@ class _PickMapScreenState extends State<PickMapScreen> {
                           ),
                           Center(
                               child: !locationController.loading
-                                  ? Image.asset(Images.locationPin,
-                                      height: 50, width: 50)
-                                  // const MapLocationBubbleWidget()
+                                  ? /* Image.asset(Images.locationPin,
+                                      height: 50, width: 50) */
+                                  const MapLocationBubbleWidget()
                                   : const CircularProgressIndicator()),
                           Positioned(
                             bottom: 30,

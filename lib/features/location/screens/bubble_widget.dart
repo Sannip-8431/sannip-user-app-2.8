@@ -17,7 +17,7 @@ class MapLocationBubbleWidget extends StatelessWidget {
           child: Container(
             color: Colors.black,
             padding: const EdgeInsets.only(
-                bottom: Dimensions.paddingSizeDefault,
+                bottom: Dimensions.paddingSizeDefault + 2,
                 left: Dimensions.paddingSizeSmall,
                 top: Dimensions.paddingSizeSmall / 2,
                 right: Dimensions.paddingSizeSmall),
@@ -40,8 +40,9 @@ class MapLocationBubbleWidget extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 2),
         Image.asset(Images.locationPin, height: 50, width: 50),
-        const SizedBox(height: 110),
+        const SizedBox(height: 112),
       ],
     );
   }
