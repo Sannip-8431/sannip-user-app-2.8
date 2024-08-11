@@ -96,9 +96,7 @@ class _ItemsViewState extends State<ItemsView> {
                             ? 220
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.stores != null && widget.isStore
-                                    ? widget.isFoodOrGrocery!
-                                        ? 120
-                                        : 200
+                                    ? 200
                                     : 325
                                 : 260,
                         crossAxisCount: ResponsiveHelper.isMobile(context)
@@ -177,9 +175,7 @@ class _ItemsViewState extends State<ItemsView> {
                             ? 220
                             : ResponsiveHelper.isMobile(context)
                                 ? widget.isStore
-                                    ? widget.isFoodOrGrocery!
-                                        ? 120
-                                        : 200
+                                    ? 200
                                     : 325
                                 : 250,
                     crossAxisCount: ResponsiveHelper.isMobile(context)

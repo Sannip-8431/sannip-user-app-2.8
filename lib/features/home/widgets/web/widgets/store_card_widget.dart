@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sannip/features/store/controllers/store_controller.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/splash/controllers/splash_controller.dart';
@@ -29,6 +31,9 @@ class StoreCardWidget extends StatelessWidget {
     // String? discountType =
     //     store!.discount != null ? store!.discount!.discountType : 'percent';
     bool isAvailable = store!.open == 1 && store!.active!;
+    double distance = Get.find<StoreController>().getRestaurantDistance(
+      LatLng(double.parse(store!.latitude!), double.parse(store!.longitude!)),
+    );
     return OnHover(
       isItem: true,
       child: Container(
@@ -64,7 +69,7 @@ class StoreCardWidget extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                flex: 4,
+                flex: 5,
                 child: Stack(clipBehavior: Clip.none, children: [
                   ClipRRect(
                     borderRadius:
@@ -78,14 +83,41 @@ class StoreCardWidget extends StatelessWidget {
                         image: '${store!.coverPhotoFullUrl}',
                         height: double.infinity,
                         width: double.infinity,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
+                  Positioned(
+                    right: 4,
+                    top: 4,
+                    child: GetBuilder<FavouriteController>(
+                        builder: (favouriteController) {
+                      bool isWished = favouriteController.wishStoreIdList
+                          .contains(store!.id);
+                      return InkWell(
+                        onTap: () {
+                          if (AuthHelper.isLoggedIn()) {
+                            isWished
+                                ? favouriteController.removeFromFavouriteList(
+                                    store!.id, true)
+                                : favouriteController.addToFavouriteList(
+                                    null, store!, true);
+                          } else {
+                            showCustomSnackBar('you_are_not_logged_in'.tr);
+                          }
+                        },
+                        child: Icon(
+                          isWished ? Icons.favorite : Icons.favorite_border,
+                          size: 24,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      );
+                    }),
+                  ),
                   /* DiscountTag(
-                        discount: discount,
-                        discountType: discountType,
-                      ), */
+                            discount: discount,
+                            discountType: discountType,
+                          ), */
                   isAvailable
                       ? const SizedBox()
                       : NotAvailableWidget(
@@ -99,127 +131,134 @@ class StoreCardWidget extends StatelessWidget {
                   flex: 6,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: Dimensions.paddingSizeSmall,
+                        vertical: Dimensions.paddingSizeExtraSmall,
                         horizontal: Dimensions.paddingSizeDefault),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  store!.name ?? '',
-                                  style: robotoMedium.copyWith(
-                                      fontSize: Dimensions.fontSizeExtraLarge),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              const SizedBox(
-                                  width: Dimensions.paddingSizeExtraSmall),
-                              GetBuilder<FavouriteController>(
-                                  builder: (favouriteController) {
-                                bool isWished = favouriteController
-                                    .wishStoreIdList
-                                    .contains(store!.id);
-                                return InkWell(
-                                  onTap: () {
-                                    if (AuthHelper.isLoggedIn()) {
-                                      isWished
-                                          ? favouriteController
-                                              .removeFromFavouriteList(
-                                                  store!.id, true)
-                                          : favouriteController
-                                              .addToFavouriteList(
-                                                  null, store!, true);
-                                    } else {
-                                      showCustomSnackBar(
-                                          'you_are_not_logged_in'.tr);
-                                    }
-                                  },
-                                  child: Icon(
-                                    isWished
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    size: 24,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                );
-                              }),
-                            ],
-                          ),
-                          const SizedBox(
-                              height: Dimensions.paddingSizeExtraSmall),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(children: [
-                                Icon(Icons.star_border_outlined,
-                                    size: 17,
-                                    color: Theme.of(context).primaryColor),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraSmall),
-                                Text(
-                                  store!.avgRating!.toStringAsFixed(1),
-                                  style: robotoMedium,
-                                ),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraSmall),
-                                Text(
-                                  '(${store!.ratingCount})',
-                                  style: robotoRegular.copyWith(
-                                      fontSize: Dimensions.fontSizeSmall,
-                                      color: Theme.of(context).disabledColor),
-                                ),
-                              ]),
-                              Row(children: [
-                                Icon(Icons.timer_outlined,
-                                    size: 17,
-                                    color: Theme.of(context).primaryColor),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraSmall),
-                                Text(
-                                  '${store!.deliveryTime}',
-                                  style: robotoMedium,
-                                ),
-                              ]),
-                            ],
+                          Text(
+                            store!.name ?? '',
+                            style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeExtraLarge),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(
                               height: Dimensions.paddingSizeExtraSmall),
                           Row(children: [
-                            Icon(Icons.location_on_outlined,
+                            Icon(Icons.stars_sharp,
                                 size: 17,
                                 color: Theme.of(context).primaryColor),
                             const SizedBox(
                                 width: Dimensions.paddingSizeExtraSmall),
                             Text(
-                              store!.address ?? '',
+                              store!.avgRating!.toStringAsFixed(1),
                               style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeLarge,
+                              ),
+                            ),
+                            const SizedBox(
+                                width: Dimensions.paddingSizeExtraSmall),
+                            Text(
+                              '(${store!.ratingCount})',
+                              style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.fontSizeSmall,
                                   color: Theme.of(context).disabledColor),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.paddingSizeExtraSmall),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).hintColor,
+                                  shape: BoxShape.circle),
+                              height: 8,
+                              width: 8,
+                            ),
+                            Text(
+                              '${distance > 100 ? '100+' : distance.toStringAsFixed(2)} ${'km'.tr}',
+                              style: robotoMedium.copyWith(),
                             ),
                           ]),
+                          const SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall),
+                          Row(
+                            children: [
+                              Icon(Icons.timer_outlined,
+                                  size: 17,
+                                  color: Theme.of(context).primaryColor),
+                              const SizedBox(
+                                  width: Dimensions.paddingSizeExtraSmall),
+                              Text(
+                                '${store!.deliveryTime}',
+                                style: robotoMedium.copyWith(
+                                  fontSize: Dimensions.fontSizeLarge,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                              height: Dimensions.paddingSizeExtraSmall),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(Icons.location_on_outlined,
+                                    size: 17,
+                                    color: Theme.of(context).primaryColor),
+                                const SizedBox(
+                                    width: Dimensions.paddingSizeExtraSmall),
+                                Expanded(
+                                  child: Text(
+                                    store!.address ?? '',
+                                    style: robotoMedium.copyWith(
+                                        color: Theme.of(context).disabledColor),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ]),
                           SizedBox(
                               height: store!.freeDelivery!
                                   ? Dimensions.paddingSizeExtraSmall
                                   : 0),
                           store!.freeDelivery!
-                              ? Row(children: [
-                                  Image.asset(Images.deliveryIcon,
-                                      height: 17,
-                                      width: 17,
-                                      color: Theme.of(context).primaryColor),
-                                  const SizedBox(
-                                      width: Dimensions.paddingSizeExtraSmall),
-                                  Text(
-                                    'free_delivery'.tr,
-                                    style: robotoMedium.copyWith(
-                                        color: Theme.of(context).disabledColor),
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(0.1),
+                                        Colors.transparent
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusExtraLarge),
                                   ),
-                                ])
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.paddingSizeExtraSmall,
+                                      horizontal: Dimensions.paddingSizeSmall),
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(Images.deliveryIcon,
+                                            height: 17,
+                                            width: 17,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        const SizedBox(
+                                            width: Dimensions
+                                                .paddingSizeExtraSmall),
+                                        Text(
+                                          'free_delivery'.tr,
+                                          style: robotoMedium.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                        ),
+                                      ]),
+                                )
                               : const SizedBox(),
                         ]),
                   )),
@@ -507,6 +546,11 @@ class StoreCardShimmer extends StatelessWidget {
                             Container(
                                 height: 13,
                                 width: 150,
+                                color: Colors.grey[300]),
+                            const SizedBox(height: 5),
+                            Container(
+                                height: 15,
+                                width: 120,
                                 color: Colors.grey[300]),
                             const SizedBox(height: 5),
                             Container(
