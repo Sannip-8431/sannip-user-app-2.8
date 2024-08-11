@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sannip/common/widgets/expandable_text.dart';
 import 'package:sannip/features/address/domain/models/address_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
@@ -754,13 +755,15 @@ class _StoreScreenState extends State<StoreScreen> {
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                            Text("${store.address}",
-                                                style: robotoMedium.copyWith(
-                                                  fontSize:
-                                                      Dimensions.fontSizeSmall,
-                                                  color: Theme.of(context)
-                                                      .disabledColor,
-                                                )),
+                                            ExpandableText(
+                                              "${store.address}",
+                                              textStyle: robotoMedium.copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeSmall,
+                                                color: Theme.of(context)
+                                                    .disabledColor,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
