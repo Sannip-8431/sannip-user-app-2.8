@@ -920,92 +920,96 @@ class ListViewItemWidget extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     (item?.imageFullUrl?.split('/').last.isNotEmpty ?? false)
-                        ? Stack(clipBehavior: Clip.none, children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.radiusDefault),
-                              child: CustomImage(
-                                image:
-                                    '${isStore ? store != null ? store!.logoFullUrl : '' : item!.imageFullUrl}',
-                                height: imageHeight ?? 85,
-                                width: imageWidth ?? 160,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            !isStore
-                                ? OrganicTag(item: item!, placeInImage: true)
-                                : const SizedBox(),
-                            isAvailable
-                                ? const SizedBox()
-                                : NotAvailableWidget(isStore: isStore),
-                            Positioned(
-                              bottom: -15,
-                              left: 35,
-                              right: 35,
-                              child: CartCountView(
-                                store: store,
-                                item: item!,
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      width: 90,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radiusSmall),
-                                        color: Theme.of(context).cardColor,
-                                        border: Border.all(
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              color: Colors.black12,
-                                              blurRadius: 5,
-                                              spreadRadius: 1)
-                                        ],
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical:
-                                            Dimensions.paddingSizeExtraSmall,
-                                      ),
-                                      child: Text(
-                                        'add'.tr,
-                                        style: robotoMedium.copyWith(
-                                          color: Theme.of(context).primaryColor,
+                        ? Stack(
+                            alignment: Alignment.bottomCenter,
+                            clipBehavior: Clip.none,
+                            children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radiusDefault),
+                                  child: CustomImage(
+                                    image:
+                                        '${isStore ? store != null ? store!.logoFullUrl : '' : item!.imageFullUrl}',
+                                    height: imageHeight ?? 85,
+                                    width: imageWidth ?? 160,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                !isStore
+                                    ? OrganicTag(
+                                        item: item!, placeInImage: true)
+                                    : const SizedBox(),
+                                isAvailable
+                                    ? const SizedBox()
+                                    : NotAvailableWidget(isStore: isStore),
+                                Positioned(
+                                  bottom: -15,
+                                  child: CartCountView(
+                                    store: store,
+                                    item: item!,
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Container(
+                                          width: 90,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusSmall),
+                                            color: Theme.of(context).cardColor,
+                                            border: Border.all(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black12,
+                                                  blurRadius: 5,
+                                                  spreadRadius: 1)
+                                            ],
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: Dimensions
+                                                .paddingSizeExtraSmall,
+                                          ),
+                                          child: Text(
+                                            'add'.tr,
+                                            style: robotoMedium.copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    item?.choiceOptions?.isNotEmpty ?? false
-                                        ? Positioned(
-                                            left: 20,
-                                            right: 20,
-                                            bottom: -6,
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                        item?.choiceOptions?.isNotEmpty ?? false
+                                            ? Positioned(
+                                                left: 20,
+                                                right: 20,
+                                                bottom: -6,
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                       vertical: 02,
                                                       horizontal: 1),
-                                              color:
-                                                  Theme.of(context).cardColor,
-                                              child: Text(
-                                                '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
-                                                textAlign: TextAlign.center,
-                                                style: robotoMedium.copyWith(
-                                                  fontSize: 8,
-                                                  height: 1.2,
                                                   color: Theme.of(context)
-                                                      .primaryColor,
+                                                      .cardColor,
+                                                  child: Text(
+                                                    '${item?.choiceOptions?.length} ${((item!.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                    textAlign: TextAlign.center,
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                      fontSize: 8,
+                                                      height: 1.2,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          )
-                                        : const SizedBox(),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ])
+                                              )
+                                            : const SizedBox(),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ])
                         : CartCountView(
                             store: store,
                             item: item!,
@@ -1013,7 +1017,7 @@ class ListViewItemWidget extends StatelessWidget {
                               clipBehavior: Clip.none,
                               children: [
                                 Container(
-                                  width: 80,
+                                  width: 90,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
