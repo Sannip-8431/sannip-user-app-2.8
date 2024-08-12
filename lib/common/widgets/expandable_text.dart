@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:sannip/util/dimensions.dart';
 import 'package:sannip/util/styles.dart';
 
 class ExpandableText extends StatefulWidget {
-  const ExpandableText(this.text, {super.key});
+  const ExpandableText(this.text, {super.key, this.textStyle});
   final String text;
+  final TextStyle? textStyle;
 
   @override
   State<ExpandableText> createState() => _ExpandableTextState();
@@ -33,10 +35,11 @@ class _ExpandableTextState extends State<ExpandableText> {
     return secondHalf!.isEmpty
         ? Text(
             widget.text,
-            style: robotoRegular.copyWith(
-              fontSize: Dimensions.fontSizeLarge,
-              color: Theme.of(context).hintColor,
-            ),
+            style: widget.textStyle ??
+                robotoRegular.copyWith(
+                  fontSize: Dimensions.fontSizeLarge,
+                  color: Theme.of(context).hintColor,
+                ),
           )
         : Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -47,20 +50,22 @@ class _ExpandableTextState extends State<ExpandableText> {
                       padding: const EdgeInsets.only(right: 3.0),
                       child: Text(
                         "${firstHalf!}...",
-                        style: robotoRegular.copyWith(
-                          fontSize: Dimensions.fontSizeLarge,
-                          color: Theme.of(context).hintColor,
-                        ),
+                        style: widget.textStyle ??
+                            robotoRegular.copyWith(
+                              fontSize: Dimensions.fontSizeLarge,
+                              color: Theme.of(context).hintColor,
+                            ),
                       ),
                     )
                   : Padding(
                       padding: const EdgeInsets.only(right: 3.0),
                       child: Text(
                         (firstHalf! + secondHalf!),
-                        style: robotoRegular.copyWith(
-                          fontSize: Dimensions.fontSizeLarge,
-                          color: Theme.of(context).hintColor,
-                        ),
+                        style: widget.textStyle ??
+                            robotoRegular.copyWith(
+                              fontSize: Dimensions.fontSizeLarge,
+                              color: Theme.of(context).hintColor,
+                            ),
                       ),
                     ),
               InkWell(
@@ -70,7 +75,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                   });
                 },
                 child: Text(
-                  !flag ? 'View less' : 'Read more',
+                  !flag ? 'read_less'.tr : 'read_more'.tr,
                   style: robotoMedium.copyWith(
                     fontSize: Dimensions.fontSizeLarge,
                     fontWeight: FontWeight.bold,
