@@ -42,7 +42,7 @@ class _WebItemThatYouLoveViewWidgetState
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: Dimensions.paddingSizeDefault),
-                      child: Text('item_that_you_love'.tr,
+                      child: Text('something_you_adore'.tr,
                           style: robotoBold.copyWith(
                               fontSize: Dimensions.fontSizeLarge)),
                     ),
@@ -380,7 +380,7 @@ class _WebItemThatYouLoveForShopState extends State<WebItemThatYouLoveForShop> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: Dimensions.paddingSizeDefault),
-                      child: Text('item_that_you_love'.tr,
+                      child: Text('something_you_adore'.tr,
                           style: robotoBold.copyWith(
                               fontSize: Dimensions.fontSizeLarge)),
                     ),
@@ -651,7 +651,7 @@ class WebItemThatYouLoveForShopShimmer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(
               vertical: Dimensions.paddingSizeDefault),
-          child: Text('item_that_you_love'.tr,
+          child: Text('something_you_adore'.tr,
               style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge)),
         ),
         Shimmer(
@@ -794,7 +794,7 @@ class WebItemThatYouLoveShimmerView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(
               vertical: Dimensions.paddingSizeDefault),
-          child: Text('item_that_you_love'.tr,
+          child: Text('something_you_adore'.tr,
               style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge)),
         ),
         CarouselSlider.builder(

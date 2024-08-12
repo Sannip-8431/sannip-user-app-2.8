@@ -59,8 +59,8 @@ class BestStoreNearbyView extends StatelessWidget {
                                   right: Dimensions.paddingSizeDefault),
                               child: TitleWidget(
                                 title: isPharmacy
-                                    ? 'featured_store'.tr
-                                    : 'best_store_nearby'.tr,
+                                    ? 'promoted_shop'.tr
+                                    : 'top_stores_around'.tr,
                                 onTap: () => Get.toNamed(
                                     RouteHelper.getAllStoreRoute(
                                         isPharmacy ? 'featured' : 'popular',
@@ -192,7 +192,7 @@ class BestStoreNearbyView extends StatelessWidget {
                                           width: Dimensions.paddingSizeDefault),
                                       RotatedBox(
                                         quarterTurns: 3,
-                                        child: Text('best_store_nearby'.tr,
+                                        child: Text('top_stores_around'.tr,
                                             style: robotoBold.copyWith(
                                                 fontSize:
                                                     Dimensions.fontSizeLarge)),
@@ -535,7 +535,7 @@ class BestStoreNearbyShimmer extends StatelessWidget {
                     right: Dimensions.paddingSizeDefault),
                 child: TitleWidget(
                   title:
-                      isPharmacy ? 'featured_store'.tr : 'best_store_nearby'.tr,
+                      isPharmacy ? 'promoted_shop'.tr : 'top_stores_around'.tr,
                 ),
               )
             : Padding(

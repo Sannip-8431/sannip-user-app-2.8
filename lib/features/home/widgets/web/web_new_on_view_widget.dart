@@ -62,8 +62,8 @@ class _WebNewOnViewWidgetState extends State<WebNewOnViewWidget> {
             const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
         child: TitleWidget(
           title: widget.isFood
-              ? 'best_store_nearby'.tr
-              : '${'new_on'.tr} ${AppConstants.appName}',
+              ? 'top_stores_around'.tr
+              : '${'recently_added_on'.tr} ${AppConstants.appName}',
           onTap: () => Get.toNamed(RouteHelper.getAllStoreRoute('latest',
               isNearbyStore: widget.isFood ? true : false)),
         ),

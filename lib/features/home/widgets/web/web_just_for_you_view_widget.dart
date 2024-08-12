@@ -72,7 +72,7 @@ class _WebJustForYouViewWidgetState extends State<WebJustForYouViewWidget> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: Dimensions.paddingSizeDefault),
-                          child: Text('just_for_you'.tr,
+                          child: Text('personalized_for_you'.tr,
                               style: robotoBold.copyWith(
                                   fontSize: Dimensions.fontSizeLarge)),
                         ),
@@ -176,7 +176,7 @@ class WebJustForYouShimmerView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(
               vertical: Dimensions.paddingSizeDefault),
-          child: Text('just_for_you'.tr,
+          child: Text('personalized_for_you'.tr,
               style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge)),
         ),
         SizedBox(

@@ -781,42 +781,6 @@ class BestReviewItemCard extends StatelessWidget {
                                                   .disabledColor)),
                                     ]),
                               )),
-                        Positioned(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          Dimensions.radiusDefault),
-                                      topRight: Radius.circular(
-                                          Dimensions.radiusDefault),
-                                    ),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.black,
-                                        Colors.transparent
-                                      ],
-                                    ),
-                                  ),
-                                  child: Text(
-                                    item!.storeName!,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: robotoRegular.copyWith(
-                                        color: Colors.white,
-                                        fontSize: Dimensions.fontSizeSmall),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         if (isFood &&
                             Get.find<SplashController>()
                                 .configModel!
@@ -853,8 +817,15 @@ class BestReviewItemCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const SizedBox(
-                                height: Dimensions.paddingSizeExtraSmall),
+                            Text(
+                              item!.storeName!,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: robotoRegular.copyWith(
+                                  color: Theme.of(context).disabledColor,
+                                  fontSize: Dimensions.fontSizeSmall),
+                            ),
                             Text(item!.name!,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -902,8 +873,25 @@ class BestReviewItemCard extends StatelessWidget {
                                               .disabledColor),
                                     )
                                   : const SizedBox(),*/
-                            discount != null && discount > 0
-                                ? Text(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  PriceConverter.convertPrice(
+                                    Get.find<ItemController>()
+                                        .getStartingPrice(item!),
+                                    discount: discount,
+                                    discountType: discountType,
+                                  ),
+                                  style: robotoMedium.copyWith(
+                                    fontSize: Dimensions.fontSizeSmall,
+                                  ),
+                                  textDirection: TextDirection.ltr,
+                                ),
+                                if (discount != null && discount > 0) ...[
+                                  const SizedBox(
+                                      width: Dimensions.paddingSizeExtraSmall),
+                                  Text(
                                     PriceConverter.convertPrice(
                                       Get.find<ItemController>()
                                           .getStartingPrice(item!),
@@ -913,23 +901,9 @@ class BestReviewItemCard extends StatelessWidget {
                                       color: Theme.of(context).disabledColor,
                                       decoration: TextDecoration.lineThrough,
                                     ),
-                                  )
-                                : const SizedBox(),
-                            SizedBox(
-                                width: item!.discount! > 0
-                                    ? Dimensions.paddingSizeExtraSmall
-                                    : 0),
-                            Text(
-                              PriceConverter.convertPrice(
-                                Get.find<ItemController>()
-                                    .getStartingPrice(item!),
-                                discount: discount,
-                                discountType: discountType,
-                              ),
-                              style: robotoMedium.copyWith(
-                                fontSize: Dimensions.fontSizeSmall,
-                              ),
-                              textDirection: TextDirection.ltr,
+                                  ),
+                                ]
+                              ],
                             ),
                             CartCountView(
                               item: item!,

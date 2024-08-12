@@ -1275,5 +1275,16 @@
   "whats_your_location": "What's your location?",
   "we_need_your_location": "We need your location to show available store and items near you",
   "enter_location_manually": "Enter Location Manually",
-  "locate_me": "LOCATE ME"
+  "locate_me": "LOCATE ME",
+  "try_once_more": "Try once more",
+  "amazing_deal": "Amazing deal",
+  "top_rated_items": "Top Rated Items",
+  "top_stores_around": "Top Stores Around",
+  "promoted_shop": "Promoted Shop",
+  "something_you_adore": "Something You'll Adore",
+  "trending_items": "Trending Items",
+  "trending_products": "Trending Products",
+  "personalized_for_you": "Personalized for You",
+  "recently_added_on": "Recently added on",
+  "promoted_shops": "Promoted Shops"
 }

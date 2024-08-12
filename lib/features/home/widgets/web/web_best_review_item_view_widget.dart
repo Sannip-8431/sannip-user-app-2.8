@@ -78,9 +78,8 @@ class _WebBestReviewItemViewWidgetState
               padding: const EdgeInsets.symmetric(
                   vertical: Dimensions.paddingSizeSmall),
               child: TitleWidget(
-                title: isShop
-                    ? 'best_reviewed_products'.tr
-                    : 'best_reviewed_item'.tr,
+                title:
+                    isShop ? 'best_reviewed_products'.tr : 'top_rated_items'.tr,
                 onTap: () =>
                     Get.toNamed(RouteHelper.getPopularItemRoute(false, false)),
               ),

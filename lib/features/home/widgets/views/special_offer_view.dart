@@ -40,7 +40,7 @@ class SpecialOfferView extends StatelessWidget {
                             left: Dimensions.paddingSizeDefault,
                             right: Dimensions.paddingSizeDefault),
                         child: TitleWidget(
-                          title: 'special_offer'.tr,
+                          title: 'amazing_deal'.tr,
                           image: Images.discountOfferIcon,
                           onTap: () => Get.toNamed(
                               RouteHelper.getPopularItemRoute(false, true)),
@@ -105,8 +105,7 @@ class ItemShimmerView extends StatelessWidget {
                 left: Dimensions.paddingSizeDefault,
                 right: Dimensions.paddingSizeDefault),
             child: TitleWidget(
-              title:
-                  isPopularItem ? 'most_popular_items'.tr : 'special_offer'.tr,
+              title: isPopularItem ? 'trending_items'.tr : 'amazing_deal'.tr,
               image: isPopularItem
                   ? Images.mostPopularIcon
                   : Images.discountOfferIcon,

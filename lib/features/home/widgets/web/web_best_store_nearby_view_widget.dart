@@ -90,7 +90,7 @@ class _WebBestStoreNearbyViewWidgetState
                 padding: const EdgeInsets.symmetric(
                     vertical: Dimensions.paddingSizeSmall),
                 child: TitleWidget(
-                  title: 'featured_store'.tr,
+                  title: 'promoted_shop'.tr,
                   onTap: () =>
                       Get.toNamed(RouteHelper.getAllStoreRoute('featured')),
                 ),
@@ -169,7 +169,7 @@ class _WebBestStoreNearbyViewWidgetState
                                                     .paddingSizeExtremeLarge
                                                 : 0,
                                         left: 25),
-                                    child: Text('best_store_nearby'.tr,
+                                    child: Text('top_stores_around'.tr,
                                         style: robotoBold.copyWith(
                                             fontSize:
                                                 Dimensions.fontSizeLarge)),

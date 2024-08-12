@@ -51,7 +51,7 @@ class PopularStoreView extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, isPopular ? 2 : 15, 10, 10),
                   child: TitleWidget(
                     title: isFeatured
-                        ? 'featured_stores'.tr
+                        ? 'promoted_shops'.tr
                         : isPopular
                             ? Get.find<SplashController>()
                                     .configModel!
@@ -60,7 +60,7 @@ class PopularStoreView extends StatelessWidget {
                                     .showRestaurantText!
                                 ? 'popular_restaurants'.tr
                                 : 'popular_stores'.tr
-                            : '${'new_on'.tr} ${AppConstants.appName}',
+                            : '${'recently_added_on'.tr} ${AppConstants.appName}',
                     onTap: () =>
                         Get.toNamed(RouteHelper.getAllStoreRoute(isFeatured
                             ? 'featured'

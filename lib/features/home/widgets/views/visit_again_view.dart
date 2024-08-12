@@ -28,10 +28,10 @@ class _VisitAgainViewState extends State<VisitAgainView> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            widget.fromFood!
-                                ? "wanna_try_again".tr
-                                : "visit_again".tr,
+                        Text('try_once_more'.tr,
+                            // widget.fromFood!
+                            //     ? "wanna_try_again".tr
+                            //     : "visit_again".tr,
                             style: robotoBold.copyWith()),
                         // const SizedBox(height: Dimensions.paddingSizeSmall),
                         // Text(

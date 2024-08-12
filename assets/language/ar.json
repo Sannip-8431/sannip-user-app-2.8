@@ -1262,5 +1262,14 @@
   "whats_your_location": "ما موقعك؟",
   "we_need_your_location": "نحن بحاجة إلى موقعك لإظهار المتجر المتاح والعناصر القريبة منك",
   "enter_location_manually": "أدخل الموقع يدويا",
-  "locate_me": "حدد موقعي"
+  "locate_me": "حدد موقعي",
+  "try_once_more": "حاول مرة أخرى",
+  "amazing_deal": "صفقة مذهلة",
+  "top_rated_items": "العناصر الأعلى تقييمًا",
+  "top_stores_around": "أعلى المتاجر حولها",
+  "promoted_shop": "متجر مروج",
+  "something_you_adore": "شيء سوف تعشقه",
+  "trending_items": "العناصر الشائعة",
+  "trending_products": "المنتجات الرائجة",
+  "recently_added_on": "تمت إضافته مؤخرًا"
 }
