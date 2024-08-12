@@ -35,141 +35,119 @@ class _JustForYouGridViewState extends State<JustForYouGridView> {
           itemCampaignList.addAll(campaignController.itemCampaignList!);
         }
       }
-      var aspectRatio = ((Get.width / 2) / (Get.height / 2)) * 2.07;
 
       return campaignController.itemCampaignList != null
           ? itemCampaignList.isNotEmpty
               ? SizedBox(
                   height: 385,
                   width: MediaQuery.of(context).size.width,
-                  child: PageView.builder(
-                      controller: PageController(),
+                  child: GridView.builder(
+                      key: UniqueKey(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 1,
+                        crossAxisCount: 2,
+                      ),
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
                       itemCount: itemCampaignList.length,
-                      itemBuilder: ((context, index) {
-                        return GridView.builder(
-                            key: UniqueKey(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: aspectRatio,
-                              crossAxisCount: 2,
-                            ),
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: Dimensions.paddingSizeExtraSmall),
-                            itemCount: itemCampaignList.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                  width: Get.width * 0.5,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 3),
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context).cardColor,
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Colors.black12,
-                                            blurRadius: 5,
-                                            spreadRadius: 1)
-                                      ],
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .primaryColor
-                                              .withOpacity(0.1)),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(
-                                              Dimensions.radiusDefault))),
-                                  child: InkWell(
-                                    onTap: () => Get.find<ItemController>()
-                                        .navigateToItemPage(
-                                            itemCampaignList[index], context,
-                                            isCampaign: true),
+                      itemBuilder: (context, index) {
+                        return Container(
+                            width: Get.width * 0.5,
+                            margin: const EdgeInsets.symmetric(vertical: 3),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5,
+                                      spreadRadius: 1)
+                                ],
+                                border: Border.all(
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.1)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(Dimensions.radiusDefault))),
+                            child: InkWell(
+                              onTap: () => Get.find<ItemController>()
+                                  .navigateToItemPage(
+                                      itemCampaignList[index], context,
+                                      isCampaign: true),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(
+                                        Dimensions.paddingSizeSmall),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(
-                                              Dimensions.paddingSizeSmall),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  itemCampaignList[index]
-                                                          .name ??
-                                                      '',
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.center,
-                                                  style: robotoMedium.copyWith(
-                                                      fontSize: Dimensions
-                                                          .fontSizeLarge)),
-                                              Container(
-                                                constraints:
-                                                    const BoxConstraints(
-                                                        maxWidth: 150),
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: Dimensions
-                                                        .paddingSizeExtraSmall,
-                                                    vertical: 2),
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    begin:
-                                                        Alignment.centerRight,
-                                                    end: Alignment.centerLeft,
-                                                    colors: [
-                                                      Colors.transparent,
-                                                      Theme.of(context)
-                                                          .primaryColor
-                                                          .withOpacity(0.3)
-                                                    ],
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          Dimensions
-                                                              .radiusSmall),
-                                                ),
-                                                child: Text(
-                                                    itemCampaignList[index]
-                                                            .storeName ??
-                                                        '',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style:
-                                                        robotoRegular.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeSmall)),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: SizedBox(
-                                            width: Get.width,
-                                            // height: 100,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions.radiusDefault),
-                                              child: CustomImage(
-                                                image:
-                                                    '${itemCampaignList[index].imageFullUrl}',
-                                                fit: BoxFit.contain,
-                                              ),
+                                        Text(itemCampaignList[index].name ?? '',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                            style: robotoMedium.copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeLarge)),
+                                        Container(
+                                          constraints: const BoxConstraints(
+                                              maxWidth: 150),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: Dimensions
+                                                  .paddingSizeExtraSmall,
+                                              vertical: 2),
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.centerRight,
+                                              end: Alignment.centerLeft,
+                                              colors: [
+                                                Colors.transparent,
+                                                Theme.of(context)
+                                                    .primaryColor
+                                                    .withOpacity(0.3)
+                                              ],
                                             ),
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radiusSmall),
                                           ),
+                                          child: Text(
+                                              itemCampaignList[index]
+                                                      .storeName ??
+                                                  '',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: robotoRegular.copyWith(
+                                                  fontSize: Dimensions
+                                                      .fontSizeSmall)),
                                         ),
                                       ],
                                     ),
-                                  ));
-                            });
-                      })),
-                )
+                                  ),
+                                  Flexible(
+                                    child: SizedBox(
+                                      width: Get.width,
+                                      // height: 100,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.radiusDefault),
+                                        child: CustomImage(
+                                          image:
+                                              '${itemCampaignList[index].imageFullUrl}',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ));
+                      }))
               : const SizedBox.shrink()
           : const SizedBox();
     });

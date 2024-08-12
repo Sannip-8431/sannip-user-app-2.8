@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sannip/common/models/module_model.dart';
 import 'package:sannip/features/banner/controllers/banner_controller.dart';
 import 'package:sannip/features/brands/controllers/brands_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
@@ -25,6 +26,7 @@ import 'package:sannip/features/home/screens/modules/grocery_home_screen.dart';
 import 'package:sannip/features/home/screens/modules/pharmacy_home_screen.dart';
 import 'package:sannip/features/home/screens/modules/shop_home_screen.dart';
 import 'package:sannip/features/parcel/controllers/parcel_controller.dart';
+import 'package:sannip/features/store/screens/store_screen.dart';
 import 'package:sannip/helper/address_helper.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';
@@ -41,7 +43,6 @@ import 'package:sannip/features/home/screens/web_new_home_screen.dart';
 import 'package:sannip/features/home/widgets/filter_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sannip/features/home/widgets/module_view.dart';
 import 'package:sannip/features/parcel/screens/parcel_category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -126,6 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool _showAlert = true;
   String? _message;
+  bool onlyOnce = true;
 
   @override
   void initState() {
@@ -243,6 +245,19 @@ class _HomeScreenState extends State<HomeScreen> {
           splashController.module!.moduleType.toString() ==
               AppConstants.grocery;
 
+      ///REMOVE BELOW CODE ONCE MULTIPLE MODULES ARE ACTIVATED
+      ///COMMENT THiS FOR MULTIPLE MODULES
+      if (splashController.moduleList?.isNotEmpty ?? false) {
+        if (onlyOnce) {
+          onlyOnce = false;
+          for (ModuleModel k in splashController.moduleList ?? []) {
+            if (k.moduleName?.toLowerCase() == 'food') {
+              splashController.switchModule(0, true);
+            }
+          }
+        }
+      }
+
       return GetBuilder<HomeController>(builder: (homeController) {
         return Scaffold(
           appBar:
@@ -353,10 +368,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.transparent,
                                       // Theme.of(context).colorScheme.surface,
                                       child: Row(children: [
-                                        (splashController.module != null &&
+                                        ///UNCOMMENT THiS FOR MULTIPLE MODULES
+                                        /* (splashController.module != null &&
                                                 splashController
                                                         .configModel!.module ==
-                                                    null)
+                                                    null) */
+                                        ///This is set too false in order to set FOOD MODULE as default module
+                                        false
+                                            // ignore: dead_code
                                             ? InkWell(
                                                 onTap: () => splashController
                                                     .removeModule(),
@@ -721,7 +740,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ? 0
                                                           : 40),
                                                 ])
-                                          : ValueListenableBuilder(
+                                          :
+
+                                          ///UNCOMMENT THiS FOR MULTIPLE MODULES
+                                          /* ValueListenableBuilder(
                                               valueListenable:
                                                   _searchController,
                                               builder: (context, val, widgett) {
@@ -730,7 +752,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       splashController,
                                                   searchedText: val.text,
                                                 );
-                                              }),
+                                              }) */
+                                          const SizedBox(),
                                     )),
                                   ),
                                   !showMobileModule
