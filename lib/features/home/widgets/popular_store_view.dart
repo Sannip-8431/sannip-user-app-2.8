@@ -252,25 +252,31 @@ class PopularStoreView extends StatelessWidget {
                                                   ),
                                                   const SizedBox(height: 2),
                                                   Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Icon(Icons.location_pin,
                                                           size: 16,
                                                           color: Theme.of(
                                                                   context)
                                                               .primaryColor),
-                                                      Text(
-                                                        filteredList[index]
-                                                                .address ??
-                                                            '',
-                                                        style: robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .disabledColor),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
+                                                      SizedBox(
+                                                        width: Get.width * 0.7,
+                                                        child: Text(
+                                                          filteredList[index]
+                                                                  .address ??
+                                                              '',
+                                                          style: robotoMedium.copyWith(
+                                                              fontSize: Dimensions
+                                                                  .fontSizeExtraSmall,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .disabledColor),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
