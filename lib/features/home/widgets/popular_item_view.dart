@@ -39,7 +39,7 @@ class PopularItemView extends StatelessWidget {
                   child: TitleWidget(
                     title: isPopular
                         ? 'popular_items_nearby'.tr
-                        : 'best_reviewed_item'.tr,
+                        : 'top_rated_items'.tr,
                     onTap: () => Get.toNamed(
                         RouteHelper.getPopularItemRoute(isPopular, false)),
                   ),

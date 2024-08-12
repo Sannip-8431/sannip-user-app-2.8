@@ -1263,5 +1263,15 @@
   "whats_your_location": "আপনার অবস্থান কি?",
   "we_need_your_location": "আপনার কাছাকাছি উপলব্ধ স্টোর এবং আইটেমগুলি দেখানোর জন্য আমাদের আপনার অবস্থানের প্রয়োজন৷",
   "enter_location_manually": "ম্যানুয়ালি অবস্থান লিখুন",
-  "locate_me": "আমাকে সনাক্ত করুন"
+  "locate_me": "আমাকে সনাক্ত করুন",
+  "try_once_more": "আর একবার চেষ্টা করুন",
+  "amazing_deal": "আশ্চর্যজনক চুক্তি",
+  "top_rated_items": "শীর্ষ রেট আইটেম",
+  "top_stores_around": "চারপাশে শীর্ষ দোকান",
+  "promoted_shop": "প্রচারিত দোকান",
+  "something_you_adore": "এমন কিছু যা আপনি আদর করবেন",
+  "trending_items": "প্রবণতা আইটেম",
+  "trending_products": "প্রবণতা পণ্য",
+  "personalized_for_you": "আপনার জন্য ব্যক্তিগতকৃত",
+  "recently_added_on": "সম্প্রতি যোগ করা হয়েছে"
 }

@@ -37,7 +37,7 @@ class _BestReviewItemViewState extends State<BestReviewItemView> {
                 vertical: Dimensions.paddingSizeSmall,
                 horizontal: Dimensions.paddingSizeDefault),
             child: TitleWidget(
-              title: 'best_reviewed_item'.tr,
+              title: 'top_rated_items'.tr,
               onTap: () =>
                   Get.toNamed(RouteHelper.getPopularItemRoute(false, false)),
             ),

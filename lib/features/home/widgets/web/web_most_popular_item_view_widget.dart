@@ -92,8 +92,8 @@ class _WebMostPopularItemViewWidgetState
                             vertical: Dimensions.paddingSizeExtremeLarge),
                         child: TitleWidget(
                           title: isShop
-                              ? 'most_popular_products'.tr
-                              : 'most_popular_items'.tr,
+                              ? 'trending_products'.tr
+                              : 'trending_items'.tr,
                           image: Images.mostPopularIcon,
                           onTap: () => Get.toNamed(
                               RouteHelper.getPopularItemRoute(true, false)),

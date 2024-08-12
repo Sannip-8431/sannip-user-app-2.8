@@ -85,7 +85,7 @@ class _WebSpecialOfferViewState extends State<WebSpecialOfferView> {
                               horizontal: Dimensions.paddingSizeExtraLarge,
                               vertical: Dimensions.paddingSizeExtremeLarge),
                           child: TitleWidget(
-                            title: 'special_offer'.tr,
+                            title: 'amazing_deal'.tr,
                             image: Images.discountOfferIcon,
                             onTap: () => Get.toNamed(
                                 RouteHelper.getPopularItemRoute(false, true)),
@@ -176,9 +176,8 @@ class WebItemShimmerView extends StatelessWidget {
                     horizontal: Dimensions.paddingSizeExtraLarge,
                     vertical: Dimensions.paddingSizeExtremeLarge),
                 child: TitleWidget(
-                  title: isPopularItem
-                      ? 'most_popular_items'.tr
-                      : 'special_offer'.tr,
+                  title:
+                      isPopularItem ? 'trending_items'.tr : 'amazing_deal'.tr,
                   image: isPopularItem
                       ? Images.mostPopularIcon
                       : Images.discountOfferIcon,

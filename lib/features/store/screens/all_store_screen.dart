@@ -46,7 +46,7 @@ class _AllStoreScreenState extends State<AllStoreScreen> {
       return Scaffold(
         appBar: CustomAppBar(
           title: widget.isFeatured
-              ? 'featured_stores'.tr
+              ? 'promoted_shops'.tr
               : widget.isPopular
                   ? Get.find<SplashController>()
                           .configModel!
@@ -54,12 +54,12 @@ class _AllStoreScreenState extends State<AllStoreScreen> {
                           .module!
                           .showRestaurantText!
                       ? widget.isNearbyStore
-                          ? 'best_store_nearby'.tr
+                          ? 'top_stores_around'.tr
                           : 'popular_restaurants'.tr
                       : widget.isNearbyStore
-                          ? 'best_store_nearby'.tr
+                          ? 'top_stores_around'.tr
                           : 'popular_stores'.tr
-                  : '${'new_on'.tr} ${AppConstants.appName}',
+                  : '${'recently_added_on'.tr} ${AppConstants.appName}',
           type: widget.isFeatured ? null : storeController.type,
           onVegFilterTap: (String type) {
             if (widget.isPopular) {
@@ -96,7 +96,7 @@ class _AllStoreScreenState extends State<AllStoreScreen> {
                 children: [
                   WebScreenTitleWidget(
                     title: widget.isFeatured
-                        ? 'featured_stores'.tr
+                        ? 'promoted_shops'.tr
                         : widget.isPopular
                             ? Get.find<SplashController>()
                                     .configModel!
@@ -105,7 +105,7 @@ class _AllStoreScreenState extends State<AllStoreScreen> {
                                     .showRestaurantText!
                                 ? 'popular_restaurants'.tr
                                 : 'popular_stores'.tr
-                            : '${'new_on'.tr} ${AppConstants.appName}',
+                            : '${'recently_added_on'.tr} ${AppConstants.appName}',
                   ),
                   SizedBox(
                     width: Dimensions.webMaxWidth,

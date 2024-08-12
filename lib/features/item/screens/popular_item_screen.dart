@@ -52,11 +52,11 @@ class _PopularItemScreenState extends State<PopularItemScreen> {
           key: scaffoldKey,
           title: widget.isPopular
               ? isShop
-                  ? 'most_popular_products'.tr
-                  : 'most_popular_items'.tr
+                  ? 'trending_products'.tr
+                  : 'trending_items'.tr
               : widget.isSpecial
-                  ? 'special_offer'.tr
-                  : 'best_reviewed_item'.tr,
+                  ? 'amazing_deal'.tr
+                  : 'top_rated_items'.tr,
           showCart: true,
           type: widget.isPopular
               ? itemController.popularType
@@ -82,11 +82,11 @@ class _PopularItemScreenState extends State<PopularItemScreen> {
             WebScreenTitleWidget(
               title: widget.isPopular
                   ? isShop
-                      ? 'most_popular_products'.tr
-                      : 'most_popular_items'.tr
+                      ? 'trending_products'.tr
+                      : 'trending_items'.tr
                   : widget.isSpecial
-                      ? 'special_offer'.tr
-                      : 'best_reviewed_item'.tr,
+                      ? 'amazing_deal'.tr
+                      : 'top_rated_items'.tr,
             ),
             SizedBox(
               width: Dimensions.webMaxWidth,

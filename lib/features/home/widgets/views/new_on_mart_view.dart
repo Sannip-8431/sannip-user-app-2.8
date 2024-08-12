@@ -39,7 +39,8 @@ class NewOnMartView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: Dimensions.paddingSizeDefault),
                       child: TitleWidget(
-                        title: '${'new_on'.tr} ${AppConstants.appName}',
+                        title:
+                            '${'recently_added_on'.tr} ${AppConstants.appName}',
                         onTap: () =>
                             Get.toNamed(RouteHelper.getAllStoreRoute('latest')),
                       ),

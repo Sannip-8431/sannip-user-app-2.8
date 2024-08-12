@@ -1263,5 +1263,15 @@
   "whats_your_location": "¿Cuál es tu ubicación?",
   "we_need_your_location": "Necesitamos su ubicación para mostrar la tienda disponible y los artículos cerca de usted",
   "enter_location_manually": "Ingrese la ubicación manualmente",
-  "locate_me": "UBICARME"
+  "locate_me": "UBICARME",
+  "try_once_more": "Inténtalo una vez más",
+  "amazing_deal": "Oferta increíble",
+  "top_rated_items": "Artículos mejor valorados",
+  "top_stores_around": "Principales tiendas alrededor",
+  "promoted_shop": "Tienda promocionada",
+  "something_you_adore": "Algo que adorarás",
+  "trending_items": "Artículos de tendencia",
+  "trending_products": "Productos de tendencia",
+  "personalized_for_you": "Personalizado para ti",
+  "recently_added_on": "Agregado recientemente el"
 }

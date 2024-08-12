@@ -114,7 +114,7 @@ class CircleListViewShimmerView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
               horizontal: Dimensions.paddingSizeDefault),
           child: TitleWidget(
-            title: 'just_for_you'.tr,
+            title: 'personalized_for_you'.tr,
           ),
         ),
         Padding(
