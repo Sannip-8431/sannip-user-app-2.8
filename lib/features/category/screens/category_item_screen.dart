@@ -42,6 +42,17 @@ class CategoryItemScreenState extends State<CategoryItemScreen>
 
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
     Get.find<CategoryController>().getSubCategoryList(widget.categoryID);
+    Get.find<CategoryController>().getCategoryStoreList(
+      Get.find<CategoryController>().subCategoryIndex == 0
+          ? widget.categoryID
+          : Get.find<CategoryController>()
+              .subCategoryList![Get.find<CategoryController>().subCategoryIndex]
+              .id
+              .toString(),
+      1,
+      Get.find<CategoryController>().type,
+      false,
+    );
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
               scrollController.position.maxScrollExtent &&
