@@ -8,13 +8,17 @@ class CustomStepperWidget extends StatelessWidget {
   final bool haveRightBar;
   final String title;
   final bool rightActive;
+  final String? iconPath;
+  final double? iconSize;
   const CustomStepperWidget(
       {super.key,
       required this.title,
       required this.isActive,
       required this.haveLeftBar,
       required this.haveRightBar,
-      required this.rightActive});
+      required this.rightActive,
+      this.iconPath,
+      this.iconSize});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,16 @@ class CustomStepperWidget extends StatelessWidget {
                   ? Divider(color: color, thickness: 2)
                   : const SizedBox()),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: isActive ? 0 : 5),
-            child: Icon(isActive ? Icons.check_circle : Icons.blur_circular,
-                color: color, size: isActive ? 25 : 15),
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
+            child: iconPath != null
+                ? Image.asset(
+                    iconPath!,
+                    color: color,
+                    height: iconSize ?? 28,
+                    width: iconSize ?? 28,
+                  )
+                : Icon(isActive ? Icons.check_circle : Icons.blur_circular,
+                    color: color, size: isActive ? 25 : 15),
           ),
           Expanded(
               child: haveRightBar

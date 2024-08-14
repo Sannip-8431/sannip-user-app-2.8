@@ -109,7 +109,7 @@ class OrderTrackingScreenState extends State<OrderTrackingScreen> {
                             ),
                             zoom: 16),
                         minMaxZoomPreference: const MinMaxZoomPreference(0, 30),
-                        zoomControlsEnabled: true,
+                        zoomControlsEnabled: false,
                         markers: _markers,
                         onMapCreated: (GoogleMapController controller) {
                           _controller = controller;
@@ -154,17 +154,17 @@ class OrderTrackingScreenState extends State<OrderTrackingScreen> {
                           ? const Center(child: CircularProgressIndicator())
                           : const SizedBox(),
                       Positioned(
-                        top: Dimensions.paddingSizeSmall,
-                        left: Dimensions.paddingSizeSmall,
-                        right: Dimensions.paddingSizeSmall,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
                         child: TrackingStepperWidget(
                             status: track.orderStatus,
                             takeAway: track.orderType == 'take_away'),
                       ),
                       Positioned(
-                        bottom: Dimensions.paddingSizeSmall,
-                        left: Dimensions.paddingSizeSmall,
-                        right: Dimensions.paddingSizeSmall,
+                        top: 0,
+                        left: 0,
+                        right: 0,
                         child: TrackDetailsViewWidget(
                             status: track.orderStatus,
                             track: track,

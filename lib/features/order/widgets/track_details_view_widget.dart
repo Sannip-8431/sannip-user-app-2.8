@@ -57,7 +57,7 @@ class TrackDetailsViewWidget extends StatelessWidget {
             )
           : Column(children: [
               Text('trip_route'.tr, style: robotoMedium),
-              const SizedBox(height: Dimensions.paddingSizeLarge),
+              const SizedBox(height: 2),
               Row(children: [
                 Expanded(
                     flex: 3,
@@ -99,7 +99,7 @@ class TrackDetailsViewWidget extends StatelessWidget {
                               addressDetails: track.deliveryAddress),
                 ),
               ]),
-              const SizedBox(height: Dimensions.paddingSizeSmall),
+              const SizedBox(height: 1),
               takeAway
                   ? InkWell(
                       onTap: () async {

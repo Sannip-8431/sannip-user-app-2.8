@@ -26,7 +26,6 @@ import 'package:sannip/features/home/screens/modules/grocery_home_screen.dart';
 import 'package:sannip/features/home/screens/modules/pharmacy_home_screen.dart';
 import 'package:sannip/features/home/screens/modules/shop_home_screen.dart';
 import 'package:sannip/features/parcel/controllers/parcel_controller.dart';
-import 'package:sannip/features/store/screens/store_screen.dart';
 import 'package:sannip/helper/address_helper.dart';
 import 'package:sannip/helper/auth_helper.dart';
 import 'package:sannip/helper/responsive_helper.dart';

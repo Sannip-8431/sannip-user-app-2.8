@@ -389,4 +389,9 @@ class Images {
   static const String multiTaskIllustration =
       'assets/image/search_illustration.png';
   static const String locationImage = 'assets/image/location_image.png';
+  static const String deliveredIcon = 'assets/image/delivered.png';
+  static const String orderConfirmedIcon = 'assets/image/order_confirmed.png';
+  static const String orderPlacedIcon = 'assets/image/order_placed.png';
+  static const String preparingOrderIcon = 'assets/image/preparing_order.png';
+  static const String preparingFoodIcon = 'assets/image/preparing_food.png';
 }
