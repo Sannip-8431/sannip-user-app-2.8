@@ -23,7 +23,8 @@ class _VisitAgainViewState extends State<VisitAgainView> {
 
       return stores != null
           ? stores.isNotEmpty
-              ? Padding(
+              ? Container(
+                  color: Theme.of(context).disabledColor.withOpacity(0.1),
                   padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +43,8 @@ class _VisitAgainViewState extends State<VisitAgainView> {
                         // ),
                         // const SizedBox(height: Dimensions.paddingSizeSmall),
                         SizedBox(
-                          height: 230,
+                          height: 210,
+                          width: Get.width,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,

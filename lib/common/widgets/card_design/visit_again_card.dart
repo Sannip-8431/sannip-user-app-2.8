@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/favourite/controllers/favourite_controller.dart';
@@ -30,6 +31,9 @@ class VisitAgainCard extends StatelessWidget {
     bool isFood = Get.find<SplashController>().module != null &&
         Get.find<SplashController>().module!.moduleType.toString() ==
             AppConstants.food;
+    double distance = Get.find<StoreController>().getRestaurantDistance(
+      LatLng(double.parse(store.latitude!), double.parse(store.longitude!)),
+    );
 
     return ResponsiveHelper.isDesktop(context)
         ? Stack(children: [
@@ -231,16 +235,13 @@ class VisitAgainCard extends StatelessWidget {
             ),
           ])
         : Container(
-            width: 290,
+            width: 250,
             margin: const EdgeInsets.only(
                 top: Dimensions.paddingSizeLarge,
                 bottom: Dimensions.paddingSizeSmall),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
               color: Theme.of(context).cardColor,
-              border: Border.all(
-                  color: Theme.of(context).hintColor.withOpacity(0.5),
-                  width: 1),
             ),
             child: CustomInkWell(
               onTap: () {
@@ -339,7 +340,7 @@ class VisitAgainCard extends StatelessWidget {
                             Expanded(
                               flex: 4,
                               child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Icon(Icons.star,
                                         size: 15,
@@ -365,22 +366,11 @@ class VisitAgainCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Row(children: [
-                                Icon(Icons.location_on_outlined,
-                                    size: 18,
+                              child: Text(
+                                '${distance > 100 ? '100+' : distance.toStringAsFixed(2)} ${'km'.tr}',
+                                style: robotoRegular.copyWith(
                                     color: Theme.of(context).disabledColor),
-                                const SizedBox(
-                                    width: Dimensions.paddingSizeExtraSmall),
-                                Flexible(
-                                  child: Text(
-                                    store.address ?? '',
-                                    style: robotoRegular.copyWith(
-                                        color: Theme.of(context).disabledColor),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ]),
+                              ),
                             ),
                             Row(children: [
                               Icon(Icons.timer_outlined,
@@ -396,74 +386,21 @@ class VisitAgainCard extends StatelessWidget {
                             ]),
                           ],
                         ),
-                        const SizedBox(
-                            height: Dimensions.paddingSizeExtraSmall),
-                        store.items != null
-                            ? SizedBox(
-                                height: 25,
-                                // width: 250,
-                                child: ListView.builder(
-                                  itemCount: store.items!.length,
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          right:
-                                              Dimensions.paddingSizeExtraSmall),
-                                      child: Stack(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                (isPharmacy || isFood)
-                                                    ? 100
-                                                    : Dimensions.radiusSmall),
-                                            child: CustomImage(
-                                              image:
-                                                  '${store.items![index].imageFullUrl}',
-                                              fit: BoxFit.cover,
-                                              height: 25,
-                                              width: 25,
-                                            ),
-                                          ),
-                                          index == store.items!.length - 1
-                                              ? Positioned(
-                                                  top: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  bottom: 0,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .circular((isPharmacy ||
-                                                                  isFood)
-                                                              ? 100
-                                                              : Dimensions
-                                                                  .radiusSmall),
-                                                      color: Colors.black
-                                                          .withOpacity(0.5),
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
-                                                      (store.itemCount! > 20)
-                                                          ? '20+'
-                                                          : '${store.itemCount}',
-                                                      style: robotoMedium.copyWith(
-                                                          color: Colors.white,
-                                                          fontSize: Dimensions
-                                                              .fontSizeExtraSmall),
-                                                    )),
-                                                  ),
-                                                )
-                                              : const SizedBox(),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            : const SizedBox(),
+                        Row(children: [
+                          Icon(Icons.location_on_outlined,
+                              size: 18, color: Theme.of(context).disabledColor),
+                          const SizedBox(
+                              width: Dimensions.paddingSizeExtraSmall),
+                          Flexible(
+                            child: Text(
+                              store.address ?? '',
+                              style: robotoRegular.copyWith(
+                                  color: Theme.of(context).disabledColor),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ]),
                       ],
                     ),
                   ),

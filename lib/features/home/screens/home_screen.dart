@@ -440,9 +440,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Row(children: [
                                                       Flexible(
                                                         child: Text(
-                                                          AddressHelper
-                                                                  .getUserAddressFromSharedPref()!
-                                                              .address!,
+                                                          extractCityName(
+                                                              AddressHelper
+                                                                      .getUserAddressFromSharedPref()!
+                                                                  .address!),
                                                           style: robotoRegular.copyWith(
                                                               color: Theme.of(
                                                                       context)
@@ -839,6 +840,11 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       });
     });
+  }
+
+  String extractCityName(String address) {
+    // Split the string by commas and return
+    return address.split(',')[2].trim();
   }
 }
 
