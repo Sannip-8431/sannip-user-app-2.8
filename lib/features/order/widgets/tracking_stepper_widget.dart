@@ -81,7 +81,7 @@ class TrackingStepperWidget extends StatelessWidget {
               iconPath: takeAway
                   ? Images.checkoutTakeAwayIcon
                   : Images.checkoutDeliveryIcon,
-              iconSize: 23,
+              iconSize: takeAway ? 23 : 28,
             ),
             CustomStepperWidget(
               title: 'delivered'.tr,
