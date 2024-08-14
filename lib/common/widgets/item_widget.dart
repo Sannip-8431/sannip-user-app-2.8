@@ -823,9 +823,9 @@ class ListViewItemWidget extends StatelessWidget {
                             height: Dimensions.paddingSizeExtraSmall),
 
                         /// Restaurant name
-                        /*(isStore
+                        (isStore
                                 ? store!.address != null
-                                : item!.storeName != null)
+                                : !inStore && item!.storeName != null)
                             ? Container(
                                 decoration: BoxDecoration(
                                     color: Theme.of(context)
@@ -834,7 +834,8 @@ class ListViewItemWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.radiusSmall)),
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: Dimensions.paddingSizeExtraSmall),
+                                    horizontal:
+                                        Dimensions.paddingSizeExtraSmall),
                                 child: Text(
                                   isStore
                                       ? store!.address ?? ''
@@ -847,8 +848,12 @@ class ListViewItemWidget extends StatelessWidget {
                                 ),
                               )
                             : const SizedBox(),
-                        const SizedBox(
-                            height: Dimensions.paddingSizeExtraSmall),*/
+                        SizedBox(
+                            height: (isStore
+                                    ? store!.address != null
+                                    : !inStore && item!.storeName != null)
+                                ? Dimensions.paddingSizeExtraSmall
+                                : 0),
                         // Rating and reviews
                         !isStore
                             ? Row(children: [
