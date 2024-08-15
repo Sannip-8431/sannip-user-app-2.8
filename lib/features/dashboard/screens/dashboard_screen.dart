@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:sannip/common/models/module_model.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';
@@ -56,6 +57,7 @@ class DashboardScreenState extends State<DashboardScreen> {
 
   late bool _isLogin;
   bool active = false;
+  bool onlyOnce = true;
 
   @override
   void initState() {
@@ -148,6 +150,18 @@ class DashboardScreenState extends State<DashboardScreen> {
     final Size size = MediaQuery.of(context).size;
     bool keyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     return GetBuilder<SplashController>(builder: (splashController) {
+      ///REMOVE BELOW CODE ONCE MULTIPLE MODULES ARE ACTIVATED
+      ///COMMENT THiS FOR MULTIPLE MODULES
+      if (splashController.moduleList?.isNotEmpty ?? false) {
+        if (onlyOnce) {
+          onlyOnce = false;
+          for (ModuleModel k in splashController.moduleList ?? []) {
+            if (k.moduleName?.toLowerCase() == 'food') {
+              splashController.switchModule(0, true);
+            }
+          }
+        }
+      }
       return PopScope(
         canPop: false,
         onPopInvoked: (value) async {

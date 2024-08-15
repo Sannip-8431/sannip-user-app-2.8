@@ -261,7 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar:
               ResponsiveHelper.isDesktop(context) ? const WebMenuBar() : null,
-          endDrawer: const MenuDrawer(),
+          endDrawer:
+              ResponsiveHelper.isDesktop(context) ? const MenuDrawer() : null,
           endDrawerEnableOpenDragGesture: false,
           backgroundColor: Theme.of(context).colorScheme.surface,
           body: isParcel
