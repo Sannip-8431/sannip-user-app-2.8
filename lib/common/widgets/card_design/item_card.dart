@@ -1131,7 +1131,28 @@ class MostPopularItemCard extends StatelessWidget {
                                         : const SizedBox(),
                                   ]),
                               isShop
-                                  ? const SizedBox()
+                                  ? CartCountView(
+                                      item: item,
+                                      child: Container(
+                                        height: 35,
+                                        width: 38,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                                Dimensions.radiusDefault),
+                                            bottomRight: Radius.circular(
+                                                Dimensions.radiusDefault),
+                                          ),
+                                        ),
+                                        child: Icon(
+                                            isPopularItemCart
+                                                ? Icons.add_shopping_cart
+                                                : Icons.add,
+                                            color: Theme.of(context).cardColor,
+                                            size: 20),
+                                      ),
+                                    )
                                   : Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -1215,34 +1236,6 @@ class MostPopularItemCard extends StatelessWidget {
                               // const SizedBox(
                               //     height: Dimensions.paddingSizeExtraSmall),
                             ]),
-                        isShop
-                            ? Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: CartCountView(
-                                  item: item,
-                                  child: Container(
-                                    height: 35,
-                                    width: 38,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(
-                                            Dimensions.radiusLarge),
-                                        bottomRight: Radius.circular(
-                                            Dimensions.radiusLarge),
-                                      ),
-                                    ),
-                                    child: Icon(
-                                        isPopularItemCart
-                                            ? Icons.add_shopping_cart
-                                            : Icons.add,
-                                        color: Theme.of(context).cardColor,
-                                        size: 20),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
                       ],
                     )
                   ]),

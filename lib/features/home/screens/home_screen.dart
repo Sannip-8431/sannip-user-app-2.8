@@ -715,7 +715,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               items: null,
                                                               isFoodOrGrocery:
                                                                   (isFood ||
-                                                                      isGrocery),
+                                                                      isGrocery ||
+                                                                      isShop),
                                                               stores:
                                                                   storeController
                                                                       .storeModel
