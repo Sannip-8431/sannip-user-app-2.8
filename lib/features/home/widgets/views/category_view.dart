@@ -63,134 +63,84 @@ class CategoryView extends StatelessWidget {
                                                       .getCategoryRoute()),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: Dimensions
-                                                    .paddingSizeLarge),
-                                            child: GridView.builder(
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                mainAxisSpacing:
-                                                    Dimensions.paddingSizeSmall,
-                                                crossAxisSpacing:
-                                                    Dimensions.paddingSizeSmall,
-                                                childAspectRatio: (1 / 1),
-                                              ),
-                                              padding: const EdgeInsets.all(
-                                                  Dimensions.paddingSizeSmall),
-                                              itemCount: categoryController
-                                                  .categoryList!.length,
-                                              shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                return Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      bottom: Dimensions
-                                                          .paddingSizeDefault,
-                                                      right: Dimensions
-                                                          .paddingSizeSmall,
-                                                      top: Dimensions
-                                                          .paddingSizeExtraSmall),
-                                                  child: InkWell(
-                                                    onTap: () => Get.toNamed(
-                                                        RouteHelper
-                                                            .getCategoryItemRoute(
-                                                      categoryController
-                                                          .categoryList![index]
-                                                          .id,
-                                                      categoryController
-                                                          .categoryList![index]
-                                                          .name!,
-                                                    )),
-                                                    child: SizedBox(
-                                                      height: 120,
-                                                      child: Stack(
-                                                        alignment:
-                                                            AlignmentDirectional
-                                                                .topCenter,
-                                                        clipBehavior: Clip.none,
-                                                        children: [
-                                                          Container(
-                                                            height: 80,
-                                                            width: 100,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      Dimensions
-                                                                          .radiusDefault),
-                                                              color: Colors.blue
-                                                                  .withOpacity(
-                                                                      0.2),
-                                                            ),
-                                                            child: Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  right: index ==
-                                                                          0
-                                                                      ? Dimensions
-                                                                          .paddingSizeExtraSmall
-                                                                      : 0,
-                                                                  bottom: Dimensions
-                                                                      .paddingSizeExtraSmall),
-                                                              child: Align(
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child: Text(
-                                                                  categoryController
-                                                                      .categoryList![
-                                                                          index]
-                                                                      .name!,
-                                                                  style: robotoMedium
-                                                                      .copyWith(
-                                                                          fontSize:
-                                                                              11),
-                                                                  maxLines:
-                                                                      Get.find<LocalizationController>()
-                                                                              .isLtr
-                                                                          ? 2
-                                                                          : 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ),
-                                                            ),
+                                          GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing:
+                                                  Dimensions.paddingSizeSmall,
+                                              crossAxisSpacing:
+                                                  Dimensions.paddingSizeSmall,
+                                              childAspectRatio: (0.85),
+                                            ),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: Dimensions
+                                                    .paddingSizeSmall),
+                                            itemCount: categoryController
+                                                .categoryList!.length,
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: Dimensions
+                                                        .paddingSizeDefault,
+                                                    right: Dimensions
+                                                        .paddingSizeSmall,
+                                                    top: Dimensions
+                                                        .paddingSizeExtraSmall),
+                                                child: InkWell(
+                                                  onTap: () => Get.toNamed(
+                                                      RouteHelper
+                                                          .getCategoryItemRoute(
+                                                    categoryController
+                                                        .categoryList![index]
+                                                        .id,
+                                                    categoryController
+                                                        .categoryList![index]
+                                                        .name!,
+                                                  )),
+                                                  child: Card(
+                                                    elevation: 2,
+                                                    margin: EdgeInsets.zero,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets
+                                                              .all(Dimensions
+                                                                  .paddingSizeExtraSmall),
+                                                          child: Text(
+                                                            categoryController
+                                                                .categoryList![
+                                                                    index]
+                                                                .name!,
+                                                            style: robotoBold,
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           ),
-                                                          Positioned(
-                                                            bottom: 60,
-                                                            child: SizedBox(
-                                                              height: 75,
-                                                              width: 75,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        Dimensions
-                                                                            .radiusSmall),
-                                                                child:
-                                                                    CustomImage(
-                                                                  image:
-                                                                      '${categoryController.categoryList![index].imageFullUrl}',
-                                                                  height: 75,
-                                                                  width: 75,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                        CustomImage(
+                                                          image:
+                                                              '${categoryController.categoryList![index].imageFullUrl}',
+                                                          height: 85,
+                                                          width:
+                                                              double.infinity,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                );
-                                              },
-                                            ),
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ],
                                       )
@@ -910,82 +860,66 @@ class CategoryShimmer extends StatelessWidget {
                 ),
               )
             : const SizedBox(),
-        Padding(
-          padding: const EdgeInsets.only(top: Dimensions.paddingSizeLarge),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: Dimensions.paddingSizeSmall,
-              crossAxisSpacing: Dimensions.paddingSizeSmall,
-              childAspectRatio: (1 / 1),
-            ),
-            padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-            itemCount: 9,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                    bottom: Dimensions.paddingSizeDefault,
-                    right: Dimensions.paddingSizeSmall,
-                    top: Dimensions.paddingSizeExtraSmall),
-                child: Shimmer(
-                  duration: const Duration(seconds: 2),
-                  enabled: true,
-                  child: SizedBox(
-                    height: 120,
-                    child: Stack(
-                      alignment: AlignmentDirectional.topCenter,
-                      clipBehavior: Clip.none,
+        GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: Dimensions.paddingSizeSmall,
+            crossAxisSpacing: Dimensions.paddingSizeSmall,
+            childAspectRatio: (0.85),
+          ),
+          padding: const EdgeInsets.symmetric(
+              horizontal: Dimensions.paddingSizeSmall),
+          itemCount: 9,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  bottom: Dimensions.paddingSizeDefault,
+                  right: Dimensions.paddingSizeSmall,
+                  top: Dimensions.paddingSizeExtraSmall),
+              child: Shimmer(
+                duration: const Duration(seconds: 2),
+                enabled: true,
+                child: SizedBox(
+                  height: 120,
+                  child: Card(
+                    elevation: 2,
+                    margin: EdgeInsets.zero,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 80,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusDefault),
-                            color: Colors.grey[300]?.withOpacity(0.3),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: index == 0
-                                    ? Dimensions.paddingSizeExtraSmall
-                                    : 0,
-                                bottom: Dimensions.paddingSizeExtraSmall),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 10,
-                                width: 50,
-                                color: Colors.grey[300],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 60,
+                        Padding(
+                          padding: const EdgeInsets.all(
+                              Dimensions.paddingSizeExtraSmall),
                           child: Container(
-                              height: 75,
-                              width: 75,
-                              margin: EdgeInsets.only(
-                                left: index == 0
-                                    ? 0
-                                    : Dimensions.paddingSizeExtraSmall,
-                                right: Dimensions.paddingSizeExtraSmall,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall),
-                                color: Colors.grey[300],
-                              )),
+                            height: 10,
+                            width: 70,
+                            color: Colors.grey[300],
+                          ),
                         ),
+                        Container(
+                            height: 85,
+                            width: double.infinity,
+                            margin: EdgeInsets.only(
+                              left: index == 0
+                                  ? 0
+                                  : Dimensions.paddingSizeExtraSmall,
+                              right: Dimensions.paddingSizeExtraSmall,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radiusSmall),
+                              color: Colors.grey[300],
+                            )),
                       ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ],
     );

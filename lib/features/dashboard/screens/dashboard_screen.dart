@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:sannip/common/models/module_model.dart';
 import 'package:sannip/common/widgets/custom_snackbar.dart';
 import 'package:sannip/features/cart/controllers/cart_controller.dart';
 import 'package:sannip/features/coupon/controllers/coupon_controller.dart';

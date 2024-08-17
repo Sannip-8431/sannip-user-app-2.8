@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:sannip/common/models/module_model.dart';
 import 'package:sannip/features/banner/controllers/banner_controller.dart';
 import 'package:sannip/features/brands/controllers/brands_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
@@ -443,10 +442,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Row(children: [
                                                       Flexible(
                                                         child: Text(
-                                                          extractCityName(
-                                                              AddressHelper
-                                                                      .getUserAddressFromSharedPref()!
-                                                                  .address!),
+                                                          AddressHelper
+                                                                  .getUserAddressFromSharedPref()!
+                                                              .address!,
                                                           style: robotoRegular.copyWith(
                                                               color: Theme.of(
                                                                       context)
