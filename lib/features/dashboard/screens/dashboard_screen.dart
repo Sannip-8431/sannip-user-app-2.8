@@ -152,7 +152,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     return GetBuilder<SplashController>(builder: (splashController) {
       ///REMOVE BELOW CODE ONCE MULTIPLE MODULES ARE ACTIVATED
       ///COMMENT THiS FOR MULTIPLE MODULES
-      if (splashController.moduleList?.isNotEmpty ?? false) {
+      /*if (splashController.moduleList?.isNotEmpty ?? false) {
         if (onlyOnce) {
           onlyOnce = false;
           for (ModuleModel k in splashController.moduleList ?? []) {
@@ -161,7 +161,7 @@ class DashboardScreenState extends State<DashboardScreen> {
             }
           }
         }
-      }
+      }*/
       return PopScope(
         canPop: false,
         onPopInvoked: (value) async {

@@ -6,6 +6,7 @@ import 'package:sannip/features/brands/controllers/brands_controller.dart';
 import 'package:sannip/features/home/controllers/home_controller.dart';
 import 'package:sannip/features/home/widgets/cashback_logo_widget.dart';
 import 'package:sannip/features/home/widgets/cashback_dialog_widget.dart';
+import 'package:sannip/features/home/widgets/module_view.dart';
 import 'package:sannip/features/home/widgets/refer_bottom_sheet_widget.dart';
 import 'package:sannip/features/item/controllers/campaign_controller.dart';
 import 'package:sannip/features/category/controllers/category_controller.dart';
@@ -246,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ///REMOVE BELOW CODE ONCE MULTIPLE MODULES ARE ACTIVATED
       ///COMMENT THiS FOR MULTIPLE MODULES
-      if (splashController.moduleList?.isNotEmpty ?? false) {
+      /*if (splashController.moduleList?.isNotEmpty ?? false) {
         if (onlyOnce) {
           onlyOnce = false;
           for (ModuleModel k in splashController.moduleList ?? []) {
@@ -255,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           }
         }
-      }
+      }*/
 
       return GetBuilder<HomeController>(builder: (homeController) {
         return Scaffold(
@@ -369,12 +370,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       // Theme.of(context).colorScheme.surface,
                                       child: Row(children: [
                                         ///UNCOMMENT THiS FOR MULTIPLE MODULES
-                                        /* (splashController.module != null &&
+                                        (splashController.module != null &&
                                                 splashController
                                                         .configModel!.module ==
-                                                    null) */
-                                        ///This is set too false in order to set FOOD MODULE as default module
-                                        false
+                                                    null)
+
+                                            ///This is set too false in order to set FOOD MODULE as default module
+                                            /*false*/
                                             // ignore: dead_code
                                             ? InkWell(
                                                 onTap: () => splashController
@@ -637,125 +639,132 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SliverToBoxAdapter(
                                     child: Center(
                                         child: SizedBox(
-                                      width: Dimensions.webMaxWidth,
-                                      child: !showMobileModule
-                                          ? Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                  isGrocery
-                                                      ? const GroceryHomeScreen()
-                                                      : isPharmacy
-                                                          ? const PharmacyHomeScreen()
-                                                          : isFood
-                                                              ? const FoodHomeScreen()
-                                                              : isShop
-                                                                  ? const ShopHomeScreen()
-                                                                  : const SizedBox(),
-                                                  Padding(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        Get.find<LocalizationController>()
-                                                                .isLtr
-                                                            ? 10
-                                                            : 0,
-                                                        15,
-                                                        0,
-                                                        5),
-                                                    child: GetBuilder<
-                                                            StoreController>(
-                                                        builder:
-                                                            (storeController) {
-                                                      return Row(children: [
-                                                        Expanded(
-                                                            child: Padding(
-                                                          padding: EdgeInsets.only(
-                                                              right: Get.find<
-                                                                          LocalizationController>()
-                                                                      .isLtr
-                                                                  ? 0
-                                                                  : 10),
-                                                          child: Text(
-                                                            '${storeController.storeModel?.totalSize ?? 0} ${Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText! ? 'restaurants'.tr : 'stores'.tr}',
-                                                            style: robotoMedium
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        Dimensions
-                                                                            .fontSizeLarge),
-                                                          ),
-                                                        )),
-                                                        FilterView(
-                                                            storeController:
-                                                                storeController),
-                                                      ]);
-                                                    }),
-                                                  ),
-                                                  GetBuilder<StoreController>(
-                                                      builder:
-                                                          (storeController) {
-                                                    return PaginatedListView(
-                                                      scrollController:
-                                                          _scrollController,
-                                                      totalSize: storeController
-                                                          .storeModel
-                                                          ?.totalSize,
-                                                      offset: storeController
-                                                          .storeModel?.offset,
-                                                      onPaginate: (int?
-                                                              offset) async =>
-                                                          await storeController
-                                                              .getStoreList(
-                                                                  offset!,
-                                                                  false),
-                                                      itemView: ItemsView(
-                                                        isStore: true,
-                                                        items: null,
-                                                        isFoodOrGrocery:
-                                                            (isFood ||
-                                                                isGrocery),
-                                                        stores: storeController
-                                                            .storeModel?.stores,
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal: ResponsiveHelper
-                                                                  .isDesktop(
-                                                                      context)
-                                                              ? Dimensions
-                                                                  .paddingSizeExtraSmall
-                                                              : Dimensions
-                                                                  .paddingSizeSmall,
-                                                          vertical: ResponsiveHelper
-                                                                  .isDesktop(
-                                                                      context)
-                                                              ? Dimensions
-                                                                  .paddingSizeExtraSmall
-                                                              : Dimensions
-                                                                  .paddingSizeDefault,
+                                            width: Dimensions.webMaxWidth,
+                                            child: !showMobileModule
+                                                ? Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                        isGrocery
+                                                            ? const GroceryHomeScreen()
+                                                            : isPharmacy
+                                                                ? const PharmacyHomeScreen()
+                                                                : isFood
+                                                                    ? const FoodHomeScreen()
+                                                                    : isShop
+                                                                        ? const ShopHomeScreen()
+                                                                        : const SizedBox(),
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .fromLTRB(
+                                                                  Get.find<LocalizationController>()
+                                                                          .isLtr
+                                                                      ? 10
+                                                                      : 0,
+                                                                  15,
+                                                                  0,
+                                                                  5),
+                                                          child: GetBuilder<
+                                                                  StoreController>(
+                                                              builder:
+                                                                  (storeController) {
+                                                            return Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                      child:
+                                                                          Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        right: Get.find<LocalizationController>().isLtr
+                                                                            ? 0
+                                                                            : 10),
+                                                                    child: Text(
+                                                                      '${storeController.storeModel?.totalSize ?? 0} ${Get.find<SplashController>().configModel!.moduleConfig!.module!.showRestaurantText! ? 'restaurants'.tr : 'stores'.tr}',
+                                                                      style: robotoMedium.copyWith(
+                                                                          fontSize:
+                                                                              Dimensions.fontSizeLarge),
+                                                                    ),
+                                                                  )),
+                                                                  FilterView(
+                                                                      storeController:
+                                                                          storeController),
+                                                                ]);
+                                                          }),
                                                         ),
-                                                      ),
-                                                    );
-                                                  }),
-                                                  SizedBox(
-                                                      height: ResponsiveHelper
-                                                              .isDesktop(
-                                                                  context)
-                                                          ? 0
-                                                          : 40),
-                                                ])
-                                          :
+                                                        GetBuilder<
+                                                                StoreController>(
+                                                            builder:
+                                                                (storeController) {
+                                                          return PaginatedListView(
+                                                            scrollController:
+                                                                _scrollController,
+                                                            totalSize:
+                                                                storeController
+                                                                    .storeModel
+                                                                    ?.totalSize,
+                                                            offset:
+                                                                storeController
+                                                                    .storeModel
+                                                                    ?.offset,
+                                                            onPaginate: (int?
+                                                                    offset) async =>
+                                                                await storeController
+                                                                    .getStoreList(
+                                                                        offset!,
+                                                                        false),
+                                                            itemView: ItemsView(
+                                                              isStore: true,
+                                                              items: null,
+                                                              isFoodOrGrocery:
+                                                                  (isFood ||
+                                                                      isGrocery),
+                                                              stores:
+                                                                  storeController
+                                                                      .storeModel
+                                                                      ?.stores,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                horizontal: ResponsiveHelper
+                                                                        .isDesktop(
+                                                                            context)
+                                                                    ? Dimensions
+                                                                        .paddingSizeExtraSmall
+                                                                    : Dimensions
+                                                                        .paddingSizeSmall,
+                                                                vertical: ResponsiveHelper
+                                                                        .isDesktop(
+                                                                            context)
+                                                                    ? Dimensions
+                                                                        .paddingSizeExtraSmall
+                                                                    : Dimensions
+                                                                        .paddingSizeDefault,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                        SizedBox(
+                                                            height: ResponsiveHelper
+                                                                    .isDesktop(
+                                                                        context)
+                                                                ? 0
+                                                                : 40),
+                                                      ])
+                                                :
 
-                                          ///UNCOMMENT THiS FOR MULTIPLE MODULES
-                                          /* ValueListenableBuilder(
-                                              valueListenable:
-                                                  _searchController,
-                                              builder: (context, val, widgett) {
-                                                return ModuleView(
-                                                  splashController:
-                                                      splashController,
-                                                  searchedText: val.text,
-                                                );
-                                              }) */
-                                          const SizedBox(),
-                                    )),
+                                                ///UNCOMMENT THiS FOR MULTIPLE MODULES
+                                                ValueListenableBuilder(
+                                                    valueListenable:
+                                                        _searchController,
+                                                    builder: (context, val,
+                                                        widgett) {
+                                                      return ModuleView(
+                                                        splashController:
+                                                            splashController,
+                                                        searchedText: val.text,
+                                                      );
+                                                    })
+                                            // const SizedBox(),
+                                            )),
                                   ),
                                   !showMobileModule
                                       ? SliverToBoxAdapter(
