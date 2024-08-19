@@ -48,40 +48,67 @@ class MostPopularItemView extends StatelessWidget {
                               RouteHelper.getPopularItemRoute(true, false)),
                         ),
                       ),
-                      SizedBox(
-                        height: 530,
-                        width: Get.width,
-                        child: GridView.builder(
-                          key: UniqueKey(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisSpacing: 0,
-                            mainAxisSpacing: 0,
-                            childAspectRatio: 1.5,
-                            crossAxisCount: 2,
-                          ),
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.only(
-                              left: Dimensions.paddingSizeDefault),
-                          itemCount: itemList.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: Dimensions.paddingSizeDefault,
-                                  right: Dimensions.paddingSizeDefault,
-                                  top: Dimensions.paddingSizeDefault),
-                              child: MostPopularItemCard(
-                                isPopularItem: isShop ? false : true,
-                                isPopularItemCart: true,
-                                item: itemList[index],
-                                isShop: isShop,
-                                isFood: isFood,
+                      isShop
+                          ? SizedBox(
+                              height: 260,
+                              width: Get.width,
+                              child: ListView.builder(
+                                key: UniqueKey(),
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.only(
+                                    left: Dimensions.paddingSizeDefault),
+                                itemCount: itemList.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: Dimensions.paddingSizeDefault,
+                                        right: Dimensions.paddingSizeDefault,
+                                        top: Dimensions.paddingSizeDefault),
+                                    child: MostPopularItemCard(
+                                      isPopularItem: isShop ? false : true,
+                                      isPopularItemCart: true,
+                                      item: itemList[index],
+                                      isShop: isShop,
+                                      isFood: isFood,
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
+                          : SizedBox(
+                              height: 530,
+                              width: Get.width,
+                              child: GridView.builder(
+                                key: UniqueKey(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 0,
+                                  childAspectRatio: 1.5,
+                                  crossAxisCount: 2,
+                                ),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.only(
+                                    left: Dimensions.paddingSizeDefault),
+                                itemCount: itemList.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: Dimensions.paddingSizeDefault,
+                                        right: Dimensions.paddingSizeDefault,
+                                        top: Dimensions.paddingSizeDefault),
+                                    child: MostPopularItemCard(
+                                      isPopularItem: isShop ? false : true,
+                                      isPopularItemCart: true,
+                                      item: itemList[index],
+                                      isShop: isShop,
+                                      isFood: isFood,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                     ]),
                   )
                 : const SizedBox()

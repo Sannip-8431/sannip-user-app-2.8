@@ -1000,7 +1000,7 @@ class MostPopularItemCard extends StatelessWidget {
                 ]),
               ),
               Expanded(
-                flex: 5,
+                flex: 6,
                 child: Padding(
                   padding: EdgeInsets.only(
                       left: Dimensions.paddingSizeSmall,
@@ -1130,109 +1130,81 @@ class MostPopularItemCard extends StatelessWidget {
                                           )
                                         : const SizedBox(),
                                   ]),
-                              isShop
-                                  ? CartCountView(
+                              Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const SizedBox(),
+                                    CartCountView(
                                       item: item,
-                                      child: Container(
-                                        height: 35,
-                                        width: 38,
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                Dimensions.radiusDefault),
-                                            bottomRight: Radius.circular(
-                                                Dimensions.radiusDefault),
-                                          ),
-                                        ),
-                                        child: Icon(
-                                            isPopularItemCart
-                                                ? Icons.add_shopping_cart
-                                                : Icons.add,
-                                            color: Theme.of(context).cardColor,
-                                            size: 20),
-                                      ),
-                                    )
-                                  : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                          const SizedBox(),
-                                          CartCountView(
-                                            item: item,
-                                            child: Stack(
-                                              clipBehavior: Clip.none,
-                                              children: [
-                                                Container(
-                                                  width: 80,
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            Dimensions
-                                                                .radiusSmall),
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    border: Border.all(
-                                                        color: Theme.of(context)
-                                                            .primaryColor),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                          color: Colors.black12,
-                                                          blurRadius: 5,
-                                                          spreadRadius: 1)
-                                                    ],
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: Dimensions
-                                                        .paddingSizeExtraSmall,
-                                                  ),
-                                                  child: Text(
-                                                    'add'.tr,
-                                                    style:
-                                                        robotoMedium.copyWith(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                                item.choiceOptions
-                                                            ?.isNotEmpty ??
-                                                        false
-                                                    ? Positioned(
-                                                        left: 15,
-                                                        right: 15,
-                                                        bottom: -6,
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 02,
-                                                                  horizontal:
-                                                                      1),
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cardColor,
-                                                          child: Text(
-                                                            '${item.choiceOptions?.length} ${((item.choiceOptions!.length > 1) ? "options" : "option")}',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: robotoMedium
-                                                                .copyWith(
-                                                              fontSize: 8,
-                                                              height: 1.2,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : const SizedBox(),
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Dimensions.radiusSmall),
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              border: Border.all(
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    color: Colors.black12,
+                                                    blurRadius: 5,
+                                                    spreadRadius: 1)
                                               ],
                                             ),
-                                          )
-                                        ]),
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: Dimensions
+                                                  .paddingSizeExtraSmall,
+                                            ),
+                                            child: Text(
+                                              'add'.tr,
+                                              style: robotoMedium.copyWith(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          item.choiceOptions?.isNotEmpty ??
+                                                  false
+                                              ? Positioned(
+                                                  left: 15,
+                                                  right: 15,
+                                                  bottom: -6,
+                                                  child: Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 02,
+                                                        horizontal: 1),
+                                                    color: Theme.of(context)
+                                                        .cardColor,
+                                                    child: Text(
+                                                      '${item.choiceOptions?.length} ${((item.choiceOptions!.length > 1) ? "options" : "option")}',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:
+                                                          robotoMedium.copyWith(
+                                                        fontSize: 8,
+                                                        height: 1.2,
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                  ]),
                               // const SizedBox(
                               //     height: Dimensions.paddingSizeExtraSmall),
                             ]),
