@@ -23,22 +23,11 @@ class RunningOrderViewWidget extends StatefulWidget {
 
 class _RunningOrderViewWidgetState extends State<RunningOrderViewWidget> {
   bool isExpanded = false;
-  // List<OrderModel> reversOrder = [];
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   reversOrder.add(OrderModel(id: -1));
-  //   reversOrder.addAll(widget.reversOrder);
-  // }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OrderController>(builder: (orderController) {
       return Container(
-        // constraints: BoxConstraints(maxHeight: Get.height * .6),
-        // height: (reversOrder.length - 1) * 75,
-        // width: Get.width,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(Dimensions.paddingSizeExtraLarge),
