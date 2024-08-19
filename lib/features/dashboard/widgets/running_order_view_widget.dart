@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sannip/common/widgets/custom_asset_image_widget.dart';
+import 'package:sannip/common/widgets/custom_ink_well.dart';
 import 'package:sannip/features/order/controllers/order_controller.dart';
 import 'package:sannip/features/order/domain/models/order_model.dart';
 import 'package:sannip/helper/route_helper.dart';
@@ -21,52 +23,69 @@ class RunningOrderViewWidget extends StatefulWidget {
 
 class _RunningOrderViewWidgetState extends State<RunningOrderViewWidget> {
   bool isExpanded = false;
-  List<OrderModel> reversOrder = [];
+  // List<OrderModel> reversOrder = [];
 
-  @override
-  void initState() {
-    super.initState();
-    reversOrder.add(OrderModel(id: -1));
-    reversOrder.addAll(widget.reversOrder);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   reversOrder.add(OrderModel(id: -1));
+  //   reversOrder.addAll(widget.reversOrder);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OrderController>(builder: (orderController) {
       return Container(
-        constraints: BoxConstraints(maxHeight: Get.height * .6),
-        height: (reversOrder.length - 1) * 75,
-        width: Get.width,
-        child: DraggableScrollableSheet(
-          initialChildSize: 0.30,
-          minChildSize: 0.30,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Dimensions.paddingSizeExtraLarge),
-                  topRight: Radius.circular(Dimensions.paddingSizeExtraLarge),
+        // constraints: BoxConstraints(maxHeight: Get.height * .6),
+        // height: (reversOrder.length - 1) * 75,
+        // width: Get.width,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(Dimensions.paddingSizeExtraLarge),
+            topRight: Radius.circular(Dimensions.paddingSizeExtraLarge),
+          ),
+          boxShadow: [
+            BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 1)
+          ],
+        ),
+        child: ClipPath(
+          clipper: CustomShapeClipper(),
+          child: Container(
+            color: Theme.of(context).cardColor,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomInkWell(
+                          child: CustomAssetImageWidget(
+                            isExpanded ? Images.downArrow : Images.upArrow,
+                            fit: BoxFit.scaleDown,
+                            height: 18,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              isExpanded = !isExpanded;
+                            });
+                          }),
+                    ),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12, blurRadius: 5, spreadRadius: 1)
-                ],
-              ),
-              child: ClipPath(
-                clipper: CustomShapeClipper(),
-                child: Container(
-                  color: Theme.of(context).cardColor,
+                Container(
+                  constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.6),
+                  height: !isExpanded ? 80 : widget.reversOrder.length * 75,
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: reversOrder.length,
+                      itemCount: widget.reversOrder.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         bool isFirstOrder = index == 0;
 
-                        String? orderStatus = reversOrder[index].orderStatus;
+                        String? orderStatus =
+                            widget.reversOrder[index].orderStatus;
                         int status = 0;
 
                         if (orderStatus == AppConstants.pending) {
@@ -80,248 +99,214 @@ class _RunningOrderViewWidgetState extends State<RunningOrderViewWidget> {
                           status = 3;
                         }
 
-                        return reversOrder[index].id == -1
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        top: Dimensions.paddingSizeExtraSmall),
-                                    height: 3,
-                                    width: 35,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).disabledColor,
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radiusSmall),
+                        return InkWell(
+                          onTap: () async {
+                            await Get.toNamed(
+                              RouteHelper.getOrderDetailsRoute(
+                                  widget.reversOrder[index].id),
+                              arguments: OrderDetailsScreen(
+                                orderId: widget.reversOrder[index].id,
+                                orderModel: widget.reversOrder[index],
+                              ),
+                            );
+                            if (orderController.showBottomSheet) {
+                              orderController.showRunningOrders();
+                            }
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                bottom: Dimensions.paddingSizeExtraSmall,
+                                top: Dimensions.paddingSizeSmall),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.paddingSizeDefault),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: SizedBox(
+                                        height:
+                                            orderStatus == AppConstants.pending
+                                                ? 50
+                                                : 60,
+                                        width:
+                                            orderStatus == AppConstants.pending
+                                                ? 50
+                                                : 60,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.asset(
+                                              status == 2
+                                                  ? orderStatus ==
+                                                              AppConstants
+                                                                  .confirmed ||
+                                                          orderStatus ==
+                                                              AppConstants
+                                                                  .accepted
+                                                      ? Images.confirmedGif
+                                                      : Images.processingGif
+                                                  : status == 3
+                                                      ? orderStatus ==
+                                                              AppConstants
+                                                                  .handover
+                                                          ? Images.handoverGif
+                                                          : Images.onTheWayGif
+                                                      : Images.pendingGif,
+                                              height: 60,
+                                              width: 60,
+                                              fit: BoxFit.fill),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              )
-                            : InkWell(
-                                onTap: () async {
-                                  await Get.toNamed(
-                                    RouteHelper.getOrderDetailsRoute(
-                                        reversOrder[index].id),
-                                    arguments: OrderDetailsScreen(
-                                      orderId: reversOrder[index].id,
-                                      orderModel: reversOrder[index],
-                                    ),
-                                  );
-                                  if (orderController.showBottomSheet) {
-                                    orderController.showRunningOrders();
-                                  }
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      bottom: Dimensions.paddingSizeExtraSmall,
-                                      top: Dimensions.paddingSizeSmall),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.paddingSizeDefault),
-                                    child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child: SizedBox(
-                                              height: orderStatus ==
-                                                      AppConstants.pending
-                                                  ? 50
-                                                  : 60,
-                                              width: orderStatus ==
-                                                      AppConstants.pending
-                                                  ? 50
-                                                  : 60,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Image.asset(
-                                                    status == 2
-                                                        ? orderStatus ==
-                                                                    AppConstants
-                                                                        .confirmed ||
-                                                                orderStatus ==
-                                                                    AppConstants
-                                                                        .accepted
-                                                            ? Images
-                                                                .confirmedGif
-                                                            : Images
-                                                                .processingGif
-                                                        : status == 3
-                                                            ? orderStatus ==
-                                                                    AppConstants
-                                                                        .handover
-                                                                ? Images
-                                                                    .handoverGif
-                                                                : Images
-                                                                    .onTheWayGif
-                                                            : Images.pendingGif,
-                                                    height: 60,
-                                                    width: 60,
-                                                    fit: BoxFit.fill),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              width: isFirstOrder
-                                                  ? 0
-                                                  : Dimensions
-                                                      .paddingSizeSmall),
-                                          Expanded(
-                                            child: Column(
+                                    SizedBox(
+                                        width: isFirstOrder
+                                            ? 0
+                                            : Dimensions.paddingSizeSmall),
+                                    Expanded(
+                                      child: Column(
+                                          mainAxisAlignment: isFirstOrder
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.start,
+                                          crossAxisAlignment: isFirstOrder
+                                              ? CrossAxisAlignment.center
+                                              : CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
                                                 mainAxisAlignment: isFirstOrder
                                                     ? MainAxisAlignment.center
                                                     : MainAxisAlignment.start,
-                                                crossAxisAlignment: isFirstOrder
-                                                    ? CrossAxisAlignment.center
-                                                    : CrossAxisAlignment.start,
                                                 children: [
-                                                  Row(
+                                                  Text('${'your_order_is'.tr} ',
+                                                      style: robotoBold.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeDefault)),
+                                                  Text(
+                                                      widget.reversOrder[index]
+                                                          .orderStatus!.tr,
+                                                      style: robotoBold.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeDefault,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColor)),
+                                                ]),
+                                            const SizedBox(
+                                                height: Dimensions
+                                                    .paddingSizeExtraSmall),
+                                            Text(
+                                              '${'order'.tr} #${widget.reversOrder[index].id}',
+                                              style: robotoRegular.copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            isFirstOrder
+                                                ? SizedBox(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: Dimensions
+                                                              .paddingSizeDefault,
+                                                          vertical: Dimensions
+                                                              .paddingSizeSmall),
+                                                      child: Row(children: [
+                                                        Expanded(
+                                                            child: trackView(
+                                                                context,
+                                                                status: status >=
+                                                                        1
+                                                                    ? true
+                                                                    : false)),
+                                                        const SizedBox(
+                                                            width: Dimensions
+                                                                .paddingSizeExtraSmall),
+                                                        Expanded(
+                                                            child: trackView(
+                                                                context,
+                                                                status: status >=
+                                                                        2
+                                                                    ? true
+                                                                    : false)),
+                                                        const SizedBox(
+                                                            width: Dimensions
+                                                                .paddingSizeExtraSmall),
+                                                        Expanded(
+                                                            child: trackView(
+                                                                context,
+                                                                status: status >=
+                                                                        3
+                                                                    ? true
+                                                                    : false)),
+                                                        const SizedBox(
+                                                            width: Dimensions
+                                                                .paddingSizeExtraSmall),
+                                                        Expanded(
+                                                            child: trackView(
+                                                                context,
+                                                                status: status >=
+                                                                        4
+                                                                    ? true
+                                                                    : false)),
+                                                      ]),
+                                                    ),
+                                                  )
+                                                : const SizedBox()
+                                          ]),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(
+                                          Dimensions.paddingSizeDefault),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .primaryColor
+                                              .withOpacity(0.1),
+                                          shape: BoxShape.circle),
+                                      child: isFirstOrder
+                                          ? !(widget.reversOrder.length < 2)
+                                              ? InkWell(
+                                                  onTap: () =>
+                                                      widget.onOrderTap(),
+                                                  child: Column(
                                                       mainAxisAlignment:
-                                                          isFirstOrder
-                                                              ? MainAxisAlignment
-                                                                  .center
-                                                              : MainAxisAlignment
-                                                                  .start,
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
-                                                            '${'your_order_is'.tr} ',
-                                                            style: robotoBold
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        Dimensions
-                                                                            .fontSizeDefault)),
-                                                        Text(
-                                                            reversOrder[index]
-                                                                .orderStatus!
-                                                                .tr,
+                                                            '+${widget.reversOrder.length - 1}',
                                                             style: robotoBold.copyWith(
                                                                 fontSize: Dimensions
-                                                                    .fontSizeDefault,
+                                                                    .fontSizeLarge,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor)),
+                                                        Text('more'.tr,
+                                                            style: robotoBold.copyWith(
+                                                                fontSize: Dimensions
+                                                                    .fontSizeExtraSmall,
                                                                 color: Theme.of(
                                                                         context)
                                                                     .primaryColor)),
                                                       ]),
-                                                  const SizedBox(
-                                                      height: Dimensions
-                                                          .paddingSizeExtraSmall),
-                                                  Text(
-                                                    '${'order'.tr} #${reversOrder[index].id}',
-                                                    style:
-                                                        robotoRegular.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeSmall),
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  isFirstOrder
-                                                      ? SizedBox(
-                                                          child: Padding(
-                                                            padding: const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                    Dimensions
-                                                                        .paddingSizeDefault,
-                                                                vertical: Dimensions
-                                                                    .paddingSizeSmall),
-                                                            child: Row(
-                                                                children: [
-                                                                  Expanded(
-                                                                      child: trackView(
-                                                                          context,
-                                                                          status: status >= 1
-                                                                              ? true
-                                                                              : false)),
-                                                                  const SizedBox(
-                                                                      width: Dimensions
-                                                                          .paddingSizeExtraSmall),
-                                                                  Expanded(
-                                                                      child: trackView(
-                                                                          context,
-                                                                          status: status >= 2
-                                                                              ? true
-                                                                              : false)),
-                                                                  const SizedBox(
-                                                                      width: Dimensions
-                                                                          .paddingSizeExtraSmall),
-                                                                  Expanded(
-                                                                      child: trackView(
-                                                                          context,
-                                                                          status: status >= 3
-                                                                              ? true
-                                                                              : false)),
-                                                                  const SizedBox(
-                                                                      width: Dimensions
-                                                                          .paddingSizeExtraSmall),
-                                                                  Expanded(
-                                                                      child: trackView(
-                                                                          context,
-                                                                          status: status >= 4
-                                                                              ? true
-                                                                              : false)),
-                                                                ]),
-                                                          ),
-                                                        )
-                                                      : const SizedBox()
-                                                ]),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.all(
-                                                Dimensions.paddingSizeDefault),
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withOpacity(0.1),
-                                                shape: BoxShape.circle),
-                                            child: isFirstOrder
-                                                ? !(reversOrder.length < 2)
-                                                    ? InkWell(
-                                                        onTap: () =>
-                                                            widget.onOrderTap(),
-                                                        child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                  '+${reversOrder.length - 1}',
-                                                                  style: robotoBold.copyWith(
-                                                                      fontSize:
-                                                                          Dimensions
-                                                                              .fontSizeLarge,
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .primaryColor)),
-                                                              Text('more'.tr,
-                                                                  style: robotoBold.copyWith(
-                                                                      fontSize:
-                                                                          Dimensions
-                                                                              .fontSizeExtraSmall,
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .primaryColor)),
-                                                            ]),
-                                                      )
-                                                    : Icon(Icons.arrow_forward,
-                                                        size: 18,
-                                                        color: Theme.of(context)
-                                                            .primaryColor)
-                                                : Icon(Icons.arrow_forward,
-                                                    size: 18,
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
-                                          ),
-                                        ]),
-                                  ),
-                                ),
-                              );
+                                                )
+                                              : Icon(Icons.arrow_forward,
+                                                  size: 18,
+                                                  color: Theme.of(context)
+                                                      .primaryColor)
+                                          : Icon(Icons.arrow_forward,
+                                              size: 18,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                        );
                       }),
                 ),
-              ),
-            );
-          },
+              ],
+            ),
+          ),
         ),
       );
     });
