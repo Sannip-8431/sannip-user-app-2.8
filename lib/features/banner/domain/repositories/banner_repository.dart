@@ -75,7 +75,7 @@ class BannerRepository implements BannerRepositoryInterface {
     PromotionalBanner? promotionalBanner;
     Response response =
         await apiClient.getData(AppConstants.promotionalBannerUri);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 && response.bodyString != "[]") {
       promotionalBanner = PromotionalBanner.fromJson(response.body);
     }
     return promotionalBanner;
